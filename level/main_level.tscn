@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://bfbe0ek8mejsn"]
+
+[ext_resource type="Script" uid="uid://bogmws4i24lqm" path="res://level/code/card_dragger.gd" id="2_54fhk"]
+[ext_resource type="PackedScene" uid="uid://ci5eme0ewwipd" path="res://card_slot/card_slot.tscn" id="3_54fhk"]
+[ext_resource type="Texture2D" uid="uid://wb3t0sue3yq1" path="res://level/assets/background_1.png" id="4_43ii6"]
+[ext_resource type="Texture2D" uid="uid://cc1mnhmr0xayn" path="res://card/assets/deck_image.png" id="5_o7jp2"]
+[ext_resource type="Script" uid="uid://ryk5vi51obof" path="res://level/code/level_controller.gd" id="6_i2c4w"]
+[ext_resource type="Script" uid="uid://dsmm1foce55mm" path="res://level/hand/hand/hand.gd" id="7_05d1k"]
+[ext_resource type="Script" uid="uid://dcejv55h2svcr" path="res://level/game/game_decision_engine.gd" id="7_wpjvl"]
+[ext_resource type="Script" uid="uid://da8vivm4h5d8k" path="res://level/game/board_controller.gd" id="8_prrhl"]
+[ext_resource type="Script" uid="uid://bw2qgeo87thmw" path="res://level/game/states/setup_state.gd" id="9_1pl1u"]
+[ext_resource type="Script" uid="uid://o3g47yqg8o6q" path="res://level/game/states/player_start_turn_state.gd" id="10_k37ki"]
+[ext_resource type="Script" uid="uid://fe3nhaoghr0y" path="res://level/game/states/player_draw_card_state.gd" id="11_kjuys"]
+[ext_resource type="Script" uid="uid://cbq7cm3pvhemd" path="res://level/game/states/player_play_card_state.gd" id="12_fl61o"]
+[ext_resource type="Script" uid="uid://c05r4n554byq5" path="res://level/game/states/player_end_turn_state.gd" id="13_un0mk"]
+[ext_resource type="Script" uid="uid://dh6nlmmsb37we" path="res://level/game/states/enemy_start_turn_state.gd" id="14_8rqiy"]
+[ext_resource type="Script" uid="uid://bu24ddwqmmaln" path="res://level/game/states/enemy_play_card_state.gd" id="15_3821i"]
+[ext_resource type="Script" uid="uid://dfbo6yb21g635" path="res://level/game/states/enemy_draw_card_state.gd" id="15_k37ki"]
+[ext_resource type="Script" uid="uid://snhn2awn2mnr" path="res://level/game/states/check_for_cycle_state.gd" id="16_c1kdy"]
+[ext_resource type="Script" uid="uid://bsvtym0wp0tao" path="res://level/game/states/destroy_card_state.gd" id="17_ht6j8"]
+[ext_resource type="Script" uid="uid://caiifwwtoeq6a" path="res://level/game/states/enemy_end_turn_state.gd" id="17_kjuys"]
+[ext_resource type="Script" uid="uid://c55205oticqh7" path="res://level/game/states/victory_state.gd" id="18_6i7va"]
+[ext_resource type="Script" uid="uid://i0cktvcgerg" path="res://level/game/states/defeat_state.gd" id="19_c1o2p"]
+[ext_resource type="Script" uid="uid://bi7vbsa1lhimd" path="res://level/game/states/sum_points_state.gd" id="22_fl61o"]
+
+[node name="MainLevel" type="Node2D" unique_id=817015654]
+
+[node name="CardDragger" type="Node2D" parent="." unique_id=1921723398]
+unique_name_in_owner = true
+script = ExtResource("2_54fhk")
+
+[node name="BG_Sprite2D" type="Sprite2D" parent="." unique_id=803794395]
+z_index = -1
+position = Vector2(800, 372)
+texture = ExtResource("4_43ii6")
+
+[node name="Slots" type="Node2D" parent="." unique_id=72994216]
+
+[node name="PlayerSlots" type="Node2D" parent="Slots" unique_id=177861174]
+
+[node name="CardSlot1" parent="Slots/PlayerSlots" unique_id=2040756058 instance=ExtResource("3_54fhk")]
+position = Vector2(420, 530)
+
+[node name="CardSlot2" parent="Slots/PlayerSlots" unique_id=2005798268 instance=ExtResource("3_54fhk")]
+position = Vector2(590, 530)
+
+[node name="CardSlot3" parent="Slots/PlayerSlots" unique_id=165340589 instance=ExtResource("3_54fhk")]
+position = Vector2(760, 530)
+
+[node name="CardSlot4" parent="Slots/PlayerSlots" unique_id=1289569394 instance=ExtResource("3_54fhk")]
+position = Vector2(930, 530)
+
+[node name="CardSlot5" parent="Slots/PlayerSlots" unique_id=501770681 instance=ExtResource("3_54fhk")]
+position = Vector2(1100, 530)
+
+[node name="CardSlot6" parent="Slots/PlayerSlots" unique_id=1897461063 instance=ExtResource("3_54fhk")]
+position = Vector2(1270, 530)
+
+[node name="EnemySlots" type="Node2D" parent="Slots" unique_id=1996804942]
+
+[node name="CardSlot7" parent="Slots/EnemySlots" unique_id=475772704 instance=ExtResource("3_54fhk")]
+position = Vector2(420, 250)
+
+[node name="CardSlot8" parent="Slots/EnemySlots" unique_id=1508599823 instance=ExtResource("3_54fhk")]
+position = Vector2(590, 250)
+
+[node name="CardSlot9" parent="Slots/EnemySlots" unique_id=169781415 instance=ExtResource("3_54fhk")]
+position = Vector2(760, 250)
+
+[node name="CardSlot10" parent="Slots/EnemySlots" unique_id=1045497333 instance=ExtResource("3_54fhk")]
+position = Vector2(930, 250)
+
+[node name="CardSlot11" parent="Slots/EnemySlots" unique_id=134920096 instance=ExtResource("3_54fhk")]
+position = Vector2(1100, 250)
+
+[node name="CardSlot12" parent="Slots/EnemySlots" unique_id=79510001 instance=ExtResource("3_54fhk")]
+position = Vector2(1270, 250)
+
+[node name="PlayerDeck" type="Sprite2D" parent="Slots" unique_id=1496975527]
+position = Vector2(132, 768)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_o7jp2")
+
+[node name="EnemyDeck" type="Sprite2D" parent="Slots" unique_id=1780896770]
+position = Vector2(132, 36)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_o7jp2")
+
+[node name="LevelController" type="Node2D" parent="." unique_id=2086973841]
+unique_name_in_owner = true
+script = ExtResource("6_i2c4w")
+
+[node name="Hands" type="Node2D" parent="." unique_id=1465348749]
+
+[node name="PlayerHand" type="Node2D" parent="Hands" unique_id=991506965 node_paths=PackedStringArray("deck_sprite")]
+position = Vector2(799, 780)
+script = ExtResource("7_05d1k")
+deck_sprite = NodePath("../../Slots/PlayerDeck")
+
+[node name="EnemyHand" type="Node2D" parent="Hands" unique_id=357395619 node_paths=PackedStringArray("deck_sprite")]
+position = Vector2(799, 6)
+script = ExtResource("7_05d1k")
+is_enemy = true
+deck_sprite = NodePath("../../Slots/EnemyDeck")
+
+[node name="Game" type="Node" parent="." unique_id=408227523]
+
+[node name="GameDecisionEngine" type="Node" parent="Game" unique_id=236153539 node_paths=PackedStringArray("level_controller", "board_controller", "player_hand", "enemy_hand", "card_dragger", "player_slots", "enemy_slots")]
+unique_name_in_owner = true
+script = ExtResource("7_wpjvl")
+level_controller = NodePath("../../LevelController")
+board_controller = NodePath("../BoardCotroller")
+player_hand = NodePath("../../Hands/PlayerHand")
+enemy_hand = NodePath("../../Hands/EnemyHand")
+card_dragger = NodePath("../../CardDragger")
+player_slots = [NodePath("../../Slots/PlayerSlots/CardSlot1"), NodePath("../../Slots/PlayerSlots/CardSlot2"), NodePath("../../Slots/PlayerSlots/CardSlot3"), NodePath("../../Slots/PlayerSlots/CardSlot4"), NodePath("../../Slots/PlayerSlots/CardSlot5"), NodePath("../../Slots/PlayerSlots/CardSlot6")]
+enemy_slots = [NodePath("../../Slots/EnemySlots/CardSlot7"), NodePath("../../Slots/EnemySlots/CardSlot8"), NodePath("../../Slots/EnemySlots/CardSlot9"), NodePath("../../Slots/EnemySlots/CardSlot10"), NodePath("../../Slots/EnemySlots/CardSlot11"), NodePath("../../Slots/EnemySlots/CardSlot12")]
+
+[node name="BoardCotroller" type="Node" parent="Game" unique_id=1660314627]
+unique_name_in_owner = true
+script = ExtResource("8_prrhl")
+
+[node name="States" type="Node" parent="Game" unique_id=1606335192]
+
+[node name="SetupState" type="Node" parent="Game/States" unique_id=438471406]
+unique_name_in_owner = true
+script = ExtResource("9_1pl1u")
+
+[node name="PlayerStartTurnState" type="Node" parent="Game/States" unique_id=348618089]
+unique_name_in_owner = true
+script = ExtResource("10_k37ki")
+
+[node name="PlayerDrawCardState" type="Node" parent="Game/States" unique_id=1261851367]
+unique_name_in_owner = true
+script = ExtResource("11_kjuys")
+
+[node name="PlayerPlayCardState" type="Node" parent="Game/States" unique_id=999564158]
+unique_name_in_owner = true
+script = ExtResource("12_fl61o")
+
+[node name="PlayerEndTurnState" type="Node" parent="Game/States" unique_id=1514014635]
+unique_name_in_owner = true
+script = ExtResource("13_un0mk")
+
+[node name="EnemyStartTurnState" type="Node" parent="Game/States" unique_id=423186501]
+unique_name_in_owner = true
+script = ExtResource("14_8rqiy")
+
+[node name="EnemyDrawCardState" type="Node" parent="Game/States" unique_id=1562992580]
+unique_name_in_owner = true
+script = ExtResource("15_k37ki")
+
+[node name="EnemyPlayCardState" type="Node" parent="Game/States" unique_id=31262369]
+unique_name_in_owner = true
+script = ExtResource("15_3821i")
+
+[node name="EnemyEndTurnState" type="Node" parent="Game/States" unique_id=1691445277]
+unique_name_in_owner = true
+script = ExtResource("17_kjuys")
+
+[node name="CheckForCycleState" type="Node" parent="Game/States" unique_id=2016364811]
+unique_name_in_owner = true
+script = ExtResource("16_c1kdy")
+
+[node name="DestroyCardState" type="Node" parent="Game/States" unique_id=1048440287]
+unique_name_in_owner = true
+script = ExtResource("17_ht6j8")
+
+[node name="VictoryState" type="Node" parent="Game/States" unique_id=1680774291]
+unique_name_in_owner = true
+script = ExtResource("18_6i7va")
+
+[node name="DefeatState" type="Node" parent="Game/States" unique_id=1841811521]
+unique_name_in_owner = true
+script = ExtResource("19_c1o2p")
+
+[node name="SumPointsState" type="Node" parent="Game/States" unique_id=1899363369]
+unique_name_in_owner = true
+script = ExtResource("22_fl61o")
+
+[node name="Label" type="Label" parent="." unique_id=1106122659]
+unique_name_in_owner = true
+offset_top = 312.0
+offset_right = 40.0
+offset_bottom = 327.0
+theme_override_font_sizes/font_size = 50
+text = "adadas"
