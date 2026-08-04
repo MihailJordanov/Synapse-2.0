@@ -2,6 +2,8 @@ class_name BoardController extends Node
 
 @export var allow_self_loops: bool = false
 
+const MIN_CYCLE_SIZE: int = 3
+
 var cards_by_id: Dictionary = {}
 var outgoing_edges: Dictionary = {}
 var incoming_edges: Dictionary = {}
@@ -198,11 +200,7 @@ func _strongconnect(vertex: int) -> void:
 		if member == vertex:
 			break
 
-	var is_cycle: bool = component.size() > 1
-
-	if component.size() == 1:
-		var single_member: int = component[0]
-		is_cycle = get_outgoing(single_member).has(single_member)
+	var is_cycle: bool = component.size() >= MIN_CYCLE_SIZE
 
 	if is_cycle:
 		for member: int in component:
@@ -254,3 +252,138 @@ func _disconnect_card_signal(board_id: int) -> void:
 
 func _on_card_connection_types_changed(board_id: int) -> void:
 	rebuild_connections(board_id)
+	
+	
+func get_edges_between(card_ids: Array[int]) -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	var allowed_ids: Dictionary = {}
+
+	for card_id: int in card_ids:
+		allowed_ids[card_id] = true
+
+	for from_id: int in card_ids:
+		var outgoing_ids: Array[int] = get_outgoing(from_id)
+
+		for to_id: int in outgoing_ids:
+			if allowed_ids.has(to_id):
+				result.append(Vector2i(from_id, to_id))
+
+	return result
+	
+	
+func find_cycle_data() -> CycleData:
+	var result: CycleData = CycleData.new()
+
+	var cycle_card_set: Dictionary = {}
+	var cycle_edge_set: Dictionary = {}
+
+	var all_card_ids: Array[int] = get_all_card_ids()
+
+	for from_id: int in all_card_ids:
+		var outgoing_ids: Array[int] = get_outgoing(from_id)
+
+		for to_id: int in outgoing_ids:
+			var visited: Dictionary = {
+				from_id: true,
+				to_id: true
+			}
+
+			var path: Array[int] = [
+				from_id,
+				to_id
+			]
+
+			var found_cycle_path: Array[int] = []
+
+			var found: bool = _find_simple_cycle_path(
+				to_id,
+				from_id,
+				visited,
+				path,
+				found_cycle_path
+			)
+
+			if not found:
+				continue
+
+			_add_cycle_to_result_sets(
+				found_cycle_path,
+				cycle_card_set,
+				cycle_edge_set
+			)
+
+	for card_id_variant: Variant in cycle_card_set.keys():
+		var card_id: int = int(card_id_variant)
+		result.card_ids.append(card_id)
+
+	for edge_variant: Variant in cycle_edge_set.values():
+		var edge: Vector2i = edge_variant as Vector2i
+		result.edges.append(edge)
+
+	result.card_ids.sort()
+
+	return result
+	
+	
+func _find_simple_cycle_path(
+	current_id: int,
+	target_id: int,
+	visited: Dictionary,
+	current_path: Array[int],
+	found_path: Array[int]
+) -> bool:
+	var outgoing_ids: Array[int] = get_outgoing(current_id)
+
+	for neighbour_id: int in outgoing_ids:
+		if neighbour_id == target_id:
+			if current_path.size() >= MIN_CYCLE_SIZE:
+				found_path.assign(current_path)
+				return true
+
+			continue
+
+		if visited.has(neighbour_id):
+			continue
+
+		visited[neighbour_id] = true
+		current_path.append(neighbour_id)
+
+		var found: bool = _find_simple_cycle_path(
+			neighbour_id,
+			target_id,
+			visited,
+			current_path,
+			found_path
+		)
+
+		if found:
+			return true
+
+		current_path.pop_back()
+		visited.erase(neighbour_id)
+
+	return false
+	
+	
+func _add_cycle_to_result_sets(cycle_path: Array[int],card_set: Dictionary,edge_set: Dictionary) -> void:
+	if cycle_path.size() < MIN_CYCLE_SIZE:
+		return
+
+	for card_id: int in cycle_path:
+		card_set[card_id] = true
+
+	for index: int in range(cycle_path.size() - 1):
+		var from_id: int = cycle_path[index]
+		var to_id: int = cycle_path[index + 1]
+
+		_add_unique_edge(from_id,to_id,edge_set)
+
+	var last_id: int = cycle_path[cycle_path.size() - 1]
+	var first_id: int = cycle_path[0]
+
+	_add_unique_edge(last_id,first_id,edge_set)
+	
+	
+func _add_unique_edge(from_id: int,to_id: int,edge_set: Dictionary) -> void:
+	var edge_key: String = "%d:%d" % [from_id,to_id]
+	edge_set[edge_key] = Vector2i(from_id,to_id)

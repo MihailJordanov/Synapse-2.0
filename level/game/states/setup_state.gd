@@ -3,6 +3,7 @@ class_name SetupState extends State
 
 func enter() -> void:
 	fsm.reset_match()
+	fsm.set_state_info("Setup State")
 
 	await get_tree().process_frame
 

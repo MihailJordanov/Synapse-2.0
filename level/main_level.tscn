@@ -23,6 +23,98 @@
 [ext_resource type="Script" uid="uid://i0cktvcgerg" path="res://level/game/states/defeat_state.gd" id="19_c1o2p"]
 [ext_resource type="Script" uid="uid://bi7vbsa1lhimd" path="res://level/game/states/sum_points_state.gd" id="22_fl61o"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rqiy"]
+bg_color = Color(0, 0.6392157, 0.73333335, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fl61o"]
+bg_color = Color(1.5883148e-06, 0.45595545, 0.5252277, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_un0mk"]
+bg_color = Color(0, 0.51070553, 0.5874003, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1kdy"]
+bg_color = Color(0, 0.6392157, 0.73333335, 0.31764707)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.85882354, 0.85882354, 0.85882354, 0.2901961)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 1
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3821i"]
+bg_color = Color(0, 0.6392157, 0.73333335, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrivr"]
+bg_color = Color(0, 0.6392157, 0.73333335, 0.60784316)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
+
 [node name="MainLevel" type="Node2D" unique_id=817015654]
 
 [node name="CardDragger" type="Node2D" parent="." unique_id=1921723398]
@@ -113,8 +205,8 @@ board_controller = NodePath("../BoardCotroller")
 player_hand = NodePath("../../Hands/PlayerHand")
 enemy_hand = NodePath("../../Hands/EnemyHand")
 card_dragger = NodePath("../../CardDragger")
-player_slots = [NodePath("../../Slots/PlayerSlots/CardSlot1"), NodePath("../../Slots/PlayerSlots/CardSlot2"), NodePath("../../Slots/PlayerSlots/CardSlot3"), NodePath("../../Slots/PlayerSlots/CardSlot4"), NodePath("../../Slots/PlayerSlots/CardSlot5"), NodePath("../../Slots/PlayerSlots/CardSlot6")]
-enemy_slots = [NodePath("../../Slots/EnemySlots/CardSlot7"), NodePath("../../Slots/EnemySlots/CardSlot8"), NodePath("../../Slots/EnemySlots/CardSlot9"), NodePath("../../Slots/EnemySlots/CardSlot10"), NodePath("../../Slots/EnemySlots/CardSlot11"), NodePath("../../Slots/EnemySlots/CardSlot12")]
+player_slots = [NodePath("../../Slots/PlayerSlots/CardSlot1"), NodePath("../../Slots/PlayerSlots/CardSlot2"), NodePath("../../Slots/PlayerSlots/CardSlot3"), NodePath("../../Slots/PlayerSlots/CardSlot4"), NodePath("../../Slots/PlayerSlots/CardSlot5")]
+enemy_slots = [NodePath("../../Slots/EnemySlots/CardSlot7"), NodePath("../../Slots/EnemySlots/CardSlot8"), NodePath("../../Slots/EnemySlots/CardSlot9"), NodePath("../../Slots/EnemySlots/CardSlot10"), NodePath("../../Slots/EnemySlots/CardSlot11")]
 
 [node name="BoardCotroller" type="Node" parent="Game" unique_id=1660314627]
 unique_name_in_owner = true
@@ -178,10 +270,44 @@ script = ExtResource("19_c1o2p")
 unique_name_in_owner = true
 script = ExtResource("22_fl61o")
 
-[node name="Label" type="Label" parent="." unique_id=1106122659]
+[node name="UI" type="Node2D" parent="." unique_id=639913924]
+
+[node name="ControllTurnButton" type="Button" parent="UI" unique_id=105520837]
 unique_name_in_owner = true
-offset_top = 312.0
-offset_right = 40.0
-offset_bottom = 327.0
-theme_override_font_sizes/font_size = 50
-text = "adadas"
+offset_left = 45.0
+offset_top = 484.0
+offset_right = 295.0
+offset_bottom = 584.0
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_8rqiy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fl61o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_un0mk")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_c1kdy")
+theme_override_styles/focus = SubResource("StyleBoxFlat_3821i")
+text = "End Turn"
+
+[node name="Panel" type="Panel" parent="UI" unique_id=1189883393]
+offset_left = 15.0
+offset_top = 217.0
+offset_right = 335.0
+offset_bottom = 467.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
+
+[node name="StateInformLabel" type="RichTextLabel" parent="UI/Panel" unique_id=1946513371]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(300, 225)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 12.5
+offset_right = 310.0
+offset_bottom = 237.5
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "Hello Word"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2

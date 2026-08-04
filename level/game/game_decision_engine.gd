@@ -1,11 +1,15 @@
 class_name GameDecisionEngine extends Node
 
+signal control_button_pressed
 signal state_changed(previous: State, current: State)
 signal score_changed(player_score: int, enemy_score: int)
 signal game_finished(player_won: bool)
 
 enum Side { PLAYER, ENEMY }
 enum ScorePolicy { ACTIVE_SIDE_GETS_ALL, EACH_OWNER_GETS_OWN }
+const CYCLE_VISUALIZER_SCENE = preload("uid://c81aoxm08v8tf")
+
+var cycle_visualizer: CycleVisualizer
 
 @export_group("References")
 @export var level_controller: LevelController
@@ -18,7 +22,8 @@ enum ScorePolicy { ACTIVE_SIDE_GETS_ALL, EACH_OWNER_GETS_OWN }
 
 @export_group("Rules")
 @export var initial_draw_count: int = 5
-@export var winning_score: int = 10
+@export var player_winning_score: int = 10
+@export var enemy_winning_score: int = 10
 @export var enemy_think_time: float = 1.0
 @export var score_policy: ScorePolicy = ScorePolicy.ACTIVE_SIDE_GETS_ALL
 @export var randomize_seed: bool = true
@@ -27,8 +32,8 @@ enum ScorePolicy { ACTIVE_SIDE_GETS_ALL, EACH_OWNER_GETS_OWN }
 var player_score: int = 0
 var enemy_score: int = 0
 var active_side: int = Side.PLAYER
-var current_state: State
-var rng := RandomNumberGenerator.new()
+var current_state: State = null
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var pending_destroy_ids: Array[int] = []
 var pending_score_enabled: bool = false
@@ -36,8 +41,10 @@ var pending_total_points: int = 0
 var pending_player_owned_points: int = 0
 var pending_enemy_owned_points: int = 0
 
-var _pending_state: State
+var _pending_state: State = null
 var _transition_queued: bool = false
+
+
 
 @onready var setup_state: SetupState = %SetupState
 @onready var player_start_turn_state: PlayerStartTurnState = %PlayerStartTurnState
@@ -50,15 +57,23 @@ var _transition_queued: bool = false
 @onready var enemy_end_turn_state: EnemyEndTurnState = %EnemyEndTurnState
 @onready var check_for_cycle_state: CheckForCycleState = %CheckForCycleState
 @onready var destroy_card_state: DestroyCardState = %DestroyCardState
-@onready var sum_points_state: Node = %SumPointsState
+@onready var sum_points_state: SumPointsState = %SumPointsState
 @onready var victory_state: VictoryState = %VictoryState
 @onready var defeat_state: DefeatState = %DefeatState
 @onready var current_state_label: Label = get_node_or_null("%StateLabel") as Label
+@onready var state_inform_label: RichTextLabel = %StateInformLabel
+@onready var controll_turn_button: Button = %ControllTurnButton
 
 func _ready() -> void:
+	_initialize_cycle_visualizer()
 	_initialize_states()
 	_initialize_slots()
 	_initialize_random_generator()
+
+	controll_turn_button.disabled = true
+	controll_turn_button.text = ""
+
+	controll_turn_button.pressed.connect(_on_control_turn_button_pressed)
 
 	request_transition(setup_state)
 
@@ -89,11 +104,11 @@ func request_transition(next_state: State) -> void:
 
 func _flush_transition() -> void:
 	_transition_queued = false
-	var next_state := _pending_state
+	var next_state: State = _pending_state
 	_pending_state = null
 	if next_state == null:
 		return
-	var previous := current_state
+	var previous: State = current_state
 	if previous == next_state:
 		next_state.re_enter()
 		_update_state_label()
@@ -111,20 +126,6 @@ func is_state_active(state: State) -> bool:
 func wait_seconds(seconds: float, owner_state: State) -> bool:
 	await get_tree().create_timer(maxf(seconds, 0.0)).timeout
 	return current_state == owner_state
-
-func _setup_states() -> void:
-	var states: Array[State] = [
-		setup_state, player_start_turn_state, player_draw_card_state,
-		player_play_card_state, player_end_turn_state, enemy_start_turn_state,
-		enemy_draw_card_state, enemy_play_card_state, enemy_end_turn_state,
-		check_for_cycle_state, destroy_card_state, sum_points_state,
-		victory_state, defeat_state
-	]
-	for state in states:
-		if state:
-			state.fsm = self
-		else:
-			push_error("GameDecisionEngine: missing state node/reference.")
 
 func reset_match() -> void:
 	player_score = 0
@@ -277,8 +278,8 @@ func add_score(side: int, amount: int) -> void:
 	score_changed.emit(player_score, enemy_score)
 
 func score_terminal_state() -> State:
-	var player_reached: bool = player_score >= winning_score
-	var enemy_reached: bool = enemy_score >= winning_score
+	var player_reached: bool = player_score >= player_winning_score
+	var enemy_reached: bool = enemy_score >= enemy_winning_score
 
 	if player_reached and enemy_reached:
 		if active_side == Side.PLAYER:
@@ -346,5 +347,59 @@ func _initialize_random_generator() -> void:
 		rng.randomize()
 	else:
 		rng.seed = fixed_seed
+		
+		
+func set_state_info(text: String) -> void:
+	state_inform_label.text = text
+		
+func set_control_button(text: String, enabled: bool) -> void:
+	controll_turn_button.text = text
+	controll_turn_button.disabled = not enabled
+		
+func _on_control_turn_button_pressed() -> void:
+	if controll_turn_button.disabled:
+		return
+
+	controll_turn_button.disabled = true
+	control_button_pressed.emit()
+	
+func enable_end_turn_button() -> void:
+	controll_turn_button.disabled = false
+	controll_turn_button.text = "End Turn"
+
+
+func disable_turn_button() -> void:
+	controll_turn_button.disabled = true
+	controll_turn_button.text = ""
+	
+func _initialize_cycle_visualizer() -> void:
+	if CYCLE_VISUALIZER_SCENE == null:
+		push_error("CycleVisualizer scene is missing.")
+		return
+
+	cycle_visualizer = CYCLE_VISUALIZER_SCENE.instantiate() as CycleVisualizer
+
+	if cycle_visualizer == null:
+		push_error("Could not instantiate CycleVisualizer.")
+		return
+
+	add_child(cycle_visualizer)
+	
+	
+func show_cycle_visualization(cycle_data: CycleData) -> void:
+	if cycle_visualizer == null:
+		return
+
+	if board_controller == null:
+		return
+
+	cycle_visualizer.show_cycle(cycle_data, board_controller)
+
+
+func clear_cycle_visualization() -> void:
+	if cycle_visualizer == null:
+		return
+
+	cycle_visualizer.clear_visualization()
 		
 		

@@ -1,6 +1,7 @@
 class_name PlayerPlayCardState extends State
 
 func enter() -> void:
+	fsm.set_state_info("Player Play Card")
 	if fsm.player_hand.cards_in_hand.is_empty():
 		change_to(fsm.defeat_state)
 		return

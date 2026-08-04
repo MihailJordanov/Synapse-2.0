@@ -3,6 +3,7 @@ class_name EnemyStartTurnState extends State
 
 func enter() -> void:
 	fsm.active_side = GameDecisionEngine.Side.ENEMY
+	fsm.set_state_info("Enemy Start")
 
 	var hand_is_empty: bool = \
 		fsm.enemy_hand.cards_in_hand.is_empty()

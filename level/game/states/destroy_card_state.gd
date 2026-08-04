@@ -1,6 +1,7 @@
 class_name DestroyCardState extends State
 
 func enter() -> void:
+	fsm.set_state_info("Destroying cards")
 	var removed_cards := fsm.board_controller.remove_cards(fsm.pending_destroy_ids)
 	for card in removed_cards:
 		if not is_instance_valid(card):
@@ -15,6 +16,7 @@ func enter() -> void:
 		if is_instance_valid(card):
 			card.destroy()
 	fsm.pending_destroy_ids.clear()
+	fsm.clear_cycle_visualization()
 	if fsm.pending_score_enabled:
 		change_to(fsm.sum_points_state)
 	else:
