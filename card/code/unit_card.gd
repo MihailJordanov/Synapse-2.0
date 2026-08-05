@@ -3,6 +3,7 @@ class_name UnitCard extends Card
 signal connection_types_changed
 
 const BASIC_EXPLOSION_PARTICLES: PackedScene = preload("uid://dyu16flnvpg7a")
+const ADD_POINT_PARTICLES = preload("uid://d1vdn51cy30u8")
 
 const MAX_TYPES_COUNT: int = 8     
 const MAX_EQUIPPED_TYPES: int = 3   
@@ -201,8 +202,11 @@ func get_points() -> int:
 
 
 func set_points(new_points: int) -> void:
+	
 	points = clampi(new_points, 0, 1024)
 	_update_points_label()
+
+	spawn_add_point_particles()
 
 
 func add_points(amount: int) -> void:
@@ -242,3 +246,28 @@ func destroy() -> void:
 				particles_instance.emitting = true
 
 	super.destroy()
+
+
+func spawn_add_point_particles() -> void:
+	if ADD_POINT_PARTICLES == null or points_label == null:
+		return
+
+	var particles := ADD_POINT_PARTICLES.instantiate() as Node2D # или GPUParticles2D / CPUParticles2D
+	if particles == null:
+		return
+
+	add_child(particles)
+	
+
+	var label_pos: Vector2 = points_label.global_position
+
+	var center_x: float = label_pos.x + (points_label.size.x / 2.0)
+	var center_y: float = label_pos.y + (points_label.size.y / 2.0)
+
+	particles.global_position = Vector2(center_x, center_y)
+
+	if particles is GPUParticles2D or particles is CPUParticles2D:
+		particles.emitting = true
+
+	var timer: SceneTreeTimer = get_tree().create_timer(2.0)
+	timer.timeout.connect(particles.queue_free)

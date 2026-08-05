@@ -188,17 +188,14 @@ func _create_spell_card(data: Dictionary) -> SpellCard:
 	return spell_card
 
 
-func _create_spell_effect(
-	effect_type: String,
-	data: Dictionary
-) -> SpellEffect:
+func _create_spell_effect(effect_type: String,data: Dictionary) -> SpellEffect:
 	match effect_type.to_lower():
 		"add_points":
-			var amount := int(
-				data.get("effect_amount", 0)
-			)
+			return AddPointSpellEffect.new(
+				int(data.get("effect_amount", 0)))
 
-			return AddPointSpellEffect.new(amount)
+		"remove_points":
+			return RemovePointSpellEffect.new(int(data.get("effect_amount", 0)))
 
 		_:
 			push_error(

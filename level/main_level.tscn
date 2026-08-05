@@ -148,6 +148,7 @@ position = Vector2(930, 530)
 position = Vector2(1100, 530)
 
 [node name="CardSlot6" parent="Slots/PlayerSlots" unique_id=1897461063 instance=ExtResource("3_54fhk")]
+visible = false
 position = Vector2(1270, 530)
 
 [node name="EnemySlots" type="Node2D" parent="Slots" unique_id=1996804942]
@@ -168,6 +169,7 @@ position = Vector2(930, 250)
 position = Vector2(1100, 250)
 
 [node name="CardSlot12" parent="Slots/EnemySlots" unique_id=79510001 instance=ExtResource("3_54fhk")]
+visible = false
 position = Vector2(1270, 250)
 
 [node name="PlayerDeck" type="Sprite2D" parent="Slots" unique_id=1496975527]

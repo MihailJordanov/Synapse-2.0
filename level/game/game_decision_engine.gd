@@ -431,3 +431,14 @@ func get_all_cards_on_board() -> Array[Card]:
 
 	return result
 	
+func return_card_to_hand(card: Card, hand: Hand) -> bool:
+	if card == null or not is_instance_valid(card):
+		return false
+
+	if card.current_slot != null:
+		card.current_slot.clear_slot(false)
+		card.current_slot = null
+
+	hand.add_existing_card(card)
+	return true
+	
