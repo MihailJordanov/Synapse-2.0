@@ -3,6 +3,7 @@
 		"description": "[center]Select any unit card on the board.\n[color=#6bff00]Give it +1 points[/color].[/center]",
 		"target_mode": "any_unit",
 		"effect_type": "add_points",
+		"requirement_type": "has_any_unit",
 		"effect_amount": 1,
 		"texture_path": "res://data/card_images/spells/add_points/add_point_1.png"
 	},
@@ -10,6 +11,7 @@
 		"description": "[center]Select a friendly unit.\n[color=#6bff00]Give it +1 point.[/color][/center]",
 		"target_mode": "friendly_unit",
 		"effect_type": "add_points",
+		"requirement_type": "has_friendly_unit",
 		"effect_amount": 1,
 		"texture_path": "res://data/card_images/spells/add_points/add_point_friendly_1.png"
 	},
@@ -17,6 +19,7 @@
 		"description": "[center]Select an enemy unit.\n[color=#ff5555]Remove 2 points.[/color][/center]",
 		"target_mode": "enemy_unit",
 		"effect_type": "remove_points",
+		"requirement_type": "has_enemy_unit",
 		"effect_amount": 2,
 		"texture_path": "res://data/card_images/spells/remove_points/remove_point_enemy_2.png"
 	}

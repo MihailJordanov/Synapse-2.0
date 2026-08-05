@@ -165,6 +165,10 @@ func _create_spell_card(data: Dictionary) -> SpellCard:
 		data.get("effect_type", "")
 	)
 
+	var requirement_type := str(
+		data.get("requirement_type", "none")
+	).to_lower()
+
 	var target_mode := _parse_target_mode(
 		target_mode_string
 	)
@@ -178,16 +182,27 @@ func _create_spell_card(data: Dictionary) -> SpellCard:
 		spell_card.queue_free()
 		return null
 
+	var requirement := _create_spell_requirement(
+		requirement_type
+	)
+
+	if requirement_type != "none" and requirement == null:
+		spell_card.queue_free()
+		return null
+
 	spell_card.setup(
 		target_mode,
-		effect
+		effect,
+		requirement
 	)
-	
-	spell_card.set_description(str(data.get("description", "")))
+
+	spell_card.set_description(
+		str(data.get("description", ""))
+	)
 
 	return spell_card
-
-
+	
+	
 func _create_spell_effect(effect_type: String,data: Dictionary) -> SpellEffect:
 	match effect_type.to_lower():
 		"add_points":
@@ -221,8 +236,7 @@ func _parse_target_mode(value: String) -> SpellCard.TargetMode:
 
 		_:
 			push_warning(
-				"CardManager: Unknown target mode '%s'. "
-				+ "Using NO_TARGET."
+				"CardManager: Unknown target mode '%s'. Using NO_TARGET."
 				% value
 			)
 
@@ -277,3 +291,25 @@ func _apply_card_texture(card: Card,data: Dictionary) -> void:
 		"CardManager: Card %d has no supported texture node."
 		% card.card_id
 	)
+
+
+func _create_spell_requirement(requirement_type: String) -> SpellRequirement:
+	match requirement_type.to_lower():
+		"none":
+			return null
+
+		"has_any_unit":
+			return HasAnyUnitRequirement.new()
+
+		"has_friendly_unit":
+			return HasFriendlyUnitRequirement.new()
+
+		"has_enemy_unit":
+			return HasEnemyUnitRequirement.new()
+
+		_:
+			push_error(
+				"CardManager: Unsupported spell requirement '%s'."
+				% requirement_type
+			)
+			return null

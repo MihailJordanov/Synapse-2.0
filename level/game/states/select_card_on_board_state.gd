@@ -9,7 +9,6 @@ var valid_targets: Array[UnitCard] = []
 var all_board_cards: Array[Card] = []
 var selection_finished: bool = false
 var original_z_indexes: Dictionary = {}
-var original_scales: Dictionary = {}
 
 
 func enter() -> void:
@@ -22,28 +21,28 @@ func enter() -> void:
 	var spell: SpellCard = fsm.active_spell_card
 
 	if spell == null or not is_instance_valid(spell):
-		push_error("SelectCardOnBoardState: Missing active spell.")
+		push_error(
+			"SelectCardOnBoardState: Missing active spell."
+		)
 		_abort_selection()
 		return
 
-	all_board_cards = fsm.get_all_cards_on_board()
+	var play_context: CardPlayContext = fsm.create_card_play_context(fsm.active_side)
 
-	for card: Card in all_board_cards:
-		if spell.is_valid_target(
-			card,
-			fsm.active_side
-		):
-			valid_targets.append(card as UnitCard)
+	all_board_cards = play_context.board_cards
+	valid_targets = spell.get_valid_targets(play_context)
 
 	if valid_targets.is_empty():
-		push_warning("SelectCardOnBoardState: No valid targets.")
-		_finish_without_effect()
+		push_warning(
+			"SelectCardOnBoardState: No valid targets."
+		)
+		_return_spell_to_hand(spell)
 		return
 
 	_apply_selection_visuals()
 	_connect_target_signals()
-
-
+	
+	
 func exit() -> void:
 	_disconnect_target_signals()
 	_clear_selection_visuals()
@@ -113,16 +112,15 @@ func _resolve_spell(target: UnitCard) -> void:
 	change_to(fsm.check_for_cycle_state)
 
 
-func _finish_without_effect() -> void:
-	var spell: SpellCard = fsm.active_spell_card
+func _return_spell_to_hand(spell: SpellCard) -> void:
+	if spell.current_slot != null:
+		spell.current_slot.clear_slot(false)
+		spell.current_slot = null
 
-	if spell != null and is_instance_valid(spell):
-		spell.destroy()
+	fsm.player_hand.add_existing_card(spell)
 
 	fsm.active_spell_card = null
-	change_to(fsm.check_for_cycle_state)
-
-
+	change_to(fsm.player_play_card_state)
 func _abort_selection() -> void:
 	fsm.active_spell_card = null
 	change_to(fsm.check_for_cycle_state)
@@ -152,9 +150,6 @@ func _clear_selection_visuals() -> void:
 
 		if original_z_indexes.has(card):
 			card.z_index = int(original_z_indexes[card])
-			
-		if original_scales.has(card):
-			card.scale = original_scales[card]
 
 	original_z_indexes.clear()
 	

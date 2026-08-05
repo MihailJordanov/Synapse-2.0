@@ -8,6 +8,7 @@ signal game_finished(player_won: bool)
 enum Side { PLAYER, ENEMY }
 enum ScorePolicy { ACTIVE_SIDE_GETS_ALL, EACH_OWNER_GETS_OWN }
 const CYCLE_VISUALIZER_SCENE = preload("uid://c81aoxm08v8tf")
+const MAX_CONSECUTIVE_FORCED_SKIPS = 3
 
 var cycle_visualizer: CycleVisualizer
 
@@ -41,6 +42,7 @@ var pending_total_points: int = 0
 var pending_player_owned_points: int = 0
 var pending_enemy_owned_points: int = 0
 var active_spell_card: SpellCard
+var consecutive_forced_skips: int = 0
 
 var _pending_state: State = null
 var _transition_queued: bool = false
@@ -442,3 +444,66 @@ func return_card_to_hand(card: Card, hand: Hand) -> bool:
 	hand.add_existing_card(card)
 	return true
 	
+func create_card_play_context(side: int) -> CardPlayContext:
+	var board_cards: Array[Card] = get_all_cards_on_board()
+	var empty_slots: Array[CardSlot] = get_empty_slots(side)
+
+	return CardPlayContext.new(
+		side,
+		board_cards,
+		empty_slots
+	)
+	
+	
+func is_card_playable_now(card: Card,side: int) -> bool:
+	if card == null or not is_instance_valid(card):
+		return false
+
+	var empty_slots: Array[CardSlot] = get_empty_slots(side)
+
+	if empty_slots.is_empty():
+		return false
+
+	if card is UnitCard:
+		return true
+
+	if card is SpellCard:
+		var spell := card as SpellCard
+		var context := create_card_play_context(side)
+
+		return spell.is_playable_now(context)
+
+	return false
+
+
+func has_any_playable_card(hand: Hand,side: int) -> bool:
+	if hand == null:
+		return false
+
+	for card: Card in hand.cards_in_hand:
+		if is_card_playable_now(card, side):
+			return true
+
+	return false
+
+
+func get_playable_cards(hand: Hand,side: int) -> Array[Card]:
+	var result: Array[Card] = []
+
+	if hand == null:
+		return result
+
+	for card: Card in hand.cards_in_hand:
+		if is_card_playable_now(card, side):
+			result.append(card)
+
+	return result
+
+
+func register_forced_skip() -> bool:
+	consecutive_forced_skips += 1
+	return consecutive_forced_skips >= MAX_CONSECUTIVE_FORCED_SKIPS
+
+
+func reset_forced_skips() -> void:
+	consecutive_forced_skips = 0

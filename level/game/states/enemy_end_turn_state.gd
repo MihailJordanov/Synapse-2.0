@@ -1,7 +1,7 @@
 class_name EnemyEndTurnState extends State
 
 func enter() -> void:
-	fsm.set_state_info("Player End Turn")
+	fsm.set_state_info("Enemy End Turn")
 	var terminal := fsm.score_terminal_state()
 	if terminal:
 		change_to(terminal)
