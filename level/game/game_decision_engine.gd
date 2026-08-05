@@ -40,6 +40,7 @@ var pending_score_enabled: bool = false
 var pending_total_points: int = 0
 var pending_player_owned_points: int = 0
 var pending_enemy_owned_points: int = 0
+var active_spell_card: SpellCard
 
 var _pending_state: State = null
 var _transition_queued: bool = false
@@ -63,6 +64,8 @@ var _transition_queued: bool = false
 @onready var current_state_label: Label = get_node_or_null("%StateLabel") as Label
 @onready var state_inform_label: RichTextLabel = %StateInformLabel
 @onready var controll_turn_button: Button = %ControllTurnButton
+@onready var player_play_spell_card_state: PlayerPlaySpellCardState = %PlayerPlaySpellCardState
+@onready var select_card_on_board_state: SelectCardOnBoardState = %SelectCardOnBoardState
 
 func _ready() -> void:
 	_initialize_cycle_visualizer()
@@ -201,12 +204,16 @@ func try_play_card(card: Card, slot: CardSlot, side: int) -> bool:
 		)
 		return false
 
-	if not card is UnitCard:
-		push_error("try_play_card: Only UnitCard is currently supported.")
+	if not card is UnitCard and not card is SpellCard:
+		push_error(
+			"try_play_card: Unsupported Card subclass."
+		)
 		return false
 
 	if not hand.remove_card(card):
-		push_error("try_play_card: Could not remove card from hand.")
+		push_error(
+			"try_play_card: Could not remove card from hand."
+		)
 		return false
 
 	if not slot.place_card(card):
@@ -216,10 +223,16 @@ func try_play_card(card: Card, slot: CardSlot, side: int) -> bool:
 		hand.add_existing_card(card)
 		return false
 
-	var new_board_id: int = board_controller.add_card(card as UnitCard)
+	if card is SpellCard:
+		return true
+
+	var unit_card := card as UnitCard
+	var new_board_id: int = board_controller.add_card(unit_card)
 
 	if new_board_id == Card.INVALID_BOARD_ID:
-		push_error("try_play_card: BoardController rejected the card.")
+		push_error(
+			"try_play_card: BoardController rejected the card."
+		)
 
 		var removed_card: Card = slot.clear_slot()
 
@@ -321,7 +334,9 @@ func _initialize_states() -> void:
 		destroy_card_state,
 		sum_points_state,
 		victory_state,
-		defeat_state
+		defeat_state,
+		player_play_spell_card_state,
+		select_card_on_board_state
 	]
 
 	for state: State in states:
@@ -403,3 +418,16 @@ func clear_cycle_visualization() -> void:
 	cycle_visualizer.clear_visualization()
 		
 		
+func get_all_cards_on_board() -> Array[Card]:
+	var result: Array[Card] = []
+
+	for slot: CardSlot in player_slots:
+		if slot.current_card != null:
+			result.append(slot.current_card)
+
+	for slot: CardSlot in enemy_slots:
+		if slot.current_card != null:
+			result.append(slot.current_card)
+
+	return result
+	

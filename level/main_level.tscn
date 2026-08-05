@@ -22,6 +22,8 @@
 [ext_resource type="Script" uid="uid://c55205oticqh7" path="res://level/game/states/victory_state.gd" id="18_6i7va"]
 [ext_resource type="Script" uid="uid://i0cktvcgerg" path="res://level/game/states/defeat_state.gd" id="19_c1o2p"]
 [ext_resource type="Script" uid="uid://bi7vbsa1lhimd" path="res://level/game/states/sum_points_state.gd" id="22_fl61o"]
+[ext_resource type="Script" uid="uid://pewja1g4u1ka" path="res://level/game/states/player_play_spell_card_state.gd" id="23_un0mk"]
+[ext_resource type="Script" uid="uid://cw1r8tiyn0ahb" path="res://level/game/states/select_card_on_board_state.gd" id="24_8rqiy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rqiy"]
 bg_color = Color(0, 0.6392157, 0.73333335, 1)
@@ -269,6 +271,14 @@ script = ExtResource("19_c1o2p")
 [node name="SumPointsState" type="Node" parent="Game/States" unique_id=1899363369]
 unique_name_in_owner = true
 script = ExtResource("22_fl61o")
+
+[node name="PlayerPlaySpellCardState" type="Node" parent="Game/States" unique_id=2018527475]
+unique_name_in_owner = true
+script = ExtResource("23_un0mk")
+
+[node name="SelectCardOnBoardState" type="Node" parent="Game/States" unique_id=1976389284]
+unique_name_in_owner = true
+script = ExtResource("24_8rqiy")
 
 [node name="UI" type="Node2D" parent="." unique_id=639913924]
 

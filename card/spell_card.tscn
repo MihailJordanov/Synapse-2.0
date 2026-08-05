@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://v0yc3fbsaiwq"]
+
+[ext_resource type="Script" uid="uid://cwd3iibd0gjps" path="res://card/code/spell_card.gd" id="1_jd3f6"]
+[ext_resource type="Texture2D" uid="uid://j4dmqc0syc2u" path="res://card/assets/card_back.png" id="3_53m0r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(142, 227)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kikvd"]
+bg_color = Color(0.8490765, 0.3326969, 0.5627121, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrivr"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="SpellCard" type="Node2D" unique_id=1471805596]
+script = ExtResource("1_jd3f6")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=466965150]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1984105954]
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="Control" type="Control" parent="." unique_id=1780673650]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -71.0
+offset_top = -113.5
+offset_right = -31.0
+offset_bottom = -73.5
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Control" unique_id=1996813761]
+layout_mode = 0
+offset_right = 142.0
+offset_bottom = 227.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kikvd")
+
+[node name="CardTexture" type="TextureRect" parent="Control" unique_id=991244875]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 21.0
+offset_top = 11.5
+offset_right = 121.0
+offset_bottom = 111.5
+mouse_filter = 2
+expand_mode = 2
+
+[node name="Panel_Border2" type="Panel" parent="Control/CardTexture" unique_id=1690784598]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
+
+[node name="TextPanel" type="Panel" parent="Control" unique_id=1900851326]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 118.5
+offset_right = 133.0
+offset_bottom = 218.5
+mouse_filter = 2
+
+[node name="DescriptionRichTextLabel" type="RichTextLabel" parent="Control/TextPanel" unique_id=119052317]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.032
+anchor_top = 0.040000003
+anchor_right = 0.96800005
+anchor_bottom = 0.96000004
+offset_left = 0.031999826
+offset_right = -0.03200531
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BackCardSprite2D" type="Sprite2D" parent="." unique_id=292189658]
+unique_name_in_owner = true
+visible = false
+scale = Vector2(0.22015502, 0.26511627)
+texture = ExtResource("3_53m0r")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

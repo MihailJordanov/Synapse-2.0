@@ -3,10 +3,13 @@ class_name Card extends Node2D
 
 signal hovered(card: Card)
 signal hovered_off(card: Card)
+signal card_pressed(card: Card)
 
 enum CardType { UNIT, SPELL }
+const INVALID_CARD_ID: int = -1
 const INVALID_BOARD_ID: int = -1
 
+var card_id: int = INVALID_CARD_ID
 var card_type: CardType = CardType.UNIT
 var board_id: int = INVALID_BOARD_ID
 var is_card_hide: bool = false: set = set_card_hide
@@ -42,3 +45,11 @@ func _on_area_2d_mouse_entered() -> void:
 func _on_area_2d_mouse_exited() -> void:
 	is_hovered = false
 	hovered_off.emit(self)
+	
+func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		var mouse_event := event as InputEventMouseButton
+
+		if (mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed):
+			card_pressed.emit(self)
+			get_viewport().set_input_as_handled()

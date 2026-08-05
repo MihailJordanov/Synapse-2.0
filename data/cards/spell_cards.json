@@ -1,0 +1,9 @@
+{
+	"21000": {
+		"description": "[center]Select any unit card on the board and give it [color=#6bff00]+1 points[/color].[/center]",
+		"target_mode": "any_unit",
+		"effect_type": "add_points",
+		"effect_amount": 1,
+		"texture_path": "res://data/card_images/spells/add_points/add_point_1.png"
+	}
+}
