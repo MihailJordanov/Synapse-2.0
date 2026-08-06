@@ -7,6 +7,7 @@ signal game_finished(player_won: bool)
 
 enum Side { PLAYER, ENEMY }
 enum ScorePolicy { ACTIVE_SIDE_GETS_ALL, EACH_OWNER_GETS_OWN }
+enum ManaPolicy { DESTROY_ENEMIES, SACRIFICE_ALLIES }
 const CYCLE_VISUALIZER_SCENE = preload("uid://c81aoxm08v8tf")
 const MAX_CONSECUTIVE_FORCED_SKIPS = 3
 
@@ -29,6 +30,7 @@ var cycle_visualizer: CycleVisualizer
 @export var enemy_max_mana_to_collect: int = 5
 @export var enemy_think_time: float = 1.0
 @export var score_policy: ScorePolicy = ScorePolicy.ACTIVE_SIDE_GETS_ALL
+@export var mana_policy: ManaPolicy = ManaPolicy.DESTROY_ENEMIES
 @export var randomize_seed: bool = true
 @export var fixed_seed: int = 1
 
@@ -74,20 +76,27 @@ var _transition_queued: bool = false
 @onready var player_play_spell_card_state: PlayerPlaySpellCardState = %PlayerPlaySpellCardState
 @onready var select_card_on_board_state: SelectCardOnBoardState = %SelectCardOnBoardState
 @onready var player_mana_inform_label: RichTextLabel = %PlayerManaInformLabel
+@onready var player_victory_points_inform_label: RichTextLabel = %PlayerVictoryPointsInformLabel
+@onready var player_deck_inform_label: RichTextLabel = %PlayerDeckInformLabel
 @onready var enemy_mana_inform_label: RichTextLabel = %EnemyManaInformLabel
+@onready var enemy_victory_points_inform_label: RichTextLabel = %EnemyVictoryPointsInformLabel
+@onready var enemy_deck_inform_label: RichTextLabel = %EnemyDeckInformLabel
+
 
 func _ready() -> void:
 	_initialize_cycle_visualizer()
 	_initialize_states()
 	_initialize_slots()
 	_initialize_random_generator()
-	update_mana_inform_labels() 
+	update_game_info_labels()
 
 	controll_turn_button.disabled = true
 	controll_turn_button.text = ""
 
 	controll_turn_button.pressed.connect(_on_control_turn_button_pressed)
 	
+	_connect_deck_signals()
+	update_deck_inform_labels()
 	request_transition(setup_state)
 
 func _process(delta: float) -> void:
@@ -296,9 +305,13 @@ func add_score(side: int, amount: int) -> void:
 		return
 	if side == Side.PLAYER:
 		player_score += amount
+		player_score = min(player_score, player_winning_score)
 	else:
 		enemy_score += amount
+		player_score = min(player_score, enemy_winning_score)
 	score_changed.emit(player_score, enemy_score)
+	
+	update_game_info_labels()
 
 func score_terminal_state() -> State:
 	var player_reached: bool = player_score >= player_winning_score
@@ -463,8 +476,7 @@ func create_card_play_context(side: int) -> CardPlayContext:
 		empty_slots,
 		available_mana
 	)
-	
-	
+
 func is_card_playable_now(card: Card,side: int) -> bool:
 	if card == null or not is_instance_valid(card):
 		return false
@@ -485,7 +497,6 @@ func is_card_playable_now(card: Card,side: int) -> bool:
 
 	return false
 
-
 func has_any_playable_card(hand: Hand,side: int) -> bool:
 	if hand == null:
 		return false
@@ -495,8 +506,7 @@ func has_any_playable_card(hand: Hand,side: int) -> bool:
 			return true
 
 	return false
-
-
+	
 func get_playable_cards(hand: Hand,side: int) -> Array[Card]:
 	var result: Array[Card] = []
 
@@ -509,11 +519,9 @@ func get_playable_cards(hand: Hand,side: int) -> Array[Card]:
 
 	return result
 
-
 func register_forced_skip() -> bool:
 	consecutive_forced_skips += 1
 	return consecutive_forced_skips >= MAX_CONSECUTIVE_FORCED_SKIPS
-
 
 func reset_forced_skips() -> void:
 	consecutive_forced_skips = 0
@@ -548,7 +556,7 @@ func get_mana(side: int) -> int:
 		_:
 			push_error("GameDecisionEngine.get_mana: Invalid side.")
 			return 0
-			
+
 func get_max_mana(side: int) -> int:
 	match side:
 		Side.PLAYER:
@@ -560,8 +568,7 @@ func get_max_mana(side: int) -> int:
 		_:
 			push_error("GameDecisionEngine.get_max_mana: Invalid side.")
 			return 0
-			
-			
+
 func has_enough_mana(side: int,amount: int) -> bool:
 	if amount < 0:
 		return false
@@ -580,7 +587,7 @@ func set_mana(side: int,new_amount: int	) -> void:
 			push_error("GameDecisionEngine.set_mana: Invalid side.")
 			return
 
-	update_mana_inform_labels()
+	_update_mana_inform_labels()
 	
 func add_mana(side: int,amount: int) -> void:
 	if amount <= 0:
@@ -603,25 +610,162 @@ func spend_mana(side: int,amount: int) -> bool:
 
 	return true
 
-func update_mana_inform_labels() -> void:
+func _update_mana_inform_labels() -> void:
 	if player_mana_inform_label != null:
 		player_mana_inform_label.bbcode_enabled = true
 		player_mana_inform_label.text = (
-			"[center]"
+			"[color=#7CFC00]"
 			+ str(player_mana)
 			+ " / "
 			+ str(player_max_mana_to_collect)
-			+ "\n[color=#7CFC00](Your)[/color]"
-			+ "[/center]"
 		)
 
 	if enemy_mana_inform_label != null:
 		enemy_mana_inform_label.bbcode_enabled = true
 		enemy_mana_inform_label.text = (
-			"[center]"
+			"[color=#F88379]"
 			+ str(enemy_mana)
 			+ " / "
 			+ str(enemy_max_mana_to_collect)
-			+ "\n[color=#ff5555](Enemy)[/color]"
-			+ "[/center]"
+		)
+
+func grant_mana_from_destroyed_cards(destroyed_player_cards: int,destroyed_enemy_cards: int) -> void:
+	destroyed_player_cards = maxi(destroyed_player_cards,0)
+
+	destroyed_enemy_cards = maxi(destroyed_enemy_cards,0)
+
+	var mana_gain: int = _calculate_cycle_mana_gain(active_side,destroyed_player_cards,destroyed_enemy_cards)
+
+	if mana_gain <= 0:
+		return
+
+	add_mana(active_side,mana_gain)
+
+func _calculate_cycle_mana_gain(side: int,destroyed_player_cards: int,destroyed_enemy_cards: int) -> int:
+	var destroyed_friendly_cards: int
+	var destroyed_opponent_cards: int
+
+	match side:
+		Side.PLAYER:
+			destroyed_friendly_cards = destroyed_player_cards
+			destroyed_opponent_cards = destroyed_enemy_cards
+
+		Side.ENEMY:
+			destroyed_friendly_cards = destroyed_enemy_cards
+			destroyed_opponent_cards = destroyed_player_cards
+
+		_:
+			push_error("GameDecisionEngine: Invalid side when calculating cycle mana.")
+			return 0
+
+	var mana_gain: int
+
+	match mana_policy:
+		ManaPolicy.DESTROY_ENEMIES:
+			mana_gain = (destroyed_opponent_cards - destroyed_friendly_cards)
+
+		ManaPolicy.SACRIFICE_ALLIES:
+			mana_gain = (destroyed_friendly_cards - destroyed_opponent_cards)
+
+		_:
+			push_error("GameDecisionEngine: Unsupported mana policy.")
+			return 0
+
+	return maxi(mana_gain, 0)
+
+func update_game_info_labels() -> void:
+	_update_victory_points_labels()
+	_update_mana_inform_labels() 
+	_update_deck_labels()
+	
+func _update_victory_points_labels() -> void:
+	if player_victory_points_inform_label != null:
+		player_victory_points_inform_label.bbcode_enabled = true
+		player_victory_points_inform_label.text = (
+			"[color=#00FFFF]"
+			+ str(player_score)
+			+ " / "
+			+ str(player_winning_score)
+			+ "[/color]"
+		)
+
+	if enemy_victory_points_inform_label != null:
+		enemy_victory_points_inform_label.bbcode_enabled = true
+		enemy_victory_points_inform_label.text = (
+			"[color=#ff5555]"
+			+ str(enemy_score)
+			+ " / "
+			+ str(enemy_winning_score)
+			+ "[/color]"
+		)
+
+func _update_deck_labels() -> void:
+	var player_deck_size: int = 0
+	var enemy_deck_size: int = 0
+
+	if player_hand != null:
+		player_deck_size = player_hand.deck.size()
+
+	if enemy_hand != null:
+		enemy_deck_size = enemy_hand.deck.size()
+
+	if player_deck_inform_label != null:
+		player_deck_inform_label.bbcode_enabled = true
+		player_deck_inform_label.text = (
+			"[color=#ECFFDC]"
+			+ str(player_deck_size)
+			+ "[/color]"
+		)
+
+	if enemy_deck_inform_label != null:
+		enemy_deck_inform_label.bbcode_enabled = true
+		enemy_deck_inform_label.text = (
+			"[color=#ECFFDC]"
+			+ str(enemy_deck_size)
+			+ "[/color]"
+		)
+
+func update_deck_inform_labels() -> void:
+	var player_deck_count: int = 0
+	var enemy_deck_count: int = 0
+
+	if player_hand != null:
+		player_deck_count = player_hand.get_deck_size()
+
+	if enemy_hand != null:
+		enemy_deck_count = enemy_hand.get_deck_size()
+
+	if player_deck_inform_label != null:
+		player_deck_inform_label.bbcode_enabled = true
+		player_deck_inform_label.text = (
+			"[color=#ECFFDC]"
+			+ str(player_deck_count)
+		)
+
+	if enemy_deck_inform_label != null:
+		enemy_deck_inform_label.bbcode_enabled = true
+		enemy_deck_inform_label.text = (
+			"[color=#ECFFDC]"
+			+ str(enemy_deck_count)
+		)
+
+func _connect_deck_signals() -> void:
+	if (
+		player_hand != null
+		and not player_hand.deck_changed.is_connected(
+			update_deck_inform_labels
+		)
+	):
+		player_hand.deck_changed.connect(
+			update_deck_inform_labels
+		)
+
+	if (
+		enemy_hand != null
+		and not enemy_hand.deck_changed.is_connected(
+			update_deck_inform_labels
+		)
+	):
+		enemy_hand.deck_changed.connect(
+			update_deck_inform_labels
 		)

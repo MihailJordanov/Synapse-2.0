@@ -48,23 +48,15 @@ func exit() -> void:
 func _start_waiting_for_confirmation() -> void:
 	_waiting_for_confirmation = true
 
-	if not fsm.control_button_pressed.is_connected(
-		_on_control_button_pressed
-	):
-		fsm.control_button_pressed.connect(
-			_on_control_button_pressed
-		)
+	if not fsm.control_button_pressed.is_connected(_on_control_button_pressed):
+		fsm.control_button_pressed.connect(_on_control_button_pressed)
 
 
 func _stop_waiting_for_confirmation() -> void:
 	_waiting_for_confirmation = false
 
-	if fsm.control_button_pressed.is_connected(
-		_on_control_button_pressed
-	):
-		fsm.control_button_pressed.disconnect(
-			_on_control_button_pressed
-		)
+	if fsm.control_button_pressed.is_connected(_on_control_button_pressed):
+		fsm.control_button_pressed.disconnect(_on_control_button_pressed)
 
 
 func _on_control_button_pressed() -> void:

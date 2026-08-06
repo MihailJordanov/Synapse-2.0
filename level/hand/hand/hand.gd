@@ -1,5 +1,7 @@
 class_name Hand extends Node2D
 
+signal deck_changed
+
 @export var height: float = 0.0
 @export var is_enemy: bool = false
 @export var card_spacing: float = 150.0
@@ -33,6 +35,7 @@ func draw_card() -> Card:
 		push_error("Hand.draw_card: Invalid card in deck.")
 		return null
 
+	deck_changed.emit()
 	add_existing_card(card)
 	return card
 
@@ -99,3 +102,10 @@ func _cancel_card_tween(card: Card) -> void:
 		if tween and tween.is_valid():
 			tween.kill()
 		_card_tweens.erase(id)
+
+func set_deck(new_deck: Array[Card]) -> void:
+	deck = new_deck
+	deck_changed.emit()
+
+func get_deck_size() -> int:
+	return deck.size()

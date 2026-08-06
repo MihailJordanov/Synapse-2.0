@@ -1,8 +1,10 @@
 class_name EnemyPlayCardState
 extends State
 
-
 const SPELL_REVEAL_TIME: float = 1.0
+
+@export_range(0.0, 1.0, 0.05)
+var spell_play_chance: float = 0.5
 
 
 func enter() -> void:
@@ -16,25 +18,96 @@ func enter() -> void:
 	if not timer_completed:
 		return
 
+	if fsm.current_state != self:
+		return
+
 	if fsm.enemy_hand.cards_in_hand.is_empty():
 		change_to(fsm.victory_state)
 		return
 
-	var empty_slots: Array[CardSlot] = fsm.get_empty_slots(
-		GameDecisionEngine.Side.ENEMY
-	)
+	await _play_enemy_turn()
 
-	if empty_slots.is_empty():
-		change_to(fsm.check_for_cycle_state)
-		return
 
-	var playable_cards: Array[Card] = fsm.get_playable_cards(
-		fsm.enemy_hand,
-		GameDecisionEngine.Side.ENEMY
-	)
+func _play_enemy_turn() -> void:
+	var played_any_card: bool = false
 
-	if playable_cards.is_empty():
-		fsm.set_state_info("Enemy Has No Playable Cards")
+	while fsm.current_state == self:
+		var empty_slots: Array[CardSlot] = fsm.get_empty_slots(
+			GameDecisionEngine.Side.ENEMY
+		)
+
+		if empty_slots.is_empty():
+			change_to(fsm.check_for_cycle_state)
+			return
+
+		var playable_cards: Array[Card] = fsm.get_playable_cards(
+			fsm.enemy_hand,
+			GameDecisionEngine.Side.ENEMY
+		)
+
+		var playable_spells: Array[SpellCard] = []
+		var playable_units: Array[UnitCard] = []
+
+		for card: Card in playable_cards:
+			if card is SpellCard:
+				playable_spells.append(card as SpellCard)
+			elif card is UnitCard:
+				playable_units.append(card as UnitCard)
+
+
+		if _should_play_spell(
+			playable_spells,
+			playable_units,
+			played_any_card
+		):
+			var spell: SpellCard = playable_spells.pick_random()
+			var spell_played: bool = await _play_spell_card(
+				spell,
+				empty_slots.pick_random()
+			)
+
+			if fsm.current_state != self:
+				return
+
+			if spell_played:
+				played_any_card = true
+				fsm.reset_forced_skips()
+				continue
+
+			change_to(fsm.enemy_end_turn_state)
+			return
+
+		if not playable_units.is_empty():
+			var unit: UnitCard = playable_units.pick_random()
+			var unit_played: bool = await _play_unit_card(
+				unit,
+				empty_slots.pick_random()
+			)
+
+			if fsm.current_state != self:
+				return
+
+			if not unit_played:
+				push_error(
+					"EnemyPlayCardState: Could not play selected unit."
+				)
+				change_to(fsm.enemy_end_turn_state)
+				return
+
+			fsm.reset_forced_skips()
+			change_to(fsm.check_for_cycle_state)
+			return
+
+		if played_any_card:
+			fsm.set_state_info(
+				"Enemy Has No Unit Card to Play"
+			)
+			change_to(fsm.enemy_end_turn_state)
+			return
+
+		fsm.set_state_info(
+			"Enemy Has No Playable Cards"
+		)
 
 		if fsm.register_forced_skip():
 			change_to(fsm.defeat_state)
@@ -42,95 +115,91 @@ func enter() -> void:
 
 		change_to(fsm.enemy_end_turn_state)
 		return
+		
+		
+func _should_play_spell(
+	playable_spells: Array[SpellCard],
+	playable_units: Array[UnitCard],
+	played_any_card: bool
+) -> bool:
+	if playable_spells.is_empty():
+		return false
 
-	var card: Card = playable_cards.pick_random()
-	var slot: CardSlot = empty_slots.pick_random()
+	if playable_units.is_empty() and not played_any_card:
+		return true
 
-	if card == null or not is_instance_valid(card):
-		push_error(
-			"EnemyPlayCardState: Invalid selected card."
-		)
-		change_to(fsm.enemy_end_turn_state)
-		return
+	return fsm.rng.randf() <= spell_play_chance
+
+func _play_unit_card(
+	unit: UnitCard,
+	slot: CardSlot
+) -> bool:
+	if unit == null or not is_instance_valid(unit):
+		return false
 
 	if slot == null or not is_instance_valid(slot):
-		push_error(
-			"EnemyPlayCardState: Invalid selected slot."
-		)
-		change_to(fsm.enemy_end_turn_state)
-		return
+		return false
 
-	var start_global_position: Vector2 = card.global_position
-	var start_rotation: float = card.global_rotation
-	var start_scale: Vector2 = card.global_scale
+	var start_global_position: Vector2 = unit.global_position
+	var start_rotation: float = unit.global_rotation
+	var start_scale: Vector2 = unit.global_scale
 
-	var was_played: bool = fsm.try_play_card(
-		card,
+	if not fsm.try_play_card(
+		unit,
 		slot,
 		GameDecisionEngine.Side.ENEMY
-	)
-	
-	if was_played:
-		fsm.reset_forced_skips()
+	):
+		return false
 
-	if not was_played:
-		push_error(
-			"EnemyPlayCardState: Legal move validation failed."
-		)
-		change_to(fsm.enemy_end_turn_state)
-		return
+	unit.global_position = start_global_position
+	unit.global_rotation = start_rotation
+	unit.global_scale = start_scale
 
-	card.global_position = start_global_position
-	card.global_rotation = start_rotation
-	card.global_scale = start_scale
-
-	await _animate_card_to_slot(card, slot)
+	await _animate_card_to_slot(unit, slot)
 
 	if fsm.current_state != self:
-		return
+		return false
 
-	if not is_instance_valid(card):
-		return
+	if not is_instance_valid(unit):
+		return false
 
-	card.set_card_hide(false)
-
-	match card.card_type:
-		Card.CardType.UNIT:
-			_finish_unit_play()
-
-		Card.CardType.SPELL:
-			if not card is SpellCard:
-				push_error(
-					"EnemyPlayCardState: Card has SPELL type, "
-					+ "but is not a SpellCard."
-				)
-
-				card.destroy()
-				change_to(fsm.check_for_cycle_state)
-				return
-
-			await _resolve_spell(card as SpellCard)
-
-		_:
-			push_error(
-				"EnemyPlayCardState: Unsupported card type."
-			)
-			card.destroy()
-			change_to(fsm.check_for_cycle_state)
-
-
-func _finish_unit_play() -> void:
-	change_to(fsm.check_for_cycle_state)
-
-
-func _resolve_spell(spell: SpellCard) -> void:
+	unit.set_card_hide(false)
+	return true
+	
+func _play_spell_card(
+	spell: SpellCard,
+	slot: CardSlot
+) -> bool:
 	if spell == null or not is_instance_valid(spell):
-		push_error(
-			"EnemyPlayCardState: Invalid spell card."
-		)
-		change_to(fsm.check_for_cycle_state)
-		return
+		return false
 
+	if slot == null or not is_instance_valid(slot):
+		return false
+
+	var start_global_position: Vector2 = spell.global_position
+	var start_rotation: float = spell.global_rotation
+	var start_scale: Vector2 = spell.global_scale
+
+	if not fsm.try_play_card(
+		spell,
+		slot,
+		GameDecisionEngine.Side.ENEMY
+	):
+		return false
+
+	spell.global_position = start_global_position
+	spell.global_rotation = start_rotation
+	spell.global_scale = start_scale
+
+	await _animate_card_to_slot(spell, slot)
+
+	if fsm.current_state != self:
+		return false
+
+	if not is_instance_valid(spell):
+		return false
+
+	spell.set_card_hide(false)
 	fsm.set_state_info("Enemy Played a Spell")
 
 	var reveal_completed: bool = await fsm.wait_seconds(
@@ -139,13 +208,19 @@ func _resolve_spell(spell: SpellCard) -> void:
 	)
 
 	if not reveal_completed:
-		return
+		return false
 
 	if fsm.current_state != self:
-		return
+		return false
 
 	if not is_instance_valid(spell):
-		return
+		return false
+
+	return _resolve_spell(spell)
+	
+func _resolve_spell(spell: SpellCard) -> bool:
+	if spell == null or not is_instance_valid(spell):
+		return false
 
 	var play_context: CardPlayContext = \
 		fsm.create_card_play_context(
@@ -156,9 +231,18 @@ func _resolve_spell(spell: SpellCard) -> void:
 		push_warning(
 			"EnemyPlayCardState: Spell is no longer playable."
 		)
-
 		_return_spell_to_enemy_hand(spell)
-		return
+		return false
+
+	if not fsm.has_enough_mana(
+		GameDecisionEngine.Side.ENEMY,
+		spell.get_mana_cost()
+	):
+		push_warning(
+			"EnemyPlayCardState: Enemy no longer has enough mana."
+		)
+		_return_spell_to_enemy_hand(spell)
+		return false
 
 	var target: UnitCard = null
 
@@ -170,9 +254,8 @@ func _resolve_spell(spell: SpellCard) -> void:
 			push_warning(
 				"EnemyPlayCardState: Spell has no valid targets."
 			)
-
 			_return_spell_to_enemy_hand(spell)
-			return
+			return false
 
 		target = valid_targets.pick_random()
 
@@ -182,26 +265,27 @@ func _resolve_spell(spell: SpellCard) -> void:
 		target,
 		GameDecisionEngine.Side.ENEMY
 	)
-	
-	if not fsm.has_enough_mana(GameDecisionEngine.Side.ENEMY,spell.get_mana_cost()):
-		push_warning("EnemyPlayCardState: Enemy no longer has enough mana.")
-		_return_spell_to_enemy_hand(spell)
-		return
 
 	spell.execute(spell_context)
 
-	if not fsm.spend_mana(GameDecisionEngine.Side.ENEMY,spell.get_mana_cost()):
-		push_error("EnemyPlayCardState: Mana spending failed.")
+	if not fsm.spend_mana(
+		GameDecisionEngine.Side.ENEMY,
+		spell.get_mana_cost()
+	):
+		push_error(
+			"EnemyPlayCardState: Mana spending failed."
+		)
+		return false
 
 	if is_instance_valid(spell):
 		spell.destroy()
 
-	change_to(fsm.check_for_cycle_state)
-
-
-func _return_spell_to_enemy_hand(spell: SpellCard) -> void:
+	return true
+	
+func _return_spell_to_enemy_hand(
+	spell: SpellCard
+) -> void:
 	if spell == null or not is_instance_valid(spell):
-		change_to(fsm.enemy_end_turn_state)
 		return
 
 	if spell.current_slot != null:
@@ -209,9 +293,7 @@ func _return_spell_to_enemy_hand(spell: SpellCard) -> void:
 		spell.current_slot = null
 
 	fsm.enemy_hand.add_existing_card(spell)
-	change_to(fsm.enemy_end_turn_state)
-
-
+	
 func _animate_card_to_slot(
 	card: Card,
 	slot: CardSlot

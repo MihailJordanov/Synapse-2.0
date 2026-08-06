@@ -25,6 +25,8 @@
 [ext_resource type="Script" uid="uid://pewja1g4u1ka" path="res://level/game/states/player_play_spell_card_state.gd" id="23_un0mk"]
 [ext_resource type="Script" uid="uid://cw1r8tiyn0ahb" path="res://level/game/states/select_card_on_board_state.gd" id="24_8rqiy"]
 [ext_resource type="Texture2D" uid="uid://sr61n8jepge2" path="res://level/assets/mana_gem_icon.png" id="25_3821i"]
+[ext_resource type="Texture2D" uid="uid://bxv7glfulafd1" path="res://level/assets/victory_points_icon.png" id="25_ht6j8"]
+[ext_resource type="Texture2D" uid="uid://c3754bw6hruqy" path="res://level/assets/deck_count_icon.png" id="26_c1kdy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rqiy"]
 bg_color = Color(0, 0.6392157, 0.73333335, 1)
@@ -119,7 +121,20 @@ corner_radius_bottom_left = 6
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ht6j8"]
-bg_color = Color(0.6943803, 0.6243138, 1, 0.7921569)
+bg_color = Color(0.07058824, 0.18431373, 0.105882354, 0.6627451)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6i7va"]
+bg_color = Color(0.07058824, 0.18431373, 0.105882354, 0.6627451)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -225,6 +240,7 @@ enemy_hand = NodePath("../../Hands/EnemyHand")
 card_dragger = NodePath("../../CardDragger")
 player_slots = [NodePath("../../Slots/PlayerSlots/CardSlot1"), NodePath("../../Slots/PlayerSlots/CardSlot2"), NodePath("../../Slots/PlayerSlots/CardSlot3"), NodePath("../../Slots/PlayerSlots/CardSlot4"), NodePath("../../Slots/PlayerSlots/CardSlot5")]
 enemy_slots = [NodePath("../../Slots/EnemySlots/CardSlot7"), NodePath("../../Slots/EnemySlots/CardSlot8"), NodePath("../../Slots/EnemySlots/CardSlot9"), NodePath("../../Slots/EnemySlots/CardSlot10"), NodePath("../../Slots/EnemySlots/CardSlot11")]
+mana_policy = 1
 
 [node name="BoardCotroller" type="Node" parent="Game" unique_id=1660314627]
 unique_name_in_owner = true
@@ -338,58 +354,178 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 2
 
-[node name="ManaPanel" type="Panel" parent="UI" unique_id=1930544860]
-offset_left = 1365.0
-offset_top = 467.0
-offset_right = 1615.0
-offset_bottom = 620.0
+[node name="PlayerInfoPanel" type="Panel" parent="UI" unique_id=1930544860]
+offset_left = 1340.0
+offset_top = 418.0
+offset_right = 1610.0
+offset_bottom = 643.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ht6j8")
 
-[node name="PlayerManaInformLabel" type="RichTextLabel" parent="UI/ManaPanel" unique_id=949831267]
+[node name="VictoryPointsInf" type="Node2D" parent="UI/PlayerInfoPanel" unique_id=973534739]
+
+[node name="PlayerVictoryPointsInformLabel" type="RichTextLabel" parent="UI/PlayerInfoPanel/VictoryPointsInf" unique_id=1834746145]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(230, 150)
-layout_mode = 0
-offset_left = 9.0
-offset_top = 81.0
-offset_right = 119.0
-offset_bottom = 141.0
-theme_override_font_sizes/normal_font_size = 26
-theme_override_font_sizes/bold_font_size = 26
-theme_override_font_sizes/bold_italics_font_size = 26
-theme_override_font_sizes/italics_font_size = 26
-theme_override_font_sizes/mono_font_size = 26
+offset_left = 86.0
+offset_top = 12.0
+offset_right = 247.0
+offset_bottom = 62.0
+theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/bold_font_size = 42
+theme_override_font_sizes/bold_italics_font_size = 42
+theme_override_font_sizes/italics_font_size = 42
+theme_override_font_sizes/mono_font_size = 42
 bbcode_enabled = true
-text = "0 / 6 
-[color=#7CFC00](Your)"
+text = "[color=#00FFFF]50 / 100"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
-horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EnemyManaInformLabel" type="RichTextLabel" parent="UI/ManaPanel" unique_id=1807874467]
+[node name="VictoryPointsSprite2D" type="Sprite2D" parent="UI/PlayerInfoPanel/VictoryPointsInf" unique_id=1698083298]
+position = Vector2(40.69995, 38)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("25_ht6j8")
+
+[node name="ManaInf" type="Node2D" parent="UI/PlayerInfoPanel" unique_id=1742169074]
+position = Vector2(0, 70)
+
+[node name="PlayerManaInformLabel" type="RichTextLabel" parent="UI/PlayerInfoPanel/ManaInf" unique_id=949831267]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(230, 150)
-layout_mode = 0
-offset_left = 127.0
-offset_top = 81.0
-offset_right = 237.0
-offset_bottom = 141.0
-theme_override_font_sizes/normal_font_size = 26
-theme_override_font_sizes/bold_font_size = 26
-theme_override_font_sizes/bold_italics_font_size = 26
-theme_override_font_sizes/italics_font_size = 26
-theme_override_font_sizes/mono_font_size = 26
+offset_left = 86.0
+offset_top = 12.0
+offset_right = 196.0
+offset_bottom = 62.0
+theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/bold_font_size = 42
+theme_override_font_sizes/bold_italics_font_size = 42
+theme_override_font_sizes/italics_font_size = 42
+theme_override_font_sizes/mono_font_size = 42
 bbcode_enabled = true
-text = "0 / 6 
-[color=#DC143C](Enemy)"
+text = "[color=#7CFC00]2 / 10"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
-horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="UI/ManaPanel" unique_id=1752428299]
-position = Vector2(120.99999, 44)
+[node name="ManaSprite2D" type="Sprite2D" parent="UI/PlayerInfoPanel/ManaInf" unique_id=1752428299]
+position = Vector2(40.69995, 38)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("25_3821i")
+
+[node name="DeckInf" type="Node2D" parent="UI/PlayerInfoPanel" unique_id=773795017]
+position = Vector2(0, 142)
+
+[node name="PlayerDeckInformLabel" type="RichTextLabel" parent="UI/PlayerInfoPanel/DeckInf" unique_id=353574111]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(230, 150)
+offset_left = 86.0
+offset_top = 12.0
+offset_right = 196.0
+offset_bottom = 62.0
+theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/bold_font_size = 42
+theme_override_font_sizes/bold_italics_font_size = 42
+theme_override_font_sizes/italics_font_size = 42
+theme_override_font_sizes/mono_font_size = 42
+bbcode_enabled = true
+text = "[color=#ECFFDC]26"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DeckSprite2D" type="Sprite2D" parent="UI/PlayerInfoPanel/DeckInf" unique_id=1557321469]
+position = Vector2(40.69995, 38)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("26_c1kdy")
+
+[node name="EnemyInfoPanel" type="Panel" parent="UI" unique_id=2014636833]
+offset_left = 1340.0
+offset_top = 146.0
+offset_right = 1610.0
+offset_bottom = 371.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6i7va")
+
+[node name="VictoryPointsInf" type="Node2D" parent="UI/EnemyInfoPanel" unique_id=672438211]
+
+[node name="EnemyVictoryPointsInformLabel" type="RichTextLabel" parent="UI/EnemyInfoPanel/VictoryPointsInf" unique_id=2045426139]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(230, 150)
+offset_left = 86.0
+offset_top = 12.0
+offset_right = 247.0
+offset_bottom = 62.0
+theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/bold_font_size = 42
+theme_override_font_sizes/bold_italics_font_size = 42
+theme_override_font_sizes/italics_font_size = 42
+theme_override_font_sizes/mono_font_size = 42
+bbcode_enabled = true
+text = "[color=#ff5555]50 / 100"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="VictoryPointsSprite2D" type="Sprite2D" parent="UI/EnemyInfoPanel/VictoryPointsInf" unique_id=819896740]
+position = Vector2(40.69995, 38)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("25_ht6j8")
+
+[node name="ManaInf" type="Node2D" parent="UI/EnemyInfoPanel" unique_id=1305811907]
+position = Vector2(0, 70)
+
+[node name="EnemyManaInformLabel" type="RichTextLabel" parent="UI/EnemyInfoPanel/ManaInf" unique_id=832933513]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(230, 150)
+offset_left = 86.0
+offset_top = 12.0
+offset_right = 196.0
+offset_bottom = 62.0
+theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/bold_font_size = 42
+theme_override_font_sizes/bold_italics_font_size = 42
+theme_override_font_sizes/italics_font_size = 42
+theme_override_font_sizes/mono_font_size = 42
+bbcode_enabled = true
+text = "[color=#7CFC00]2 / 10"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="ManaSprite2D" type="Sprite2D" parent="UI/EnemyInfoPanel/ManaInf" unique_id=359281691]
+position = Vector2(40.69995, 38)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("25_3821i")
+
+[node name="DeckInf" type="Node2D" parent="UI/EnemyInfoPanel" unique_id=53950273]
+position = Vector2(0, 142)
+
+[node name="EnemyDeckInformLabel" type="RichTextLabel" parent="UI/EnemyInfoPanel/DeckInf" unique_id=992819824]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(230, 150)
+offset_left = 86.0
+offset_top = 12.0
+offset_right = 196.0
+offset_bottom = 62.0
+theme_override_font_sizes/normal_font_size = 42
+theme_override_font_sizes/bold_font_size = 42
+theme_override_font_sizes/bold_italics_font_size = 42
+theme_override_font_sizes/italics_font_size = 42
+theme_override_font_sizes/mono_font_size = 42
+bbcode_enabled = true
+text = "[color=#ECFFDC]26"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DeckSprite2D" type="Sprite2D" parent="UI/EnemyInfoPanel/DeckInf" unique_id=429333521]
+position = Vector2(40.69995, 38)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("26_c1kdy")
