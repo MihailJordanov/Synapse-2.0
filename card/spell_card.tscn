@@ -27,6 +27,19 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jd3f6"]
+bg_color = Color(0.3647129, 0.68091196, 0.71144754, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95686275, 0.77254903, 0.28235295, 1)
+corner_radius_top_left = 90
+corner_radius_top_right = 90
+corner_radius_bottom_right = 90
+corner_radius_bottom_left = 90
+corner_detail = 1
+
 [node name="SpellCard" type="Node2D" unique_id=1471805596]
 script = ExtResource("1_jd3f6")
 
@@ -56,9 +69,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_kikvd")
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 21.0
-offset_top = 11.5
+offset_top = 15.5
 offset_right = 121.0
-offset_bottom = 111.5
+offset_bottom = 115.5
 mouse_filter = 2
 expand_mode = 2
 
@@ -72,7 +85,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
 [node name="TextPanel" type="Panel" parent="Control" unique_id=1900851326]
 layout_mode = 0
 offset_left = 9.0
-offset_top = 118.5
+offset_top = 125.5
 offset_right = 133.0
 offset_bottom = 218.5
 mouse_filter = 2
@@ -90,6 +103,35 @@ offset_right = -0.03200531
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="ManaPanel" type="Panel" parent="Control" unique_id=1274228995]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 4.5
+offset_right = 83.0
+offset_bottom = 28.5
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jd3f6")
+
+[node name="ManaLabel" type="Label" parent="Control/ManaPanel" unique_id=2077246862]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 5.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BackCardSprite2D" type="Sprite2D" parent="." unique_id=292189658]
 unique_name_in_owner = true

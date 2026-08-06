@@ -94,8 +94,17 @@ func _resolve_spell(target: UnitCard) -> void:
 	var spell: SpellCard = fsm.active_spell_card
 
 	if spell == null or not is_instance_valid(spell):
-		push_error("SelectCardOnBoardState: Spell became invalid.")
+		push_error(
+			"SelectCardOnBoardState: Spell became invalid."
+		)
 		_abort_selection()
+		return
+
+	if not fsm.has_enough_mana(
+		fsm.active_side,
+		spell.get_mana_cost()
+	):
+		_return_spell_to_hand(spell)
 		return
 
 	var context := SpellContext.new(
@@ -106,12 +115,24 @@ func _resolve_spell(target: UnitCard) -> void:
 	)
 
 	spell.execute(context)
+
+	if not fsm.spend_mana(
+		fsm.active_side,
+		spell.get_mana_cost()
+	):
+		push_error(
+			"SelectCardOnBoardState: Mana spending failed."
+		)
+
+	fsm.register_player_spell_played()
+	fsm.reset_forced_skips()
+
 	spell.destroy()
-
 	fsm.active_spell_card = null
-	change_to(fsm.check_for_cycle_state)
 
-
+	change_to(fsm.player_play_card_state)
+	
+	
 func _return_spell_to_hand(spell: SpellCard) -> void:
 	if spell.current_slot != null:
 		spell.current_slot.clear_slot(false)

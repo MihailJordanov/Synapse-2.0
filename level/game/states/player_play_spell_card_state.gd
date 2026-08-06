@@ -38,10 +38,29 @@ func _return_spell_to_hand(spell: SpellCard) -> void:
 
 
 func _execute_spell_without_target(spell: SpellCard) -> void:
-	var context := SpellContext.new(fsm,spell,null,fsm.active_side)
+	var context := SpellContext.new(
+		fsm,
+		spell,
+		null,
+		fsm.active_side
+	)
+
+	if not fsm.has_enough_mana(fsm.active_side,spell.get_mana_cost()):
+		_return_spell_to_hand(spell)
+		return
 
 	spell.execute(context)
-	spell.destroy()
 
+	if not fsm.spend_mana(fsm.active_side,spell.get_mana_cost()):
+		push_error(
+			"PlayerPlaySpellCardState: "
+			+ "Could not spend mana after spell execution."
+		)
+
+	fsm.register_player_spell_played()
+	fsm.reset_forced_skips()
+
+	spell.destroy()
 	fsm.active_spell_card = null
-	change_to(fsm.check_for_cycle_state)
+
+	change_to(fsm.player_play_card_state)

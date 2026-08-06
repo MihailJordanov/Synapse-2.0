@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://bi7vbsa1lhimd" path="res://level/game/states/sum_points_state.gd" id="22_fl61o"]
 [ext_resource type="Script" uid="uid://pewja1g4u1ka" path="res://level/game/states/player_play_spell_card_state.gd" id="23_un0mk"]
 [ext_resource type="Script" uid="uid://cw1r8tiyn0ahb" path="res://level/game/states/select_card_on_board_state.gd" id="24_8rqiy"]
+[ext_resource type="Texture2D" uid="uid://sr61n8jepge2" path="res://level/assets/mana_gem_icon.png" id="25_3821i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rqiy"]
 bg_color = Color(0, 0.6392157, 0.73333335, 1)
@@ -106,6 +107,19 @@ shadow_offset = Vector2(0, 5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrivr"]
 bg_color = Color(0, 0.6392157, 0.73333335, 0.60784316)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ht6j8"]
+bg_color = Color(0.6943803, 0.6243138, 1, 0.7921569)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -298,14 +312,14 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_c1kdy")
 theme_override_styles/focus = SubResource("StyleBoxFlat_3821i")
 text = "End Turn"
 
-[node name="Panel" type="Panel" parent="UI" unique_id=1189883393]
+[node name="InformPanel" type="Panel" parent="UI" unique_id=1189883393]
 offset_left = 15.0
 offset_top = 217.0
 offset_right = 335.0
 offset_bottom = 467.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
 
-[node name="StateInformLabel" type="RichTextLabel" parent="UI/Panel" unique_id=1946513371]
+[node name="StateInformLabel" type="RichTextLabel" parent="UI/InformPanel" unique_id=1946513371]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(300, 225)
 layout_mode = 0
@@ -323,3 +337,59 @@ text = "Hello Word"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
+
+[node name="ManaPanel" type="Panel" parent="UI" unique_id=1930544860]
+offset_left = 1365.0
+offset_top = 467.0
+offset_right = 1615.0
+offset_bottom = 620.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ht6j8")
+
+[node name="PlayerManaInformLabel" type="RichTextLabel" parent="UI/ManaPanel" unique_id=949831267]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(230, 150)
+layout_mode = 0
+offset_left = 9.0
+offset_top = 81.0
+offset_right = 119.0
+offset_bottom = 141.0
+theme_override_font_sizes/normal_font_size = 26
+theme_override_font_sizes/bold_font_size = 26
+theme_override_font_sizes/bold_italics_font_size = 26
+theme_override_font_sizes/italics_font_size = 26
+theme_override_font_sizes/mono_font_size = 26
+bbcode_enabled = true
+text = "0 / 6 
+[color=#7CFC00](Your)"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyManaInformLabel" type="RichTextLabel" parent="UI/ManaPanel" unique_id=1807874467]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(230, 150)
+layout_mode = 0
+offset_left = 127.0
+offset_top = 81.0
+offset_right = 237.0
+offset_bottom = 141.0
+theme_override_font_sizes/normal_font_size = 26
+theme_override_font_sizes/bold_font_size = 26
+theme_override_font_sizes/bold_italics_font_size = 26
+theme_override_font_sizes/italics_font_size = 26
+theme_override_font_sizes/mono_font_size = 26
+bbcode_enabled = true
+text = "0 / 6 
+[color=#DC143C](Enemy)"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/ManaPanel" unique_id=1752428299]
+position = Vector2(120.99999, 44)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("25_3821i")

@@ -3,6 +3,7 @@ class_name PlayerStartTurnState extends State
 
 func enter() -> void:
 	fsm.active_side = GameDecisionEngine.Side.PLAYER
+	fsm.reset_player_spell_count()
 	fsm.set_state_info("Player Start")
 
 	var hand_is_empty: bool = fsm.player_hand.cards_in_hand.is_empty()

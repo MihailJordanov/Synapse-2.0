@@ -182,8 +182,16 @@ func _resolve_spell(spell: SpellCard) -> void:
 		target,
 		GameDecisionEngine.Side.ENEMY
 	)
+	
+	if not fsm.has_enough_mana(GameDecisionEngine.Side.ENEMY,spell.get_mana_cost()):
+		push_warning("EnemyPlayCardState: Enemy no longer has enough mana.")
+		_return_spell_to_enemy_hand(spell)
+		return
 
 	spell.execute(spell_context)
+
+	if not fsm.spend_mana(GameDecisionEngine.Side.ENEMY,spell.get_mana_cost()):
+		push_error("EnemyPlayCardState: Mana spending failed.")
 
 	if is_instance_valid(spell):
 		spell.destroy()
@@ -191,9 +199,7 @@ func _resolve_spell(spell: SpellCard) -> void:
 	change_to(fsm.check_for_cycle_state)
 
 
-func _return_spell_to_enemy_hand(
-	spell: SpellCard
-) -> void:
+func _return_spell_to_enemy_hand(spell: SpellCard) -> void:
 	if spell == null or not is_instance_valid(spell):
 		change_to(fsm.enemy_end_turn_state)
 		return

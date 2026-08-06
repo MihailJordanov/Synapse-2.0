@@ -11,16 +11,19 @@ enum TargetMode {
 }
 
 @onready var description_label: RichTextLabel = %DescriptionRichTextLabel
+@onready var mana_label: Label = %ManaLabel
 
 var description: String = ""
 var target_mode: TargetMode = TargetMode.NO_TARGET
 var effect: SpellEffect
 var requirement: SpellRequirement
+var mana_cost : int = 0
 
 func _ready() -> void:
 	super._ready()
 	card_type = CardType.SPELL
 	_update_description_label()
+	_update_mana_label()
 
 func setup(new_target_mode: TargetMode,new_effect: SpellEffect,new_requirement: SpellRequirement) -> void:
 	target_mode = new_target_mode
@@ -88,6 +91,9 @@ func is_playable_now(context: CardPlayContext) -> bool:
 	if effect == null:
 		return false
 
+	if context.available_mana < mana_cost:
+		return false
+
 	if requirement != null:
 		if not requirement.is_satisfied(context):
 			return false
@@ -152,3 +158,18 @@ func _is_friendly_unit(unit: UnitCard,caster_side: int) -> bool:
 			return unit.is_enemy_card
 
 	return false
+
+func get_mana_cost() -> int:
+	return mana_cost
+
+
+func set_mana_cost(new_mana_cost: int) -> void:
+	mana_cost = maxi(new_mana_cost, 0)
+	_update_mana_label()
+
+
+func _update_mana_label() -> void:
+	if mana_label == null:
+		return
+
+	mana_label.text = str(mana_cost)

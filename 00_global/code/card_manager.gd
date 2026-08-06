@@ -190,15 +190,9 @@ func _create_spell_card(data: Dictionary) -> SpellCard:
 		spell_card.queue_free()
 		return null
 
-	spell_card.setup(
-		target_mode,
-		effect,
-		requirement
-	)
-
-	spell_card.set_description(
-		str(data.get("description", ""))
-	)
+	spell_card.setup(target_mode,effect,requirement)
+	spell_card.set_mana_cost(int(data.get("mana_cost", 0)))
+	spell_card.set_description(str(data.get("description", "")))
 
 	return spell_card
 	

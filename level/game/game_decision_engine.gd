@@ -25,6 +25,8 @@ var cycle_visualizer: CycleVisualizer
 @export var initial_draw_count: int = 5
 @export var player_winning_score: int = 10
 @export var enemy_winning_score: int = 10
+@export var player_max_mana_to_collect: int = 5
+@export var enemy_max_mana_to_collect: int = 5
 @export var enemy_think_time: float = 1.0
 @export var score_policy: ScorePolicy = ScorePolicy.ACTIVE_SIDE_GETS_ALL
 @export var randomize_seed: bool = true
@@ -32,6 +34,8 @@ var cycle_visualizer: CycleVisualizer
 
 var player_score: int = 0
 var enemy_score: int = 0
+var player_mana : int = 0
+var enemy_mana : int = 0
 var active_side: int = Side.PLAYER
 var current_state: State = null
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -43,6 +47,7 @@ var pending_player_owned_points: int = 0
 var pending_enemy_owned_points: int = 0
 var active_spell_card: SpellCard
 var consecutive_forced_skips: int = 0
+var player_spells_played_this_turn: int = 0
 
 var _pending_state: State = null
 var _transition_queued: bool = false
@@ -68,18 +73,21 @@ var _transition_queued: bool = false
 @onready var controll_turn_button: Button = %ControllTurnButton
 @onready var player_play_spell_card_state: PlayerPlaySpellCardState = %PlayerPlaySpellCardState
 @onready var select_card_on_board_state: SelectCardOnBoardState = %SelectCardOnBoardState
+@onready var player_mana_inform_label: RichTextLabel = %PlayerManaInformLabel
+@onready var enemy_mana_inform_label: RichTextLabel = %EnemyManaInformLabel
 
 func _ready() -> void:
 	_initialize_cycle_visualizer()
 	_initialize_states()
 	_initialize_slots()
 	_initialize_random_generator()
+	update_mana_inform_labels() 
 
 	controll_turn_button.disabled = true
 	controll_turn_button.text = ""
 
 	controll_turn_button.pressed.connect(_on_control_turn_button_pressed)
-
+	
 	request_transition(setup_state)
 
 func _process(delta: float) -> void:
@@ -447,11 +455,13 @@ func return_card_to_hand(card: Card, hand: Hand) -> bool:
 func create_card_play_context(side: int) -> CardPlayContext:
 	var board_cards: Array[Card] = get_all_cards_on_board()
 	var empty_slots: Array[CardSlot] = get_empty_slots(side)
+	var available_mana: int = get_mana(side)
 
 	return CardPlayContext.new(
 		side,
 		board_cards,
-		empty_slots
+		empty_slots,
+		available_mana
 	)
 	
 	
@@ -507,3 +517,111 @@ func register_forced_skip() -> bool:
 
 func reset_forced_skips() -> void:
 	consecutive_forced_skips = 0
+
+func reset_player_spell_count() -> void:
+	player_spells_played_this_turn = 0
+
+func register_player_spell_played() -> void:
+	player_spells_played_this_turn += 1
+
+func has_player_played_spell_this_turn() -> bool:
+	return player_spells_played_this_turn > 0
+
+func hand_has_unit_card(hand: Hand) -> bool:
+	if hand == null:
+		return false
+
+	for card: Card in hand.cards_in_hand:
+		if card is UnitCard:
+			return true
+
+	return false
+	
+func get_mana(side: int) -> int:
+	match side:
+		Side.PLAYER:
+			return player_mana
+
+		Side.ENEMY:
+			return enemy_mana
+
+		_:
+			push_error("GameDecisionEngine.get_mana: Invalid side.")
+			return 0
+			
+func get_max_mana(side: int) -> int:
+	match side:
+		Side.PLAYER:
+			return player_max_mana_to_collect
+
+		Side.ENEMY:
+			return enemy_max_mana_to_collect
+
+		_:
+			push_error("GameDecisionEngine.get_max_mana: Invalid side.")
+			return 0
+			
+			
+func has_enough_mana(side: int,amount: int) -> bool:
+	if amount < 0:
+		return false
+
+	return get_mana(side) >= amount
+	
+func set_mana(side: int,new_amount: int	) -> void:
+	match side:
+		Side.PLAYER:
+			player_mana = clampi(new_amount,0,player_max_mana_to_collect)
+
+		Side.ENEMY:
+			enemy_mana = clampi(new_amount,0,enemy_max_mana_to_collect)
+
+		_:
+			push_error("GameDecisionEngine.set_mana: Invalid side.")
+			return
+
+	update_mana_inform_labels()
+	
+func add_mana(side: int,amount: int) -> void:
+	if amount <= 0:
+		return
+
+	set_mana(side,get_mana(side) + amount)
+	
+func spend_mana(side: int,amount: int) -> bool:
+	if amount < 0:
+		push_error(
+			"GameDecisionEngine.spend_mana: "
+			+ "Amount cannot be negative."
+		)
+		return false
+
+	if not has_enough_mana(side, amount):
+		return false
+
+	set_mana(side,get_mana(side) - amount)
+
+	return true
+
+func update_mana_inform_labels() -> void:
+	if player_mana_inform_label != null:
+		player_mana_inform_label.bbcode_enabled = true
+		player_mana_inform_label.text = (
+			"[center]"
+			+ str(player_mana)
+			+ " / "
+			+ str(player_max_mana_to_collect)
+			+ "\n[color=#7CFC00](Your)[/color]"
+			+ "[/center]"
+		)
+
+	if enemy_mana_inform_label != null:
+		enemy_mana_inform_label.bbcode_enabled = true
+		enemy_mana_inform_label.text = (
+			"[center]"
+			+ str(enemy_mana)
+			+ " / "
+			+ str(enemy_max_mana_to_collect)
+			+ "\n[color=#ff5555](Enemy)[/color]"
+			+ "[/center]"
+		)
