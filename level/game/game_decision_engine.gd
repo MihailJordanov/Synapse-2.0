@@ -8,6 +8,7 @@ signal game_finished(player_won: bool)
 enum Side { PLAYER, ENEMY }
 enum ScorePolicy { ACTIVE_SIDE_GETS_ALL, EACH_OWNER_GETS_OWN }
 enum ManaPolicy { DESTROY_ENEMIES, SACRIFICE_ALLIES }
+enum ResolutionOrigin { UNIT_PLAY, SPELL_PLAY }
 const CYCLE_VISUALIZER_SCENE = preload("uid://c81aoxm08v8tf")
 const MAX_CONSECUTIVE_FORCED_SKIPS = 3
 
@@ -26,8 +27,8 @@ var cycle_visualizer: CycleVisualizer
 @export var initial_draw_count: int = 5
 @export var player_winning_score: int = 10
 @export var enemy_winning_score: int = 10
-@export var player_max_mana_to_collect: int = 5
-@export var enemy_max_mana_to_collect: int = 5
+@export var player_max_mana_to_collect: int = 10
+@export var enemy_max_mana_to_collect: int = 10
 @export var enemy_think_time: float = 1.0
 @export var score_policy: ScorePolicy = ScorePolicy.ACTIVE_SIDE_GETS_ALL
 @export var mana_policy: ManaPolicy = ManaPolicy.DESTROY_ENEMIES
@@ -48,6 +49,7 @@ var pending_total_points: int = 0
 var pending_player_owned_points: int = 0
 var pending_enemy_owned_points: int = 0
 var active_spell_card: SpellCard
+var resolution_origin: ResolutionOrigin = ResolutionOrigin.UNIT_PLAY
 var consecutive_forced_skips: int = 0
 var player_spells_played_this_turn: int = 0
 
@@ -308,7 +310,7 @@ func add_score(side: int, amount: int) -> void:
 		player_score = min(player_score, player_winning_score)
 	else:
 		enemy_score += amount
-		player_score = min(player_score, enemy_winning_score)
+		enemy_score = min(enemy_score, enemy_winning_score)
 	score_changed.emit(player_score, enemy_score)
 	
 	update_game_info_labels()
@@ -769,3 +771,28 @@ func _connect_deck_signals() -> void:
 		enemy_hand.deck_changed.connect(
 			update_deck_inform_labels
 		)
+
+func resolve_after_unit_play() -> void:
+	resolution_origin = ResolutionOrigin.UNIT_PLAY
+	request_transition(check_for_cycle_state)
+
+func resolve_after_spell_play() -> void:
+	resolution_origin = ResolutionOrigin.SPELL_PLAY
+	request_transition(check_for_cycle_state)
+
+func finish_resolution() -> void:
+	match resolution_origin:
+		ResolutionOrigin.SPELL_PLAY:
+			if active_side == Side.PLAYER:
+				request_transition(player_play_card_state)
+			else:
+				request_transition(enemy_play_card_state)
+
+		ResolutionOrigin.UNIT_PLAY:
+			go_to_end_turn()
+
+func rebuild_board_connections() -> void:
+	if board_controller == null:
+		return
+
+	board_controller.rebuild_all_connections()

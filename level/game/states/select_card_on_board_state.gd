@@ -130,7 +130,8 @@ func _resolve_spell(target: UnitCard) -> void:
 	spell.destroy()
 	fsm.active_spell_card = null
 
-	change_to(fsm.player_play_card_state)
+	fsm.rebuild_board_connections()
+	fsm.resolve_after_spell_play()
 	
 	
 func _return_spell_to_hand(spell: SpellCard) -> void:

@@ -8,4 +8,4 @@ func enter() -> void:
 			fsm.add_score(GameDecisionEngine.Side.PLAYER, fsm.pending_player_owned_points)
 			fsm.add_score(GameDecisionEngine.Side.ENEMY, fsm.pending_enemy_owned_points)
 	fsm.clear_resolution_context()
-	fsm.go_to_end_turn()
+	fsm.finish_resolution()

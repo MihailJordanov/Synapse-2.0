@@ -32,19 +32,19 @@
 	"11005": {
 		"target_types": [3, 4, 8],
 		"source_types": [1, 2],
-		"points": 3,
+		"points": 1,
 		"texture_path":"res://data/card_images/units/heros1/tile005.png"
 	},
 	"11006": {
 		"target_types": [5, 6],
 		"source_types": [5, 6, 7],
-		"points": 3,
+		"points": 1,
 		"texture_path": "res://data/card_images/units/heros1/tile006.png"
 	},
 	"11007": {
 		"target_types": [1],
 		"source_types": [2, 3, 4],
-		"points": 2,
+		"points": 1,
 		"texture_path": "res://data/card_images/units/heros1/tile007.png"
 	},
 	"11008": {

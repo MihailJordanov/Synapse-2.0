@@ -205,6 +205,9 @@ func _create_spell_effect(effect_type: String,data: Dictionary) -> SpellEffect:
 
 		"remove_points":
 			return RemovePointSpellEffect.new(int(data.get("effect_amount", 0)))
+			
+		"modify_connection_type":
+			return _create_modify_connection_type_effect(data)
 
 		_:
 			push_error(
@@ -307,3 +310,83 @@ func _create_spell_requirement(requirement_type: String) -> SpellRequirement:
 				% requirement_type
 			)
 			return null
+
+
+func _create_modify_connection_type_effect(
+	data: Dictionary
+) -> SpellEffect:
+	var connection_type_string := str(
+		data.get("connection_type", "")
+	).to_lower()
+
+	var operation_string := str(
+		data.get("operation", "")
+	).to_lower()
+
+	var type_number := int(
+		data.get("type_number", 0)
+	)
+
+	if type_number < 1 or type_number > UnitCard.MAX_TYPES_COUNT:
+		push_error(
+			"CardManager: Invalid type_number %d."
+			% type_number
+		)
+		return null
+
+
+	var connection_type: ModifyConnectionTypeSpellEffect.ConnectionType
+
+	match connection_type_string:
+		"target":
+			connection_type = (
+				ModifyConnectionTypeSpellEffect
+				.ConnectionType
+				.TARGET
+			)
+
+		"source":
+			connection_type = (
+				ModifyConnectionTypeSpellEffect
+				.ConnectionType
+				.SOURCE
+			)
+
+		_:
+			push_error(
+				"CardManager: Invalid connection_type '%s'."
+				% connection_type_string
+			)
+			return null
+
+
+	var operation: ModifyConnectionTypeSpellEffect.Operation
+
+	match operation_string:
+		"add":
+			operation = (
+				ModifyConnectionTypeSpellEffect
+				.Operation
+				.ADD
+			)
+
+		"remove":
+			operation = (
+				ModifyConnectionTypeSpellEffect
+				.Operation
+				.REMOVE
+			)
+
+		_:
+			push_error(
+				"CardManager: Invalid operation '%s'."
+				% operation_string
+			)
+			return null
+
+
+	return ModifyConnectionTypeSpellEffect.new(
+		connection_type,
+		operation,
+		type_number
+	)

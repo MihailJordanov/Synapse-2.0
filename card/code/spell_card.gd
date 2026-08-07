@@ -128,18 +128,20 @@ func is_valid_target(card: Card,caster_side: int) -> bool:
 
 	var unit := card as UnitCard
 
+	var matches_target_mode: bool = false
+
 	match target_mode:
 		TargetMode.ANY_UNIT:
-			return true
+			matches_target_mode = true
 
 		TargetMode.FRIENDLY_UNIT:
-			return _is_friendly_unit(
+			matches_target_mode = _is_friendly_unit(
 				unit,
 				caster_side
 			)
 
 		TargetMode.ENEMY_UNIT:
-			return not _is_friendly_unit(
+			matches_target_mode = not _is_friendly_unit(
 				unit,
 				caster_side
 			)
@@ -147,8 +149,15 @@ func is_valid_target(card: Card,caster_side: int) -> bool:
 		TargetMode.NO_TARGET:
 			return false
 
-	return false
-	
+	if not matches_target_mode:
+		return false
+
+	if effect != null:
+		if not effect.can_apply_to(unit):
+			return false
+
+	return true
+
 func _is_friendly_unit(unit: UnitCard,caster_side: int) -> bool:
 	match caster_side:
 		GameDecisionEngine.Side.PLAYER:

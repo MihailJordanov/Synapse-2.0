@@ -387,3 +387,31 @@ func _add_cycle_to_result_sets(cycle_path: Array[int],card_set: Dictionary,edge_
 func _add_unique_edge(from_id: int,to_id: int,edge_set: Dictionary) -> void:
 	var edge_key: String = "%d:%d" % [from_id,to_id]
 	edge_set[edge_key] = Vector2i(from_id,to_id)
+
+func rebuild_all_connections() -> void:
+	outgoing_edges.clear()
+	incoming_edges.clear()
+
+	var all_ids: Array[int] = get_all_card_ids()
+
+	for card_id: int in all_ids:
+		outgoing_edges[card_id] = [] as Array[int]
+		incoming_edges[card_id] = [] as Array[int]
+
+	for from_id: int in all_ids:
+		var from_card: UnitCard = get_card(from_id)
+
+		if from_card == null:
+			continue
+
+		for to_id: int in all_ids:
+			if from_id == to_id and not allow_self_loops:
+				continue
+
+			var to_card: UnitCard = get_card(to_id)
+
+			if to_card == null:
+				continue
+
+			if can_connect(from_card, to_card):
+				add_edge(from_id, to_id)

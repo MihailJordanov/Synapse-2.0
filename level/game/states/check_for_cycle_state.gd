@@ -37,7 +37,7 @@ func enter() -> void:
 		_start_waiting_for_confirmation()
 		return
 
-	fsm.go_to_end_turn()
+	fsm.finish_resolution()
 
 
 func exit() -> void:

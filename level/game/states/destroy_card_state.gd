@@ -38,4 +38,4 @@ func enter() -> void:
 		change_to(fsm.sum_points_state)
 	else:
 		fsm.clear_resolution_context()
-		fsm.go_to_end_turn()
+		fsm.finish_resolution()

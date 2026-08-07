@@ -63,4 +63,5 @@ func _execute_spell_without_target(spell: SpellCard) -> void:
 	spell.destroy()
 	fsm.active_spell_card = null
 
-	change_to(fsm.player_play_card_state)
+	fsm.rebuild_board_connections()
+	fsm.resolve_after_spell_play()

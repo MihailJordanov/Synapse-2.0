@@ -40,6 +40,19 @@ corner_radius_bottom_right = 90
 corner_radius_bottom_left = 90
 corner_detail = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ir6g8"]
+bg_color = Color(0.8490765, 0.3326969, 0.5627121, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
 [node name="SpellCard" type="Node2D" unique_id=1471805596]
 script = ExtResource("1_jd3f6")
 
@@ -132,6 +145,15 @@ theme_override_font_sizes/font_size = 18
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CantPlayPanel" type="Panel" parent="." unique_id=104946588]
+visible = false
+offset_left = -71.0
+offset_top = -113.5
+offset_right = 71.0
+offset_bottom = 113.5
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ir6g8")
 
 [node name="BackCardSprite2D" type="Sprite2D" parent="." unique_id=292189658]
 unique_name_in_owner = true

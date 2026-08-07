@@ -114,7 +114,7 @@ func _on_card_drop_requested(card: Card,slot: CardSlot) -> void:
 	match card.card_type:
 		Card.CardType.UNIT:
 			fsm.reset_forced_skips()
-			change_to(fsm.check_for_cycle_state)
+			fsm.resolve_after_unit_play()
 
 		Card.CardType.SPELL:
 			if not card is SpellCard:

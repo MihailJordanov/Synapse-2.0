@@ -72,7 +72,10 @@ func _play_enemy_turn() -> void:
 			if spell_played:
 				played_any_card = true
 				fsm.reset_forced_skips()
-				continue
+
+				fsm.rebuild_board_connections()
+				fsm.resolve_after_spell_play()
+				return
 
 			change_to(fsm.enemy_end_turn_state)
 			return
@@ -95,9 +98,9 @@ func _play_enemy_turn() -> void:
 				return
 
 			fsm.reset_forced_skips()
-			change_to(fsm.check_for_cycle_state)
+			fsm.resolve_after_unit_play()
 			return
-
+				
 		if played_any_card:
 			fsm.set_state_info(
 				"Enemy Has No Unit Card to Play"
