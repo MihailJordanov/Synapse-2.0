@@ -196,10 +196,8 @@ func get_source_types_info() -> Dictionary:
 			missing.append(i)
 	return {"present": source_types.duplicate(), "missing": missing}
 
-
 func get_points() -> int:
 	return points
-
 
 func set_points(new_points: int) -> void:
 	
@@ -208,19 +206,15 @@ func set_points(new_points: int) -> void:
 
 	spawn_add_point_particles()
 
-
 func add_points(amount: int) -> void:
 	set_points(points + amount)
-
 
 func remove_points(amount: int) -> void:
 	set_points(points - amount)
 
-
 func _update_points_label() -> void:
 	if points_label:
 		points_label.text = str(points)
-
 
 func destroy() -> void:
 	var explosion_pos: Vector2 = global_position
@@ -247,7 +241,6 @@ func destroy() -> void:
 
 	super.destroy()
 
-
 func spawn_add_point_particles() -> void:
 	if ADD_POINT_PARTICLES == null or points_label == null:
 		return
@@ -271,3 +264,13 @@ func spawn_add_point_particles() -> void:
 
 	var timer: SceneTreeTimer = get_tree().create_timer(2.0)
 	timer.timeout.connect(particles.queue_free)
+
+func swap_target_and_source_types() -> void:
+	var old_target_types: Array[int] = target_types.duplicate()
+	var old_source_types: Array[int] = source_types.duplicate()
+
+	target_types.assign(old_source_types)
+	source_types.assign(old_target_types)
+
+	update_all_type_visibilities()
+	connection_types_changed.emit()

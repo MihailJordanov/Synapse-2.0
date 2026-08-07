@@ -37,8 +37,8 @@ var cycle_visualizer: CycleVisualizer
 
 var player_score: int = 0
 var enemy_score: int = 0
-var player_mana : int = 0
-var enemy_mana : int = 0
+var player_mana : int = 6
+var enemy_mana : int = 6
 var active_side: int = Side.PLAYER
 var current_state: State = null
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()

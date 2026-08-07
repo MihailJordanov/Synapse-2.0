@@ -208,6 +208,9 @@ func _create_spell_effect(effect_type: String,data: Dictionary) -> SpellEffect:
 			
 		"modify_connection_type":
 			return _create_modify_connection_type_effect(data)
+			
+		"swap_target_source_types":
+			return SwapTargetSourceTypesSpellEffect.new()
 
 		_:
 			push_error(
