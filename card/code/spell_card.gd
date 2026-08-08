@@ -19,6 +19,7 @@ var effect: SpellEffect
 var requirement: SpellRequirement
 var mana_cost : int = 0
 
+
 func _ready() -> void:
 	super._ready()
 	card_type = CardType.SPELL

@@ -107,11 +107,14 @@ func _resolve_spell(target: UnitCard) -> void:
 		_return_spell_to_hand(spell)
 		return
 
+	var destination_slot: CardSlot = spell.current_slot
+
 	var context := SpellContext.new(
 		fsm,
 		spell,
 		target,
-		fsm.active_side
+		fsm.active_side,
+		destination_slot
 	)
 
 	spell.execute(context)
@@ -132,7 +135,6 @@ func _resolve_spell(target: UnitCard) -> void:
 
 	fsm.rebuild_board_connections()
 	fsm.resolve_after_spell_play()
-	
 	
 func _return_spell_to_hand(spell: SpellCard) -> void:
 	if spell.current_slot != null:

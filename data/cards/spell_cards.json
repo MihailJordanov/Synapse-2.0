@@ -91,5 +91,13 @@
 
 		"texture_path": "res://data/card_images/spells/add_type/add_type_target_3.png",
 		"mana_cost": 3
+	},
+	"21400": {
+		"description": "[center]Select an enemy unit.\n[color=#6bff00]Take control of it.[/color][/center]",
+		"target_mode": "enemy_unit",
+		"effect_type": "steal_enemy_unit",
+		"requirement_type": "has_enemy_unit",
+		"texture_path": "res://data/card_images/spells/move_unit/get_enemy_unit.png",
+		"mana_cost": 1
 	}
 }

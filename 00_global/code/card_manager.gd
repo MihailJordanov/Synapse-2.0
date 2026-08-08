@@ -211,7 +211,9 @@ func _create_spell_effect(effect_type: String,data: Dictionary) -> SpellEffect:
 			
 		"swap_target_source_types":
 			return SwapTargetSourceTypesSpellEffect.new()
-
+			
+		"steal_enemy_unit":
+			return StealEnemyUnitSpellEffect.new()
 		_:
 			push_error(
 				"CardManager: Unsupported spell effect '%s'."

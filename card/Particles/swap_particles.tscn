@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://buc0bwow5trjh"]
+[gd_scene format=3 uid="uid://c8v8dvi7my8y1"]
 
 [sub_resource type="Gradient" id="Gradient_o03dy"]
 offsets = PackedFloat32Array(0, 0.55912596, 1)
@@ -6,15 +6,15 @@ colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_dfbx1"]
 gradient = SubResource("Gradient_o03dy")
-width = 16
-height = 16
+width = 12
+height = 12
 fill = 2
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
 [sub_resource type="Gradient" id="Gradient_07nan"]
-offsets = PackedFloat32Array(0.20808384, 0.3428144, 0.47155687)
-colors = PackedColorArray(0.337305, 0.0002552855, 0.40150023, 1, 0, 0, 0, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0.20808384, 0.3428144, 0.47155687, 0.59090906, 0.7307692)
+colors = PackedColorArray(1, 0.64930415, 0.8643342, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_07nan"]
 gradient = SubResource("Gradient_07nan")
@@ -23,13 +23,16 @@ gradient = SubResource("Gradient_07nan")
 _data = [Vector2(0.23160763, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Curve" id="Curve_afnws"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.18256132, 0.21808511), 0.0, 0.0, 0, 0, Vector2(1, 0.21808511), 0.0, 0.0, 0, 0]
-point_count = 3
-
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_r4tmy"]
 curve_x = SubResource("Curve_0axai")
-curve_y = SubResource("Curve_afnws")
+
+[sub_resource type="Curve" id="Curve_pd04b"]
+_limits = [-2.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, -2), 0.0, 0.0, 0, 0, Vector2(0.47159094, 2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_pd04b"]
+curve = SubResource("Curve_pd04b")
 
 [sub_resource type="Curve" id="Curve_amwf3"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.20708446, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -43,20 +46,25 @@ particle_flag_disable_z = true
 angle_min = 1.0728835e-05
 angle_max = 180.00002
 spread = 180.0
-directional_velocity_min = -600.0
-directional_velocity_max = 600.0
+directional_velocity_min = -200.0
+directional_velocity_max = 200.0
 directional_velocity_curve = SubResource("CurveXYZTexture_r4tmy")
+orbit_velocity_max = 2.0
+orbit_velocity_curve = SubResource("CurveTexture_pd04b")
 gravity = Vector3(0, 0, 0)
 scale_min = 0.29999998
 scale_max = 5.0
 scale_curve = SubResource("CurveTexture_o03dy")
 color_ramp = SubResource("GradientTexture1D_07nan")
 
-[node name="HorizontalExplosionParticlesD" type="GPUParticles2D" unique_id=843109057]
+[node name="SwapTypesParticlesD" type="GPUParticles2D" unique_id=843109057]
+position = Vector2(0, -1)
 emitting = false
-amount = 60
+amount = 40
 texture = SubResource("GradientTexture2D_dfbx1")
+lifetime = 2.0
 one_shot = true
+speed_scale = 1.5
 explosiveness = 0.7
 fixed_fps = 0
 visibility_rect = Rect2(-200, -200, 400, 400)

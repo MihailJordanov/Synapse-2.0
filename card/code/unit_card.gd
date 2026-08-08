@@ -4,6 +4,8 @@ signal connection_types_changed
 
 const BASIC_EXPLOSION_PARTICLES: PackedScene = preload("uid://dyu16flnvpg7a")
 const ADD_POINT_PARTICLES = preload("uid://d1vdn51cy30u8")
+const SWAP_PARTICLES = preload("uid://c8v8dvi7my8y1")
+const REMOVE_TYPE_PARTICLES = preload("uid://r5oylmwrlmc0")
 
 const MAX_TYPES_COUNT: int = 8     
 const MAX_EQUIPPED_TYPES: int = 3   
@@ -26,7 +28,11 @@ const MAX_EQUIPPED_TYPES: int = 3
 @onready var d_mace: TextureRect = %D_Mace
 @onready var d_teeth: TextureRect = %D_Teeth
 
+@onready var attack_container: HBoxContainer = %AttackHBoxContainer
+@onready var deffense_container: HBoxContainer = %DeffenseHBoxContainer
+
 @onready var points_label: Label = %PointsLabel
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 var target_types: Array[int] = []
 var source_types: Array[int] = []
@@ -41,7 +47,6 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	pass
-
 
 func setup_card() -> void:
 	update_all_type_visibilities()
@@ -64,10 +69,7 @@ func _get_icon_by_index(type_index: int, is_target: bool) -> TextureRect:
 		8: return a_teeth if is_target else d_teeth
 		_: return null
 
-func set_all_types(
-	new_target_types: Array[int],
-	new_source_types: Array[int]
-) -> void:
+func set_all_types(new_target_types: Array[int],new_source_types: Array[int]) -> void:
 	target_types.clear()
 
 	for type_idx: int in new_target_types:
@@ -130,6 +132,7 @@ func add_target_type(type_number: int) -> void:
 	_set_type_visible(type_number, true, true)
 	connection_types_changed.emit()
 	
+	_spawn_type_particle(ADD_POINT_PARTICLES, attack_container)
 
 func remove_target_type(type_number: int) -> void:
 	if not _is_valid_type_number(type_number):
@@ -144,7 +147,8 @@ func remove_target_type(type_number: int) -> void:
 	_set_type_visible(type_number, true, false)
 	connection_types_changed.emit()
 	
-	
+	_spawn_type_particle(REMOVE_TYPE_PARTICLES, attack_container)
+
 func add_source_type(type_number: int) -> void:
 	if not _is_valid_type_number(type_number):
 		push_warning("UnitCard: Invalid source type.")
@@ -161,7 +165,8 @@ func add_source_type(type_number: int) -> void:
 	source_types.append(type_number)
 	_set_type_visible(type_number, false, true)
 	connection_types_changed.emit()
-
+	
+	_spawn_type_particle(ADD_POINT_PARTICLES, deffense_container)
 
 func remove_source_type(type_number: int) -> void:
 	if not _is_valid_type_number(type_number):
@@ -175,6 +180,8 @@ func remove_source_type(type_number: int) -> void:
 	source_types.erase(type_number)
 	_set_type_visible(type_number, false, false)
 	connection_types_changed.emit()
+	
+	_spawn_type_particle(REMOVE_TYPE_PARTICLES, deffense_container)
 
 func get_target_types_count() -> int:
 	return target_types.size()
@@ -272,5 +279,50 @@ func swap_target_and_source_types() -> void:
 	target_types.assign(old_source_types)
 	source_types.assign(old_target_types)
 
+	anim_player.play("swap_types")
+	_spawn_swap_particles()
+
+	await get_tree().create_timer(0.35).timeout
+
 	update_all_type_visibilities()
 	connection_types_changed.emit()
+
+func _spawn_swap_particles() -> void:
+	if SWAP_PARTICLES == null:
+		return
+
+	var particles := SWAP_PARTICLES.instantiate() as Node2D
+	if particles == null:
+		return
+
+	add_child(particles)
+	particles.global_position = global_position
+
+	if particles is GPUParticles2D or particles is CPUParticles2D:
+		particles.emitting = true
+
+	var timer: SceneTreeTimer = get_tree().create_timer(2.0)
+	timer.timeout.connect(particles.queue_free)
+
+
+func _spawn_type_particle(particle_scene: PackedScene, target_container: Control) -> void:
+	if particle_scene == null or target_container == null:
+		return
+
+	var particles := particle_scene.instantiate() as Node2D
+	if particles == null:
+		return
+
+	add_child(particles)
+
+	var container_pos: Vector2 = target_container.global_position
+	var center_x: float = container_pos.x + (target_container.size.x / 2.0)
+	var center_y: float = container_pos.y + (target_container.size.y / 2.0)
+	
+	particles.global_position = Vector2(center_x, center_y)
+
+	if particles is GPUParticles2D or particles is CPUParticles2D:
+		particles.emitting = true
+		
+	var timer: SceneTreeTimer = get_tree().create_timer(2.0)
+	timer.timeout.connect(particles.queue_free)
