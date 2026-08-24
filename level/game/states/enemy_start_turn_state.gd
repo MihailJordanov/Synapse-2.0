@@ -2,6 +2,8 @@ class_name EnemyStartTurnState extends State
 
 
 func enter() -> void:
+	fsm.enemy_turn_count  += 1
+	fsm.level_controller.activate_turn_start_legend(GameDecisionEngine.Side.ENEMY,fsm,fsm.enemy_turn_count)
 	fsm.active_side = GameDecisionEngine.Side.ENEMY
 	fsm.set_state_info("Enemy Start")
 

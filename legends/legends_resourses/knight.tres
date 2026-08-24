@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Legend" format=3 uid="uid://di8xais7mctgg"]
+
+[ext_resource type="Script" uid="uid://b0rwi3regpugl" path="res://legends/code/effects/knight_legend_effect.gd" id="1_3eo2p"]
+[ext_resource type="Script" uid="uid://dpbul1cm8c4ue" path="res://legends/code/legend.gd" id="2_dxw4b"]
+[ext_resource type="Texture2D" uid="uid://cggm1kiyi3a7w" path="res://legends/assets/legends_icons/knight_legend_icon.png" id="3_o6ceh"]
+
+[sub_resource type="Resource" id="Resource_i3jea"]
+script = ExtResource("1_3eo2p")
+metadata/_custom_type_script = "uid://b0rwi3regpugl"
+
+[resource]
+script = ExtResource("2_dxw4b")
+legend_name = "Knight"
+description = "Draw 1 additional card at the beginning of the battle."
+texture = ExtResource("3_o6ceh")
+effect = SubResource("Resource_i3jea")
+metadata/_custom_type_script = "uid://dpbul1cm8c4ue"

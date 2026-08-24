@@ -52,6 +52,10 @@ var active_spell_card: SpellCard
 var resolution_origin: ResolutionOrigin = ResolutionOrigin.UNIT_PLAY
 var consecutive_forced_skips: int = 0
 var player_spells_played_this_turn: int = 0
+var player_first_draw_done: bool = false
+var enemy_first_draw_done: bool = false
+var player_turn_count: int = 0
+var enemy_turn_count: int = 0
 
 var _pending_state: State = null
 var _transition_queued: bool = false
@@ -154,7 +158,11 @@ func wait_seconds(seconds: float, owner_state: State) -> bool:
 func reset_match() -> void:
 	player_score = 0
 	enemy_score = 0
+	player_turn_count = 0
+	enemy_turn_count = 0
 	active_side = Side.PLAYER
+	player_first_draw_done = false
+	enemy_first_draw_done = false
 	clear_resolution_context()
 	board_controller.clear_board()
 	for slot in player_slots + enemy_slots:
