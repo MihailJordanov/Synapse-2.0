@@ -1,6 +1,7 @@
 class_name AddPointSpellEffect
 extends SpellEffect
 
+const ADD_POINT = preload("uid://cghqnfne2oda2")
 
 var amount: int = 1
 
@@ -23,3 +24,11 @@ func execute(context: SpellContext) -> void:
 		return
 
 	context.target.add_points(amount)
+	
+	Audio.play_spatial_sound(
+		ADD_POINT,
+		context.target.global_position,
+		false,
+		false,
+		0.25
+	)

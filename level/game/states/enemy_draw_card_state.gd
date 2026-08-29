@@ -1,5 +1,7 @@
 class_name EnemyDrawCardState extends State
 
+const ENEMY_DRAW_CARD = preload("uid://bpuhebv2ydrj8")
+
 
 func enter() -> void:
 	var draw_count: int = 1
@@ -13,6 +15,14 @@ func enter() -> void:
 	for i in range(draw_count):
 		if fsm.enemy_hand.deck.is_empty():
 			break
+
+		Audio.play_spatial_sound(
+			ENEMY_DRAW_CARD,
+			fsm.player_hand.deck_sprite.global_position,
+			false,
+			false,
+			0.25
+		)
 
 		fsm.enemy_hand.draw_card()
 

@@ -1,6 +1,7 @@
 class_name PlayerPlayCardState
 extends State
 
+const PLACING_CARD = preload("uid://0bmixn5qduk2")
 
 var is_skip_available: bool = false
 var skip_is_forced: bool = false
@@ -110,6 +111,14 @@ func _on_card_drop_requested(card: Card,slot: CardSlot) -> void:
 	if not was_played:
 		fsm.card_dragger.reject_last_drop(card)
 		return
+	
+	Audio.play_spatial_sound(
+			PLACING_CARD,
+			fsm.player_hand.deck_sprite.global_position,
+			false,
+			true,
+			0.25
+		)
 
 	match card.card_type:
 		Card.CardType.UNIT:

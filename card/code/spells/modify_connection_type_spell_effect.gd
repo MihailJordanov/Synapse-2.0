@@ -1,6 +1,9 @@
 class_name ModifyConnectionTypeSpellEffect
 extends SpellEffect
 
+const ADD_TYPE = preload("uid://cq350dpaypdct")
+const REMOVE_TYPE = preload("uid://bvojnaglmfdqm")
+
 
 enum ConnectionType {
 	TARGET,
@@ -110,15 +113,43 @@ func _apply_to_target_type(target: UnitCard) -> void:
 	match operation:
 		Operation.ADD:
 			target.add_target_type(type_number)
+			Audio.play_spatial_sound(
+				ADD_TYPE,
+				target.global_position,
+				false,
+				false,
+				0.25
+			)
 
 		Operation.REMOVE:
 			target.remove_target_type(type_number)
+			Audio.play_spatial_sound(
+				REMOVE_TYPE,
+				target.global_position,
+				false,
+				false,
+				0.25
+			)
 
 
 func _apply_to_source_type(target: UnitCard) -> void:
 	match operation:
 		Operation.ADD:
 			target.add_source_type(type_number)
+			Audio.play_spatial_sound(
+				ADD_TYPE,
+				target.global_position,
+				false,
+				false,
+				0.25
+			)
 
 		Operation.REMOVE:
 			target.remove_source_type(type_number)
+			Audio.play_spatial_sound(
+				REMOVE_TYPE,
+				target.global_position,
+				false,
+				false,
+				0.25
+			)

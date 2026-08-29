@@ -1,6 +1,9 @@
 class_name DestroyCardState
 extends State
 
+const PIXEL_EXPLOSION = preload("uid://b7sdrrakrgwiy")
+const CARTOON_EXPLOSION = preload("uid://bvojnaglmfdqm")
+const SMALL_EXPLOSION = preload("uid://c7vocdsd5wpur")
 
 func enter() -> void:
 	fsm.set_state_info("Destroying cards")
@@ -30,9 +33,39 @@ func enter() -> void:
 			destroyed_enemy_cards
 		)
 
+	var explosion_volume: float = 0.1
+
 	for card in removed_cards:
-		if is_instance_valid(card):
-			card.destroy()
+		if not is_instance_valid(card):
+			continue
+
+		var explosion_sound: AudioStream
+
+		var rand : int = randi() % 3
+		if rand == 0:
+			explosion_sound = PIXEL_EXPLOSION
+		elif rand == 1:
+			explosion_sound = SMALL_EXPLOSION
+		else:
+			explosion_sound = CARTOON_EXPLOSION
+
+		Audio.play_spatial_sound(
+			explosion_sound,
+			card.global_position,
+			false,
+			false,
+			explosion_volume
+		)
+
+		card.destroy()
+
+		explosion_volume = minf(
+			explosion_volume + 0.1,
+			1.0
+		)
+
+		if not await fsm.wait_seconds(0.06, self):
+			return
 
 	fsm.pending_destroy_ids.clear()
 	fsm.clear_cycle_visualization()
@@ -70,5 +103,3 @@ func _draw_cycle_reward_spell() -> void:
 		fsm.set_state_info("Cycle Reward!\nYou drew a spell card.")
 	else:
 		fsm.set_state_info("Enemy drew a spell card.")
-
-	await fsm.wait_seconds(1.0,self)

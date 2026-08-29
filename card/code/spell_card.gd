@@ -1,6 +1,8 @@
 class_name SpellCard
 extends Card
 
+const SPELL_CARD_DESTROY = preload("uid://ggw5af0yktjm")
+
 const HORIZONTAL_EXPLOSION_PARTICLES = preload("uid://buc0bwow5trjh")
 
 enum TargetMode {
@@ -77,6 +79,14 @@ func destroy() -> void:
 					]
 
 					particles_instance.modulate = colors.pick_random()
+
+					Audio.play_spatial_sound(
+						SPELL_CARD_DESTROY,
+						self.global_position,
+						false,
+						false,
+						0.25
+					)
 
 					if particles_instance.has_method("restart"):
 						particles_instance.call("restart")

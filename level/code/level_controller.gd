@@ -50,10 +50,10 @@ func _generate_decks() -> void:
 	]
 
 	var player_spell_card_ids: Array[int] = [
-		21000,
 		21001,
-		21002,
-		21400
+		21101,
+		21400,
+		21100
 	]
 
 	var enemy_card_ids: Array[int] = [
@@ -70,10 +70,10 @@ func _generate_decks() -> void:
 	]
 
 	var enemy_spell_card_ids: Array[int] = [
-		21000,
 		21100,
-		21101,
-		21400
+		21102,
+		21400,
+		21000
 	]
 
 	player_card_ids = _validate_deck_ids(player_card_ids,false,"player_deck")

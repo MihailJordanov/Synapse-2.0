@@ -1,7 +1,7 @@
 class_name EnemyPlayCardState
 extends State
 
-
+const PLACING_CARD = preload("uid://0bmixn5qduk2")
 const SPELL_REVEAL_TIME: float = 1.0
 
 @export_range(0.0, 1.0, 0.05)
@@ -164,6 +164,14 @@ func _play_unit_card(unit: UnitCard,slot: CardSlot) -> bool:
 		GameDecisionEngine.Side.ENEMY
 	):
 		return false
+		
+	Audio.play_spatial_sound(
+			PLACING_CARD,
+			slot.global_position,
+			false,
+			false,
+			0.25
+		)
 
 	unit.global_position = start_global_position
 	unit.global_rotation = start_rotation
@@ -206,6 +214,14 @@ func _play_spell_card(spell: SpellCard,slot: CardSlot) -> bool:
 		GameDecisionEngine.Side.ENEMY
 	):
 		return false
+		
+	Audio.play_spatial_sound(
+			PLACING_CARD,
+			slot.global_position,
+			false,
+			false,
+			0.25
+		)
 
 	spell.global_position = start_global_position
 	spell.global_rotation = start_rotation

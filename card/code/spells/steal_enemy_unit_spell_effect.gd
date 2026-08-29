@@ -1,6 +1,7 @@
 class_name StealEnemyUnitSpellEffect
 extends SpellEffect
 
+const STEAL_ENEMY_UNIT = preload("uid://dw64y8yaxt7yu")
 
 func can_apply_to(target: UnitCard) -> bool:
 	if target == null:
@@ -68,3 +69,11 @@ func execute(context: SpellContext) -> void:
 			+ "Could not place captured unit."
 		)
 		return
+	
+	Audio.play_spatial_sound(
+		STEAL_ENEMY_UNIT,
+		context.target.global_position,
+		false,
+		false,
+		0.55
+	)

@@ -32,6 +32,8 @@
 [ext_resource type="Texture2D" uid="uid://sr61n8jepge2" path="res://level/assets/mana_gem_icon.png" id="25_3821i"]
 [ext_resource type="Texture2D" uid="uid://bxv7glfulafd1" path="res://level/assets/victory_points_icon.png" id="25_ht6j8"]
 [ext_resource type="Texture2D" uid="uid://c3754bw6hruqy" path="res://level/assets/deck_count_icon.png" id="26_c1kdy"]
+[ext_resource type="Script" uid="uid://bg0v5cadydhqc" path="res://music/music_audio_trigger.gd" id="33_5ymgo"]
+[ext_resource type="AudioStream" uid="uid://b777ks7xe7kaj" path="res://music/BG theme/chill_bg_music_1.wav" id="34_dfdxi"]
 
 [sub_resource type="Gradient" id="Gradient_6i7va"]
 offsets = PackedFloat32Array(0)
@@ -547,9 +549,9 @@ scroll_active = false
 autowrap_mode = 2
 
 [node name="PlayerInfoPanel" type="Panel" parent="UI" unique_id=1930544860]
-offset_left = 1340.0
+offset_left = 1348.0
 offset_top = 418.0
-offset_right = 1610.0
+offset_right = 1618.0
 offset_bottom = 643.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ht6j8")
 
@@ -635,9 +637,9 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("26_c1kdy")
 
 [node name="EnemyInfoPanel" type="Panel" parent="UI" unique_id=2014636833]
-offset_left = 1340.0
+offset_left = 1348.0
 offset_top = 146.0
-offset_right = 1610.0
+offset_right = 1618.0
 offset_bottom = 371.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6i7va")
 
@@ -793,3 +795,9 @@ theme_override_font_sizes/mono_font_size = 48
 text = "+ 1"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MusicAutoTrigger" type="Node" parent="." unique_id=1505354949]
+script = ExtResource("33_5ymgo")
+track = ExtResource("34_dfdxi")
+volume_db = -30.0
+metadata/_custom_type_script = "uid://bg0v5cadydhqc"

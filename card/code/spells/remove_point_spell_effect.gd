@@ -1,6 +1,7 @@
 class_name RemovePointSpellEffect
 extends SpellEffect
 
+const REMOVE_POINT = preload("uid://38h33s3f1mg7")
 
 var amount: int = 1
 
@@ -23,3 +24,11 @@ func execute(context: SpellContext) -> void:
 		return
 
 	context.target.remove_points(amount)
+	
+	Audio.play_spatial_sound(
+		REMOVE_POINT,
+		context.target.global_position,
+		false,
+		false,
+		0.25
+	)
