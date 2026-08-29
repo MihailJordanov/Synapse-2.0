@@ -16,8 +16,11 @@ const DEFAULT_LEGEND_ICON = preload("uid://cud08kmrohsno")
 
 
 
-var player_deck: Array[Node2D] = []
-var enemy_deck: Array[Node2D] = []
+var player_deck: Array[Card] = []
+var player_spell_deck: Array[Card] = []
+
+var enemy_deck: Array[Card] = []
+var enemy_spell_deck: Array[Card] = []
 
 func _ready() -> void:
 	_generate_decks()
@@ -28,24 +31,66 @@ func _ready() -> void:
 
 
 func _generate_decks() -> void:
-	var player_card_ids: Array[int] = [21400, 11008, 11007, 21400, 11004, 21400, 21101, 11007, 11008, 21102]
-	var enemy_card_ids: Array[int] = [11009, 21400, 11007, 21100, 21400, 11002, 21400, 11007, 11001, 21101]
+	player_deck.clear()
+	player_spell_deck.clear()
+	enemy_deck.clear()
+	enemy_spell_deck.clear()
 
-	#var player_card_ids: Array[int] = [21001, 21001, 21001, 21001, 21001, 21001, 21001, 21001, 21001, 21001]
-	#var enemy_card_ids: Array[int] = [21001, 21001, 21001, 21001, 21001, 21001, 21001, 21001, 21001, 21001]
-	
-	#var player_card_ids: Array[int] = [11000,11000,11000,11000,11000,11000,11000,11000,11000,11000,11000,1100011000,11000,11000]
-	#var enemy_card_ids: Array[int] = [11000,11000,11000,11000,11000,11000,11000,11000,11000,11000,11000,1100011000,11000,11000]
-		
-	for card_id in player_card_ids:
-		var card = CardManager.create_card_by_id(card_id)
-		if card:
-			player_deck.append(card)
+	var player_card_ids: Array[int] = [
+		11008,
+		11007,
+		11004,
+		11007,
+		11008,
+		11001,
+		11002,
+		11003,
+		11004,
+		11005
+	]
 
-	for card_id in enemy_card_ids:
-		var card = CardManager.create_card_by_id(card_id)
-		if card:
-			enemy_deck.append(card)
+	var player_spell_card_ids: Array[int] = [
+		21000,
+		21001,
+		21002,
+		21400
+	]
+
+	var enemy_card_ids: Array[int] = [
+		11009,
+		11007,
+		11002,
+		11007,
+		11001,
+		11001,
+		11002,
+		11003,
+		11004,
+		11005
+	]
+
+	var enemy_spell_card_ids: Array[int] = [
+		21000,
+		21100,
+		21101,
+		21400
+	]
+
+	player_card_ids = _validate_deck_ids(player_card_ids,false,"player_deck")
+
+	player_spell_card_ids = _validate_deck_ids(player_spell_card_ids,true,"player_spell_deck")
+
+	enemy_card_ids = _validate_deck_ids(enemy_card_ids,false,"enemy_deck")
+
+	enemy_spell_card_ids = _validate_deck_ids(enemy_spell_card_ids,true,"enemy_spell_deck")
+
+	player_deck = _create_cards_from_ids(player_card_ids)
+
+	player_spell_deck = _create_cards_from_ids(player_spell_card_ids)
+
+	enemy_deck = _create_cards_from_ids(enemy_card_ids)
+
+	enemy_spell_deck = _create_cards_from_ids(enemy_spell_card_ids)
 			
 
 func _setup_legends_ui() -> void:
@@ -159,3 +204,56 @@ func activate_turn_start_legend(current_side: GameDecisionEngine.Side,fsm: GameD
 
 	if was_activated:
 		play_legend_activation_animation(legend, current_side)
+
+
+func _is_unit_card_id(card_id: int) -> bool:
+	return str(card_id).begins_with("1")
+
+
+func _is_spell_card_id(card_id: int) -> bool:
+	return str(card_id).begins_with("2")
+	
+func _validate_deck_ids(card_ids: Array[int],expect_spell_cards: bool,deck_name: String) -> Array[int]:
+	var valid_ids: Array[int] = []
+
+	for card_id: int in card_ids:
+		var is_valid: bool
+
+		if expect_spell_cards:
+			is_valid = _is_spell_card_id(card_id)
+		else:
+			is_valid = _is_unit_card_id(card_id)
+
+		if not is_valid:
+			push_warning(
+				"LevelController: Card ID %d does not belong in %s and was removed."
+				% [
+					card_id,
+					deck_name
+				]
+			)
+			continue
+
+		valid_ids.append(card_id)
+
+	return valid_ids
+	
+func _create_cards_from_ids(card_ids: Array[int]) -> Array[Card]:
+	var result: Array[Card] = []
+
+	for card_id: int in card_ids:
+		var card: Card = CardManager.create_card_by_id(
+			card_id
+		)
+
+		if card == null:
+			push_warning(
+				"LevelController: Could not create card ID %d."
+				% card_id
+			)
+			continue
+
+		result.append(card)
+
+	return result
+	

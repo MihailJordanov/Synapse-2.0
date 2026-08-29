@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bogmws4i24lqm" path="res://level/code/card_dragger.gd" id="2_54fhk"]
 [ext_resource type="PackedScene" uid="uid://ci5eme0ewwipd" path="res://card_slot/card_slot.tscn" id="3_54fhk"]
 [ext_resource type="Texture2D" uid="uid://wb3t0sue3yq1" path="res://level/assets/background_1.png" id="4_43ii6"]
+[ext_resource type="Texture2D" uid="uid://cl7w36okis8je" path="res://card/assets/spell_card_back.png" id="5_ldw2c"]
 [ext_resource type="Texture2D" uid="uid://cc1mnhmr0xayn" path="res://card/assets/deck_image.png" id="5_o7jp2"]
 [ext_resource type="Resource" uid="uid://di8xais7mctgg" path="res://legends/legends_resourses/knight.tres" id="6_c1o2p"]
 [ext_resource type="Script" uid="uid://ryk5vi51obof" path="res://level/code/level_controller.gd" id="6_i2c4w"]
@@ -333,10 +334,20 @@ position = Vector2(132, 768)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_o7jp2")
 
+[node name="PlayerSpellDeck" type="Sprite2D" parent="Slots" unique_id=776532174]
+position = Vector2(1472, 768)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_ldw2c")
+
 [node name="EnemyDeck" type="Sprite2D" parent="Slots" unique_id=1780896770]
 position = Vector2(132, 36)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_o7jp2")
+
+[node name="EnemySpellDeck" type="Sprite2D" parent="Slots" unique_id=623002403]
+position = Vector2(1472, 36)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_ldw2c")
 
 [node name="LevelController" type="Node2D" parent="." unique_id=2086973841]
 unique_name_in_owner = true
@@ -346,16 +357,18 @@ enemy_legend = ExtResource("7_sdlhl")
 
 [node name="Hands" type="Node2D" parent="." unique_id=1465348749]
 
-[node name="PlayerHand" type="Node2D" parent="Hands" unique_id=991506965 node_paths=PackedStringArray("deck_sprite")]
+[node name="PlayerHand" type="Node2D" parent="Hands" unique_id=991506965 node_paths=PackedStringArray("deck_sprite", "spell_deck_sprite")]
 position = Vector2(799, 780)
 script = ExtResource("7_05d1k")
 deck_sprite = NodePath("../../Slots/PlayerDeck")
+spell_deck_sprite = NodePath("../../Slots/PlayerSpellDeck")
 
-[node name="EnemyHand" type="Node2D" parent="Hands" unique_id=357395619 node_paths=PackedStringArray("deck_sprite")]
+[node name="EnemyHand" type="Node2D" parent="Hands" unique_id=357395619 node_paths=PackedStringArray("deck_sprite", "spell_deck_sprite")]
 position = Vector2(799, 6)
 script = ExtResource("7_05d1k")
 is_enemy = true
 deck_sprite = NodePath("../../Slots/EnemyDeck")
+spell_deck_sprite = NodePath("../../Slots/EnemySpellDeck")
 
 [node name="Legends" type="Node2D" parent="." unique_id=996052295]
 
@@ -712,7 +725,7 @@ texture = ExtResource("26_c1kdy")
 [node name="LegendInfoPanel" type="Panel" parent="UI" unique_id=963880603]
 unique_name_in_owner = true
 visible = false
-z_index = 100
+z_index = 101
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -753,6 +766,7 @@ offset_left = 1401.0
 offset_top = 699.0
 offset_right = 1544.0
 offset_bottom = 767.0
+mouse_filter = 2
 theme_override_colors/default_color = Color(0, 1, 1, 1)
 theme_override_font_sizes/normal_font_size = 48
 theme_override_font_sizes/bold_font_size = 48
@@ -769,6 +783,7 @@ offset_left = 52.0
 offset_top = 132.0
 offset_right = 195.0
 offset_bottom = 199.99991
+mouse_filter = 2
 theme_override_colors/default_color = Color(0, 1, 1, 1)
 theme_override_font_sizes/normal_font_size = 48
 theme_override_font_sizes/bold_font_size = 48

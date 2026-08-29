@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bgqtkaewogmx2" path="res://resources/edge/cycle_visualizer.gd" id="1_ffhem"]
 
 [node name="EdgeVisualizer" type="Node2D" unique_id=1572453108]
+z_index = 21
 script = ExtResource("1_ffhem")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=887984978]

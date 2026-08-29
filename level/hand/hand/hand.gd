@@ -7,6 +7,7 @@ signal deck_changed
 @export var height: float = 0.0
 @export var is_enemy: bool = false
 @export var deck_sprite: Sprite2D
+@export var spell_deck_sprite: Sprite2D
 
 @export_category("Layout")
 @export var preferred_card_spacing: float = 150.0
@@ -33,6 +34,7 @@ signal deck_changed
 
 var cards_in_hand: Array[Card] = []
 var deck: Array[Card] = []
+var spell_deck: Array[Card] = []
 
 var hovered_card: Card = null
 var dragged_card: Card = null
@@ -73,27 +75,68 @@ func setup_deck(source_cards: Array) -> void:
 	deck.shuffle()
 
 
+func setup_spell_deck(source_cards: Array) -> void:
+	spell_deck.clear()
+
+	for item in source_cards:
+		var card := item as Card
+
+		if card == null:
+			continue
+
+		if not card is SpellCard:
+			push_warning(
+				"Hand.setup_spell_deck: "
+				+ "Non-spell card ignored."
+			)
+			continue
+
+		card.is_enemy_card = is_enemy
+		card.is_card_hide = is_enemy
+
+		spell_deck.append(card)
+
+	spell_deck.shuffle()
+	deck_changed.emit()
+
+
+
 func draw_card() -> Card:
-	if deck.is_empty():
+	return _draw_from_deck(
+		deck,
+		deck_sprite
+	)
+	
+func draw_spell_card() -> Card:
+	return _draw_from_deck(
+		spell_deck,
+		spell_deck_sprite
+	)
+	
+func _draw_from_deck(source_deck: Array[Card],source_sprite: Sprite2D) -> Card:
+	if source_deck.is_empty():
 		return null
 
-	var card: Card = deck[0]
-	deck.remove_at(0)
+	var card: Card = source_deck[0]
+	source_deck.remove_at(0)
 
 	if not is_instance_valid(card):
 		push_error(
-			"Hand.draw_card: Invalid card in deck."
+			"Hand._draw_from_deck: "
+			+ "Invalid card in deck."
 		)
 		return null
 
 	deck_changed.emit()
 
-	add_existing_card(card)
+	add_existing_card_from_deck(
+		card,
+		source_sprite
+	)
 
 	return card
-
-
-func add_existing_card(card: Card) -> void:
+	
+func add_existing_card_from_deck(card: Card,source_sprite: Sprite2D) -> void:
 	if card == null:
 		return
 
@@ -111,14 +154,19 @@ func add_existing_card(card: Card) -> void:
 	elif card.get_parent() != self:
 		card.reparent(self, true)
 
-	if deck_sprite != null:
-		card.global_position = deck_sprite.global_position
-		card.global_rotation = deck_sprite.global_rotation
+	if source_sprite != null:
+		card.global_position = source_sprite.global_position
+		card.global_rotation = source_sprite.global_rotation
 
 	card.scale = Vector2.ONE
 
 	rearrange_hand()
 
+func add_existing_card(card: Card) -> void:
+	add_existing_card_from_deck(
+		card,
+		deck_sprite
+	)
 
 func remove_card(card: Card) -> bool:
 	if not cards_in_hand.has(card):
@@ -138,11 +186,6 @@ func remove_card(card: Card) -> bool:
 
 	return true
 
-
-# ---------------------------------------------------------
-# Hover
-# ---------------------------------------------------------
-
 func set_hovered_card(card: Card) -> void:
 	if is_enemy:
 		return
@@ -157,7 +200,6 @@ func set_hovered_card(card: Card) -> void:
 
 	rearrange_hand()
 
-
 func clear_hovered_card(card: Card = null) -> void:
 	if card != null and hovered_card != card:
 		return
@@ -168,11 +210,6 @@ func clear_hovered_card(card: Card = null) -> void:
 	hovered_card = null
 
 	rearrange_hand()
-
-
-# ---------------------------------------------------------
-# Drag
-# ---------------------------------------------------------
 
 func begin_drag(card: Card) -> void:
 	if card == null:
@@ -188,7 +225,6 @@ func begin_drag(card: Card) -> void:
 	# Rearrange the remaining hand around the temporary gap.
 	rearrange_hand()
 
-
 func end_drag(card: Card) -> void:
 	if dragged_card != card:
 		return
@@ -196,11 +232,6 @@ func end_drag(card: Card) -> void:
 	dragged_card = null
 
 	rearrange_hand()
-
-
-# ---------------------------------------------------------
-# Layout
-# ---------------------------------------------------------
 
 func rearrange_hand() -> void:
 	var size: int = cards_in_hand.size()
@@ -305,7 +336,6 @@ func rearrange_hand() -> void:
 
 		_update_z_index(card, i)
 
-
 func _calculate_spacing(card_count: int) -> float:
 	if card_count <= 1:
 		return preferred_card_spacing
@@ -328,7 +358,6 @@ func _calculate_spacing(card_count: int) -> float:
 		compressed_spacing
 	)
 
-
 func _calculate_hover_push(distance: int) -> float:
 	if distance == 0:
 		return 0.0
@@ -348,7 +377,6 @@ func _calculate_hover_push(distance: int) -> float:
 
 	return amount
 
-
 func _update_z_index(card: Card,index: int) -> void:
 	if card.current_slot != null:
 		card.z_as_relative = true
@@ -362,13 +390,11 @@ func _update_z_index(card: Card,index: int) -> void:
 	else:
 		card.z_index = 10 + index
 
-
 func _animate_card(
 	card: Card,
 	target_position: Vector2,
 	target_rotation: float,
-	target_scale: Vector2
-) -> void:
+	target_scale: Vector2) -> void:
 	var tween: Tween = card.create_tween()
 
 	tween.set_parallel(true)
@@ -401,7 +427,6 @@ func _animate_card(
 		animation_duration
 	)
 
-
 func _cancel_card_tween(card: Card) -> void:
 	if card == null:
 		return
@@ -418,9 +443,8 @@ func _cancel_card_tween(card: Card) -> void:
 
 	_card_tweens.erase(id)
 
-
 func clear_hand_and_deck() -> void:
-	for card: Card in cards_in_hand + deck:
+	for card: Card in cards_in_hand + deck + spell_deck:
 		if (
 			is_instance_valid(card)
 			and card.get_parent() != null
@@ -429,17 +453,16 @@ func clear_hand_and_deck() -> void:
 
 	cards_in_hand.clear()
 	deck.clear()
+	spell_deck.clear()
 
 	hovered_card = null
 	dragged_card = null
 
 	_card_tweens.clear()
 
-
 func set_deck(new_deck: Array[Card]) -> void:
 	deck = new_deck
 	deck_changed.emit()
-
 
 func get_deck_size() -> int:
 	return deck.size()

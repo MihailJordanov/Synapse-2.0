@@ -13,9 +13,18 @@ func enter() -> void:
 	fsm.player_hand.setup_deck(
 		fsm.level_controller.player_deck
 	)
+	
+	fsm.player_hand.setup_spell_deck(
+		fsm.level_controller.player_spell_deck
+	)
+
 
 	fsm.enemy_hand.setup_deck(
 		fsm.level_controller.enemy_deck
+	)
+	
+	fsm.enemy_hand.setup_spell_deck(
+		fsm.level_controller.enemy_spell_deck
 	)
 
 	for _i: int in range(fsm.initial_draw_count):

@@ -804,3 +804,28 @@ func rebuild_board_connections() -> void:
 		return
 
 	board_controller.rebuild_all_connections()
+
+func draw_spell_card_for_side(side: int) -> Card:
+	match side:
+		Side.PLAYER:
+			return player_hand.draw_spell_card()
+
+		Side.ENEMY:
+			return enemy_hand.draw_spell_card()
+
+		_:
+			push_error(
+				"GameDecisionEngine.draw_spell_card_for_side: "
+				+ "Invalid side."
+			)
+			return null
+
+func get_spell_deck_size(side: int) -> int:
+	match side:
+		Side.PLAYER:
+			return player_hand.spell_deck.size()
+
+		Side.ENEMY:
+			return enemy_hand.spell_deck.size()
+
+	return 0
