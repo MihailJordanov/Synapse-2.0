@@ -1,7 +1,7 @@
 @icon( "res://resources/icons/controller.svg" )
 class_name LevelController extends Node
 
-const DEFAULT_LEGEND_ICON = preload("uid://cud08kmrohsno")
+const DEFAULT_LEGEND_ICON = preload("uid://xciqo3d2po72")
 
 @export_category("Legends")
 
@@ -96,11 +96,11 @@ func _generate_decks() -> void:
 			
 
 func _setup_legends_ui() -> void:
-	if player_legend == null:
-		player_legend_ui.visible = false
+	#if player_legend == null:
+	#	player_legend_ui.visible = false
 		
-	if enemy_legend == null:
-		enemy_legend_ui.visible = false
+	#if enemy_legend == null:
+	#	enemy_legend_ui.visible = false
 	
 	if player_legend != null and player_legend.texture != null:
 		player_legend_texture_rect.texture = player_legend.texture

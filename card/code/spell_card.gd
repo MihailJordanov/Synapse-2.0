@@ -181,12 +181,10 @@ func _is_friendly_unit(unit: UnitCard,caster_side: int) -> bool:
 
 func get_mana_cost() -> int:
 	return mana_cost
-
-
+	
 func set_mana_cost(new_mana_cost: int) -> void:
 	mana_cost = maxi(new_mana_cost, 0)
 	_update_mana_label()
-
 
 func _update_mana_label() -> void:
 	if mana_label == null:

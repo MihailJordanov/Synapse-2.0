@@ -17,6 +17,8 @@ var is_enemy_card: bool = false
 var current_slot: CardSlot
 var is_hovered: bool = false
 
+var invalid_feedback_tween: Tween = null
+
 func _ready() -> void:
 	_update_back_sprite_visibility()
 

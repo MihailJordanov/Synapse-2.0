@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://ryk5vi51obof" path="res://level/code/level_controller.gd" id="6_i2c4w"]
 [ext_resource type="Script" uid="uid://dsmm1foce55mm" path="res://level/hand/hand/hand.gd" id="7_05d1k"]
 [ext_resource type="Texture2D" uid="uid://bm3gb1nod1qlt" path="res://legends/assets/legend_border.png" id="7_6i7va"]
-[ext_resource type="Resource" uid="uid://r1r5hyklp1so" path="res://legends/legends_resourses/witch.tres" id="7_sdlhl"]
+[ext_resource type="Resource" uid="uid://beub4fhcponpu" path="res://legends/legends_resourses/rune_seer.tres" id="7_chhk3"]
 [ext_resource type="Script" uid="uid://dcejv55h2svcr" path="res://level/game/game_decision_engine.gd" id="7_wpjvl"]
 [ext_resource type="Script" uid="uid://da8vivm4h5d8k" path="res://level/game/board_controller.gd" id="8_prrhl"]
 [ext_resource type="Script" uid="uid://bw2qgeo87thmw" path="res://level/game/states/setup_state.gd" id="9_1pl1u"]
@@ -355,7 +355,7 @@ texture = ExtResource("5_ldw2c")
 [node name="LevelController" type="Node2D" parent="." unique_id=2086973841]
 unique_name_in_owner = true
 script = ExtResource("6_i2c4w")
-enemy_legend = ExtResource("7_sdlhl")
+enemy_legend = ExtResource("7_chhk3")
 
 [node name="Hands" type="Node2D" parent="." unique_id=1465348749]
 

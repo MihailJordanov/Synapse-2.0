@@ -99,6 +99,7 @@ func _on_card_drop_requested(card: Card,slot: CardSlot) -> void:
 		card,
 		GameDecisionEngine.Side.PLAYER
 	):
+		Audio.ui_error()
 		fsm.card_dragger.reject_last_drop(card)
 		return
 
@@ -109,12 +110,13 @@ func _on_card_drop_requested(card: Card,slot: CardSlot) -> void:
 	)
 
 	if not was_played:
+		Audio.ui_error()
 		fsm.card_dragger.reject_last_drop(card)
 		return
 	
 	Audio.play_spatial_sound(
 			PLACING_CARD,
-			fsm.player_hand.deck_sprite.global_position,
+			slot.global_position,
 			false,
 			true,
 			0.25

@@ -74,6 +74,9 @@ func setup_deck(source_cards: Array) -> void:
 
 	deck.shuffle()
 
+	_update_deck_sprites_visibility()
+	deck_changed.emit()
+
 
 func setup_spell_deck(source_cards: Array) -> void:
 	spell_deck.clear()
@@ -97,9 +100,9 @@ func setup_spell_deck(source_cards: Array) -> void:
 		spell_deck.append(card)
 
 	spell_deck.shuffle()
+
+	_update_deck_sprites_visibility()
 	deck_changed.emit()
-
-
 
 func draw_card() -> Card:
 	return _draw_from_deck(
@@ -119,6 +122,7 @@ func _draw_from_deck(source_deck: Array[Card],source_sprite: Sprite2D) -> Card:
 
 	var card: Card = source_deck[0]
 	source_deck.remove_at(0)
+	_update_deck_sprites_visibility()
 
 	if not is_instance_valid(card):
 		push_error(
@@ -466,3 +470,10 @@ func set_deck(new_deck: Array[Card]) -> void:
 
 func get_deck_size() -> int:
 	return deck.size()
+
+func _update_deck_sprites_visibility() -> void:
+	if deck_sprite != null:
+		deck_sprite.visible = not deck.is_empty()
+
+	if spell_deck_sprite != null:
+		spell_deck_sprite.visible = not spell_deck.is_empty()

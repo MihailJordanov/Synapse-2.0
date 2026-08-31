@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Legend" format=3 uid="uid://beub4fhcponpu"]
+
+[ext_resource type="Script" uid="uid://dpbul1cm8c4ue" path="res://legends/code/legend.gd" id="1_id0s7"]
+[ext_resource type="Script" uid="uid://dv8lui0qlh3lc" path="res://legends/code/effects/rune_seer_legend_effect.gd" id="1_wej1f"]
+[ext_resource type="Texture2D" uid="uid://llfspwgh063w" path="res://legends/assets/legends_icons/rune_seer_icon.png" id="3_n20h0"]
+
+[sub_resource type="Resource" id="Resource_wej1f"]
+script = ExtResource("1_wej1f")
+metadata/_custom_type_script = "uid://dv8lui0qlh3lc"
+
+[resource]
+script = ExtResource("1_id0s7")
+legend_name = "Rune Seer"
+description = "On your first turn, draw a Spell Card. It costs 1 less Mana"
+texture = ExtResource("3_n20h0")
+effect = SubResource("Resource_wej1f")
+metadata/_custom_type_script = "uid://dpbul1cm8c4ue"
