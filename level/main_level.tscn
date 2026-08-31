@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://wb3t0sue3yq1" path="res://level/assets/background_1.png" id="4_43ii6"]
 [ext_resource type="Texture2D" uid="uid://cl7w36okis8je" path="res://card/assets/spell_card_back.png" id="5_ldw2c"]
 [ext_resource type="Texture2D" uid="uid://cc1mnhmr0xayn" path="res://card/assets/deck_image.png" id="5_o7jp2"]
-[ext_resource type="Resource" uid="uid://di8xais7mctgg" path="res://legends/legends_resourses/knight.tres" id="6_c1o2p"]
 [ext_resource type="Script" uid="uid://ryk5vi51obof" path="res://level/code/level_controller.gd" id="6_i2c4w"]
 [ext_resource type="Script" uid="uid://dsmm1foce55mm" path="res://level/hand/hand/hand.gd" id="7_05d1k"]
 [ext_resource type="Texture2D" uid="uid://bm3gb1nod1qlt" path="res://legends/assets/legend_border.png" id="7_6i7va"]
@@ -185,7 +184,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -209,7 +208,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_sdlhl"]
@@ -356,7 +355,6 @@ texture = ExtResource("5_ldw2c")
 [node name="LevelController" type="Node2D" parent="." unique_id=2086973841]
 unique_name_in_owner = true
 script = ExtResource("6_i2c4w")
-player_legend = ExtResource("6_c1o2p")
 enemy_legend = ExtResource("7_sdlhl")
 
 [node name="Hands" type="Node2D" parent="." unique_id=1465348749]
@@ -377,6 +375,7 @@ spell_deck_sprite = NodePath("../../Slots/EnemySpellDeck")
 [node name="Legends" type="Node2D" parent="." unique_id=996052295]
 
 [node name="PlayerLegend" type="Control" parent="Legends" unique_id=314255532]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_left = 1475.0
@@ -401,6 +400,7 @@ texture = SubResource("GradientTexture2D_c1o2p")
 expand_mode = 2
 
 [node name="EnemyLegend" type="Control" parent="Legends" unique_id=1627710024]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_left = 125.0
@@ -765,6 +765,7 @@ libraries/ = SubResource("AnimationLibrary_jsgwy")
 [node name="AnimationHelpers" type="Node2D" parent="." unique_id=1136983655]
 
 [node name="PlayerManaPointsRichTextLabel" type="RichTextLabel" parent="AnimationHelpers" unique_id=1184894264]
+modulate = Color(1, 1, 1, 0)
 z_index = 1
 offset_left = 1401.0
 offset_top = 699.0
@@ -782,6 +783,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="EnemyManaPointsRichTextLabel" type="RichTextLabel" parent="AnimationHelpers" unique_id=1823321711]
+modulate = Color(1, 1, 1, 0)
 z_index = 1
 offset_left = 52.0
 offset_top = 132.0

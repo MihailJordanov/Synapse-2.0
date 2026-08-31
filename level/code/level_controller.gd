@@ -13,6 +13,8 @@ const DEFAULT_LEGEND_ICON = preload("uid://cud08kmrohsno")
 @onready var legend_info_panel: Panel = %LegendInfoPanel
 @onready var legend_info_label: RichTextLabel = %LegendInfoRichTextLabel
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var player_legend_ui: Control = %PlayerLegend
+@onready var enemy_legend_ui: Control = %EnemyLegend
 
 
 
@@ -94,6 +96,12 @@ func _generate_decks() -> void:
 			
 
 func _setup_legends_ui() -> void:
+	if player_legend == null:
+		player_legend_ui.visible = false
+		
+	if enemy_legend == null:
+		enemy_legend_ui.visible = false
+	
 	if player_legend != null and player_legend.texture != null:
 		player_legend_texture_rect.texture = player_legend.texture
 	else:
