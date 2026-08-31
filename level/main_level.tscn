@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://c3754bw6hruqy" path="res://level/assets/deck_count_icon.png" id="26_c1kdy"]
 [ext_resource type="Script" uid="uid://bg0v5cadydhqc" path="res://music/music_audio_trigger.gd" id="33_5ymgo"]
 [ext_resource type="AudioStream" uid="uid://b777ks7xe7kaj" path="res://music/BG theme/chill_bg_music_1.wav" id="34_dfdxi"]
+[ext_resource type="Script" uid="uid://vsvjhvljg2t6" path="res://resources/camera/player_camera.gd" id="35_chhk3"]
 
 [sub_resource type="Gradient" id="Gradient_6i7va"]
 offsets = PackedFloat32Array(0)
@@ -284,7 +285,8 @@ script = ExtResource("2_54fhk")
 
 [node name="BG_Sprite2D" type="Sprite2D" parent="." unique_id=803794395]
 z_index = -1
-position = Vector2(800, 372)
+position = Vector2(800, 375)
+scale = Vector2(1.025, 1.025)
 texture = ExtResource("4_43ii6")
 
 [node name="Slots" type="Node2D" parent="." unique_id=72994216]
@@ -801,3 +803,7 @@ script = ExtResource("33_5ymgo")
 track = ExtResource("34_dfdxi")
 volume_db = -30.0
 metadata/_custom_type_script = "uid://bg0v5cadydhqc"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1096775156]
+position = Vector2(800, 450)
+script = ExtResource("35_chhk3")

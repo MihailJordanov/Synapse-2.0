@@ -33,6 +33,8 @@ func enter() -> void:
 			destroyed_enemy_cards
 		)
 
+	VisualEffects.camera_shake( 10 )
+
 	var explosion_volume: float = 0.1
 
 	for card in removed_cards:

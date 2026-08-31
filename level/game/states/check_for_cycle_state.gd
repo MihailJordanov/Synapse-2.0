@@ -3,7 +3,7 @@ extends State
 
 
 const ENEMY_MAKE_CYCLE: AudioStream = preload("uid://6a5d3dg3nqcl")
-const PLAYER_MAKE_CYCLE = preload("uid://b44hvuklnypn")
+const PLAYER_MAKE_CYCLE = preload("uid://ddtw4yf2apk1x")
 
 var _waiting_for_confirmation: bool = false
 

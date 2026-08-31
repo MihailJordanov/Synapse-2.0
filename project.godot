@@ -23,6 +23,7 @@ buses/default_bus_layout="uid://cwsbmw4y1yl1p"
 
 CardManager="*uid://c5xnndtf5c1i2"
 Audio="*uid://cvu48loi8nytk"
+VisualEffects="*uid://bleqkd0mmnkqq"
 
 [display]
 
