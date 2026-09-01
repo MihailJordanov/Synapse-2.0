@@ -791,6 +791,12 @@ func resolve_after_spell_play() -> void:
 func finish_resolution() -> void:
 	match resolution_origin:
 		ResolutionOrigin.SPELL_PLAY:
+			var empty_slots: Array[CardSlot] = get_empty_slots(active_side)
+
+			if empty_slots.is_empty():
+				go_to_end_turn()
+				return
+
 			if active_side == Side.PLAYER:
 				request_transition(player_play_card_state)
 			else:

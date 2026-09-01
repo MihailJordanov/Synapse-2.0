@@ -355,6 +355,7 @@ texture = ExtResource("5_ldw2c")
 [node name="LevelController" type="Node2D" parent="." unique_id=2086973841]
 unique_name_in_owner = true
 script = ExtResource("6_i2c4w")
+player_legend = ExtResource("7_chhk3")
 enemy_legend = ExtResource("7_chhk3")
 
 [node name="Hands" type="Node2D" parent="." unique_id=1465348749]

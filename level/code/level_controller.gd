@@ -39,23 +39,22 @@ func _generate_decks() -> void:
 	enemy_spell_deck.clear()
 
 	var player_card_ids: Array[int] = [
-		11008,
-		11007,
-		11004,
-		11007,
-		11008,
-		11001,
-		11002,
-		11003,
-		11004,
-		11005
+		11000,
+		11000,
+		11000,
+		11000,
+		11000,
+		11000,
+		11000,
+		11000,
+		11000,
 	]
 
 	var player_spell_card_ids: Array[int] = [
-		21001,
-		21101,
 		21400,
-		21100
+		21400,
+		21400,
+		21400,
 	]
 
 	var enemy_card_ids: Array[int] = [
