@@ -6,6 +6,7 @@ signal score_changed(player_score: int, enemy_score: int)
 signal game_finished(player_won: bool)
 
 enum Side { PLAYER, ENEMY }
+enum EndTurnReason { NORMAL, NO_EMPTY_SLOTS, FORCED_SKIP }
 enum ScorePolicy { ACTIVE_SIDE_GETS_ALL, EACH_OWNER_GETS_OWN }
 enum ManaPolicy { DESTROY_ENEMIES, SACRIFICE_ALLIES }
 enum ResolutionOrigin { UNIT_PLAY, SPELL_PLAY }
@@ -56,6 +57,7 @@ var player_first_draw_done: bool = false
 var enemy_first_draw_done: bool = false
 var player_turn_count: int = 0
 var enemy_turn_count: int = 0
+var end_turn_reason: EndTurnReason = EndTurnReason.NORMAL
 
 var _pending_state: State = null
 var _transition_queued: bool = false
@@ -789,21 +791,16 @@ func resolve_after_spell_play() -> void:
 	request_transition(check_for_cycle_state)
 
 func finish_resolution() -> void:
+	if not has_empty_slot(active_side):
+		end_turn(EndTurnReason.NO_EMPTY_SLOTS)
+		return
+
 	match resolution_origin:
 		ResolutionOrigin.SPELL_PLAY:
-			var empty_slots: Array[CardSlot] = get_empty_slots(active_side)
-
-			if empty_slots.is_empty():
-				go_to_end_turn()
-				return
-
-			if active_side == Side.PLAYER:
-				request_transition(player_play_card_state)
-			else:
-				request_transition(enemy_play_card_state)
+			_return_to_play_state()
 
 		ResolutionOrigin.UNIT_PLAY:
-			go_to_end_turn()
+			end_turn()
 
 func rebuild_board_connections() -> void:
 	if board_controller == null:
@@ -835,3 +832,31 @@ func get_spell_deck_size(side: int) -> int:
 			return enemy_hand.spell_deck.size()
 
 	return 0
+
+
+func set_end_turn_reason(reason: EndTurnReason) -> void:
+	end_turn_reason = reason
+
+
+func reset_end_turn_reason() -> void:
+	end_turn_reason = EndTurnReason.NORMAL
+
+
+func end_turn(reason: EndTurnReason = EndTurnReason.NORMAL) -> void:
+	set_end_turn_reason(reason)
+	go_to_end_turn()
+	
+func has_empty_slot(side: int) -> bool:
+	return not get_empty_slots(side).is_empty()
+
+func _return_to_play_state() -> void:
+	if active_side == Side.PLAYER:
+		request_transition(player_play_card_state)
+	else:
+		request_transition(enemy_play_card_state)
+
+func _should_end_turn_because_board_is_full() -> bool:
+	return not has_empty_slot(active_side)
+
+func _end_turn_no_empty_slots() -> void:
+	end_turn(EndTurnReason.NO_EMPTY_SLOTS)

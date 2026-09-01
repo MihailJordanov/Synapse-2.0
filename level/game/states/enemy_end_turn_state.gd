@@ -7,3 +7,7 @@ func enter() -> void:
 		change_to(terminal)
 		return
 	change_to(fsm.player_start_turn_state)
+	
+func exit() -> void:
+	fsm.reset_end_turn_reason()
+	pass
