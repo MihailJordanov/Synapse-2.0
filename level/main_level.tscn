@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://wb3t0sue3yq1" path="res://level/assets/background_1.png" id="4_43ii6"]
 [ext_resource type="Texture2D" uid="uid://cl7w36okis8je" path="res://card/assets/spell_card_back.png" id="5_ldw2c"]
 [ext_resource type="Texture2D" uid="uid://cc1mnhmr0xayn" path="res://card/assets/deck_image.png" id="5_o7jp2"]
+[ext_resource type="Script" uid="uid://bhxoerid6jsh5" path="res://level/code/level_setup.gd" id="6_dfdxi"]
 [ext_resource type="Script" uid="uid://ryk5vi51obof" path="res://level/code/level_controller.gd" id="6_i2c4w"]
 [ext_resource type="Script" uid="uid://dsmm1foce55mm" path="res://level/hand/hand/hand.gd" id="7_05d1k"]
 [ext_resource type="Texture2D" uid="uid://bm3gb1nod1qlt" path="res://legends/assets/legend_border.png" id="7_6i7va"]
-[ext_resource type="Resource" uid="uid://beub4fhcponpu" path="res://legends/legends_resourses/rune_seer.tres" id="7_chhk3"]
 [ext_resource type="Script" uid="uid://dcejv55h2svcr" path="res://level/game/game_decision_engine.gd" id="7_wpjvl"]
 [ext_resource type="Script" uid="uid://da8vivm4h5d8k" path="res://level/game/board_controller.gd" id="8_prrhl"]
 [ext_resource type="Script" uid="uid://bw2qgeo87thmw" path="res://level/game/states/setup_state.gd" id="9_1pl1u"]
@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://sr61n8jepge2" path="res://level/assets/mana_gem_icon.png" id="25_3821i"]
 [ext_resource type="Texture2D" uid="uid://bxv7glfulafd1" path="res://level/assets/victory_points_icon.png" id="25_ht6j8"]
 [ext_resource type="Texture2D" uid="uid://c3754bw6hruqy" path="res://level/assets/deck_count_icon.png" id="26_c1kdy"]
+[ext_resource type="Texture2D" uid="uid://g6dv8cgpyumo" path="res://level/assets/fire_line_opening_scene.png" id="32_chhk3"]
 [ext_resource type="Script" uid="uid://bg0v5cadydhqc" path="res://music/music_audio_trigger.gd" id="33_5ymgo"]
 [ext_resource type="AudioStream" uid="uid://b777ks7xe7kaj" path="res://music/BG theme/chill_bg_music_1.wav" id="34_dfdxi"]
 [ext_resource type="Script" uid="uid://vsvjhvljg2t6" path="res://resources/camera/player_camera.gd" id="35_chhk3"]
@@ -160,12 +161,31 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 corner_detail = 1
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_13qdw"]
+blend_mode = 3
+
+[sub_resource type="Gradient" id="Gradient_chhk3"]
+colors = PackedColorArray(0.53333336, 1, 1, 1, 1, 0.34509805, 0.40392157, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xrivr"]
+gradient = SubResource("Gradient_chhk3")
+
+[sub_resource type="Gradient" id="Gradient_rb6lq"]
+offsets = PackedFloat32Array(0.5, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0.40784314)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_13qdw"]
+gradient = SubResource("Gradient_rb6lq")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
 [sub_resource type="Animation" id="Animation_jsgwy"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationHelpers/PlayerManaPointsRichTextLabel:position")
+tracks/0/path = NodePath("UI/AnimationHelpers/PlayerManaPointsRichTextLabel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -177,7 +197,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimationHelpers/PlayerManaPointsRichTextLabel:modulate")
+tracks/1/path = NodePath("UI/AnimationHelpers/PlayerManaPointsRichTextLabel:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -189,7 +209,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimationHelpers/EnemyManaPointsRichTextLabel:position")
+tracks/2/path = NodePath("UI/AnimationHelpers/EnemyManaPointsRichTextLabel:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -201,7 +221,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AnimationHelpers/EnemyManaPointsRichTextLabel:modulate")
+tracks/3/path = NodePath("UI/AnimationHelpers/EnemyManaPointsRichTextLabel:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -209,6 +229,78 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/AnimationHelpers/StartBattleElements/EnemyControls/EnemyNameLabel:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1750, -25)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/AnimationHelpers/StartBattleElements/PlayerControls/PlayerNameLabel:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1550, 525)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UI/AnimationHelpers/StartBattleElements/Sprite2D:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("UI/AnimationHelpers/StartBattleElements/VSLabel:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("UI/AnimationHelpers/StartBattleElements/Panel:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("UI/Fade:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_sdlhl"]
@@ -218,7 +310,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationHelpers/EnemyManaPointsRichTextLabel:position")
+tracks/0/path = NodePath("UI/AnimationHelpers/EnemyManaPointsRichTextLabel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -230,7 +322,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimationHelpers/EnemyManaPointsRichTextLabel:modulate")
+tracks/1/path = NodePath("UI/AnimationHelpers/EnemyManaPointsRichTextLabel:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -240,6 +332,40 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_rb6lq"]
+resource_name = "fade_in"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Fade:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2450, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m13uo"]
+resource_name = "fade_out"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Fade:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-2450, 0), Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_c1o2p"]
 resource_name = "player_witch_activation"
 length = 2.0
@@ -247,7 +373,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationHelpers/PlayerManaPointsRichTextLabel:position")
+tracks/0/path = NodePath("UI/AnimationHelpers/PlayerManaPointsRichTextLabel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -259,7 +385,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimationHelpers/PlayerManaPointsRichTextLabel:modulate")
+tracks/1/path = NodePath("UI/AnimationHelpers/PlayerManaPointsRichTextLabel:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -269,11 +395,79 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_chhk3"]
+resource_name = "start_battle"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/AnimationHelpers/StartBattleElements/EnemyControls/EnemyNameLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1.0000004, 1.0000004, 1.0000001, 1),
+"update": 0,
+"values": [Vector2(-1550, -25), Vector2(75, -25), Vector2(125, -25), Vector2(1750, -25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/AnimationHelpers/StartBattleElements/PlayerControls/PlayerNameLabel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1.0000002, 0.99999946, 1.0000001, 1),
+"update": 0,
+"values": [Vector2(1750, 525), Vector2(125, 525), Vector2(75, 525), Vector2(-1550, 525)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/AnimationHelpers/StartBattleElements/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0009999999, 0.2, 1.5, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0), Vector2(0.5, 0.5), Vector2(0.5, 0.5), Vector2(0.5, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/AnimationHelpers/StartBattleElements/VSLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 1.5, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/AnimationHelpers/StartBattleElements/Panel:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.4, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jsgwy"]
 _data = {
 &"RESET": SubResource("Animation_jsgwy"),
 &"enemy_witch_activation": SubResource("Animation_sdlhl"),
-&"player_witch_activation": SubResource("Animation_c1o2p")
+&"fade_in": SubResource("Animation_rb6lq"),
+&"fade_out": SubResource("Animation_m13uo"),
+&"player_witch_activation": SubResource("Animation_c1o2p"),
+&"start_battle": SubResource("Animation_chhk3")
 }
 
 [node name="MainLevel" type="Node2D" unique_id=817015654]
@@ -352,11 +546,15 @@ position = Vector2(1472, 36)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_ldw2c")
 
+[node name="LevelSetup" type="Node" parent="." unique_id=2073246435]
+unique_name_in_owner = true
+script = ExtResource("6_dfdxi")
+player_name = "Misho"
+enemy_name = "Voldemor"
+
 [node name="LevelController" type="Node2D" parent="." unique_id=2086973841]
 unique_name_in_owner = true
 script = ExtResource("6_i2c4w")
-player_legend = ExtResource("7_chhk3")
-enemy_legend = ExtResource("7_chhk3")
 
 [node name="Hands" type="Node2D" parent="." unique_id=1465348749]
 
@@ -509,7 +707,7 @@ script = ExtResource("23_un0mk")
 unique_name_in_owner = true
 script = ExtResource("24_8rqiy")
 
-[node name="UI" type="Node2D" parent="." unique_id=639913924]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1701068604]
 
 [node name="ControllTurnButton" type="Button" parent="UI" unique_id=105520837]
 unique_name_in_owner = true
@@ -729,19 +927,11 @@ texture = ExtResource("26_c1kdy")
 
 [node name="LegendInfoPanel" type="Panel" parent="UI" unique_id=963880603]
 unique_name_in_owner = true
-visible = false
 z_index = 101
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
 offset_left = 600.0
-offset_top = 250.0
+offset_top = 200.0
 offset_right = 1000.0
-offset_bottom = 650.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_bottom = 600.0
 
 [node name="LegendInfoRichTextLabel" type="RichTextLabel" parent="UI/LegendInfoPanel" unique_id=1207406038]
 unique_name_in_owner = true
@@ -759,13 +949,9 @@ bbcode_enabled = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=413388827]
-unique_name_in_owner = true
-libraries/ = SubResource("AnimationLibrary_jsgwy")
+[node name="AnimationHelpers" type="Node2D" parent="UI" unique_id=1136983655]
 
-[node name="AnimationHelpers" type="Node2D" parent="." unique_id=1136983655]
-
-[node name="PlayerManaPointsRichTextLabel" type="RichTextLabel" parent="AnimationHelpers" unique_id=1184894264]
+[node name="PlayerManaPointsRichTextLabel" type="RichTextLabel" parent="UI/AnimationHelpers" unique_id=1184894264]
 modulate = Color(1, 1, 1, 0)
 z_index = 1
 offset_left = 1401.0
@@ -783,7 +969,7 @@ text = "+ 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EnemyManaPointsRichTextLabel" type="RichTextLabel" parent="AnimationHelpers" unique_id=1823321711]
+[node name="EnemyManaPointsRichTextLabel" type="RichTextLabel" parent="UI/AnimationHelpers" unique_id=1823321711]
 modulate = Color(1, 1, 1, 0)
 z_index = 1
 offset_left = 52.0
@@ -800,6 +986,129 @@ theme_override_font_sizes/mono_font_size = 48
 text = "+ 1"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="StartBattleElements" type="Node2D" parent="UI/AnimationHelpers" unique_id=1079685011]
+z_index = 1000
+
+[node name="Panel" type="Panel" parent="UI/AnimationHelpers/StartBattleElements" unique_id=606190594]
+modulate = Color(1, 1, 1, 0)
+offset_top = 50.0
+offset_right = 1600.0
+offset_bottom = 850.0
+mouse_filter = 2
+
+[node name="PlayerControls" type="Control" parent="UI/AnimationHelpers/StartBattleElements" unique_id=181114770]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="PlayerNameLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements/PlayerControls" unique_id=1832725865]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -1550.0
+offset_top = 525.0
+offset_right = -149.98535
+offset_bottom = 925.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.53333336, 1, 1, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/normal_font_size = 200
+theme_override_font_sizes/bold_font_size = 200
+theme_override_font_sizes/bold_italics_font_size = 200
+theme_override_font_sizes/italics_font_size = 200
+theme_override_font_sizes/mono_font_size = 200
+bbcode_enabled = true
+text = "Misho"
+horizontal_alignment = 1
+
+[node name="EnemyControls" type="Control" parent="UI/AnimationHelpers/StartBattleElements" unique_id=1450888534]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="EnemyNameLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements/EnemyControls" unique_id=1024585553]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1750.0
+offset_top = -25.0
+offset_right = 3150.001
+offset_bottom = 375.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 0.34509805, 0.40392157, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/normal_font_size = 200
+theme_override_font_sizes/bold_font_size = 200
+theme_override_font_sizes/bold_italics_font_size = 200
+theme_override_font_sizes/italics_font_size = 200
+theme_override_font_sizes/mono_font_size = 200
+bbcode_enabled = true
+text = "Voledmor"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/AnimationHelpers/StartBattleElements" unique_id=481706786]
+position = Vector2(800, 440)
+scale = Vector2(0.5, 1e-05)
+texture = ExtResource("32_chhk3")
+
+[node name="VSLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements" unique_id=718582387]
+clip_children = 2
+offset_left = 675.0
+offset_top = 335.0
+offset_right = 925.0
+offset_bottom = 535.0
+scale = Vector2(1, 1e-05)
+mouse_filter = 2
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/normal_font_size = 200
+theme_override_font_sizes/bold_font_size = 200
+theme_override_font_sizes/bold_italics_font_size = 200
+theme_override_font_sizes/italics_font_size = 200
+theme_override_font_sizes/mono_font_size = 200
+bbcode_enabled = true
+text = "vs"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/AnimationHelpers/StartBattleElements/VSLabel" unique_id=945730255]
+material = SubResource("CanvasItemMaterial_13qdw")
+custom_minimum_size = Vector2(250, 200)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_xrivr")
+
+[node name="Fade" type="Control" parent="UI" unique_id=1366213862]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -0.004638672
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Fade" unique_id=1764183165]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -450.0
+offset_right = 800.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_13qdw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=413388827]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_jsgwy")
 
 [node name="MusicAutoTrigger" type="Node" parent="." unique_id=1505354949]
 script = ExtResource("33_5ymgo")

@@ -15,6 +15,7 @@ const DEFAULT_LEGEND_ICON = preload("uid://xciqo3d2po72")
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var player_legend_ui: Control = %PlayerLegend
 @onready var enemy_legend_ui: Control = %EnemyLegend
+@onready var level_setup: LevelSetup = %LevelSetup
 
 
 
@@ -40,21 +41,22 @@ func _generate_decks() -> void:
 
 	var player_card_ids: Array[int] = [
 		11000,
-		11000,
-		11000,
-		11000,
-		11000,
-		11000,
-		11000,
-		11000,
-		11000,
+		11007,
+		11004,
+		11007,
+		11008,
+		11001,
+		11002,
+		11003,
+		11004,
+		11005
 	]
 
 	var player_spell_card_ids: Array[int] = [
+		21001,
+		21101,
 		21400,
-		21400,
-		21400,
-		21400,
+		21100
 	]
 
 	var enemy_card_ids: Array[int] = [
