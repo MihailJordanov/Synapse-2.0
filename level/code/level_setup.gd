@@ -1,6 +1,8 @@
 @icon("res://resources/icons/setup.svg")
 class_name LevelSetup extends Node
 
+const START_BATTLE_EFFECT = preload("uid://dcw0phtmgbf2g")
+
 signal setup_finished
 
 @export_category("Player Info")
@@ -20,6 +22,7 @@ func _ready() -> void:
 
 
 func _setup_level() -> void:
+	#Audio.play_spatial_sound(START_BATTLE_EFFECT, Vector2(800, 450))
 	player_name_label.text = player_name
 	enemy_name_label.text = enemy_name
 

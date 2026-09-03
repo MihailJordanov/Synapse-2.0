@@ -28,12 +28,12 @@ border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jd3f6"]
-bg_color = Color(0.3647129, 0.68091196, 0.71144754, 1)
+bg_color = Color(0.3137255, 0.62352943, 0.85490197, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.95686275, 0.77254903, 0.28235295, 1)
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 90
 corner_radius_top_right = 90
 corner_radius_bottom_right = 90
@@ -119,10 +119,10 @@ mouse_filter = 2
 
 [node name="ManaPanel" type="Panel" parent="Control" unique_id=1274228995]
 layout_mode = 0
-offset_left = 59.0
-offset_top = 4.5
-offset_right = 83.0
-offset_bottom = 28.5
+offset_left = 60.0
+offset_top = 2.5
+offset_right = 82.0
+offset_bottom = 34.5
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jd3f6")
 
@@ -140,9 +140,10 @@ offset_right = 5.0
 offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 18
-text = "0"
+text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
 

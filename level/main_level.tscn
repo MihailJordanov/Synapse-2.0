@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bm3gb1nod1qlt" path="res://legends/assets/legend_border.png" id="7_6i7va"]
 [ext_resource type="Script" uid="uid://dcejv55h2svcr" path="res://level/game/game_decision_engine.gd" id="7_wpjvl"]
 [ext_resource type="Script" uid="uid://da8vivm4h5d8k" path="res://level/game/board_controller.gd" id="8_prrhl"]
+[ext_resource type="Resource" uid="uid://beub4fhcponpu" path="res://legends/legends_resourses/rune_seer.tres" id="8_rb6lq"]
 [ext_resource type="Script" uid="uid://bw2qgeo87thmw" path="res://level/game/states/setup_state.gd" id="9_1pl1u"]
 [ext_resource type="Texture2D" uid="uid://chd7v5vce6xv6" path="res://legends/assets/enemy_legend_border.png" id="9_jsgwy"]
 [ext_resource type="Script" uid="uid://o3g47yqg8o6q" path="res://level/game/states/player_start_turn_state.gd" id="10_k37ki"]
@@ -28,12 +29,14 @@
 [ext_resource type="Script" uid="uid://bi7vbsa1lhimd" path="res://level/game/states/sum_points_state.gd" id="22_fl61o"]
 [ext_resource type="Script" uid="uid://pewja1g4u1ka" path="res://level/game/states/player_play_spell_card_state.gd" id="23_un0mk"]
 [ext_resource type="Script" uid="uid://cw1r8tiyn0ahb" path="res://level/game/states/select_card_on_board_state.gd" id="24_8rqiy"]
-[ext_resource type="Texture2D" uid="uid://sr61n8jepge2" path="res://level/assets/mana_gem_icon.png" id="25_3821i"]
-[ext_resource type="Texture2D" uid="uid://bxv7glfulafd1" path="res://level/assets/victory_points_icon.png" id="25_ht6j8"]
 [ext_resource type="Texture2D" uid="uid://c3754bw6hruqy" path="res://level/assets/deck_count_icon.png" id="26_c1kdy"]
+[ext_resource type="Texture2D" uid="uid://bvg7n3st6xh6q" path="res://level/assets/victory_points_icon_2.png" id="29_chhk3"]
+[ext_resource type="Texture2D" uid="uid://b8hxmgb7se3ea" path="res://level/assets/mana_gem_icon_4.png" id="30_chhk3"]
 [ext_resource type="Texture2D" uid="uid://g6dv8cgpyumo" path="res://level/assets/fire_line_opening_scene.png" id="32_chhk3"]
 [ext_resource type="Script" uid="uid://bg0v5cadydhqc" path="res://music/music_audio_trigger.gd" id="33_5ymgo"]
+[ext_resource type="AudioStream" uid="uid://ba7pfyj4wccyt" path="res://music/SFX/start battle/swish_in.wav" id="34_br8nb"]
 [ext_resource type="AudioStream" uid="uid://b777ks7xe7kaj" path="res://music/BG theme/chill_bg_music_1.wav" id="34_dfdxi"]
+[ext_resource type="AudioStream" uid="uid://c76odbutu0i16" path="res://music/SFX/start battle/swish_out.wav" id="35_bqwis"]
 [ext_resource type="Script" uid="uid://vsvjhvljg2t6" path="res://resources/camera/player_camera.gd" id="35_chhk3"]
 
 [sub_resource type="Gradient" id="Gradient_6i7va"]
@@ -348,6 +351,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(2450, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/AnimationHelpers/StartBattleElements/Panel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_m13uo"]
 resource_name = "fade_out"
@@ -398,7 +413,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_chhk3"]
 resource_name = "start_battle"
 length = 2.0
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -406,7 +421,7 @@ tracks/0/path = NodePath("UI/AnimationHelpers/StartBattleElements/EnemyControls/
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"times": PackedFloat32Array(0.050000012, 0.15, 1.65, 1.7499999),
 "transitions": PackedFloat32Array(1.0000004, 1.0000004, 1.0000001, 1),
 "update": 0,
 "values": [Vector2(-1550, -25), Vector2(75, -25), Vector2(125, -25), Vector2(1750, -25)]
@@ -418,7 +433,7 @@ tracks/1/path = NodePath("UI/AnimationHelpers/StartBattleElements/PlayerControls
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"times": PackedFloat32Array(0.050000012, 0.15, 1.65, 1.7499999),
 "transitions": PackedFloat32Array(1.0000002, 0.99999946, 1.0000001, 1),
 "update": 0,
 "values": [Vector2(1750, 525), Vector2(125, 525), Vector2(75, 525), Vector2(-1550, 525)]
@@ -430,7 +445,7 @@ tracks/2/path = NodePath("UI/AnimationHelpers/StartBattleElements/Sprite2D:scale
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.0009999999, 0.2, 1.5, 1.6),
+"times": PackedFloat32Array(0.050000012, 0.15, 1.65, 1.7499999),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0.5, 0), Vector2(0.5, 0.5), Vector2(0.5, 0.5), Vector2(0.5, 0)]
@@ -442,7 +457,7 @@ tracks/3/path = NodePath("UI/AnimationHelpers/StartBattleElements/VSLabel:scale"
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2, 1.5, 1.6),
+"times": PackedFloat32Array(0.050000012, 0.15, 1.65, 1.7499999),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0)]
@@ -454,11 +469,30 @@ tracks/4/path = NodePath("UI/AnimationHelpers/StartBattleElements/Panel:modulate
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1.4, 2),
+"times": PackedFloat32Array(0, 1.5999999, 1.7499999),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimationPlayer/AudioStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("34_br8nb")
+}, {
+"end_offset": 0.003505591,
+"start_offset": 0.0,
+"stream": ExtResource("35_bqwis")
+}],
+"times": PackedFloat32Array(0, 1.5)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jsgwy"]
 _data = {
@@ -555,6 +589,7 @@ enemy_name = "Voldemor"
 [node name="LevelController" type="Node2D" parent="." unique_id=2086973841]
 unique_name_in_owner = true
 script = ExtResource("6_i2c4w")
+player_legend = ExtResource("8_rb6lq")
 
 [node name="Hands" type="Node2D" parent="." unique_id=1465348749]
 
@@ -715,6 +750,7 @@ offset_left = 45.0
 offset_top = 520.0
 offset_right = 295.0
 offset_bottom = 620.0
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 38
 theme_override_styles/normal = SubResource("StyleBoxFlat_8rqiy")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_fl61o")
@@ -738,6 +774,7 @@ offset_left = 10.0
 offset_top = 12.5
 offset_right = 310.0
 offset_bottom = 237.5
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 32
 theme_override_font_sizes/bold_font_size = 32
 theme_override_font_sizes/bold_italics_font_size = 32
@@ -761,17 +798,18 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ht6j8")
 [node name="PlayerVictoryPointsInformLabel" type="RichTextLabel" parent="UI/PlayerInfoPanel/VictoryPointsInf" unique_id=1834746145]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(230, 150)
-offset_left = 86.0
+offset_left = 64.0
 offset_top = 12.0
-offset_right = 247.0
+offset_right = 244.0
 offset_bottom = 62.0
-theme_override_font_sizes/normal_font_size = 42
-theme_override_font_sizes/bold_font_size = 42
-theme_override_font_sizes/bold_italics_font_size = 42
-theme_override_font_sizes/italics_font_size = 42
-theme_override_font_sizes/mono_font_size = 42
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/normal_font_size = 45
+theme_override_font_sizes/bold_font_size = 45
+theme_override_font_sizes/bold_italics_font_size = 45
+theme_override_font_sizes/italics_font_size = 45
+theme_override_font_sizes/mono_font_size = 45
 bbcode_enabled = true
-text = "[color=#00FFFF]50 / 100"
+text = "[color=#7CFC00] 50 / 100"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
@@ -779,8 +817,8 @@ vertical_alignment = 1
 
 [node name="VictoryPointsSprite2D" type="Sprite2D" parent="UI/PlayerInfoPanel/VictoryPointsInf" unique_id=1698083298]
 position = Vector2(40.69995, 38)
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("25_ht6j8")
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("29_chhk3")
 
 [node name="ManaInf" type="Node2D" parent="UI/PlayerInfoPanel" unique_id=1742169074]
 position = Vector2(0, 70)
@@ -788,17 +826,18 @@ position = Vector2(0, 70)
 [node name="PlayerManaInformLabel" type="RichTextLabel" parent="UI/PlayerInfoPanel/ManaInf" unique_id=949831267]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(230, 150)
-offset_left = 86.0
+offset_left = 64.0
 offset_top = 12.0
-offset_right = 196.0
+offset_right = 178.0
 offset_bottom = 62.0
-theme_override_font_sizes/normal_font_size = 42
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 39
 theme_override_font_sizes/bold_font_size = 42
 theme_override_font_sizes/bold_italics_font_size = 42
 theme_override_font_sizes/italics_font_size = 42
 theme_override_font_sizes/mono_font_size = 42
 bbcode_enabled = true
-text = "[color=#7CFC00]2 / 10"
+text = "[color=#89CFF0] 2 / 10"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
@@ -806,8 +845,8 @@ vertical_alignment = 1
 
 [node name="ManaSprite2D" type="Sprite2D" parent="UI/PlayerInfoPanel/ManaInf" unique_id=1752428299]
 position = Vector2(40.69995, 38)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("25_3821i")
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("30_chhk3")
 
 [node name="DeckInf" type="Node2D" parent="UI/PlayerInfoPanel" unique_id=773795017]
 position = Vector2(0, 142)
@@ -815,17 +854,18 @@ position = Vector2(0, 142)
 [node name="PlayerDeckInformLabel" type="RichTextLabel" parent="UI/PlayerInfoPanel/DeckInf" unique_id=353574111]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(230, 150)
-offset_left = 86.0
+offset_left = 64.0
 offset_top = 12.0
-offset_right = 196.0
+offset_right = 174.0
 offset_bottom = 62.0
-theme_override_font_sizes/normal_font_size = 42
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 39
 theme_override_font_sizes/bold_font_size = 42
 theme_override_font_sizes/bold_italics_font_size = 42
 theme_override_font_sizes/italics_font_size = 42
 theme_override_font_sizes/mono_font_size = 42
 bbcode_enabled = true
-text = "[color=#ECFFDC]26"
+text = "[color=#ECFFDC] 26"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
@@ -834,7 +874,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="DeckSprite2D" type="Sprite2D" parent="UI/PlayerInfoPanel/DeckInf" unique_id=1557321469]
 position = Vector2(40.69995, 38)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.18, 0.18)
 texture = ExtResource("26_c1kdy")
 
 [node name="EnemyInfoPanel" type="Panel" parent="UI" unique_id=2014636833]
@@ -849,17 +889,18 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_6i7va")
 [node name="EnemyVictoryPointsInformLabel" type="RichTextLabel" parent="UI/EnemyInfoPanel/VictoryPointsInf" unique_id=2045426139]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(230, 150)
-offset_left = 86.0
+offset_left = 64.0
 offset_top = 12.0
-offset_right = 247.0
+offset_right = 244.0
 offset_bottom = 62.0
-theme_override_font_sizes/normal_font_size = 42
-theme_override_font_sizes/bold_font_size = 42
-theme_override_font_sizes/bold_italics_font_size = 42
-theme_override_font_sizes/italics_font_size = 42
-theme_override_font_sizes/mono_font_size = 42
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/normal_font_size = 45
+theme_override_font_sizes/bold_font_size = 45
+theme_override_font_sizes/bold_italics_font_size = 45
+theme_override_font_sizes/italics_font_size = 45
+theme_override_font_sizes/mono_font_size = 45
 bbcode_enabled = true
-text = "[color=#ff5555]50 / 100"
+text = "[color=#ff5555] 50 / 100"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
@@ -867,8 +908,8 @@ vertical_alignment = 1
 
 [node name="VictoryPointsSprite2D" type="Sprite2D" parent="UI/EnemyInfoPanel/VictoryPointsInf" unique_id=819896740]
 position = Vector2(40.69995, 38)
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("25_ht6j8")
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("29_chhk3")
 
 [node name="ManaInf" type="Node2D" parent="UI/EnemyInfoPanel" unique_id=1305811907]
 position = Vector2(0, 70)
@@ -876,17 +917,18 @@ position = Vector2(0, 70)
 [node name="EnemyManaInformLabel" type="RichTextLabel" parent="UI/EnemyInfoPanel/ManaInf" unique_id=832933513]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(230, 150)
-offset_left = 86.0
+offset_left = 64.0
 offset_top = 12.0
-offset_right = 196.0
+offset_right = 178.0
 offset_bottom = 62.0
-theme_override_font_sizes/normal_font_size = 42
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 39
 theme_override_font_sizes/bold_font_size = 42
 theme_override_font_sizes/bold_italics_font_size = 42
 theme_override_font_sizes/italics_font_size = 42
 theme_override_font_sizes/mono_font_size = 42
 bbcode_enabled = true
-text = "[color=#7CFC00]2 / 10"
+text = "[color=#89CFF0] 2 / 10"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
@@ -894,8 +936,8 @@ vertical_alignment = 1
 
 [node name="ManaSprite2D" type="Sprite2D" parent="UI/EnemyInfoPanel/ManaInf" unique_id=359281691]
 position = Vector2(40.69995, 38)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("25_3821i")
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("30_chhk3")
 
 [node name="DeckInf" type="Node2D" parent="UI/EnemyInfoPanel" unique_id=53950273]
 position = Vector2(0, 142)
@@ -903,30 +945,31 @@ position = Vector2(0, 142)
 [node name="EnemyDeckInformLabel" type="RichTextLabel" parent="UI/EnemyInfoPanel/DeckInf" unique_id=992819824]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(230, 150)
-offset_left = 86.0
+offset_left = 64.0
 offset_top = 12.0
-offset_right = 196.0
+offset_right = 174.0
 offset_bottom = 62.0
-theme_override_font_sizes/normal_font_size = 42
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 39
 theme_override_font_sizes/bold_font_size = 42
 theme_override_font_sizes/bold_italics_font_size = 42
 theme_override_font_sizes/italics_font_size = 42
 theme_override_font_sizes/mono_font_size = 42
 bbcode_enabled = true
-text = "[color=#ECFFDC]26"
+text = "[color=#ECFFDC] 26"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="DeckSprite2D" type="Sprite2D" parent="UI/EnemyInfoPanel/DeckInf" unique_id=429333521]
 position = Vector2(40.69995, 38)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.18, 0.18)
 texture = ExtResource("26_c1kdy")
 
 [node name="LegendInfoPanel" type="Panel" parent="UI" unique_id=963880603]
 unique_name_in_owner = true
+visible = false
 z_index = 101
 offset_left = 600.0
 offset_top = 200.0
@@ -1109,6 +1152,8 @@ texture = SubResource("GradientTexture2D_13qdw")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=413388827]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_jsgwy")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationPlayer" unique_id=233548618]
 
 [node name="MusicAutoTrigger" type="Node" parent="." unique_id=1505354949]
 script = ExtResource("33_5ymgo")

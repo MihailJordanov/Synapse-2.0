@@ -61,16 +61,12 @@ atlas = ExtResource("1_fjcud")
 region = Rect2(262.5, 0, 37.5, 40)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13qdw"]
-bg_color = Color(0.7962416, 0.6318967, 0.5432238, 1)
+bg_color = Color(0.6627451, 0.14117648, 0.19607843, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 90
-corner_radius_top_right = 90
-corner_radius_bottom_right = 90
-corner_radius_bottom_left = 90
 
 [sub_resource type="Animation" id="Animation_dfbx1"]
 length = 0.001
@@ -416,9 +412,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
 
 [node name="PointPanel" type="Panel" parent="Control" unique_id=1927938008]
 layout_mode = 0
-offset_left = 56.0
+offset_left = 61.0
 offset_top = 148.5
-offset_right = 86.0
+offset_right = 81.0
 offset_bottom = 168.5
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_13qdw")
@@ -433,11 +429,12 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -13.0
 offset_top = -8.0
-offset_right = 14.0
+offset_right = 16.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 18
 text = "1"
 horizontal_alignment = 1

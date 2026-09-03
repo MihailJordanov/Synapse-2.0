@@ -626,7 +626,7 @@ func _update_mana_inform_labels() -> void:
 	if player_mana_inform_label != null:
 		player_mana_inform_label.bbcode_enabled = true
 		player_mana_inform_label.text = (
-			"[color=#7CFC00]"
+			" [color=#89CFF0]"
 			+ str(player_mana)
 			+ " / "
 			+ str(player_max_mana_to_collect)
@@ -635,7 +635,7 @@ func _update_mana_inform_labels() -> void:
 	if enemy_mana_inform_label != null:
 		enemy_mana_inform_label.bbcode_enabled = true
 		enemy_mana_inform_label.text = (
-			"[color=#F88379]"
+			" [color=#89CFF0]"
 			+ str(enemy_mana)
 			+ " / "
 			+ str(enemy_max_mana_to_collect)
@@ -694,17 +694,17 @@ func _update_victory_points_labels() -> void:
 	if player_victory_points_inform_label != null:
 		player_victory_points_inform_label.bbcode_enabled = true
 		player_victory_points_inform_label.text = (
-			"[color=#00FFFF]"
+			" [color=#7CFC00]"
 			+ str(player_score)
 			+ " / "
 			+ str(player_winning_score)
 			+ "[/color]"
 		)
-
+		
 	if enemy_victory_points_inform_label != null:
 		enemy_victory_points_inform_label.bbcode_enabled = true
 		enemy_victory_points_inform_label.text = (
-			"[color=#ff5555]"
+			" [color=#ff5555]"
 			+ str(enemy_score)
 			+ " / "
 			+ str(enemy_winning_score)
@@ -724,7 +724,7 @@ func _update_deck_labels() -> void:
 	if player_deck_inform_label != null:
 		player_deck_inform_label.bbcode_enabled = true
 		player_deck_inform_label.text = (
-			"[color=#ECFFDC]"
+			" [color=#ECFFDC]"
 			+ str(player_deck_size)
 			+ "[/color]"
 		)
@@ -732,7 +732,7 @@ func _update_deck_labels() -> void:
 	if enemy_deck_inform_label != null:
 		enemy_deck_inform_label.bbcode_enabled = true
 		enemy_deck_inform_label.text = (
-			"[color=#ECFFDC]"
+			" [color=#ECFFDC]"
 			+ str(enemy_deck_size)
 			+ "[/color]"
 		)
@@ -750,14 +750,14 @@ func update_deck_inform_labels() -> void:
 	if player_deck_inform_label != null:
 		player_deck_inform_label.bbcode_enabled = true
 		player_deck_inform_label.text = (
-			"[color=#ECFFDC]"
+			" [color=#ECFFDC]"
 			+ str(player_deck_count)
 		)
 
 	if enemy_deck_inform_label != null:
 		enemy_deck_inform_label.bbcode_enabled = true
 		enemy_deck_inform_label.text = (
-			"[color=#ECFFDC]"
+			" [color=#ECFFDC]"
 			+ str(enemy_deck_count)
 		)
 
