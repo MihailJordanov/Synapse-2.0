@@ -122,10 +122,21 @@ func play_spatial_sound( audio : AudioStream,
 	pass
 	
 #region /// ui functions
-func play_ui_audio( audio : AudioStream ) -> void:
-	if ui_audio_player:
-		ui_audio_player.play_stream( audio )
-	pass
+func play_ui_audio(audio: AudioStream, end_offset: float = 0.0) -> void:
+	if not ui_audio_player or audio == null:
+		return
+
+	var stream_id: int = ui_audio_player.play_stream(audio)
+
+	if end_offset <= 0.0:
+		return
+
+	var play_duration: float = max(0.0,audio.get_length() - end_offset)
+
+	await get_tree().create_timer(play_duration).timeout
+
+	if ui_audio_player.is_stream_playing(stream_id):
+		ui_audio_player.stop_stream(stream_id)
 
 func ui_focus_change() -> void:
 	play_ui_audio( ui_focus_audio )

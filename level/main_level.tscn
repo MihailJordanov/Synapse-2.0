@@ -34,10 +34,14 @@
 [ext_resource type="Texture2D" uid="uid://b8hxmgb7se3ea" path="res://level/assets/mana_gem_icon_4.png" id="30_chhk3"]
 [ext_resource type="Texture2D" uid="uid://g6dv8cgpyumo" path="res://level/assets/fire_line_opening_scene.png" id="32_chhk3"]
 [ext_resource type="Script" uid="uid://bg0v5cadydhqc" path="res://music/music_audio_trigger.gd" id="33_5ymgo"]
+[ext_resource type="Texture2D" uid="uid://bs1jwu6qn3qa5" path="res://level/assets/coin_for_first_turn.png" id="34_bqwis"]
 [ext_resource type="AudioStream" uid="uid://ba7pfyj4wccyt" path="res://music/SFX/start battle/swish_in.wav" id="34_br8nb"]
 [ext_resource type="AudioStream" uid="uid://b777ks7xe7kaj" path="res://music/BG theme/chill_bg_music_1.wav" id="34_dfdxi"]
+[ext_resource type="AudioStream" uid="uid://dlqrx5fldlk4p" path="res://music/SFX/start battle/spining.wav" id="35_8wqyr"]
 [ext_resource type="AudioStream" uid="uid://c76odbutu0i16" path="res://music/SFX/start battle/swish_out.wav" id="35_bqwis"]
 [ext_resource type="Script" uid="uid://vsvjhvljg2t6" path="res://resources/camera/player_camera.gd" id="35_chhk3"]
+[ext_resource type="AudioStream" uid="uid://dp5ykku5tth45" path="res://music/SFX/start battle/enemy_is_first_success.wav" id="36_6xcon"]
+[ext_resource type="AudioStream" uid="uid://cswijau2tc7j1" path="res://music/SFX/start battle/player_is_first_success.wav" id="36_32kiw"]
 
 [sub_resource type="Gradient" id="Gradient_6i7va"]
 offsets = PackedFloat32Array(0)
@@ -260,7 +264,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("UI/AnimationHelpers/StartBattleElements/Sprite2D:scale")
+tracks/6/path = NodePath("UI/AnimationHelpers/StartBattleElements/FlameSprite2D:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -304,6 +308,124 @@ tracks/9/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("UI/AnimationHelpers/StartBattleElements/CoinSprite2D:frame")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("UI/AnimationHelpers/StartBattleElements/CoinSprite2D:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.7, 0.7)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("UI/AnimationHelpers/StartBattleElements/CoinSprite2D:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("UI/AnimationHelpers/StartBattleElements/CoinSprite2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(800, -200)]
+}
+
+[sub_resource type="Animation" id="Animation_bqwis"]
+resource_name = "enemy_start_first"
+length = 3.0000000000000004
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/AnimationHelpers/StartBattleElements/CoinSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.78500015, 0.8200001, 0.85500014, 0.8900001, 0.92500013, 0.96000016, 0.9950001, 1.0300002, 1.065, 1.1000001, 1.1350001, 1.1700001, 1.2120001, 1.2540002, 1.3030002, 1.3520001, 1.4080001, 1.4710001, 1.5340002, 1.5970001, 1.667, 1.7440001, 1.8140001, 1.8910002, 1.9610001, 2.038, 2.1150002, 2.185),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/AnimationHelpers/StartBattleElements/CoinSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.65, 2.75, 2.9500003, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.7, 0.7), Vector2(0.7, 0.7), Vector2(0.9, 0.9), Vector2(0.3, 0.3), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/AnimationHelpers/StartBattleElements/CoinSprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7500001, 2.9, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/AnimationHelpers/StartBattleElements/CoinSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.5, 0.65),
+"transitions": PackedFloat32Array(0.99999964, 0.9999988, 1.0000001, 1.0000002),
+"update": 0,
+"values": [Vector2(800, -200), Vector2(800, 500), Vector2(800, 350), Vector2(800, 400)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LevelSetup")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.7, 2.65),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [ExtResource("35_8wqyr"), 0.0],
+"method": &"play_ui_sound"
+}, {
+"args": [ExtResource("36_6xcon"), 0.0],
+"method": &"play_ui_sound"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_sdlhl"]
@@ -381,6 +503,76 @@ tracks/0/keys = {
 "values": [Vector2(-2450, 0), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_8wqyr"]
+resource_name = "playe_start_first"
+length = 3.45
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/AnimationHelpers/StartBattleElements/CoinSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.788, 0.82799995, 0.848, 0.908, 0.94799995, 0.988, 1.028, 1.068, 1.108, 1.148, 1.188, 1.2279999, 1.276, 1.324, 1.38, 1.436, 1.5, 1.572, 1.644, 1.7160001, 1.796, 1.8840001),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/AnimationHelpers/StartBattleElements/CoinSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.2979999, 2.3979998, 2.7, 2.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.7, 0.7), Vector2(0.7, 0.7), Vector2(0.9, 0.9), Vector2(0.3, 0.3), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/AnimationHelpers/StartBattleElements/CoinSprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7500001, 2.65, 2.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/AnimationHelpers/StartBattleElements/CoinSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.5, 0.65),
+"transitions": PackedFloat32Array(0.99999964, 0.9999988, 1.0000001, 1.0000002),
+"update": 0,
+"values": [Vector2(800, -200), Vector2(800, 500), Vector2(800, 350), Vector2(800, 400)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LevelSetup")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.7, 2.35),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [ExtResource("35_8wqyr"), 0.0],
+"method": &"play_ui_sound"
+}, {
+"args": [ExtResource("36_32kiw"), 0.0],
+"method": &"play_ui_sound"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_c1o2p"]
 resource_name = "player_witch_activation"
 length = 2.0
@@ -441,7 +633,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("UI/AnimationHelpers/StartBattleElements/Sprite2D:scale")
+tracks/2/path = NodePath("UI/AnimationHelpers/StartBattleElements/FlameSprite2D:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -474,32 +666,32 @@ tracks/4/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
-tracks/5/type = "audio"
+tracks/5/type = "method"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("AnimationPlayer/AudioStreamPlayer")
+tracks/5/path = NodePath("LevelSetup")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("34_br8nb")
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [ExtResource("34_br8nb"), 0.0],
+"method": &"play_ui_sound"
 }, {
-"end_offset": 0.003505591,
-"start_offset": 0.0,
-"stream": ExtResource("35_bqwis")
-}],
-"times": PackedFloat32Array(0, 1.5)
+"args": [ExtResource("35_bqwis"), 0.0],
+"method": &"play_ui_sound"
+}]
 }
-tracks/5/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jsgwy"]
 _data = {
 &"RESET": SubResource("Animation_jsgwy"),
+&"enemy_start_first": SubResource("Animation_bqwis"),
 &"enemy_witch_activation": SubResource("Animation_sdlhl"),
 &"fade_in": SubResource("Animation_rb6lq"),
 &"fade_out": SubResource("Animation_m13uo"),
+&"playe_start_first": SubResource("Animation_8wqyr"),
 &"player_witch_activation": SubResource("Animation_c1o2p"),
 &"start_battle": SubResource("Animation_chhk3")
 }
@@ -1093,7 +1285,7 @@ text = "Voledmor"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="UI/AnimationHelpers/StartBattleElements" unique_id=481706786]
+[node name="FlameSprite2D" type="Sprite2D" parent="UI/AnimationHelpers/StartBattleElements" unique_id=481706786]
 position = Vector2(800, 440)
 scale = Vector2(0.5, 1e-05)
 texture = ExtResource("32_chhk3")
@@ -1125,6 +1317,14 @@ offset_bottom = 40.0
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_xrivr")
 
+[node name="CoinSprite2D" type="Sprite2D" parent="UI/AnimationHelpers/StartBattleElements" unique_id=2087366549]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(800, -200)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("34_bqwis")
+hframes = 6
+vframes = 3
+
 [node name="Fade" type="Control" parent="UI" unique_id=1366213862]
 layout_mode = 3
 anchors_preset = 15
@@ -1152,8 +1352,6 @@ texture = SubResource("GradientTexture2D_13qdw")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=413388827]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_jsgwy")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationPlayer" unique_id=233548618]
 
 [node name="MusicAutoTrigger" type="Node" parent="." unique_id=1505354949]
 script = ExtResource("33_5ymgo")
