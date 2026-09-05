@@ -31,6 +31,7 @@
 [ext_resource type="Script" uid="uid://cw1r8tiyn0ahb" path="res://level/game/states/select_card_on_board_state.gd" id="24_8rqiy"]
 [ext_resource type="Texture2D" uid="uid://c3754bw6hruqy" path="res://level/assets/deck_count_icon.png" id="26_c1kdy"]
 [ext_resource type="Texture2D" uid="uid://bvg7n3st6xh6q" path="res://level/assets/victory_points_icon_2.png" id="29_chhk3"]
+[ext_resource type="Texture2D" uid="uid://gb0semwipd8v" path="res://level/assets/buttons/pause_button.png" id="30_0o7q4"]
 [ext_resource type="Texture2D" uid="uid://b8hxmgb7se3ea" path="res://level/assets/mana_gem_icon_4.png" id="30_chhk3"]
 [ext_resource type="Texture2D" uid="uid://g6dv8cgpyumo" path="res://level/assets/fire_line_opening_scene.png" id="32_chhk3"]
 [ext_resource type="Script" uid="uid://bg0v5cadydhqc" path="res://music/music_audio_trigger.gd" id="33_5ymgo"]
@@ -951,6 +952,19 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_c1kdy")
 theme_override_styles/focus = SubResource("StyleBoxFlat_3821i")
 text = "End Turn"
 
+[node name="PauseButton" type="Button" parent="UI" unique_id=617052756]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -122.0
+offset_top = 10.0
+offset_right = 251.0
+offset_bottom = 383.0
+grow_horizontal = 0
+scale = Vector2(0.3, 0.3)
+icon = ExtResource("30_0o7q4")
+
 [node name="InformPanel" type="Panel" parent="UI" unique_id=1189883393]
 offset_left = 15.0
 offset_top = 253.0
@@ -1348,6 +1362,130 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_13qdw")
+
+[node name="PausePanel" type="Panel" parent="UI" unique_id=285547602]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PausedLabel" type="RichTextLabel" parent="UI/PausePanel" unique_id=302534522]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -700.0
+offset_top = 30.0
+offset_right = 700.0
+offset_bottom = 430.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.6431373, 0.84705883, 0.7882353, 1)
+theme_override_constants/outline_size = 48
+theme_override_font_sizes/normal_font_size = 372
+bbcode_enabled = true
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="paused_screen" type="Control" parent="UI/PausePanel" unique_id=1606460637]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ButtonsVBoxContainer" type="VBoxContainer" parent="UI/PausePanel/paused_screen" unique_id=1635427425]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 580.0
+offset_top = 460.0
+offset_right = 980.0
+offset_bottom = 800.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ResumButton" type="Button" parent="UI/PausePanel/paused_screen/ButtonsVBoxContainer" unique_id=264124735]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "Resume"
+
+[node name="ExitButton" type="Button" parent="UI/PausePanel/paused_screen/ButtonsVBoxContainer" unique_id=1133486022]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "Exit"
+
+[node name="AreYouSurePanel" type="Panel" parent="UI/PausePanel" unique_id=707565557]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 400.0
+offset_top = 349.0
+offset_right = 1200.0
+offset_bottom = 770.0
+
+[node name="AreYouSureLabel" type="RichTextLabel" parent="UI/PausePanel/AreYouSurePanel" unique_id=1366308454]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_top = 16.0
+offset_right = 350.0
+offset_bottom = 213.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.8745098, 0, 0.05882353, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/normal_font_size = 124
+theme_override_font_sizes/bold_font_size = 124
+theme_override_font_sizes/bold_italics_font_size = 124
+theme_override_font_sizes/italics_font_size = 124
+theme_override_font_sizes/mono_font_size = 124
+bbcode_enabled = true
+text = "Quit game?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PausePanel/AreYouSurePanel" unique_id=1593040635]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -325.0
+offset_top = 250.0
+offset_right = 325.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_constants/separation = 50
+
+[node name="YesButton" type="Button" parent="UI/PausePanel/AreYouSurePanel/HBoxContainer" unique_id=1103468756]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 120)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 84
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="UI/PausePanel/AreYouSurePanel/HBoxContainer" unique_id=1181201327]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 120)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 84
+text = "No"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=413388827]
 unique_name_in_owner = true

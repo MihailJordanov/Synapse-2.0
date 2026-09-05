@@ -47,6 +47,8 @@ func enter() -> void:
 		await animation_player.animation_finished
 		fsm.active_side = GameDecisionEngine.Side.ENEMY
 		change_to(fsm.enemy_start_turn_state)
+	
+	fsm.level_controller.show_pause_button()
 		
 func _draw_initial_card(side: GameDecisionEngine.Side) -> void:
 	match side:

@@ -17,6 +17,15 @@ const DEFAULT_LEGEND_ICON = preload("uid://xciqo3d2po72")
 @onready var enemy_legend_ui: Control = %EnemyLegend
 @onready var level_setup: LevelSetup = %LevelSetup
 
+#region /// pause menu
+@onready var pause_button: Button = %PauseButton
+@onready var pause_panel: Panel = %PausePanel
+@onready var resum_button: Button = %ResumButton
+@onready var exit_button: Button = %ExitButton
+@onready var are_you_sure_panel: Panel = %AreYouSurePanel
+@onready var yes_button: Button = %YesButton
+@onready var no_button: Button = %NoButton
+#endregion
 
 
 var player_deck: Array[Card] = []
@@ -26,10 +35,21 @@ var enemy_deck: Array[Card] = []
 var enemy_spell_deck: Array[Card] = []
 
 func _ready() -> void:
+	pause_panel.process_mode = Node.PROCESS_MODE_ALWAYS
+	are_you_sure_panel.process_mode = Node.PROCESS_MODE_ALWAYS
+	pause_panel.hide()
+	are_you_sure_panel.hide()
+	hide_pause_button()
+	
 	_generate_decks()
 	_setup_legends_ui()
 	player_legend_texture_rect.gui_input.connect(_on_player_legend_gui_input)
 	enemy_legend_texture_rect.gui_input.connect(_on_enemy_legend_gui_input)
+	pause_button.pressed.connect(_on_pause_button_pressed)
+	resum_button.pressed.connect(_on_resum_button_pressed)
+	exit_button.pressed.connect(_on_exit_button_pressed)
+	yes_button.pressed.connect(_on_yes_button_pressed)
+	no_button.pressed.connect(_on_no_button_pressed)
 	legend_info_panel.hide()
 
 
@@ -266,3 +286,44 @@ func _create_cards_from_ids(card_ids: Array[int]) -> Array[Card]:
 
 	return result
 	
+	
+func _on_pause_button_pressed() -> void:
+	pause_game()
+
+func _on_resum_button_pressed() -> void:
+	resume_game()
+	
+func _on_exit_button_pressed() -> void:
+	resum_button.hide()
+	exit_button.hide()
+	are_you_sure_panel.show()
+
+func _on_yes_button_pressed() -> void:
+	pass
+
+func _on_no_button_pressed() -> void:
+	are_you_sure_panel.hide()
+	resum_button.show()
+	exit_button.show()
+
+func pause_game() -> void:
+	pause_button.hide()
+	are_you_sure_panel.hide()
+	resum_button.show()
+	exit_button.show()
+	pause_panel.show()
+	get_tree().paused = true
+
+func resume_game() -> void:
+	pause_panel.hide()
+	are_you_sure_panel.hide()
+	pause_button.show()
+	get_tree().paused = false
+
+func show_pause_button() -> void:
+	pause_button.show()
+	pause_button.disabled = false
+
+func hide_pause_button() -> void:
+	pause_button.hide()
+	pause_button.disabled = true
