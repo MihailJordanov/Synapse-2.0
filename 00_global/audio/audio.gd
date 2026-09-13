@@ -17,6 +17,10 @@ var ui_audio_player : AudioStreamPlaybackPolyphonic
 var audio_pool : Array[ AudioStreamPlayer2D ]
 var audio_index : int = 0
 
+var paused_music_position: float = 0.0
+var paused_music_stream: AudioStream = null
+var paused_music_volume_db: float = 0.0
+
 @onready var music_1: AudioStreamPlayer = %Music1
 @onready var music_2: AudioStreamPlayer = %Music2
 @onready var ui: AudioStreamPlayer = %UI
@@ -179,3 +183,28 @@ func _set_stream_loop(audio: AudioStream, loop: bool) -> void:
 			audio.loop_end = audio.get_length() * audio.mix_rate
 		else:
 			audio.loop_mode = AudioStreamWAV.LOOP_DISABLED
+
+func pause_music() -> void:
+	var player: AudioStreamPlayer = get_music_player(current_track)
+
+	if not player.playing:
+		return
+
+	paused_music_position = player.get_playback_position()
+	paused_music_stream = player.stream
+	paused_music_volume_db = player.volume_db
+
+	player.stop()
+
+func resume_music() -> void:
+	if paused_music_stream == null:
+		return
+
+	var player: AudioStreamPlayer = get_music_player(current_track)
+
+	player.stream = paused_music_stream
+	player.volume_db = paused_music_volume_db
+	player.play(paused_music_position)
+
+	paused_music_stream = null
+	paused_music_position = 0.0

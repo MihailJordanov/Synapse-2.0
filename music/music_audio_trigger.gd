@@ -12,3 +12,11 @@ func _ready() -> void:
 		Audio.play_music(track, loop, volume_db)
 
 	Audio.set_reverb(reverb)
+
+
+func pause_music() -> void:
+	Audio.pause_music()
+
+
+func resume_music() -> void:
+	Audio.resume_music()

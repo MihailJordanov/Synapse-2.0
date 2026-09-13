@@ -3,10 +3,16 @@ class_name PlayerEndTurnState extends State
 
 func enter() -> void:
 	_update_state_info()
+
+	var terminal: State = fsm.score_terminal_state()
+	if terminal != null:
+		change_to(terminal)
+		return
+
 	fsm.enable_end_turn_button()
+
 	if not fsm.control_button_pressed.is_connected(_on_end_turn_pressed):
 		fsm.control_button_pressed.connect(_on_end_turn_pressed)
-
 
 func exit() -> void:
 	fsm.disable_turn_button()
@@ -36,8 +42,7 @@ func _update_state_info() -> void:
 
 		_:
 			_show_normal_end_turn_message()
-			
-			
+
 func _show_no_empty_slots_message() -> void:
 	fsm.set_state_info(
 		"[color=#F88379]No empty slots![/color]\n"

@@ -29,10 +29,10 @@
 [ext_resource type="Script" uid="uid://bi7vbsa1lhimd" path="res://level/game/states/sum_points_state.gd" id="22_fl61o"]
 [ext_resource type="Script" uid="uid://pewja1g4u1ka" path="res://level/game/states/player_play_spell_card_state.gd" id="23_un0mk"]
 [ext_resource type="Script" uid="uid://cw1r8tiyn0ahb" path="res://level/game/states/select_card_on_board_state.gd" id="24_8rqiy"]
-[ext_resource type="Texture2D" uid="uid://c3754bw6hruqy" path="res://level/assets/deck_count_icon.png" id="26_c1kdy"]
-[ext_resource type="Texture2D" uid="uid://bvg7n3st6xh6q" path="res://level/assets/victory_points_icon_2.png" id="29_chhk3"]
+[ext_resource type="Texture2D" uid="uid://c3754bw6hruqy" path="res://level/assets/inf_panel/deck_count_icon.png" id="26_c1kdy"]
+[ext_resource type="Texture2D" uid="uid://bvg7n3st6xh6q" path="res://level/assets/inf_panel/victory_points_icon_2.png" id="29_chhk3"]
 [ext_resource type="Texture2D" uid="uid://gb0semwipd8v" path="res://level/assets/buttons/pause_button.png" id="30_0o7q4"]
-[ext_resource type="Texture2D" uid="uid://b8hxmgb7se3ea" path="res://level/assets/mana_gem_icon_4.png" id="30_chhk3"]
+[ext_resource type="Texture2D" uid="uid://b8hxmgb7se3ea" path="res://level/assets/inf_panel/mana_gem_icon_4.png" id="30_chhk3"]
 [ext_resource type="Texture2D" uid="uid://g6dv8cgpyumo" path="res://level/assets/fire_line_opening_scene.png" id="32_chhk3"]
 [ext_resource type="Script" uid="uid://bg0v5cadydhqc" path="res://music/music_audio_trigger.gd" id="33_5ymgo"]
 [ext_resource type="Texture2D" uid="uid://bs1jwu6qn3qa5" path="res://level/assets/coin_for_first_turn.png" id="34_bqwis"]
@@ -43,6 +43,16 @@
 [ext_resource type="Script" uid="uid://vsvjhvljg2t6" path="res://resources/camera/player_camera.gd" id="35_chhk3"]
 [ext_resource type="AudioStream" uid="uid://dp5ykku5tth45" path="res://music/SFX/start battle/enemy_is_first_success.wav" id="36_6xcon"]
 [ext_resource type="AudioStream" uid="uid://cswijau2tc7j1" path="res://music/SFX/start battle/player_is_first_success.wav" id="36_32kiw"]
+[ext_resource type="Texture2D" uid="uid://bdrobtb01f6a5" path="res://level/assets/blood_drops.png" id="36_eytok"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_13qdw"]
+blend_mode = 3
+
+[sub_resource type="Gradient" id="Gradient_chhk3"]
+colors = PackedColorArray(0.53333336, 1, 1, 1, 1, 0.34509805, 0.40392157, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xrivr"]
+gradient = SubResource("Gradient_chhk3")
 
 [sub_resource type="Gradient" id="Gradient_6i7va"]
 offsets = PackedFloat32Array(0)
@@ -168,15 +178,6 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 corner_detail = 1
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_13qdw"]
-blend_mode = 3
-
-[sub_resource type="Gradient" id="Gradient_chhk3"]
-colors = PackedColorArray(0.53333336, 1, 1, 1, 1, 0.34509805, 0.40392157, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_xrivr"]
-gradient = SubResource("Gradient_chhk3")
 
 [sub_resource type="Gradient" id="Gradient_rb6lq"]
 offsets = PackedFloat32Array(0.5, 1)
@@ -358,6 +359,162 @@ tracks/13/keys = {
 "update": 0,
 "values": [Vector2(800, -200)]
 }
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("UI/LosePanel:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("UI/LosePanel/DefeatLabel:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("UI/LosePanel/DefeatInfoLabel:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("UI/LosePanel/ExitOnDefeatButton:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("UI/LosePanel/BloodSprite1:modulate")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("UI/LosePanel/BloodSprite2:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("UI/LosePanel/BloodSprite3:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("UI/LosePanel/BloodSprite4:modulate")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("UI/LosePanel/BloodSprite5:modulate")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("UI/VictoryPanel:modulate")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("UI/VictoryPanel/VictoryLabel:modulate")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("UI/VictoryPanel/VictoryInfoLabel:modulate")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("UI/VictoryPanel/ExitOnVictoryButton:visible")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_bqwis"]
 resource_name = "enemy_start_first"
@@ -502,6 +659,170 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(-2450, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eytok"]
+resource_name = "on_defeat_show"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/LosePanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/LosePanel/DefeatLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.6901961, 0.6901961, 0.6901961, 0), Color(1, 1, 1, 0), Color(0.5370987, 0.5370987, 0.5370987, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/LosePanel/DefeatInfoLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/LosePanel/ExitOnDefeatButton:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/LosePanel/BloodSprite1:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1.8247963, 1.8247963, 1.8247963, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/LosePanel/BloodSprite2:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.19999993, 0.39999998, 0.5999999, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1.8247963, 1.8247963, 1.8247963, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UI/LosePanel/BloodSprite3:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.50000006, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1.8247963, 1.8247963, 1.8247963, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("UI/LosePanel/BloodSprite4:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.20000005, 0.4000001, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1.8247963, 1.8247963, 1.8247963, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("UI/LosePanel/BloodSprite5:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.39999998, 0.59999996, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1.8247963, 1.8247963, 1.8247963, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_k2euv"]
+resource_name = "on_victory_show"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/VictoryPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/VictoryPanel/VictoryLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.39999998, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.6901961, 0.6901961, 0.6901961, 0), Color(1, 1, 1, 0), Color(0.5370987, 0.5370987, 0.5370987, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/VictoryPanel/VictoryInfoLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.70000005, 0.79999995, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/VictoryPanel/ExitOnVictoryButton:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_8wqyr"]
@@ -692,6 +1013,8 @@ _data = {
 &"enemy_witch_activation": SubResource("Animation_sdlhl"),
 &"fade_in": SubResource("Animation_rb6lq"),
 &"fade_out": SubResource("Animation_m13uo"),
+&"on_defeat_show": SubResource("Animation_eytok"),
+&"on_victory_show": SubResource("Animation_k2euv"),
 &"playe_start_first": SubResource("Animation_8wqyr"),
 &"player_witch_activation": SubResource("Animation_c1o2p"),
 &"start_battle": SubResource("Animation_chhk3")
@@ -753,26 +1076,6 @@ position = Vector2(1100, 250)
 visible = false
 position = Vector2(1270, 250)
 
-[node name="PlayerDeck" type="Sprite2D" parent="Slots" unique_id=1496975527]
-position = Vector2(132, 768)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("5_o7jp2")
-
-[node name="PlayerSpellDeck" type="Sprite2D" parent="Slots" unique_id=776532174]
-position = Vector2(1472, 768)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("5_ldw2c")
-
-[node name="EnemyDeck" type="Sprite2D" parent="Slots" unique_id=1780896770]
-position = Vector2(132, 36)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("5_o7jp2")
-
-[node name="EnemySpellDeck" type="Sprite2D" parent="Slots" unique_id=623002403]
-position = Vector2(1472, 36)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("5_ldw2c")
-
 [node name="LevelSetup" type="Node" parent="." unique_id=2073246435]
 unique_name_in_owner = true
 script = ExtResource("6_dfdxi")
@@ -789,67 +1092,15 @@ player_legend = ExtResource("8_rb6lq")
 [node name="PlayerHand" type="Node2D" parent="Hands" unique_id=991506965 node_paths=PackedStringArray("deck_sprite", "spell_deck_sprite")]
 position = Vector2(799, 780)
 script = ExtResource("7_05d1k")
-deck_sprite = NodePath("../../Slots/PlayerDeck")
-spell_deck_sprite = NodePath("../../Slots/PlayerSpellDeck")
+deck_sprite = NodePath("../../UI/AnimationHelpers/DecksSprites/PlayerDeck")
+spell_deck_sprite = NodePath("../../UI/AnimationHelpers/DecksSprites/PlayerSpellDeck")
 
 [node name="EnemyHand" type="Node2D" parent="Hands" unique_id=357395619 node_paths=PackedStringArray("deck_sprite", "spell_deck_sprite")]
 position = Vector2(799, 6)
 script = ExtResource("7_05d1k")
 is_enemy = true
-deck_sprite = NodePath("../../Slots/EnemyDeck")
-spell_deck_sprite = NodePath("../../Slots/EnemySpellDeck")
-
-[node name="Legends" type="Node2D" parent="." unique_id=996052295]
-
-[node name="PlayerLegend" type="Control" parent="Legends" unique_id=314255532]
-unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1475.0
-offset_top = 775.0
-offset_right = 1515.0
-offset_bottom = 815.0
-
-[node name="Sprite2D" type="Sprite2D" parent="Legends/PlayerLegend" unique_id=80991465]
-z_index = 5
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_6i7va")
-
-[node name="PlayerLegendTextureRect" type="TextureRect" parent="Legends/PlayerLegend" unique_id=1444180535]
-unique_name_in_owner = true
-z_index = 3
-layout_mode = 0
-offset_left = -80.0
-offset_top = -78.0
-offset_right = 80.0
-offset_bottom = 82.0
-texture = SubResource("GradientTexture2D_c1o2p")
-expand_mode = 2
-
-[node name="EnemyLegend" type="Control" parent="Legends" unique_id=1627710024]
-unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 0
-offset_left = 125.0
-offset_top = 125.0
-offset_right = 165.0
-offset_bottom = 165.0
-
-[node name="Sprite2D" type="Sprite2D" parent="Legends/EnemyLegend" unique_id=12889651]
-z_index = 5
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_jsgwy")
-
-[node name="EnemyLegendTextureRect" type="TextureRect" parent="Legends/EnemyLegend" unique_id=105032866]
-unique_name_in_owner = true
-z_index = 3
-layout_mode = 0
-offset_left = -80.0
-offset_top = -78.0
-offset_right = 80.0
-offset_bottom = 82.0
-texture = SubResource("GradientTexture2D_c1o2p")
-expand_mode = 2
+deck_sprite = NodePath("../../UI/AnimationHelpers/DecksSprites/EnemyDeck")
+spell_deck_sprite = NodePath("../../UI/AnimationHelpers/DecksSprites/EnemySpellDeck")
 
 [node name="Game" type="Node" parent="." unique_id=408227523]
 
@@ -937,6 +1188,225 @@ script = ExtResource("24_8rqiy")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1701068604]
 
+[node name="AnimationHelpers" type="Control" parent="UI" unique_id=1050617319]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="PlayerManaPointsRichTextLabel" type="RichTextLabel" parent="UI/AnimationHelpers" unique_id=1184894264]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+layout_mode = 0
+offset_left = 1401.0
+offset_top = 699.0
+offset_right = 1544.0
+offset_bottom = 767.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+theme_override_font_sizes/mono_font_size = 48
+text = "+ 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyManaPointsRichTextLabel" type="RichTextLabel" parent="UI/AnimationHelpers" unique_id=1823321711]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+layout_mode = 0
+offset_left = 52.0
+offset_top = 132.0
+offset_right = 195.0
+offset_bottom = 199.99991
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+theme_override_font_sizes/mono_font_size = 48
+text = "+ 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartBattleElements" type="Control" parent="UI/AnimationHelpers" unique_id=1890146950]
+z_index = 1000
+anchors_preset = 0
+
+[node name="Panel" type="Panel" parent="UI/AnimationHelpers/StartBattleElements" unique_id=606190594]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_top = 50.0
+offset_right = 1600.0
+offset_bottom = 850.0
+mouse_filter = 2
+
+[node name="PlayerControls" type="Control" parent="UI/AnimationHelpers/StartBattleElements" unique_id=181114770]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="PlayerNameLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements/PlayerControls" unique_id=1832725865]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -1550.0
+offset_top = 525.0
+offset_right = -149.98535
+offset_bottom = 925.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.53333336, 1, 1, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/normal_font_size = 200
+theme_override_font_sizes/bold_font_size = 200
+theme_override_font_sizes/bold_italics_font_size = 200
+theme_override_font_sizes/italics_font_size = 200
+theme_override_font_sizes/mono_font_size = 200
+bbcode_enabled = true
+text = "Misho"
+horizontal_alignment = 1
+
+[node name="EnemyControls" type="Control" parent="UI/AnimationHelpers/StartBattleElements" unique_id=1450888534]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="EnemyNameLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements/EnemyControls" unique_id=1024585553]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1750.0
+offset_top = -25.0
+offset_right = 3150.001
+offset_bottom = 375.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 0.34509805, 0.40392157, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/normal_font_size = 200
+theme_override_font_sizes/bold_font_size = 200
+theme_override_font_sizes/bold_italics_font_size = 200
+theme_override_font_sizes/italics_font_size = 200
+theme_override_font_sizes/mono_font_size = 200
+bbcode_enabled = true
+text = "Voledmor"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="FlameSprite2D" type="Sprite2D" parent="UI/AnimationHelpers/StartBattleElements" unique_id=481706786]
+position = Vector2(800, 440)
+scale = Vector2(0.5, 1e-05)
+texture = ExtResource("32_chhk3")
+
+[node name="VSLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements" unique_id=718582387]
+clip_children = 2
+layout_mode = 0
+offset_left = 675.0
+offset_top = 335.0
+offset_right = 925.0
+offset_bottom = 535.0
+scale = Vector2(1, 1e-05)
+mouse_filter = 2
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/normal_font_size = 200
+theme_override_font_sizes/bold_font_size = 200
+theme_override_font_sizes/bold_italics_font_size = 200
+theme_override_font_sizes/italics_font_size = 200
+theme_override_font_sizes/mono_font_size = 200
+bbcode_enabled = true
+text = "vs"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/AnimationHelpers/StartBattleElements/VSLabel" unique_id=945730255]
+material = SubResource("CanvasItemMaterial_13qdw")
+custom_minimum_size = Vector2(250, 200)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_xrivr")
+
+[node name="CoinSprite2D" type="Sprite2D" parent="UI/AnimationHelpers/StartBattleElements" unique_id=2087366549]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(800, -200)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("34_bqwis")
+hframes = 6
+vframes = 3
+
+[node name="DecksSprites" type="Control" parent="UI/AnimationHelpers" unique_id=1529954744]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerDeck" type="Sprite2D" parent="UI/AnimationHelpers/DecksSprites" unique_id=1496975527]
+position = Vector2(132, 768)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_o7jp2")
+
+[node name="PlayerSpellDeck" type="Sprite2D" parent="UI/AnimationHelpers/DecksSprites" unique_id=776532174]
+position = Vector2(1472, 768)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_ldw2c")
+
+[node name="EnemyDeck" type="Sprite2D" parent="UI/AnimationHelpers/DecksSprites" unique_id=1780896770]
+position = Vector2(132, 36)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_o7jp2")
+
+[node name="EnemySpellDeck" type="Sprite2D" parent="UI/AnimationHelpers/DecksSprites" unique_id=623002403]
+position = Vector2(1472, 36)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_ldw2c")
+
+[node name="Legends" type="Control" parent="UI" unique_id=346341827]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="PlayerLegend" type="Control" parent="UI/Legends" unique_id=314255532]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 1475.0
+offset_top = 775.0
+offset_right = 1515.0
+offset_bottom = 815.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Legends/PlayerLegend" unique_id=80991465]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_6i7va")
+
+[node name="PlayerLegendTextureRect" type="TextureRect" parent="UI/Legends/PlayerLegend" unique_id=1444180535]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -80.0
+offset_top = -78.0
+offset_right = 80.0
+offset_bottom = 82.0
+texture = SubResource("GradientTexture2D_c1o2p")
+expand_mode = 2
+
+[node name="EnemyLegend" type="Control" parent="UI/Legends" unique_id=1627710024]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 125.0
+offset_top = 125.0
+offset_right = 165.0
+offset_bottom = 165.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Legends/EnemyLegend" unique_id=12889651]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_jsgwy")
+
+[node name="EnemyLegendTextureRect" type="TextureRect" parent="UI/Legends/EnemyLegend" unique_id=105032866]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -80.0
+offset_top = -78.0
+offset_right = 80.0
+offset_bottom = 82.0
+texture = SubResource("GradientTexture2D_c1o2p")
+expand_mode = 2
+
 [node name="ControllTurnButton" type="Button" parent="UI" unique_id=105520837]
 unique_name_in_owner = true
 offset_left = 45.0
@@ -975,6 +1445,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
 [node name="StateInformLabel" type="RichTextLabel" parent="UI/InformPanel" unique_id=1946513371]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(300, 225)
+clip_contents = false
 layout_mode = 0
 offset_left = 10.0
 offset_top = 12.5
@@ -1198,148 +1669,8 @@ bbcode_enabled = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationHelpers" type="Node2D" parent="UI" unique_id=1136983655]
-
-[node name="PlayerManaPointsRichTextLabel" type="RichTextLabel" parent="UI/AnimationHelpers" unique_id=1184894264]
-modulate = Color(1, 1, 1, 0)
-z_index = 1
-offset_left = 1401.0
-offset_top = 699.0
-offset_right = 1544.0
-offset_bottom = 767.0
-mouse_filter = 2
-theme_override_colors/default_color = Color(0, 1, 1, 1)
-theme_override_font_sizes/normal_font_size = 48
-theme_override_font_sizes/bold_font_size = 48
-theme_override_font_sizes/bold_italics_font_size = 48
-theme_override_font_sizes/italics_font_size = 48
-theme_override_font_sizes/mono_font_size = 48
-text = "+ 1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="EnemyManaPointsRichTextLabel" type="RichTextLabel" parent="UI/AnimationHelpers" unique_id=1823321711]
-modulate = Color(1, 1, 1, 0)
-z_index = 1
-offset_left = 52.0
-offset_top = 132.0
-offset_right = 195.0
-offset_bottom = 199.99991
-mouse_filter = 2
-theme_override_colors/default_color = Color(0, 1, 1, 1)
-theme_override_font_sizes/normal_font_size = 48
-theme_override_font_sizes/bold_font_size = 48
-theme_override_font_sizes/bold_italics_font_size = 48
-theme_override_font_sizes/italics_font_size = 48
-theme_override_font_sizes/mono_font_size = 48
-text = "+ 1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StartBattleElements" type="Node2D" parent="UI/AnimationHelpers" unique_id=1079685011]
-z_index = 1000
-
-[node name="Panel" type="Panel" parent="UI/AnimationHelpers/StartBattleElements" unique_id=606190594]
-modulate = Color(1, 1, 1, 0)
-offset_top = 50.0
-offset_right = 1600.0
-offset_bottom = 850.0
-mouse_filter = 2
-
-[node name="PlayerControls" type="Control" parent="UI/AnimationHelpers/StartBattleElements" unique_id=181114770]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-
-[node name="PlayerNameLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements/PlayerControls" unique_id=1832725865]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = -1550.0
-offset_top = 525.0
-offset_right = -149.98535
-offset_bottom = 925.0
-mouse_filter = 2
-theme_override_colors/default_color = Color(0.53333336, 1, 1, 1)
-theme_override_constants/outline_size = 25
-theme_override_font_sizes/normal_font_size = 200
-theme_override_font_sizes/bold_font_size = 200
-theme_override_font_sizes/bold_italics_font_size = 200
-theme_override_font_sizes/italics_font_size = 200
-theme_override_font_sizes/mono_font_size = 200
-bbcode_enabled = true
-text = "Misho"
-horizontal_alignment = 1
-
-[node name="EnemyControls" type="Control" parent="UI/AnimationHelpers/StartBattleElements" unique_id=1450888534]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-
-[node name="EnemyNameLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements/EnemyControls" unique_id=1024585553]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 1750.0
-offset_top = -25.0
-offset_right = 3150.001
-offset_bottom = 375.0
-mouse_filter = 2
-theme_override_colors/default_color = Color(1, 0.34509805, 0.40392157, 1)
-theme_override_constants/outline_size = 25
-theme_override_font_sizes/normal_font_size = 200
-theme_override_font_sizes/bold_font_size = 200
-theme_override_font_sizes/bold_italics_font_size = 200
-theme_override_font_sizes/italics_font_size = 200
-theme_override_font_sizes/mono_font_size = 200
-bbcode_enabled = true
-text = "Voledmor"
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="FlameSprite2D" type="Sprite2D" parent="UI/AnimationHelpers/StartBattleElements" unique_id=481706786]
-position = Vector2(800, 440)
-scale = Vector2(0.5, 1e-05)
-texture = ExtResource("32_chhk3")
-
-[node name="VSLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements" unique_id=718582387]
-clip_children = 2
-offset_left = 675.0
-offset_top = 335.0
-offset_right = 925.0
-offset_bottom = 535.0
-scale = Vector2(1, 1e-05)
-mouse_filter = 2
-theme_override_constants/outline_size = 25
-theme_override_font_sizes/normal_font_size = 200
-theme_override_font_sizes/bold_font_size = 200
-theme_override_font_sizes/bold_italics_font_size = 200
-theme_override_font_sizes/italics_font_size = 200
-theme_override_font_sizes/mono_font_size = 200
-bbcode_enabled = true
-text = "vs"
-horizontal_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="UI/AnimationHelpers/StartBattleElements/VSLabel" unique_id=945730255]
-material = SubResource("CanvasItemMaterial_13qdw")
-custom_minimum_size = Vector2(250, 200)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-texture = SubResource("GradientTexture2D_xrivr")
-
-[node name="CoinSprite2D" type="Sprite2D" parent="UI/AnimationHelpers/StartBattleElements" unique_id=2087366549]
-modulate = Color(1, 1, 1, 0)
-position = Vector2(800, -200)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("34_bqwis")
-hframes = 6
-vframes = 3
-
 [node name="Fade" type="Control" parent="UI" unique_id=1366213862]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1372,15 +1703,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ColorRect" type="ColorRect" parent="UI/PausePanel" unique_id=828535016]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 360.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 0.48235294)
+
 [node name="PausedLabel" type="RichTextLabel" parent="UI/PausePanel" unique_id=302534522]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -700.0
-offset_top = 30.0
 offset_right = 700.0
-offset_bottom = 430.0
+offset_bottom = 400.0
 grow_horizontal = 2
 theme_override_colors/default_color = Color(0.6431373, 0.84705883, 0.7882353, 1)
 theme_override_constants/outline_size = 48
@@ -1429,6 +1767,7 @@ text = "Exit"
 
 [node name="AreYouSurePanel" type="Panel" parent="UI/PausePanel" unique_id=707565557]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 400.0
 offset_top = 349.0
@@ -1487,11 +1826,177 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 84
 text = "No"
 
+[node name="LosePanel" type="Panel" parent="UI" unique_id=1162150461]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/LosePanel" unique_id=1336354842]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 360.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 0.48235294)
+
+[node name="DefeatLabel" type="RichTextLabel" parent="UI/LosePanel" unique_id=2019231818]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -700.0
+offset_right = 700.0
+offset_bottom = 400.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.5588882, 0, 0.11478052, 1)
+theme_override_constants/outline_size = 48
+theme_override_font_sizes/normal_font_size = 372
+bbcode_enabled = true
+text = "DEFEAT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DefeatInfoLabel" type="RichTextLabel" parent="UI/LosePanel" unique_id=1554522888]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 0
+offset_left = 300.0
+offset_top = 400.0
+offset_right = 1300.0
+offset_bottom = 600.0
+theme_override_colors/default_color = Color(1, 0.77254903, 0.6313726, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+theme_override_font_sizes/mono_font_size = 64
+text = "Your enemy get the points!"
+horizontal_alignment = 1
+
+[node name="ExitOnDefeatButton" type="Button" parent="UI/LosePanel" unique_id=1609157963]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 0
+offset_left = 600.0
+offset_top = 650.0
+offset_right = 1000.0
+offset_bottom = 750.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "Ok.."
+
+[node name="BloodSprite1" type="Sprite2D" parent="UI/LosePanel" unique_id=264465358]
+position = Vector2(187, 477)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("36_eytok")
+region_enabled = true
+region_rect = Rect2(136.39972, 106.98199, 381.63312, 351.50415)
+
+[node name="BloodSprite2" type="Sprite2D" parent="UI/LosePanel" unique_id=1551010632]
+position = Vector2(1396, 558)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("36_eytok")
+region_enabled = true
+region_rect = Rect2(505.14703, 676.10345, 258.78912, 246.65839)
+
+[node name="BloodSprite3" type="Sprite2D" parent="UI/LosePanel" unique_id=1369328072]
+position = Vector2(319, 743)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("36_eytok")
+region_enabled = true
+region_rect = Rect2(687.1081, 1157.2894, 258.78912, 246.65839)
+
+[node name="BloodSprite4" type="Sprite2D" parent="UI/LosePanel" unique_id=1275431663]
+position = Vector2(1179, 727)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("36_eytok")
+region_enabled = true
+region_rect = Rect2(2091.3645, 618.38745, 327.53003, 420.53235)
+
+[node name="BloodSprite5" type="Sprite2D" parent="UI/LosePanel" unique_id=555147375]
+position = Vector2(80, 827)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("36_eytok")
+region_enabled = true
+region_rect = Rect2(2479.548, 509.21085, 214.30981, 194.09183)
+
+[node name="VictoryPanel" type="Panel" parent="UI" unique_id=941762209]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/VictoryPanel" unique_id=1702303062]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 360.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 0.48235294)
+
+[node name="VictoryLabel" type="RichTextLabel" parent="UI/VictoryPanel" unique_id=39150811]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -800.0
+offset_right = 800.0
+offset_bottom = 400.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.6300725, 3.2944162, 2.8213084, 1)
+theme_override_colors/font_outline_color = Color(0.27314225, 0.27314225, 0.27314222, 1)
+theme_override_constants/outline_size = 48
+theme_override_font_sizes/normal_font_size = 372
+bbcode_enabled = true
+text = "VICTORY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VictoryInfoLabel" type="RichTextLabel" parent="UI/VictoryPanel" unique_id=509036072]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 0
+offset_left = 300.0
+offset_top = 400.0
+offset_right = 1300.0
+offset_bottom = 600.0
+theme_override_colors/default_color = Color(0.92156863, 0.85882354, 0.9843137, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+theme_override_font_sizes/mono_font_size = 64
+text = "Good Job!"
+horizontal_alignment = 1
+
+[node name="ExitOnVictoryButton" type="Button" parent="UI/VictoryPanel" unique_id=659111946]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 0
+offset_left = 600.0
+offset_top = 650.0
+offset_right = 1000.0
+offset_bottom = 750.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "OK"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=413388827]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_jsgwy")
 
 [node name="MusicAutoTrigger" type="Node" parent="." unique_id=1505354949]
+unique_name_in_owner = true
 script = ExtResource("33_5ymgo")
 track = ExtResource("34_dfdxi")
 volume_db = -30.0

@@ -25,6 +25,8 @@ const DEFAULT_LEGEND_ICON = preload("uid://xciqo3d2po72")
 @onready var are_you_sure_panel: Panel = %AreYouSurePanel
 @onready var yes_button: Button = %YesButton
 @onready var no_button: Button = %NoButton
+@onready var lose_panel: Panel = %LosePanel
+@onready var victory_panel: Panel = %VictoryPanel
 #endregion
 
 
@@ -39,6 +41,8 @@ func _ready() -> void:
 	are_you_sure_panel.process_mode = Node.PROCESS_MODE_ALWAYS
 	pause_panel.hide()
 	are_you_sure_panel.hide()
+	lose_panel.hide()
+	victory_panel.hide()
 	hide_pause_button()
 	
 	_generate_decks()

@@ -116,6 +116,7 @@ offset_right = -0.03200531
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/outline_size = 10
 
 [node name="ManaPanel" type="Panel" parent="Control" unique_id=1274228995]
 layout_mode = 0
