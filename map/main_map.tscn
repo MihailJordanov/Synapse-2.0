@@ -1,0 +1,349 @@
+[gd_scene format=3 uid="uid://ct0cjfub1nk2v"]
+
+[ext_resource type="Texture2D" uid="uid://mrbf2gsew70q" path="res://map/assets/maps/Synapse_pixeled.png" id="1_tbg47"]
+[ext_resource type="Script" uid="uid://cm0ygfk6yhryp" path="res://map/scripts/level_bounds.gd" id="2_max4a"]
+[ext_resource type="Script" uid="uid://cfb6p4sd1rrxi" path="res://map/scripts/map_camera.gd" id="3_v0ysp"]
+[ext_resource type="Texture2D" uid="uid://btd17nyb7qkuu" path="res://map/assets/light/light_stream.jpg" id="4_qqobk"]
+[ext_resource type="Texture2D" uid="uid://qlr60fik8bcv" path="res://map/assets/light/light_cyrcle.jpg" id="5_ojhv3"]
+[ext_resource type="Texture2D" uid="uid://b4ihs4tlyxcwj" path="res://map/assets/clouds/Cloud_4.png" id="5_saqon"]
+[ext_resource type="Texture2D" uid="uid://w3tgkgdv8ex8" path="res://map/assets/clouds/Cloud_1.png" id="6_8ta2u"]
+[ext_resource type="Script" uid="uid://hd6nwb8jpe1s" path="res://map/scripts/map_zones.gd" id="6_ojhv3"]
+[ext_resource type="Texture2D" uid="uid://155tvh2ok31d" path="res://map/assets/clouds/Cloud_5.png" id="7_3v4th"]
+[ext_resource type="Texture2D" uid="uid://bes0qtmo1f1se" path="res://map/assets/clouds/Cloud_3.png" id="8_bgocw"]
+[ext_resource type="Texture2D" uid="uid://cxws4gq3fnv3q" path="res://map/assets/clouds/Cloud_2.png" id="9_70p4u"]
+
+[node name="MainMap" type="Node2D" unique_id=1605820528]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=138317155]
+position = Vector2(724, 543)
+texture = ExtResource("1_tbg47")
+
+[node name="LevelBounds" type="Node2D" parent="." unique_id=2123541542]
+unique_name_in_owner = true
+script = ExtResource("2_max4a")
+width = 1440
+height = 1070
+
+[node name="MapCamera2D" type="Camera2D" parent="." unique_id=1485334912]
+script = ExtResource("3_v0ysp")
+min_zoom = 1.0
+
+[node name="Zones" type="Node2D" parent="." unique_id=803071509]
+script = ExtResource("6_ojhv3")
+
+[node name="Zone_A_Area2D" type="Area2D" parent="Zones" unique_id=47372783]
+unique_name_in_owner = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zones/Zone_A_Area2D" unique_id=379914763]
+position = Vector2(846, 691)
+polygon = PackedVector2Array(51, -49, -15, -201, -257, -193, -293, -50, 0, 4)
+
+[node name="Zone_B_Area2D" type="Area2D" parent="Zones" unique_id=1011246914]
+unique_name_in_owner = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zones/Zone_B_Area2D" unique_id=1251811605]
+position = Vector2(412, 661)
+polygon = PackedVector2Array(135, -22, 172, -162, -141, -195, -93, -7)
+
+[node name="Assets" type="Node2D" parent="Zones" unique_id=1636358051]
+
+[node name="Clouds" type="Node2D" parent="Zones/Assets" unique_id=27933806]
+
+[node name="Cl_Z_B" type="Node2D" parent="Zones/Assets/Clouds" unique_id=485160919]
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_B" unique_id=1835355216]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(350, 505)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_saqon")
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_B" unique_id=1478187746]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(397, 579)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_8ta2u")
+
+[node name="Cl_Z_C" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1376841991]
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_C" unique_id=123222772]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(663, 361)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_3v4th")
+
+[node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_C" unique_id=1749213978]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(652, 371)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_bgocw")
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_C" unique_id=274590297]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(643, 437)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_saqon")
+
+[node name="Cl_Z_D" type="Node2D" parent="Zones/Assets/Clouds" unique_id=71778916]
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_D" unique_id=1971194888]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(1071, 390)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_70p4u")
+
+[node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_D" unique_id=90967370]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(1068, 462)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_8ta2u")
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_D" unique_id=942699392]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(1005.99994, 523)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_3v4th")
+
+[node name="Cl_Z_E" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1405867863]
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_E" unique_id=604476374]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(324, 364)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_70p4u")
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_E" unique_id=1744525378]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(425, 298)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_3v4th")
+
+[node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_E" unique_id=603030968]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(384, 413)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_8ta2u")
+
+[node name="Cl_Z_F" type="Node2D" parent="Zones/Assets/Clouds" unique_id=68282693]
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_F" unique_id=402772909]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(395, 662)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_70p4u")
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_F" unique_id=1930039652]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(702, 697)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_3v4th")
+
+[node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_F" unique_id=1936229065]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(467, 689)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_8ta2u")
+
+[node name="Cl_Z_G" type="Node2D" parent="Zones/Assets/Clouds" unique_id=161401589]
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_G" unique_id=1308547132]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(1084, 613)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_70p4u")
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_G" unique_id=1386631111]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(1110, 668)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_3v4th")
+
+[node name="Cl_Z_H" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1950149373]
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_H" unique_id=1898105731]
+modulate = Color(0.78521717, 0.7852172, 0.78521717, 0.87058824)
+position = Vector2(698, 255.99998)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_8ta2u")
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_H" unique_id=48244872]
+modulate = Color(0.8569273, 0.8569273, 0.8569273, 0.87058824)
+position = Vector2(600, 213.99998)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_3v4th")
+
+[node name="Cl_Z_I" type="Node2D" parent="Zones/Assets/Clouds" unique_id=459445481]
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_I" unique_id=1220120602]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(673, 836)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_bgocw")
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_I" unique_id=904621492]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(567, 807.00006)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_8ta2u")
+
+[node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_I" unique_id=2113269132]
+modulate = Color(1, 1, 1, 0.87058824)
+position = Vector2(643, 932)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_saqon")
+
+[node name="Cl_Z_J" type="Node2D" parent="Zones/Assets/Clouds" unique_id=780633873]
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_J" unique_id=1004907236]
+modulate = Color(0.61582816, 0.61582863, 0.61582816, 0.87058824)
+position = Vector2(623, 123)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_8ta2u")
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_J" unique_id=1133473726]
+modulate = Color(0.61582816, 0.61582863, 0.61582816, 0.87058824)
+position = Vector2(727, 42)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_saqon")
+
+[node name="Cl_Z_K" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1388628677]
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_K" unique_id=1322295937]
+modulate = Color(0.6255969, 0.62559724, 0.62559694, 0.9411765)
+position = Vector2(1046, 229)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_3v4th")
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_K" unique_id=1840788664]
+modulate = Color(0.6255969, 0.62559724, 0.62559694, 0.9411765)
+position = Vector2(974, 306)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_70p4u")
+
+[node name="Cl_Z_L" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1679688323]
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_L" unique_id=250230863]
+modulate = Color(1, 1, 1, 0.8235294)
+position = Vector2(995.99994, 805)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_3v4th")
+
+[node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_L" unique_id=265765480]
+modulate = Color(1, 1, 1, 0.8235294)
+position = Vector2(1133, 859)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_saqon")
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_L" unique_id=138995504]
+modulate = Color(1, 1, 1, 0.8235294)
+position = Vector2(1013.99994, 928.99994)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_8ta2u")
+
+[node name="Cl_Z_M" type="Node2D" parent="Zones/Assets/Clouds" unique_id=2125181008]
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_M" unique_id=702126375]
+modulate = Color(0.815815, 0.81581557, 0.81581515, 0.92156863)
+position = Vector2(225, 803)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_8ta2u")
+
+[node name="Cl_Z_N" type="Node2D" parent="Zones/Assets/Clouds" unique_id=564433004]
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_N" unique_id=747715439]
+modulate = Color(0.46666667, 0.46666667, 0.46666667, 0.9411765)
+position = Vector2(1059, 117)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_bgocw")
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_N" unique_id=896760110]
+modulate = Color(0.46666667, 0.46666667, 0.46666667, 0.9411765)
+position = Vector2(1040, 62)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_8ta2u")
+
+[node name="Cl_Z_O" type="Node2D" parent="Zones/Assets/Clouds" unique_id=2118514489]
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_O" unique_id=1027447575]
+modulate = Color(0.58431375, 0.58431375, 0.58431375, 0.8901961)
+position = Vector2(1350, 937)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_8ta2u")
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_O" unique_id=1586336998]
+modulate = Color(0.58431375, 0.58431375, 0.58431375, 0.8901961)
+position = Vector2(1273, 990)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_3v4th")
+
+[node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_O" unique_id=1021413331]
+modulate = Color(0.58431375, 0.58431375, 0.58431375, 0.8901961)
+position = Vector2(1359, 845)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_70p4u")
+
+[node name="Cl_Z_P" type="Node2D" parent="Zones/Assets/Clouds" unique_id=899612374]
+
+[node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_P" unique_id=1637518289]
+modulate = Color(0.92273736, 0.9227374, 0.92273736, 0.75686276)
+position = Vector2(354.6, 116.700005)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_8ta2u")
+
+[node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_P" unique_id=1254814388]
+modulate = Color(0.92273736, 0.9227374, 0.92273736, 0.75686276)
+position = Vector2(400, 51.000008)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_3v4th")
+
+[node name="Lights" type="Node2D" parent="Zones/Assets" unique_id=1786742265]
+
+[node name="Zone_A" type="Node2D" parent="Zones/Assets/Lights" unique_id=502291097]
+unique_name_in_owner = true
+
+[node name="PointLight2D" type="PointLight2D" parent="Zones/Assets/Lights/Zone_A" unique_id=1282232755]
+position = Vector2(579.99994, 272.00003)
+rotation = -0.4360483
+scale = Vector2(0.4921875, 1.5745283)
+energy = 1.5
+texture = ExtResource("4_qqobk")
+
+[node name="PointLight2D2" type="PointLight2D" parent="Zones/Assets/Lights/Zone_A" unique_id=1289498334]
+position = Vector2(717, 587)
+scale = Vector2(1, 0.5902778)
+energy = 0.7
+texture = ExtResource("5_ojhv3")
+texture_scale = 0.2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Zones/Assets/Lights/Zone_A" unique_id=119977163]
+offset_left = 564.0
+offset_top = 579.0
+offset_right = 860.0
+offset_bottom = 625.0
+theme_override_colors/default_color = Color(0.38431373, 1, 0.5647059, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+text = "Greenheart Vale"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Zone_B" type="Node2D" parent="Zones/Assets/Lights" unique_id=832115479]
+unique_name_in_owner = true
+visible = false
+
+[node name="PointLight2D" type="PointLight2D" parent="Zones/Assets/Lights/Zone_B" unique_id=1810071]
+position = Vector2(292.34982, 260.97098)
+rotation = -0.4360483
+scale = Vector2(0.4921875, 1.5745283)
+energy = 1.5
+texture = ExtResource("4_qqobk")
+
+[node name="PointLight2D2" type="PointLight2D" parent="Zones/Assets/Lights/Zone_B" unique_id=334282647]
+position = Vector2(429.3499, 571)
+scale = Vector2(0.9697923, 0.5138889)
+energy = 0.7
+texture = ExtResource("5_ojhv3")
+texture_scale = 0.2
