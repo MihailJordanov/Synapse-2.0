@@ -20,6 +20,7 @@ texture = ExtResource("1_tbg47")
 
 [node name="LevelBounds" type="Node2D" parent="." unique_id=2123541542]
 unique_name_in_owner = true
+z_index = 256
 script = ExtResource("2_max4a")
 width = 1440
 height = 1070
@@ -54,13 +55,13 @@ polygon = PackedVector2Array(135, -22, 172, -162, -141, -195, -93, -7)
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_B" unique_id=1835355216]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(350, 505)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("5_saqon")
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_B" unique_id=1478187746]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(397, 579)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="Cl_Z_C" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1376841991]
@@ -68,19 +69,19 @@ texture = ExtResource("6_8ta2u")
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_C" unique_id=123222772]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(663, 361)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_C" unique_id=1749213978]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(652, 371)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("8_bgocw")
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_C" unique_id=274590297]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(643, 437)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("5_saqon")
 
 [node name="Cl_Z_D" type="Node2D" parent="Zones/Assets/Clouds" unique_id=71778916]
@@ -88,19 +89,19 @@ texture = ExtResource("5_saqon")
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_D" unique_id=1971194888]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(1071, 390)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("9_70p4u")
 
 [node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_D" unique_id=90967370]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(1068, 462)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_D" unique_id=942699392]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(1005.99994, 523)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="Cl_Z_E" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1405867863]
@@ -108,19 +109,19 @@ texture = ExtResource("7_3v4th")
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_E" unique_id=604476374]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(324, 364)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("9_70p4u")
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_E" unique_id=1744525378]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(425, 298)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_E" unique_id=603030968]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(384, 413)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="Cl_Z_F" type="Node2D" parent="Zones/Assets/Clouds" unique_id=68282693]
@@ -128,19 +129,19 @@ texture = ExtResource("6_8ta2u")
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_F" unique_id=402772909]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(395, 662)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("9_70p4u")
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_F" unique_id=1930039652]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(702, 697)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_F" unique_id=1936229065]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(467, 689)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="Cl_Z_G" type="Node2D" parent="Zones/Assets/Clouds" unique_id=161401589]
@@ -148,13 +149,13 @@ texture = ExtResource("6_8ta2u")
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_G" unique_id=1308547132]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(1084, 613)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("9_70p4u")
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_G" unique_id=1386631111]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(1110, 668)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="Cl_Z_H" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1950149373]
@@ -162,13 +163,13 @@ texture = ExtResource("7_3v4th")
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_H" unique_id=1898105731]
 modulate = Color(0.78521717, 0.7852172, 0.78521717, 0.87058824)
 position = Vector2(698, 255.99998)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_H" unique_id=48244872]
 modulate = Color(0.8569273, 0.8569273, 0.8569273, 0.87058824)
 position = Vector2(600, 213.99998)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="Cl_Z_I" type="Node2D" parent="Zones/Assets/Clouds" unique_id=459445481]
@@ -176,19 +177,19 @@ texture = ExtResource("7_3v4th")
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_I" unique_id=1220120602]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(673, 836)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("8_bgocw")
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_I" unique_id=904621492]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(567, 807.00006)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_I" unique_id=2113269132]
 modulate = Color(1, 1, 1, 0.87058824)
 position = Vector2(643, 932)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("5_saqon")
 
 [node name="Cl_Z_J" type="Node2D" parent="Zones/Assets/Clouds" unique_id=780633873]
@@ -196,13 +197,13 @@ texture = ExtResource("5_saqon")
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_J" unique_id=1004907236]
 modulate = Color(0.61582816, 0.61582863, 0.61582816, 0.87058824)
 position = Vector2(623, 123)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_J" unique_id=1133473726]
 modulate = Color(0.61582816, 0.61582863, 0.61582816, 0.87058824)
 position = Vector2(727, 42)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("5_saqon")
 
 [node name="Cl_Z_K" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1388628677]
@@ -210,13 +211,13 @@ texture = ExtResource("5_saqon")
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_K" unique_id=1322295937]
 modulate = Color(0.6255969, 0.62559724, 0.62559694, 0.9411765)
 position = Vector2(1046, 229)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_K" unique_id=1840788664]
 modulate = Color(0.6255969, 0.62559724, 0.62559694, 0.9411765)
 position = Vector2(974, 306)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("9_70p4u")
 
 [node name="Cl_Z_L" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1679688323]
@@ -224,19 +225,19 @@ texture = ExtResource("9_70p4u")
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_L" unique_id=250230863]
 modulate = Color(1, 1, 1, 0.8235294)
 position = Vector2(995.99994, 805)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_L" unique_id=265765480]
 modulate = Color(1, 1, 1, 0.8235294)
 position = Vector2(1133, 859)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("5_saqon")
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_L" unique_id=138995504]
 modulate = Color(1, 1, 1, 0.8235294)
 position = Vector2(1013.99994, 928.99994)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="Cl_Z_M" type="Node2D" parent="Zones/Assets/Clouds" unique_id=2125181008]
@@ -244,7 +245,7 @@ texture = ExtResource("6_8ta2u")
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_M" unique_id=702126375]
 modulate = Color(0.815815, 0.81581557, 0.81581515, 0.92156863)
 position = Vector2(225, 803)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="Cl_Z_N" type="Node2D" parent="Zones/Assets/Clouds" unique_id=564433004]
@@ -252,13 +253,13 @@ texture = ExtResource("6_8ta2u")
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_N" unique_id=747715439]
 modulate = Color(0.46666667, 0.46666667, 0.46666667, 0.9411765)
 position = Vector2(1059, 117)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("8_bgocw")
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_N" unique_id=896760110]
 modulate = Color(0.46666667, 0.46666667, 0.46666667, 0.9411765)
 position = Vector2(1040, 62)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="Cl_Z_O" type="Node2D" parent="Zones/Assets/Clouds" unique_id=2118514489]
@@ -266,19 +267,19 @@ texture = ExtResource("6_8ta2u")
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_O" unique_id=1027447575]
 modulate = Color(0.58431375, 0.58431375, 0.58431375, 0.8901961)
 position = Vector2(1350, 937)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_O" unique_id=1586336998]
 modulate = Color(0.58431375, 0.58431375, 0.58431375, 0.8901961)
 position = Vector2(1273, 990)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="CloudSprite2D_3" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_O" unique_id=1021413331]
 modulate = Color(0.58431375, 0.58431375, 0.58431375, 0.8901961)
 position = Vector2(1359, 845)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("9_70p4u")
 
 [node name="Cl_Z_P" type="Node2D" parent="Zones/Assets/Clouds" unique_id=899612374]
@@ -286,13 +287,13 @@ texture = ExtResource("9_70p4u")
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_P" unique_id=1637518289]
 modulate = Color(0.92273736, 0.9227374, 0.92273736, 0.75686276)
 position = Vector2(354.6, 116.700005)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_P" unique_id=1254814388]
 modulate = Color(0.92273736, 0.9227374, 0.92273736, 0.75686276)
 position = Vector2(400, 51.000008)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="Lights" type="Node2D" parent="Zones/Assets" unique_id=1786742265]
