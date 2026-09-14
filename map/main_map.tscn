@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://155tvh2ok31d" path="res://map/assets/clouds/Cloud_5.png" id="7_3v4th"]
 [ext_resource type="Texture2D" uid="uid://bes0qtmo1f1se" path="res://map/assets/clouds/Cloud_3.png" id="8_bgocw"]
 [ext_resource type="Texture2D" uid="uid://cxws4gq3fnv3q" path="res://map/assets/clouds/Cloud_2.png" id="9_70p4u"]
+[ext_resource type="Texture2D" uid="uid://cy66f8f4jkx5d" path="res://map/assets/maps/scroll.png" id="12_8ta2u"]
 
 [node name="MainMap" type="Node2D" unique_id=1605820528]
 
@@ -28,6 +29,7 @@ height = 1070
 [node name="MapCamera2D" type="Camera2D" parent="." unique_id=1485334912]
 script = ExtResource("3_v0ysp")
 min_zoom = 1.0
+max_zoom = 1.0
 
 [node name="Zones" type="Node2D" parent="." unique_id=803071509]
 script = ExtResource("6_ojhv3")
@@ -51,6 +53,7 @@ polygon = PackedVector2Array(135, -22, 172, -162, -141, -195, -93, -7)
 [node name="Clouds" type="Node2D" parent="Zones/Assets" unique_id=27933806]
 
 [node name="Cl_Z_B" type="Node2D" parent="Zones/Assets/Clouds" unique_id=485160919]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_B" unique_id=1835355216]
 modulate = Color(1, 1, 1, 0.87058824)
@@ -65,6 +68,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="Cl_Z_C" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1376841991]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_C" unique_id=123222772]
 modulate = Color(1, 1, 1, 0.87058824)
@@ -85,6 +89,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("5_saqon")
 
 [node name="Cl_Z_D" type="Node2D" parent="Zones/Assets/Clouds" unique_id=71778916]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_D" unique_id=1971194888]
 modulate = Color(1, 1, 1, 0.87058824)
@@ -105,6 +110,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="Cl_Z_E" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1405867863]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_E" unique_id=604476374]
 modulate = Color(1, 1, 1, 0.87058824)
@@ -125,6 +131,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="Cl_Z_F" type="Node2D" parent="Zones/Assets/Clouds" unique_id=68282693]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_F" unique_id=402772909]
 modulate = Color(1, 1, 1, 0.87058824)
@@ -145,6 +152,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="Cl_Z_G" type="Node2D" parent="Zones/Assets/Clouds" unique_id=161401589]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_G" unique_id=1308547132]
 modulate = Color(1, 1, 1, 0.87058824)
@@ -159,6 +167,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="Cl_Z_H" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1950149373]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_H" unique_id=1898105731]
 modulate = Color(0.78521717, 0.7852172, 0.78521717, 0.87058824)
@@ -173,6 +182,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("7_3v4th")
 
 [node name="Cl_Z_I" type="Node2D" parent="Zones/Assets/Clouds" unique_id=459445481]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_I" unique_id=1220120602]
 modulate = Color(1, 1, 1, 0.87058824)
@@ -193,6 +203,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("5_saqon")
 
 [node name="Cl_Z_J" type="Node2D" parent="Zones/Assets/Clouds" unique_id=780633873]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_J" unique_id=1004907236]
 modulate = Color(0.61582816, 0.61582863, 0.61582816, 0.87058824)
@@ -207,6 +218,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("5_saqon")
 
 [node name="Cl_Z_K" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1388628677]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_K" unique_id=1322295937]
 modulate = Color(0.6255969, 0.62559724, 0.62559694, 0.9411765)
@@ -221,6 +233,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("9_70p4u")
 
 [node name="Cl_Z_L" type="Node2D" parent="Zones/Assets/Clouds" unique_id=1679688323]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_L" unique_id=250230863]
 modulate = Color(1, 1, 1, 0.8235294)
@@ -241,6 +254,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="Cl_Z_M" type="Node2D" parent="Zones/Assets/Clouds" unique_id=2125181008]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_M" unique_id=702126375]
 modulate = Color(0.815815, 0.81581557, 0.81581515, 0.92156863)
@@ -249,6 +263,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="Cl_Z_N" type="Node2D" parent="Zones/Assets/Clouds" unique_id=564433004]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_1" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_N" unique_id=747715439]
 modulate = Color(0.46666667, 0.46666667, 0.46666667, 0.9411765)
@@ -263,6 +278,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_8ta2u")
 
 [node name="Cl_Z_O" type="Node2D" parent="Zones/Assets/Clouds" unique_id=2118514489]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_O" unique_id=1027447575]
 modulate = Color(0.58431375, 0.58431375, 0.58431375, 0.8901961)
@@ -283,6 +299,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("9_70p4u")
 
 [node name="Cl_Z_P" type="Node2D" parent="Zones/Assets/Clouds" unique_id=899612374]
+unique_name_in_owner = true
 
 [node name="CloudSprite2D_2" type="Sprite2D" parent="Zones/Assets/Clouds/Cl_Z_P" unique_id=1637518289]
 modulate = Color(0.92273736, 0.9227374, 0.92273736, 0.75686276)
@@ -300,6 +317,7 @@ texture = ExtResource("7_3v4th")
 
 [node name="Zone_A" type="Node2D" parent="Zones/Assets/Lights" unique_id=502291097]
 unique_name_in_owner = true
+visible = false
 
 [node name="PointLight2D" type="PointLight2D" parent="Zones/Assets/Lights/Zone_A" unique_id=1282232755]
 position = Vector2(579.99994, 272.00003)
@@ -348,3 +366,32 @@ scale = Vector2(0.9697923, 0.5138889)
 energy = 0.7
 texture = ExtResource("5_ojhv3")
 texture_scale = 0.2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Zones/Assets/Lights/Zone_B" unique_id=721669638]
+offset_left = 278.0
+offset_top = 572.0
+offset_right = 574.0
+offset_bottom = 618.0
+theme_override_colors/default_color = Color(0.21568628, 0.52156866, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+text = "Westharbor"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1671790872]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=961425160]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -408.0
+offset_top = 180.0
+offset_bottom = 686.0
+grow_horizontal = 0
+texture = ExtResource("12_8ta2u")
+expand_mode = 3
