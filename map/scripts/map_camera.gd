@@ -9,7 +9,7 @@ extends Camera2D
 
 var is_mouse_dragging: bool = false
 var touches: Dictionary = {}
-
+var is_input_enabled: bool = true
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -18,6 +18,9 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not is_input_enabled:
+		return
+
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			is_mouse_dragging = event.pressed
@@ -137,3 +140,10 @@ func _adjust_zoom_to_bounds() -> void:
 func _on_viewport_size_changed() -> void:
 	_adjust_zoom_to_bounds()
 	_clamp_camera()
+
+func set_input_enabled(enabled: bool) -> void:
+	is_input_enabled = enabled
+
+	if not is_input_enabled:
+		is_mouse_dragging = false
+		touches.clear()
