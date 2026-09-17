@@ -22,12 +22,16 @@ const ZONE_INFOS: Dictionary = {
 }
 #endregion
 
+const START_ZONE: String = "A"
+const START_PULSE_ANIMATION: StringName = &"start_pulse"
+
 @onready var play_button: Button = %PlayButton
 @onready var roll_up_button: Button = %RollUpButton
 @onready var zone_texture_rect: TextureRect = %ZoneTextureRect
 @onready var info_rich_text_label: RichTextLabel = %InfoRichTextLabel
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var map_camera: MapCamera = %MapCamera2D
+@onready var animation_player_start_here: AnimationPlayer = %AnimationPlayer_start_here
 
 var areas: Dictionary = {}
 var zones: Dictionary = {}
@@ -36,6 +40,7 @@ var clouds: Dictionary = {}
 var selected_zone: String = ""
 var is_scroll_open: bool = false
 var is_animating: bool = false
+var hovered_zone: String = ""
 
 
 func _ready() -> void:
@@ -47,6 +52,8 @@ func _ready() -> void:
 
 	if not ZoneManager.zone_unlocked.is_connected(_on_zone_unlocked):
 		ZoneManager.zone_unlocked.connect(_on_zone_unlocked)
+
+	_update_start_hint()
 
 
 func _cache_zones() -> void:
@@ -86,18 +93,26 @@ func _setup_zones() -> void:
 		if cloud != null:
 			cloud.visible = not is_unlocked
 
-		area.mouse_entered.connect(_on_zone_mouse_entered.bind(zone))
-		area.mouse_exited.connect(_on_zone_mouse_exited.bind(zone))
+		area.mouse_entered.connect(_on_zone_mouse_entered.bind(zone_letter, zone))
+		area.mouse_exited.connect(_on_zone_mouse_exited.bind(zone_letter, zone))
 		area.input_event.connect(_on_zone_input_event.bind(zone_letter))
 
 
-func _on_zone_mouse_entered(zone: CanvasItem) -> void:
+func _on_zone_mouse_entered(zone_letter: String,zone: CanvasItem) -> void:
+	hovered_zone = zone_letter
+
 	if not is_scroll_open:
 		zone.visible = true
 
+	_update_start_hint()
 
-func _on_zone_mouse_exited(zone: CanvasItem) -> void:
+
+func _on_zone_mouse_exited(zone_letter: String,zone: CanvasItem) -> void:
+	if hovered_zone == zone_letter:
+		hovered_zone = ""
+
 	zone.visible = false
+	_update_start_hint()
 
 
 func _on_zone_input_event(
@@ -128,6 +143,8 @@ func _open_zone(zone_letter: String) -> void:
 	selected_zone = zone_letter
 	is_scroll_open = true
 	is_animating = true
+
+	_update_start_hint()
 
 	map_camera.set_input_enabled(false)
 	_set_zone_interaction(false)
@@ -171,6 +188,9 @@ func _on_roll_up_button_pressed() -> void:
 
 	_set_zone_interaction(true)
 	map_camera.set_input_enabled(true)
+
+	await get_tree().process_frame
+	_update_start_hint()
 	
 
 func _on_play_button_pressed() -> void:
@@ -191,3 +211,52 @@ func _on_zone_unlocked(zone_letter: String) -> void:
 
 	if cloud != null:
 		cloud.visible = false
+
+	_update_start_hint()
+
+
+func _update_start_hint() -> void:
+	var should_play: bool = (
+		_get_unlocked_zone_count() == 1
+		and ZoneManager.is_zone_unlocked(START_ZONE)
+		and hovered_zone.is_empty()
+		and not is_scroll_open
+	)
+
+	if should_play:
+		_start_hint_animation()
+	else:
+		_stop_hint_animation()
+
+
+func _get_unlocked_zone_count() -> int:
+	var unlocked_count: int = 0
+
+	for zone_letter in areas:
+		if ZoneManager.is_zone_unlocked(zone_letter):
+			unlocked_count += 1
+
+	return unlocked_count
+	
+	
+func _start_hint_animation() -> void:
+	if (
+		animation_player_start_here.is_playing()
+		and animation_player_start_here.current_animation
+			== START_PULSE_ANIMATION
+	):
+		return
+
+	animation_player_start_here.play(START_PULSE_ANIMATION)
+
+
+func _stop_hint_animation() -> void:
+	if not animation_player_start_here.is_playing():
+		return
+
+	animation_player_start_here.stop()
+
+	if animation_player_start_here.has_animation(&"RESET"):
+		animation_player_start_here.play(&"RESET")
+		animation_player_start_here.advance(0.0)
+		animation_player_start_here.stop()

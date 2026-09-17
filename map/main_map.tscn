@@ -437,6 +437,116 @@ _data = {
 &"unroll_scroll": SubResource("Animation_70p4u")
 }
 
+[sub_resource type="Animation" id="Animation_l5sph"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Zones/Zone_A_Area2D/ZoneAStartHerePointLight2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.2, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Zones/Zone_A_Area2D/ZoneAStartHereRichTextLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Zones/Zone_A_Area2D/ZoneAStartHereRichTextLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Zones/Zone_A_Area2D/ZoneAStartHerePointLight2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_s6yhq"]
+resource_name = "start_pulse"
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Zones/Zone_A_Area2D/ZoneAStartHerePointLight2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5067667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.2, 0.1), Vector2(0.25, 0.125), Vector2(0.2, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Zones/Zone_A_Area2D/ZoneAStartHereRichTextLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.78431374), Color(1, 1, 1, 1), Color(1, 1, 1, 0.78431374)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Zones/Zone_A_Area2D/ZoneAStartHereRichTextLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Zones/Zone_A_Area2D/ZoneAStartHerePointLight2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kxref"]
+_data = {
+&"RESET": SubResource("Animation_l5sph"),
+&"start_pulse": SubResource("Animation_s6yhq")
+}
+
 [node name="MainMap" type="Node2D" unique_id=1605820528]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=138317155]
@@ -465,6 +575,30 @@ unique_name_in_owner = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Zones/Zone_A_Area2D" unique_id=379914763]
 position = Vector2(846, 691)
 polygon = PackedVector2Array(51, -49, -15, -201, -257, -193, -293, -50, 0, 4)
+
+[node name="ZoneAStartHereRichTextLabel" type="RichTextLabel" parent="Zones/Zone_A_Area2D" unique_id=109841776]
+visible = false
+offset_left = 565.0
+offset_top = 556.0
+offset_right = 865.0
+offset_bottom = 606.0
+mouse_filter = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/bold_font_size = 40
+theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/mono_font_size = 40
+text = "EXPLORE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ZoneAStartHerePointLight2D" type="PointLight2D" parent="Zones/Zone_A_Area2D" unique_id=1189838745]
+visible = false
+position = Vector2(720, 578)
+scale = Vector2(0.2, 0.1)
+energy = 0.8
+texture = ExtResource("5_ojhv3")
 
 [node name="Zone_B_Area2D" type="Area2D" parent="Zones" unique_id=1011246914]
 unique_name_in_owner = true
@@ -763,6 +897,7 @@ offset_left = 564.0
 offset_top = 579.0
 offset_right = 860.0
 offset_bottom = 625.0
+mouse_filter = 2
 theme_override_colors/default_color = Color(0.38431373, 1, 0.5647059, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 32
@@ -797,6 +932,7 @@ offset_left = 278.0
 offset_top = 572.0
 offset_right = 574.0
 offset_bottom = 618.0
+mouse_filter = 2
 theme_override_colors/default_color = Color(0.21568628, 0.52156866, 1, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 32
@@ -893,3 +1029,7 @@ vertical_alignment = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1952590939]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_wjadj")
+
+[node name="AnimationPlayer_start_here" type="AnimationPlayer" parent="." unique_id=826384604]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_kxref")
