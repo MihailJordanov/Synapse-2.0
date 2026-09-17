@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ct0cjfub1nk2v"]
 
 [ext_resource type="Texture2D" uid="uid://mrbf2gsew70q" path="res://map/assets/maps/Synapse_pixeled.png" id="1_tbg47"]
+[ext_resource type="Shader" uid="uid://cgwfw65kjsxrm" path="res://map/scripts/materials/panel_wood.gdshader" id="2_70p4u"]
 [ext_resource type="Script" uid="uid://cm0ygfk6yhryp" path="res://map/scripts/level_bounds.gd" id="2_max4a"]
 [ext_resource type="Script" uid="uid://cfb6p4sd1rrxi" path="res://map/scripts/map_camera.gd" id="3_v0ysp"]
 [ext_resource type="Texture2D" uid="uid://btd17nyb7qkuu" path="res://map/assets/light/light_stream.jpg" id="4_qqobk"]
@@ -14,6 +15,42 @@
 [ext_resource type="Texture2D" uid="uid://bvmhabrc5b4cd" path="res://map/assets/maps/scroll_anim_2.png" id="12_8ta2u"]
 [ext_resource type="Shader" uid="uid://drd84k43pmbtm" path="res://map/scripts/materials/zone_view.gdshader" id="13_bgocw"]
 [ext_resource type="Texture2D" uid="uid://c2ns76638smwn" path="res://map/assets/zone_templates/zone_a_Greenheart_Vale.png" id="14_70p4u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bgocw"]
+shader = ExtResource("2_70p4u")
+shader_parameter/panel_size = Vector2(500, 200)
+shader_parameter/pixel_size = 8.0
+shader_parameter/cluster_size = 5.0
+shader_parameter/wood_light = Color(0.76, 0.49, 0.25, 1)
+shader_parameter/wood_middle = Color(0.62, 0.36, 0.17, 1)
+shader_parameter/wood_dark = Color(0.43, 0.23, 0.11, 1)
+shader_parameter/enable_top_border = true
+shader_parameter/border_color = Color(0.16, 0.075, 0.03, 1)
+shader_parameter/border_light_color = Color(0.24, 0.12, 0.055, 1)
+shader_parameter/border_base_depth = 2.0
+shader_parameter/border_irregularity = 3.0
+shader_parameter/border_cluster_width = 6.0
+shader_parameter/drip_chance = 0.12
+shader_parameter/drip_length = 4.0
+shader_parameter/drip_width = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_70p4u"]
+shader = ExtResource("2_70p4u")
+shader_parameter/panel_size = Vector2(500, 200)
+shader_parameter/pixel_size = 3.0
+shader_parameter/cluster_size = 18.0
+shader_parameter/wood_light = Color(0.67320424, 0.42588124, 0.2045049, 1)
+shader_parameter/wood_middle = Color(0.67815113, 0.3997686, 0.1944823, 1)
+shader_parameter/wood_dark = Color(0.6493968, 0.36771238, 0.19425729, 1)
+shader_parameter/enable_top_border = true
+shader_parameter/border_color = Color(0.16, 0.075, 0.03, 1)
+shader_parameter/border_light_color = Color(0.7649638, 0.46064305, 0.29238915, 1)
+shader_parameter/border_base_depth = 6.0
+shader_parameter/border_irregularity = 4.0
+shader_parameter/border_cluster_width = 12.0
+shader_parameter/drip_chance = 0.0999999977648
+shader_parameter/drip_length = 2.0
+shader_parameter/drip_width = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bgocw"]
 bg_color = Color(0, 0.6392157, 0.73333335, 1)
@@ -556,9 +593,10 @@ texture = ExtResource("1_tbg47")
 [node name="LevelBounds" type="Node2D" parent="." unique_id=2123541542]
 unique_name_in_owner = true
 z_index = 256
+material = SubResource("ShaderMaterial_bgocw")
 script = ExtResource("2_max4a")
 width = 1440
-height = 1070
+height = 1230
 
 [node name="MapCamera2D" type="Camera2D" parent="." unique_id=1485334912]
 unique_name_in_owner = true
@@ -945,6 +983,20 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1671790872]
+
+[node name="UI_Buttons_Panel" type="Panel" parent="CanvasLayer" unique_id=280240797]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_70p4u")
+anchors_preset = -1
+anchor_left = -0.012
+anchor_top = 0.808
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.2
+offset_top = -0.2000122
+offset_bottom = 2.0003662
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="ScrollSprite2D" type="Sprite2D" parent="CanvasLayer" unique_id=1156937233]
 modulate = Color(1, 1, 1, 0)

@@ -32,6 +32,7 @@ const START_PULSE_ANIMATION: StringName = &"start_pulse"
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var map_camera: MapCamera = %MapCamera2D
 @onready var animation_player_start_here: AnimationPlayer = %AnimationPlayer_start_here
+@onready var ui_buttons_panel: Panel = %UI_Buttons_Panel
 
 var areas: Dictionary = {}
 var zones: Dictionary = {}
@@ -54,6 +55,8 @@ func _ready() -> void:
 		ZoneManager.zone_unlocked.connect(_on_zone_unlocked)
 
 	_update_start_hint()
+
+	_setup_wood_material()
 
 
 func _cache_zones() -> void:
@@ -260,3 +263,30 @@ func _stop_hint_animation() -> void:
 		animation_player_start_here.play(&"RESET")
 		animation_player_start_here.advance(0.0)
 		animation_player_start_here.stop()
+
+
+func _setup_wood_material() -> void:
+	if ui_buttons_panel.material == null:
+		push_warning("UI_Buttons_Panel does not have a material.")
+		return
+
+	# Всеки Panel получава собствено копие на материала.
+	ui_buttons_panel.material = ui_buttons_panel.material.duplicate()
+
+	if not ui_buttons_panel.resized.is_connected(_update_wood_material):
+		ui_buttons_panel.resized.connect(_update_wood_material)
+
+	_update_wood_material()
+
+
+func _update_wood_material() -> void:
+	var shader_material := ui_buttons_panel.material as ShaderMaterial
+
+	if shader_material == null:
+		push_warning("UI_Buttons_Panel material is not a ShaderMaterial.")
+		return
+
+	shader_material.set_shader_parameter(
+		"panel_size",
+		ui_buttons_panel.size
+	)
