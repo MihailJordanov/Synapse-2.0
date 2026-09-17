@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://mrbf2gsew70q" path="res://map/assets/maps/Synapse_pixeled.png" id="1_tbg47"]
 [ext_resource type="Shader" uid="uid://cgwfw65kjsxrm" path="res://map/scripts/materials/panel_wood.gdshader" id="2_70p4u"]
-[ext_resource type="Script" uid="uid://cm0ygfk6yhryp" path="res://map/scripts/level_bounds.gd" id="2_max4a"]
+[ext_resource type="PackedScene" uid="uid://dl4m4rwsnq42r" path="res://map/level_bounds.tscn" id="2_wjadj"]
 [ext_resource type="Script" uid="uid://cfb6p4sd1rrxi" path="res://map/scripts/map_camera.gd" id="3_v0ysp"]
 [ext_resource type="Texture2D" uid="uid://btd17nyb7qkuu" path="res://map/assets/light/light_stream.jpg" id="4_qqobk"]
 [ext_resource type="Texture2D" uid="uid://qlr60fik8bcv" path="res://map/assets/light/light_cyrcle.jpg" id="5_ojhv3"]
@@ -16,24 +16,6 @@
 [ext_resource type="Shader" uid="uid://drd84k43pmbtm" path="res://map/scripts/materials/zone_view.gdshader" id="13_bgocw"]
 [ext_resource type="Texture2D" uid="uid://c2ns76638smwn" path="res://map/assets/zone_templates/zone_a_Greenheart_Vale.png" id="14_70p4u"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bgocw"]
-shader = ExtResource("2_70p4u")
-shader_parameter/panel_size = Vector2(500, 200)
-shader_parameter/pixel_size = 8.0
-shader_parameter/cluster_size = 5.0
-shader_parameter/wood_light = Color(0.76, 0.49, 0.25, 1)
-shader_parameter/wood_middle = Color(0.62, 0.36, 0.17, 1)
-shader_parameter/wood_dark = Color(0.43, 0.23, 0.11, 1)
-shader_parameter/enable_top_border = true
-shader_parameter/border_color = Color(0.16, 0.075, 0.03, 1)
-shader_parameter/border_light_color = Color(0.24, 0.12, 0.055, 1)
-shader_parameter/border_base_depth = 2.0
-shader_parameter/border_irregularity = 3.0
-shader_parameter/border_cluster_width = 6.0
-shader_parameter/drip_chance = 0.12
-shader_parameter/drip_length = 4.0
-shader_parameter/drip_width = 3.0
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_70p4u"]
 shader = ExtResource("2_70p4u")
 shader_parameter/panel_size = Vector2(500, 200)
@@ -44,7 +26,7 @@ shader_parameter/wood_middle = Color(0.67815113, 0.3997686, 0.1944823, 1)
 shader_parameter/wood_dark = Color(0.6493968, 0.36771238, 0.19425729, 1)
 shader_parameter/enable_top_border = true
 shader_parameter/border_color = Color(0.16, 0.075, 0.03, 1)
-shader_parameter/border_light_color = Color(0.7649638, 0.46064305, 0.29238915, 1)
+shader_parameter/border_light_color = Color(0.40166676, 0.21884844, 0.118220635, 1)
 shader_parameter/border_base_depth = 6.0
 shader_parameter/border_irregularity = 4.0
 shader_parameter/border_cluster_width = 12.0
@@ -590,13 +572,8 @@ _data = {
 position = Vector2(724, 543)
 texture = ExtResource("1_tbg47")
 
-[node name="LevelBounds" type="Node2D" parent="." unique_id=2123541542]
+[node name="LevelBounds" parent="." unique_id=1837005217 instance=ExtResource("2_wjadj")]
 unique_name_in_owner = true
-z_index = 256
-material = SubResource("ShaderMaterial_bgocw")
-script = ExtResource("2_max4a")
-width = 1440
-height = 1230
 
 [node name="MapCamera2D" type="Camera2D" parent="." unique_id=1485334912]
 unique_name_in_owner = true

@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bt2sjgne4pf7y"]
+
+[ext_resource type="Texture2D" uid="uid://bjrhhtjw178d2" path="res://zones/asstes/zones_bg/Zone_A.png" id="1_6mtes"]
+[ext_resource type="Script" uid="uid://cm0ygfk6yhryp" path="res://map/scripts/level_bounds.gd" id="1_kabhq"]
+[ext_resource type="Script" uid="uid://cfb6p4sd1rrxi" path="res://map/scripts/map_camera.gd" id="3_aq678"]
+[ext_resource type="Texture2D" uid="uid://bcp5sndng1app" path="res://zones/asstes/sprites/scroll_for_enemy.png" id="4_pnnc3"]
+[ext_resource type="Texture2D" uid="uid://hav8lf77x7f5" path="res://zones/asstes/sprites/scroll_for_enemy_smaller.png" id="5_ky8la"]
+
+[node name="ZoneA" type="Node2D" unique_id=76334242]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=740107262]
+position = Vector2(900, 439.25)
+scale = Vector2(1, 1.0028636)
+texture = ExtResource("1_6mtes")
+
+[node name="LevelBounds" type="Node2D" parent="." unique_id=1657485263]
+unique_name_in_owner = true
+z_index = 256
+script = ExtResource("1_kabhq")
+width = 1760
+height = 878
+metadata/_custom_type_script = "uid://cm0ygfk6yhryp"
+
+[node name="MapCamera2D" type="Camera2D" parent="." unique_id=168072389]
+unique_name_in_owner = true
+script = ExtResource("3_aq678")
+min_zoom = 1.0
+max_zoom = 1.0
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=990339998]
+offset_left = 725.0
+offset_top = 323.0
+offset_right = 1221.0
+offset_bottom = 863.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("4_pnnc3")
+texture_pressed = ExtResource("5_ky8la")
+
+[node name="TextureRect" type="TextureRect" parent="TextureButton" unique_id=666320562]
+layout_mode = 0
+offset_left = 204.99998
+offset_top = 174.99998
+offset_right = 244.99998
+offset_bottom = 214.99998
