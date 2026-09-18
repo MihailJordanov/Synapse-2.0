@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://780hr4h8ykoi"]
+
+[ext_resource type="Texture2D" uid="uid://bcp5sndng1app" path="res://zones/asstes/sprites/scroll_for_enemy.png" id="1_6jk5i"]
+[ext_resource type="Texture2D" uid="uid://c03cf5gvddb34" path="res://zones/asstes/enemies_images/zone_a/level_a01.png" id="2_q24k3"]
+[ext_resource type="Texture2D" uid="uid://7f0yfo64mqxa" path="res://zones/asstes/sprites/x_sign.png" id="3_osllm"]
+[ext_resource type="Texture2D" uid="uid://b8vd3m3t55xab" path="res://zones/asstes/sprites/not_cleared_level_sign.png" id="4_vwx3j"]
+
+[sub_resource type="Animation" id="Animation_6jk5i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExclamationMark:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+
+[sub_resource type="Animation" id="Animation_q24k3"]
+resource_name = "not_clear"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExclamationMark:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_osllm"]
+_data = {
+&"RESET": SubResource("Animation_6jk5i"),
+&"not_clear": SubResource("Animation_q24k3")
+}
+
+[node name="LevelSelector" type="Node2D" unique_id=1171455182]
+
+[node name="LevelSelectorButton" type="TextureButton" parent="." unique_id=1307494339]
+offset_left = -41.0
+offset_top = -51.0
+offset_right = 367.0
+offset_bottom = 456.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("1_6jk5i")
+
+[node name="EnemyImageTextureRect" type="TextureRect" parent="LevelSelectorButton" unique_id=1891186225]
+modulate = Color(1, 1, 1, 0.6745098)
+layout_mode = 0
+offset_left = 30.000008
+offset_top = 74.99999
+offset_right = 380.0
+offset_bottom = 425.0
+texture = ExtResource("2_q24k3")
+expand_mode = 2
+
+[node name="IsClearTexture" type="TextureRect" parent="LevelSelectorButton" unique_id=333672049]
+modulate = Color(1, 1, 1, 0.8)
+layout_mode = 0
+offset_left = 35.0
+offset_top = 85.0
+offset_right = 365.0
+offset_bottom = 415.0
+texture = ExtResource("3_osllm")
+expand_mode = 2
+
+[node name="ExclamationMark" type="Node2D" parent="." unique_id=769628530]
+position = Vector2(0, -67)
+scale = Vector2(1.5, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="ExclamationMark" unique_id=427617641]
+position = Vector2(0, -51.999996)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_vwx3j")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1397172837]
+libraries/ = SubResource("AnimationLibrary_osllm")
+autoplay = &"not_clear"
