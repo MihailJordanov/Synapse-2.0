@@ -496,6 +496,7 @@ position = Vector2(780, 379)
 enemy_name = "Tin-Can"
 enemy_texture = ExtResource("5_c312w")
 deck = ExtResource("6_ojoh7")
+enemy_winning_score = 3
 levels_unlocked_on_victory = Array[String](["A02"])
 card_rewards = Array[String](["21000", "21001", "21002"])
 

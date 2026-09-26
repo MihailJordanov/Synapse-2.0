@@ -566,7 +566,7 @@ tracks/27/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1005, 295)]
+"values": [Vector2(1716, 971)]
 }
 tracks/28/type = "value"
 tracks/28/imported = false
@@ -578,7 +578,7 @@ tracks/28/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(10, -605)]
+"values": [Vector2(-1012, -1093)]
 }
 
 [sub_resource type="Animation" id="Animation_bqwis"]
@@ -1080,7 +1080,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.2, 1.45, 1.75),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1005, 936), Vector2(1005, 295), Vector2(995, 285), Vector2(-655, -672)]
+"values": [Vector2(1005, 936), Vector2(855, 31), Vector2(827, 31), Vector2(-1062, -1088)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -1092,7 +1092,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0, 0.2, 1.45, 1.75),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(10, -605), Vector2(8, 10), Vector2(18, 20), Vector2(1664, 950)]
+"values": [Vector2(-276, -1148), Vector2(-266, -137), Vector2(-240, -137), Vector2(1679, 921)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jsgwy"]
@@ -1341,10 +1341,10 @@ mouse_filter = 2
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_xrivr")
 layout_mode = 0
-offset_left = 1005.0
-offset_top = 295.0
-offset_right = 1604.9731
-offset_bottom = 894.99927
+offset_left = 1716.0
+offset_top = 971.0
+offset_right = 2715.978
+offset_bottom = 1971.0015
 texture = ExtResource("29_02nen")
 
 [node name="PlayerNameLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements/PlayerControls" unique_id=1832725865]
@@ -1376,10 +1376,10 @@ mouse_filter = 2
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_02nen")
 layout_mode = 0
-offset_left = 10.0
-offset_top = -605.0
-offset_right = 609.99927
-offset_bottom = -5.0
+offset_left = -1012.0
+offset_top = -1093.0
+offset_right = -11.999512
+offset_bottom = -92.99756
 texture = ExtResource("28_02nen")
 
 [node name="EnemyNameLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements/EnemyControls" unique_id=1024585553]
@@ -1387,7 +1387,7 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1750.0
 offset_top = -25.0
-offset_right = 3150.0015
+offset_right = 3150.002
 offset_bottom = 375.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(1, 0.34509805, 0.40392157, 1)
@@ -1779,6 +1779,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Fade" type="Control" parent="UI" unique_id=1366213862]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1976,7 +1977,7 @@ layout_mode = 0
 offset_left = 300.0
 offset_top = 400.0
 offset_right = 1300.0
-offset_bottom = 600.0
+offset_bottom = 685.0
 theme_override_colors/default_color = Color(1, 0.77254903, 0.6313726, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 64
@@ -1984,6 +1985,7 @@ theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
 theme_override_font_sizes/italics_font_size = 64
 theme_override_font_sizes/mono_font_size = 64
+bbcode_enabled = true
 text = "Your enemy get the points!"
 horizontal_alignment = 1
 
@@ -1992,9 +1994,9 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 0
 offset_left = 600.0
-offset_top = 650.0
+offset_top = 738.0
 offset_right = 1000.0
-offset_bottom = 750.0
+offset_bottom = 838.0
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 64
 text = "Ok.."
@@ -2036,6 +2038,7 @@ region_rect = Rect2(2479.548, 509.21085, 214.30981, 194.09183)
 
 [node name="VictoryPanel" type="Panel" parent="UI" unique_id=941762209]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -1,0 +1,8 @@
+{
+	"icons": [
+		{
+			"id": 1000,
+			"texture_path": "res://data/icons/icon_images/first_kignt.png"
+		}
+	]
+}
