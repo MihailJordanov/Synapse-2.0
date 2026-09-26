@@ -2,10 +2,473 @@
 
 [ext_resource type="Texture2D" uid="uid://bjrhhtjw178d2" path="res://zones/asstes/zones_bg/Zone_A.png" id="1_6mtes"]
 [ext_resource type="Script" uid="uid://cm0ygfk6yhryp" path="res://map/scripts/level_bounds.gd" id="1_kabhq"]
+[ext_resource type="Script" uid="uid://brprsia7femf3" path="res://zones/scripts/zone_controller.gd" id="1_x3x7h"]
 [ext_resource type="Script" uid="uid://cfb6p4sd1rrxi" path="res://map/scripts/map_camera.gd" id="3_aq678"]
 [ext_resource type="PackedScene" uid="uid://780hr4h8ykoi" path="res://zones/level_selector.tscn" id="4_pnnc3"]
+[ext_resource type="Texture2D" uid="uid://c03cf5gvddb34" path="res://zones/asstes/enemies_images/zone_a/level_a01.png" id="5_c312w"]
+[ext_resource type="Resource" uid="uid://bithnbncf8xgd" path="res://decks/resources/zone_a/a_01.tres" id="6_ojoh7"]
+[ext_resource type="Texture2D" uid="uid://darnkc2h80hdw" path="res://zones/asstes/sprites/vertical_scroll_unroll_2x6.png" id="7_ojoh7"]
+[ext_resource type="Shader" uid="uid://drd84k43pmbtm" path="res://map/scripts/materials/zone_view.gdshader" id="8_a5ndl"]
+[ext_resource type="Texture2D" uid="uid://dcjodkelauqpw" path="res://zones/asstes/enemies_images/zone_a/level_a02.png" id="8_o080f"]
+[ext_resource type="Texture2D" uid="uid://cy066p2ga3wng" path="res://zones/asstes/sprites/white_point.png" id="9_b2rli"]
+[ext_resource type="Texture2D" uid="uid://dblqvbtb8ena0" path="res://zones/asstes/sprites/question_mark.png" id="10_hq8yj"]
+[ext_resource type="Texture2D" uid="uid://cblr4o2il8a3v" path="res://zones/asstes/sprites/checkbox.png" id="11_yk2tl"]
 
-[node name="ZoneA" type="Node2D" unique_id=76334242]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojoh7"]
+bg_color = Color(0, 0.6392157, 0.73333335, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a5ndl"]
+bg_color = Color(1.5883148e-06, 0.45595545, 0.5252277, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b2rli"]
+bg_color = Color(0, 0.51070553, 0.5874003, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hq8yj"]
+bg_color = Color(0, 0.6392157, 0.73333335, 0.31764707)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.85882354, 0.85882354, 0.85882354, 0.2901961)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 1
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yk2tl"]
+bg_color = Color(0, 0.6392157, 0.73333335, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ojoh7"]
+shader = ExtResource("8_a5ndl")
+shader_parameter/fade_left = 0.2000000095
+shader_parameter/fade_right = 0.2000000095
+shader_parameter/fade_top = 0.2000000095
+shader_parameter/fade_bottom = 0.450000021375
+shader_parameter/left_edge_alpha = 0.0
+shader_parameter/right_edge_alpha = 0.0
+shader_parameter/top_edge_alpha = 0.0
+shader_parameter/bottom_edge_alpha = 0.0
+shader_parameter/fade_power = 1.0
+shader_parameter/enable_border = false
+shader_parameter/border_color = Color(0, 0, 0, 1)
+shader_parameter/border_left = 2.0
+shader_parameter/border_right = 2.0
+shader_parameter/border_top = 2.0
+shader_parameter/border_bottom = 2.0
+shader_parameter/fade_border = false
+
+[sub_resource type="Gradient" id="Gradient_rb6lq"]
+offsets = PackedFloat32Array(0.5, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0.40784314)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_13qdw"]
+gradient = SubResource("Gradient_rb6lq")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Animation" id="Animation_ojoh7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/ScrollSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/ScrollSprite2D/PlayButton:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/ScrollSprite2D/EnemyTextureRect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/ScrollSprite2D/EnemyNameRichTextLabel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/ScrollSprite2D/RewardInfoRichTextLabel:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/ScrollSprite2D/HBoxContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UI/ScrollSprite2D:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("UI/ScrollSprite2D:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o080f"]
+resource_name = "fade_in"
+length = 0.3
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Fade:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2600, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kgpea"]
+resource_name = "fade_out"
+length = 0.3
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Fade:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-2400, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yk2tl"]
+resource_name = "roll_up_scroll"
+length = 0.5
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/ScrollSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.125, 0.17500001, 0.19999999, 0.225, 0.25, 0.275, 0.3, 0.325, 0.35, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/ScrollSprite2D/PlayButton:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/ScrollSprite2D/EnemyTextureRect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/ScrollSprite2D/EnemyNameRichTextLabel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.050000012, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/ScrollSprite2D/RewardInfoRichTextLabel:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.050000012, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/ScrollSprite2D/HBoxContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UI/ScrollSprite2D:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("UI/ScrollSprite2D:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_a5ndl"]
+resource_name = "unroll_scroll"
+length = 0.5
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/ScrollSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.22500001, 0.275, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/ScrollSprite2D/PlayButton:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/ScrollSprite2D/EnemyTextureRect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/ScrollSprite2D/EnemyNameRichTextLabel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/ScrollSprite2D/RewardInfoRichTextLabel:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/ScrollSprite2D/HBoxContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UI/ScrollSprite2D:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("UI/ScrollSprite2D:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.325, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b2rli"]
+_data = {
+&"RESET": SubResource("Animation_ojoh7"),
+&"fade_in": SubResource("Animation_o080f"),
+&"fade_out": SubResource("Animation_kgpea"),
+&"roll_up_scroll": SubResource("Animation_yk2tl"),
+&"unroll_scroll": SubResource("Animation_a5ndl")
+}
+
+[node name="ZoneA" type="Node2D" unique_id=76334242 node_paths=PackedStringArray("level_selectors")]
+script = ExtResource("1_x3x7h")
+level_selectors = [NodePath("Levels/LevelSelectorA01"), NodePath("Levels/LevelSelectorA02")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=740107262]
 position = Vector2(900, 439.25)
@@ -26,5 +489,233 @@ script = ExtResource("3_aq678")
 min_zoom = 1.0
 max_zoom = 1.0
 
-[node name="LevelSelector" parent="." unique_id=1171455182 instance=ExtResource("4_pnnc3")]
+[node name="Levels" type="Node2D" parent="." unique_id=372837660]
+
+[node name="LevelSelectorA01" parent="Levels" unique_id=1171455182 instance=ExtResource("4_pnnc3")]
 position = Vector2(780, 379)
+enemy_name = "Tin-Can"
+enemy_texture = ExtResource("5_c312w")
+deck = ExtResource("6_ojoh7")
+levels_unlocked_on_victory = Array[String](["A02"])
+card_rewards = Array[String](["21000", "21001", "21002"])
+
+[node name="LevelSelectorA02" parent="Levels" unique_id=161474578 instance=ExtResource("4_pnnc3")]
+position = Vector2(1009, 343)
+level_id = "A02"
+enemy_name = "Sir Pip"
+enemy_name_color = Color(0.8569273, 0.8569273, 0.8569273, 1)
+enemy_texture = ExtResource("8_o080f")
+deck = ExtResource("6_ojoh7")
+money_reward_range = Vector2i(16, 22)
+card_rewards = Array[String](["11012", "11013", "11014"])
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=379874252]
+
+[node name="ScrollSprite2D" type="Sprite2D" parent="UI" unique_id=953581012]
+visible = false
+modulate = Color(1, 1, 1, 0)
+position = Vector2(1360, 400)
+scale = Vector2(2, 1.5)
+texture = ExtResource("7_ojoh7")
+hframes = 2
+vframes = 6
+
+[node name="PlayButton" type="Button" parent="UI/ScrollSprite2D" unique_id=65645656]
+unique_name_in_owner = true
+visible = false
+offset_left = -64.0
+offset_top = 210.00002
+offset_right = 276.0
+offset_bottom = 330.0
+scale = Vector2(0.4, 0.6)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_ojoh7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_a5ndl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b2rli")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_hq8yj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yk2tl")
+text = "Play"
+
+[node name="EnemyTextureRect" type="TextureRect" parent="UI/ScrollSprite2D" unique_id=1732213549]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_ojoh7")
+offset_left = -74.5
+offset_top = -249.33334
+offset_right = 25.5
+offset_bottom = -149.33334
+scale = Vector2(1.5, 2)
+texture = ExtResource("5_c312w")
+expand_mode = 5
+
+[node name="EnemyNameRichTextLabel" type="RichTextLabel" parent="UI/ScrollSprite2D" unique_id=35840307]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+clip_contents = false
+offset_left = -74.5
+offset_top = -40.666668
+offset_right = 225.5
+offset_bottom = 122.190475
+scale = Vector2(0.5, 0.7)
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/normal_font_size = 56
+theme_override_font_sizes/bold_font_size = 56
+theme_override_font_sizes/bold_italics_font_size = 56
+theme_override_font_sizes/italics_font_size = 56
+theme_override_font_sizes/mono_font_size = 56
+bbcode_enabled = true
+text = "Tin-Can"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RewardInfoRichTextLabel" type="RichTextLabel" parent="UI/ScrollSprite2D" unique_id=1204805395]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+clip_contents = false
+offset_left = -81.0
+offset_top = 70.666664
+offset_right = 245.0
+offset_bottom = 176.38095
+scale = Vector2(0.5, 0.7)
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/bold_font_size = 36
+theme_override_font_sizes/bold_italics_font_size = 36
+theme_override_font_sizes/italics_font_size = 36
+theme_override_font_sizes/mono_font_size = 36
+bbcode_enabled = true
+text = "Reward:
+15 - 20 sh.
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/ScrollSprite2D" unique_id=1402078652]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+offset_left = -76.00002
+offset_top = 166.0
+offset_right = 448.99997
+offset_bottom = 243.0
+scale = Vector2(0.3, 0.4)
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="IsCardUnlockedTextureRect1" type="TextureRect" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=267984492]
+unique_name_in_owner = true
+self_modulate = Color(0.9529412, 0.61960787, 0, 1)
+layout_mode = 2
+texture = ExtResource("9_b2rli")
+
+[node name="LookedCardSprite2D1" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect1" unique_id=263421469]
+unique_name_in_owner = true
+visible = false
+position = Vector2(38.333332, 38.333332)
+texture = ExtResource("10_hq8yj")
+
+[node name="UnLookedCardSprite2D1" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect1" unique_id=626048220]
+unique_name_in_owner = true
+modulate = Color(0.35694852, 0.99350613, 0.26711637, 1)
+position = Vector2(57.666626, 13.333332)
+texture = ExtResource("11_yk2tl")
+
+[node name="IsCardUnlockedTextureRect2" type="TextureRect" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=756013124]
+unique_name_in_owner = true
+self_modulate = Color(0.9529412, 0.61960787, 0, 1)
+layout_mode = 2
+texture = ExtResource("9_b2rli")
+
+[node name="LookedCardSprite2D2" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect2" unique_id=1048194061]
+unique_name_in_owner = true
+visible = false
+position = Vector2(38.333332, 38.333332)
+texture = ExtResource("10_hq8yj")
+
+[node name="UnLookedCardSprite2D2" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect2" unique_id=545493536]
+unique_name_in_owner = true
+modulate = Color(0.35694852, 0.99350613, 0.26711637, 1)
+position = Vector2(57.666626, 13.333332)
+texture = ExtResource("11_yk2tl")
+
+[node name="IsCardUnlockedTextureRect3" type="TextureRect" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=509784184]
+unique_name_in_owner = true
+self_modulate = Color(0.9529412, 0.61960787, 1, 1)
+layout_mode = 2
+texture = ExtResource("9_b2rli")
+
+[node name="LookedCardSprite2D3" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect3" unique_id=1260118943]
+unique_name_in_owner = true
+visible = false
+position = Vector2(38.333332, 38.333332)
+texture = ExtResource("10_hq8yj")
+
+[node name="UnLookedCardSprite2D3" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect3" unique_id=745429123]
+unique_name_in_owner = true
+modulate = Color(0.35694852, 0.99350613, 0.26711637, 1)
+position = Vector2(57.666626, 13.333332)
+texture = ExtResource("11_yk2tl")
+
+[node name="IsCardUnlockedTextureRect4" type="TextureRect" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=1659769679]
+unique_name_in_owner = true
+self_modulate = Color(0.46666667, 0.46666667, 0.46666667, 0.7882353)
+layout_mode = 2
+texture = ExtResource("9_b2rli")
+
+[node name="LookedCardSprite2D4" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect4" unique_id=174098009]
+unique_name_in_owner = true
+position = Vector2(38.333332, 38.333332)
+texture = ExtResource("10_hq8yj")
+
+[node name="UnLookedCardSprite2D4" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect4" unique_id=1401126628]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.35694852, 0.99350613, 0.26711637, 1)
+position = Vector2(57.666626, 13.333332)
+texture = ExtResource("11_yk2tl")
+
+[node name="IsCardUnlockedTextureRect5" type="TextureRect" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=1661468853]
+unique_name_in_owner = true
+self_modulate = Color(0.46666667, 0.46666667, 0.46666667, 0.7882353)
+layout_mode = 2
+texture = ExtResource("9_b2rli")
+
+[node name="LookedCardSprite2D5" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect5" unique_id=1417834266]
+unique_name_in_owner = true
+position = Vector2(38.333332, 38.333332)
+texture = ExtResource("10_hq8yj")
+
+[node name="UnLookedCardSprite2D5" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect5" unique_id=255157769]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.35694852, 0.99350613, 0.26711637, 1)
+position = Vector2(57.666626, 13.333332)
+texture = ExtResource("11_yk2tl")
+
+[node name="Fade" type="Control" parent="UI" unique_id=520666209]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -0.0043945313
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Fade" unique_id=1734134079]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -450.0
+offset_right = 800.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_13qdw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2131775750]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_b2rli")

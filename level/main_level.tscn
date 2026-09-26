@@ -30,6 +30,9 @@
 [ext_resource type="Script" uid="uid://pewja1g4u1ka" path="res://level/game/states/player_play_spell_card_state.gd" id="23_un0mk"]
 [ext_resource type="Script" uid="uid://cw1r8tiyn0ahb" path="res://level/game/states/select_card_on_board_state.gd" id="24_8rqiy"]
 [ext_resource type="Texture2D" uid="uid://c3754bw6hruqy" path="res://level/assets/inf_panel/deck_count_icon.png" id="26_c1kdy"]
+[ext_resource type="Texture2D" uid="uid://dcjodkelauqpw" path="res://zones/asstes/enemies_images/zone_a/level_a02.png" id="28_02nen"]
+[ext_resource type="Shader" uid="uid://drd84k43pmbtm" path="res://map/scripts/materials/zone_view.gdshader" id="28_j5xbu"]
+[ext_resource type="Texture2D" uid="uid://c03cf5gvddb34" path="res://zones/asstes/enemies_images/zone_a/level_a01.png" id="29_02nen"]
 [ext_resource type="Texture2D" uid="uid://bvg7n3st6xh6q" path="res://level/assets/inf_panel/victory_points_icon_2.png" id="29_chhk3"]
 [ext_resource type="Texture2D" uid="uid://gb0semwipd8v" path="res://level/assets/buttons/pause_button.png" id="30_0o7q4"]
 [ext_resource type="Texture2D" uid="uid://b8hxmgb7se3ea" path="res://level/assets/inf_panel/mana_gem_icon_4.png" id="30_chhk3"]
@@ -44,6 +47,44 @@
 [ext_resource type="AudioStream" uid="uid://dp5ykku5tth45" path="res://music/SFX/start battle/enemy_is_first_success.wav" id="36_6xcon"]
 [ext_resource type="AudioStream" uid="uid://cswijau2tc7j1" path="res://music/SFX/start battle/player_is_first_success.wav" id="36_32kiw"]
 [ext_resource type="Texture2D" uid="uid://bdrobtb01f6a5" path="res://level/assets/blood_drops.png" id="36_eytok"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xrivr"]
+shader = ExtResource("28_j5xbu")
+shader_parameter/fade_left = 0.800000038
+shader_parameter/fade_right = 0.0
+shader_parameter/fade_top = 0.50000002375
+shader_parameter/fade_bottom = 0.0
+shader_parameter/left_edge_alpha = 0.250000011875
+shader_parameter/right_edge_alpha = 0.0
+shader_parameter/top_edge_alpha = 0.250000011875
+shader_parameter/bottom_edge_alpha = 0.0
+shader_parameter/fade_power = 1.0
+shader_parameter/enable_border = false
+shader_parameter/border_color = Color(1, 1, 1, 1)
+shader_parameter/border_left = 2.0
+shader_parameter/border_right = 2.0
+shader_parameter/border_top = 2.0
+shader_parameter/border_bottom = 2.0
+shader_parameter/fade_border = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_02nen"]
+shader = ExtResource("28_j5xbu")
+shader_parameter/fade_left = 0.0
+shader_parameter/fade_right = 0.800000038
+shader_parameter/fade_top = 0.0
+shader_parameter/fade_bottom = 0.50000002375
+shader_parameter/left_edge_alpha = 0.0
+shader_parameter/right_edge_alpha = 0.250000011875
+shader_parameter/top_edge_alpha = 0.0
+shader_parameter/bottom_edge_alpha = 0.250000011875
+shader_parameter/fade_power = 1.0
+shader_parameter/enable_border = false
+shader_parameter/border_color = Color(1, 1, 1, 1)
+shader_parameter/border_left = 2.0
+shader_parameter/border_right = 2.0
+shader_parameter/border_top = 2.0
+shader_parameter/border_bottom = 2.0
+shader_parameter/fade_border = false
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_13qdw"]
 blend_mode = 3
@@ -515,6 +556,30 @@ tracks/26/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/27/type = "value"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("UI/AnimationHelpers/StartBattleElements/PlayerControls/PlayerIconTextureRect:position")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1005, 295)]
+}
+tracks/28/type = "value"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("UI/AnimationHelpers/StartBattleElements/EnemyControls/EnemyIconTextureRect:position")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, -605)]
+}
 
 [sub_resource type="Animation" id="Animation_bqwis"]
 resource_name = "enemy_start_first"
@@ -926,7 +991,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_chhk3"]
 resource_name = "start_battle"
-length = 2.0
+length = 1.75
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1004,6 +1069,30 @@ tracks/5/keys = {
 "args": [ExtResource("35_bqwis"), 0.0],
 "method": &"play_ui_sound"
 }]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UI/AnimationHelpers/StartBattleElements/PlayerControls/PlayerIconTextureRect:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.2, 1.45, 1.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1005, 936), Vector2(1005, 295), Vector2(995, 285), Vector2(-655, -672)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("UI/AnimationHelpers/StartBattleElements/EnemyControls/EnemyIconTextureRect:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.2, 1.45, 1.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(10, -605), Vector2(8, 10), Vector2(18, 20), Vector2(1664, 950)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jsgwy"]
@@ -1248,6 +1337,16 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
+[node name="PlayerIconTextureRect" type="TextureRect" parent="UI/AnimationHelpers/StartBattleElements/PlayerControls" unique_id=310306835]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_xrivr")
+layout_mode = 0
+offset_left = 1005.0
+offset_top = 295.0
+offset_right = 1604.9731
+offset_bottom = 894.99927
+texture = ExtResource("29_02nen")
+
 [node name="PlayerNameLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements/PlayerControls" unique_id=1832725865]
 unique_name_in_owner = true
 layout_mode = 0
@@ -1273,12 +1372,22 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
+[node name="EnemyIconTextureRect" type="TextureRect" parent="UI/AnimationHelpers/StartBattleElements/EnemyControls" unique_id=594698998]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_02nen")
+layout_mode = 0
+offset_left = 10.0
+offset_top = -605.0
+offset_right = 609.99927
+offset_bottom = -5.0
+texture = ExtResource("28_02nen")
+
 [node name="EnemyNameLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements/EnemyControls" unique_id=1024585553]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1750.0
 offset_top = -25.0
-offset_right = 3150.001
+offset_right = 3150.0015
 offset_bottom = 375.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(1, 0.34509805, 0.40392157, 1)
@@ -1975,6 +2084,7 @@ theme_override_font_sizes/bold_font_size = 64
 theme_override_font_sizes/bold_italics_font_size = 64
 theme_override_font_sizes/italics_font_size = 64
 theme_override_font_sizes/mono_font_size = 64
+bbcode_enabled = true
 text = "Good Job!"
 horizontal_alignment = 1
 

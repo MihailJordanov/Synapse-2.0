@@ -5,12 +5,217 @@ const UNIT_CARD_SCENE: PackedScene = preload("uid://3n4o4rhbvn11")
 const SPELL_CARD_SCENE: PackedScene = preload("uid://v0yc3fbsaiwq")
 const UNITS_DATA_PATH: String = "res://data/cards/units_cards.json"
 const SPELLS_DATA_PATH: String = "res://data/cards/spell_cards.json"
+const COLLECTION_SAVE_PATH: String = "user://card_collection.json"
+const PLAYER_DECK_SAVE_PATH: String = "user://player_deck.json"
 
 var _cards_database: Dictionary = {}
+var _unit_collection: Array[int] = []
+var _spell_collection: Array[int] = []
+var _unit_deck: Array[int] = []
+var _spell_deck: Array[int] = []
 
 
 func _ready() -> void:
 	_load_databases()
+	_load_collection()
+	_load_player_deck()
+
+
+func is_card_in_collection(card_id: int) -> bool:
+	if _is_unit_card_id(card_id):
+		return _unit_collection.has(card_id)
+
+	if _is_spell_card_id(card_id):
+		return _spell_collection.has(card_id)
+
+	return false
+
+
+func is_card_in_deck(card_id: int) -> bool:
+	if _is_unit_card_id(card_id):
+		return _unit_deck.has(card_id)
+
+	if _is_spell_card_id(card_id):
+		return _spell_deck.has(card_id)
+
+	return false
+
+
+func add_card_to_collection(card_id: int) -> bool:
+	if not _cards_database.has(str(card_id)):
+		push_warning("CardManager: Cannot add unknown card %d to collection." % card_id)
+		return false
+
+	if is_card_in_collection(card_id):
+		return false
+
+	if _is_unit_card_id(card_id):
+		_unit_collection.append(card_id)
+	elif _is_spell_card_id(card_id):
+		_spell_collection.append(card_id)
+	else:
+		push_warning("CardManager: Unsupported card ID %d." % card_id)
+		return false
+
+	_save_collection()
+	return true
+
+
+func add_card_to_deck(card_id: int) -> bool:
+	if not is_card_in_collection(card_id):
+		push_warning("CardManager: Card %d is not in the collection." % card_id)
+		return false
+
+	if is_card_in_deck(card_id):
+		return false
+
+	if _is_unit_card_id(card_id):
+		_unit_deck.append(card_id)
+	elif _is_spell_card_id(card_id):
+		_spell_deck.append(card_id)
+	else:
+		return false
+
+	_save_player_deck()
+	return true
+
+
+func get_unit_deck() -> Array[int]:
+	return _unit_deck.duplicate()
+
+
+func get_spell_deck() -> Array[int]:
+	return _spell_deck.duplicate()
+
+
+func get_unit_collection() -> Array[int]:
+	return _unit_collection.duplicate()
+
+
+func get_spell_collection() -> Array[int]:
+	return _spell_collection.duplicate()
+
+
+func _load_collection() -> void:
+	if not FileAccess.file_exists(COLLECTION_SAVE_PATH):
+		_create_default_collection()
+		return
+
+	var data: Variant = _read_save_file(COLLECTION_SAVE_PATH)
+
+	if not data is Dictionary:
+		_create_default_collection()
+		return
+
+	_unit_collection = _read_card_ids(data.get("unit_cards", []), true)
+	_spell_collection = _read_card_ids(data.get("spell_cards", []), false)
+	_save_collection()
+
+
+func _load_player_deck() -> void:
+	if not FileAccess.file_exists(PLAYER_DECK_SAVE_PATH):
+		_create_default_player_deck()
+		return
+
+	var data: Variant = _read_save_file(PLAYER_DECK_SAVE_PATH)
+
+	if not data is Dictionary:
+		_create_default_player_deck()
+		return
+
+	_unit_deck = _read_card_ids(data.get("unit_deck", []), true)
+	_spell_deck = _read_card_ids(data.get("spell_deck", []), false)
+	_remove_deck_cards_outside_collection()
+	_save_player_deck()
+
+
+func _create_default_collection() -> void:
+	_unit_collection.clear()
+	_spell_collection.clear()
+
+	for card_id in range(11000, 11010):
+		_unit_collection.append(card_id)
+
+	_save_collection()
+
+
+func _create_default_player_deck() -> void:
+	_unit_deck.clear()
+	_spell_deck.clear()
+
+	for card_id in range(11000, 11010):
+		_unit_deck.append(card_id)
+
+	_save_player_deck()
+
+
+func _save_collection() -> void:
+	var data: Dictionary = {
+		"unit_cards": _unit_collection,
+		"spell_cards": _spell_collection
+	}
+
+	_write_save_file(COLLECTION_SAVE_PATH, data)
+
+
+func _save_player_deck() -> void:
+	var data: Dictionary = {
+		"unit_deck": _unit_deck,
+		"spell_deck": _spell_deck
+	}
+
+	_write_save_file(PLAYER_DECK_SAVE_PATH, data)
+
+
+func _read_save_file(path: String) -> Variant:
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
+
+	if file == null:
+		push_error("CardManager: Could not open save file: " + path)
+		return null
+
+	var data: Variant = JSON.parse_string(file.get_as_text())
+
+	if data == null:
+		push_error("CardManager: Invalid JSON in save file: " + path)
+
+	return data
+
+
+func _write_save_file(path: String, data: Dictionary) -> void:
+	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
+
+	if file == null:
+		push_error("CardManager: Could not write save file: " + path)
+		return
+
+	file.store_string(JSON.stringify(data, "\t"))
+
+
+func _read_card_ids(data: Variant, units: bool) -> Array[int]:
+	var result: Array[int] = []
+
+	if not data is Array:
+		return result
+
+	for value in data:
+		var card_id: int = int(value)
+		var is_correct_type: bool = _is_unit_card_id(card_id) if units else _is_spell_card_id(card_id)
+
+		if is_correct_type and not result.has(card_id):
+			result.append(card_id)
+
+	return result
+
+
+func _remove_deck_cards_outside_collection() -> void:
+	for card_id in _unit_deck.duplicate():
+		if not _unit_collection.has(card_id):
+			_unit_deck.erase(card_id)
+
+	for card_id in _spell_deck.duplicate():
+		if not _spell_collection.has(card_id):
+			_spell_deck.erase(card_id)
 
 func _load_databases() -> void:
 	_cards_database.clear()

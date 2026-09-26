@@ -3,10 +3,35 @@ class_name LevelController extends Node
 
 const DEFAULT_LEGEND_ICON = preload("uid://xciqo3d2po72")
 
-@export_category("Legends")
+static var _has_pending_level_data: bool = false
+static var _pending_enemy_name: String = ""
+static var _pending_enemy_texture: Texture2D = null
+static var _pending_enemy_legend: Legend = null
+static var _pending_enemy_deck: Deck = null
+static var _pending_player_winning_score: int = 10
+static var _pending_enemy_winning_score: int = 10
+static var _pending_level_id: String = ""
+static var _pending_levels_unlocked_on_victory: Array[String] = []
+static var _pending_money_reward_range: Vector2i = Vector2i(15, 20)
+static var _pending_card_rewards: Array[String] = []
+static var _pending_return_scene_path: String = ""
 
+@export_category("Legends")
 @export var player_legend: Legend
 @export var enemy_legend: Legend
+
+@export_category("Level Rules")
+@export var player_winning_score: int = 10
+@export var enemy_winning_score: int = 10
+@export_file("*.tscn") var return_scene_path: String = ""
+
+@export_category("Victory Rewards")
+@export var level_id: String = ""
+@export var levels_unlocked_on_victory: Array[String] = []
+@export var money_reward_range: Vector2i = Vector2i(15, 20)
+@export var card_rewards: Array[String] = []
+
+
 
 @onready var player_legend_texture_rect: TextureRect = %PlayerLegendTextureRect
 @onready var enemy_legend_texture_rect: TextureRect = %EnemyLegendTextureRect
@@ -36,6 +61,38 @@ var player_spell_deck: Array[Card] = []
 var enemy_deck: Array[Card] = []
 var enemy_spell_deck: Array[Card] = []
 
+var _use_transferred_decks: bool = false
+var _transferred_enemy_deck: Deck = null
+
+
+
+static func prepare_level(
+	selected_level_id: String,
+	selected_enemy_name: String,
+	selected_enemy_texture: Texture2D,
+	selected_enemy_legend: Legend,
+	selected_enemy_deck: Deck,
+	selected_player_winning_score: int,
+	selected_enemy_winning_score: int,
+	selected_levels_unlocked_on_victory: Array[String],
+	selected_money_reward_range: Vector2i,
+	selected_card_rewards: Array[String],
+	selected_return_scene_path: String
+) -> void:
+	_has_pending_level_data = true
+	_pending_level_id = selected_level_id
+	_pending_enemy_name = selected_enemy_name
+	_pending_enemy_texture = selected_enemy_texture
+	_pending_enemy_legend = selected_enemy_legend
+	_pending_enemy_deck = selected_enemy_deck
+	_pending_player_winning_score = selected_player_winning_score
+	_pending_enemy_winning_score = selected_enemy_winning_score
+	_pending_levels_unlocked_on_victory = selected_levels_unlocked_on_victory.duplicate()
+	_pending_money_reward_range = selected_money_reward_range
+	_pending_card_rewards = selected_card_rewards.duplicate()
+	_pending_return_scene_path = selected_return_scene_path
+
+
 func _ready() -> void:
 	pause_panel.process_mode = Node.PROCESS_MODE_ALWAYS
 	are_you_sure_panel.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -45,6 +102,7 @@ func _ready() -> void:
 	victory_panel.hide()
 	hide_pause_button()
 	
+	_apply_pending_level_data()
 	_generate_decks()
 	_setup_legends_ui()
 	player_legend_texture_rect.gui_input.connect(_on_player_legend_gui_input)
@@ -55,6 +113,53 @@ func _ready() -> void:
 	yes_button.pressed.connect(_on_yes_button_pressed)
 	no_button.pressed.connect(_on_no_button_pressed)
 	legend_info_panel.hide()
+	level_setup.setup_level()
+
+
+func _apply_pending_level_data() -> void:
+	level_setup.player_name = ""
+	level_setup.player_icon_texture = null
+	level_setup.enemy_name = ""
+	level_setup.enemy_icon_texture = null
+
+	if _has_pending_level_data:
+		level_id = _pending_level_id
+		level_setup.enemy_name = _pending_enemy_name
+		level_setup.enemy_icon_texture = _pending_enemy_texture
+		enemy_legend = _pending_enemy_legend
+		_transferred_enemy_deck = _pending_enemy_deck
+		player_winning_score = _pending_player_winning_score
+		enemy_winning_score = _pending_enemy_winning_score
+		levels_unlocked_on_victory = _pending_levels_unlocked_on_victory.duplicate()
+		money_reward_range = _pending_money_reward_range
+		card_rewards = _pending_card_rewards.duplicate()
+		_use_transferred_decks = true
+		return_scene_path = _pending_return_scene_path
+
+		_clear_pending_level_data()
+
+	level_setup.level_id = level_id
+	level_setup.player_winning_score = player_winning_score
+	level_setup.enemy_winning_score = enemy_winning_score
+	level_setup.levels_unlocked_on_victory = levels_unlocked_on_victory.duplicate()
+	level_setup.money_reward_range = money_reward_range
+	level_setup.card_rewards = card_rewards.duplicate()
+	level_setup.return_scene_path = return_scene_path
+
+
+func _clear_pending_level_data() -> void:
+	_has_pending_level_data = false
+	_pending_level_id = ""
+	_pending_enemy_name = ""
+	_pending_enemy_texture = null
+	_pending_enemy_legend = null
+	_pending_enemy_deck = null
+	_pending_player_winning_score = 10
+	_pending_enemy_winning_score = 10
+	_pending_levels_unlocked_on_victory.clear()
+	_pending_money_reward_range = Vector2i(15, 20)
+	_pending_card_rewards.clear()
+	_pending_return_scene_path = ""
 
 
 func _generate_decks() -> void:
@@ -103,6 +208,14 @@ func _generate_decks() -> void:
 		21000
 	]
 
+	if _use_transferred_decks:
+		player_card_ids = CardManager.get_unit_deck()
+		player_spell_card_ids = CardManager.get_spell_deck()
+
+		if _transferred_enemy_deck != null:
+			enemy_card_ids = _convert_card_ids_to_int(_transferred_enemy_deck.get_unit_card_ids())
+			enemy_spell_card_ids = _convert_card_ids_to_int(_transferred_enemy_deck.get_spell_card_ids())
+
 	player_card_ids = _validate_deck_ids(player_card_ids,false,"player_deck")
 
 	player_spell_card_ids = _validate_deck_ids(player_spell_card_ids,true,"player_spell_deck")
@@ -118,6 +231,15 @@ func _generate_decks() -> void:
 	enemy_deck = _create_cards_from_ids(enemy_card_ids)
 
 	enemy_spell_deck = _create_cards_from_ids(enemy_spell_card_ids)
+
+
+func _convert_card_ids_to_int(card_ids: Array[String]) -> Array[int]:
+	var result: Array[int] = []
+
+	for card_id in card_ids:
+		result.append(int(card_id))
+
+	return result
 			
 
 func _setup_legends_ui() -> void:
