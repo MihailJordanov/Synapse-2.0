@@ -346,9 +346,9 @@ scale = Vector2(2, 2)
 [node name="AddUnitInDeckButton" type="Button" parent="Panel/UnitsPanel/UnitCardInfoPanel" unique_id=2046172760]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 71.0
+offset_left = 40.0
 offset_top = 520.0
-offset_right = 351.0
+offset_right = 212.0
 offset_bottom = 610.0
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 70
@@ -362,9 +362,9 @@ text = "Add"
 [node name="RemoveUnitInDeckButton" type="Button" parent="Panel/UnitsPanel/UnitCardInfoPanel" unique_id=726404499]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 71.0
+offset_left = 40.0
 offset_top = 631.0
-offset_right = 351.0
+offset_right = 382.0
 offset_bottom = 721.0
 theme_override_colors/font_color = Color(0.85882354, 0.85882354, 0.85882354, 0.96862745)
 theme_override_constants/outline_size = 10
@@ -375,6 +375,24 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_fynau")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_ngkgb")
 theme_override_styles/focus = SubResource("StyleBoxFlat_3l4x4")
 text = "Remove"
+
+[node name="UnitDeckCountRichTextLabel" type="RichTextLabel" parent="Panel/UnitsPanel/UnitCardInfoPanel" unique_id=1034013651]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 226.0
+offset_top = 522.0
+offset_right = 394.0
+offset_bottom = 614.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 50
+theme_override_font_sizes/bold_italics_font_size = 50
+theme_override_font_sizes/italics_font_size = 50
+theme_override_font_sizes/mono_font_size = 50
+bbcode_enabled = true
+text = "23/40"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="UnitScrollContainer" type="ScrollContainer" parent="Panel/UnitsPanel" unique_id=1337052879]
 unique_name_in_owner = true
@@ -429,7 +447,6 @@ layout_mode = 2
 
 [node name="SpellPanel" type="Panel" parent="Panel" unique_id=1198894311]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -469,9 +486,9 @@ scale = Vector2(2, 2)
 [node name="AddSpellInDeckButton" type="Button" parent="Panel/SpellPanel/SpellCardInfoPanel" unique_id=297346711]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 71.0
+offset_left = 40.0
 offset_top = 520.0
-offset_right = 351.0
+offset_right = 212.0
 offset_bottom = 610.0
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 70
@@ -485,9 +502,9 @@ text = "Add"
 [node name="RemoveSpellInDeckButton" type="Button" parent="Panel/SpellPanel/SpellCardInfoPanel" unique_id=24396637]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 71.0
+offset_left = 40.0
 offset_top = 631.0
-offset_right = 351.0
+offset_right = 382.0
 offset_bottom = 721.0
 theme_override_colors/font_color = Color(0.85882354, 0.85882354, 0.85882354, 0.96862745)
 theme_override_constants/outline_size = 10
@@ -498,6 +515,24 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_fynau")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_ngkgb")
 theme_override_styles/focus = SubResource("StyleBoxFlat_3l4x4")
 text = "Remove"
+
+[node name="SpellDeckCountRichTextLabel" type="RichTextLabel" parent="Panel/SpellPanel/SpellCardInfoPanel" unique_id=436373410]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 226.0
+offset_top = 522.0
+offset_right = 394.0
+offset_bottom = 614.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 50
+theme_override_font_sizes/bold_italics_font_size = 50
+theme_override_font_sizes/italics_font_size = 50
+theme_override_font_sizes/mono_font_size = 50
+bbcode_enabled = true
+text = "8/15"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SpellScrollContainer" type="ScrollContainer" parent="Panel/SpellPanel" unique_id=216764884]
 unique_name_in_owner = true
@@ -552,6 +587,7 @@ layout_mode = 2
 
 [node name="LegendPanel" type="Panel" parent="Panel" unique_id=1596111581]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0

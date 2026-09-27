@@ -1,6 +1,20 @@
 class_name Collection extends CanvasLayer
 
 
+const MIN_UNIT_DECK_CARDS: int = 10
+const MAX_UNIT_DECK_CARDS: int = 40
+
+const MIN_SPELL_DECK_CARDS: int = 0
+const MAX_SPELL_DECK_CARDS: int = 15
+
+const DECK_COUNT_DEFAULT_COLOR: String = "#FFFFFF"
+const DECK_COUNT_FULL_COLOR: String = "#FFE58A"
+const DECK_COUNT_INVALID_COLOR: String = "#FF5555"
+
+const DECK_COUNT_POP_SCALE: Vector2 = Vector2(1.1, 1.1)
+const DECK_COUNT_POP_DURATION: float = 0.08
+
+
 @export var unit_card_example_scene: PackedScene
 @export var spell_card_example_scene: PackedScene
 @export var legend_example_scene: PackedScene
@@ -13,6 +27,7 @@ class_name Collection extends CanvasLayer
 @onready var unit_cards_grid_container: GridContainer = %UnitCardsGridContainer
 @onready var add_unit_in_deck_button: Button = %AddUnitInDeckButton
 @onready var remove_unit_in_deck_button: Button = %RemoveUnitInDeckButton
+@onready var unit_deck_count_rich_text_label: RichTextLabel = %UnitDeckCountRichTextLabel
 
 @onready var spell_panel: Panel = %SpellPanel
 @onready var spell_card_examlpe_show: SpellCardExample = %SpellCardExamlpeShow
@@ -20,6 +35,7 @@ class_name Collection extends CanvasLayer
 @onready var remove_spell_in_deck_button: Button = %RemoveSpellInDeckButton
 @onready var spell_scroll_container: ScrollContainer = %SpellScrollContainer
 @onready var spell_cards_grid_container: GridContainer = %SpellCardsGridContainer
+@onready var spell_deck_count_rich_text_label: RichTextLabel = %SpellDeckCountRichTextLabel
 
 
 @onready var legend_panel: Panel = %LegendPanel
@@ -56,8 +72,16 @@ var _pressed_legend_example: LegendExample
 var _legend_press_position: Vector2
 var _legend_press_was_dragged: bool = false
 
+var _unit_count_tween: Tween
+var _spell_count_tween: Tween
 
 func _ready() -> void:
+	await get_tree().process_frame
+	unit_deck_count_rich_text_label.bbcode_enabled = true
+	spell_deck_count_rich_text_label.bbcode_enabled = true
+	unit_deck_count_rich_text_label.pivot_offset = (unit_deck_count_rich_text_label.size / 2.0)
+	spell_deck_count_rich_text_label.pivot_offset = (spell_deck_count_rich_text_label.size / 2.0)
+	_refresh_deck_counts(false)
 	unit_card_example_show.visible = false
 	spell_card_examlpe_show.visible = false
 	legend_example_show.visible = false
@@ -203,6 +227,7 @@ func _reset_press() -> void:
 func _hide_unit_deck_buttons() -> void:
 	add_unit_in_deck_button.visible = false
 	remove_unit_in_deck_button.visible = false
+	unit_deck_count_rich_text_label.visible = false
 	
 func _update_unit_deck_buttons() -> void:
 	var has_selection: bool = (
@@ -213,14 +238,15 @@ func _update_unit_deck_buttons() -> void:
 
 	add_unit_in_deck_button.visible = has_selection
 	remove_unit_in_deck_button.visible = has_selection
+	unit_deck_count_rich_text_label.visible = has_selection
 
 	if not has_selection:
 		return
 
-	var is_in_deck: bool = CardManager.is_card_in_deck(selected_card_id)
-
-	add_unit_in_deck_button.disabled = is_in_deck
-	remove_unit_in_deck_button.disabled = not is_in_deck
+	_update_unit_deck_limit_buttons(
+		CardManager.get_unit_deck().size()
+	)
+	
 	
 func _on_add_unit_in_deck_button_pressed() -> void:
 	if selected_card_id == 0:
@@ -228,6 +254,10 @@ func _on_add_unit_in_deck_button_pressed() -> void:
 
 	if CardManager.add_card_to_deck(selected_card_id):
 		_update_selected_card_deck_state()
+		_update_unit_deck_count(
+			CardManager.get_unit_deck().size(),
+			true
+		)
 
 
 func _on_remove_unit_in_deck_button_pressed() -> void:
@@ -236,6 +266,10 @@ func _on_remove_unit_in_deck_button_pressed() -> void:
 
 	if CardManager.remove_card_from_deck(selected_card_id):
 		_update_selected_card_deck_state()
+		_update_unit_deck_count(
+			CardManager.get_unit_deck().size(),
+			true
+		)
 		
 func _update_selected_card_deck_state() -> void:
 	if selected_card and is_instance_valid(selected_card):
@@ -374,6 +408,7 @@ func _select_spell_card(
 func _hide_spell_deck_buttons() -> void:
 	add_spell_in_deck_button.visible = false
 	remove_spell_in_deck_button.visible = false
+	spell_deck_count_rich_text_label.visible = false
 	
 	
 func _update_spell_deck_buttons() -> void:
@@ -385,16 +420,14 @@ func _update_spell_deck_buttons() -> void:
 
 	add_spell_in_deck_button.visible = has_selection
 	remove_spell_in_deck_button.visible = has_selection
+	spell_deck_count_rich_text_label.visible = has_selection
 
 	if not has_selection:
 		return
 
-	var is_in_deck: bool = CardManager.is_card_in_deck(
-		selected_spell_card_id
+	_update_spell_deck_limit_buttons(
+		CardManager.get_spell_deck().size()
 	)
-
-	add_spell_in_deck_button.disabled = is_in_deck
-	remove_spell_in_deck_button.disabled = not is_in_deck
 	
 	
 func _on_add_spell_in_deck_button_pressed() -> void:
@@ -405,6 +438,10 @@ func _on_add_spell_in_deck_button_pressed() -> void:
 		selected_spell_card_id
 	):
 		_update_selected_spell_card_deck_state()
+		_update_spell_deck_count(
+			CardManager.get_spell_deck().size(),
+			true
+		)
 		
 func _on_remove_spell_in_deck_button_pressed() -> void:
 	if selected_spell_card_id == 0:
@@ -414,6 +451,10 @@ func _on_remove_spell_in_deck_button_pressed() -> void:
 		selected_spell_card_id
 	):
 		_update_selected_spell_card_deck_state()
+		_update_spell_deck_count(
+			CardManager.get_spell_deck().size(),
+			true
+		)
 		
 func _update_selected_spell_card_deck_state() -> void:
 	if (
@@ -702,3 +743,197 @@ func _show_legends_panel() -> void:
 	units_panel.visible = false
 	spell_panel.visible = false
 	legend_panel.visible = true
+
+func _update_deck_counts(
+	unit_count: int,
+	spell_count: int,
+	animate: bool = false
+) -> void:
+	_update_unit_deck_count(unit_count)
+	_update_spell_deck_count(spell_count)
+
+	_update_unit_deck_limit_buttons(unit_count)
+	_update_spell_deck_limit_buttons(spell_count)
+
+	if animate:
+		_pop_unit_deck_count()
+		_pop_spell_deck_count()
+		
+		
+func _update_unit_deck_count(
+	unit_count: int,
+	animate: bool = false
+) -> void:
+	var color: String = _get_deck_count_color(
+		unit_count,
+		MIN_UNIT_DECK_CARDS,
+		MAX_UNIT_DECK_CARDS
+	)
+
+	unit_deck_count_rich_text_label.text = (
+		"[center][color=%s]%d/%d[/color][/center]"
+		% [
+			color,
+			unit_count,
+			MAX_UNIT_DECK_CARDS
+		]
+	)
+
+	_update_unit_deck_limit_buttons(unit_count)
+
+	if animate:
+		_pop_unit_deck_count()
+		
+		
+func _update_spell_deck_count(
+	spell_count: int,
+	animate: bool = false
+) -> void:
+	var color: String = _get_deck_count_color(
+		spell_count,
+		MIN_SPELL_DECK_CARDS,
+		MAX_SPELL_DECK_CARDS
+	)
+
+	spell_deck_count_rich_text_label.text = (
+		"[center][color=%s]%d/%d[/color][/center]"
+		% [
+			color,
+			spell_count,
+			MAX_SPELL_DECK_CARDS
+		]
+	)
+
+	_update_spell_deck_limit_buttons(spell_count)
+
+	if animate:
+		_pop_spell_deck_count()
+		
+		
+func _get_deck_count_color(
+	count: int,
+	minimum: int,
+	maximum: int
+) -> String:
+	if count < minimum or count > maximum:
+		return DECK_COUNT_INVALID_COLOR
+
+	if count == maximum:
+		return DECK_COUNT_FULL_COLOR
+
+	return DECK_COUNT_DEFAULT_COLOR
+	
+
+func _update_unit_deck_limit_buttons(
+	unit_count: int
+) -> void:
+	var is_in_deck: bool = (
+		selected_card_id != 0
+		and CardManager.is_card_in_deck(selected_card_id)
+	)
+
+	add_unit_in_deck_button.disabled = (
+		is_in_deck
+		or unit_count >= MAX_UNIT_DECK_CARDS
+	)
+
+	remove_unit_in_deck_button.disabled = (
+		not is_in_deck
+		or unit_count <= MIN_UNIT_DECK_CARDS
+	)
+
+
+func _update_spell_deck_limit_buttons(
+	spell_count: int
+) -> void:
+	var is_in_deck: bool = (
+		selected_spell_card_id != 0
+		and CardManager.is_card_in_deck(
+			selected_spell_card_id
+		)
+	)
+
+	add_spell_in_deck_button.disabled = (
+		is_in_deck
+		or spell_count >= MAX_SPELL_DECK_CARDS
+	)
+
+	remove_spell_in_deck_button.disabled = (
+		not is_in_deck
+		or spell_count <= MIN_SPELL_DECK_CARDS
+	)
+
+
+func _pop_unit_deck_count() -> void:
+	if (
+		_unit_count_tween
+		and _unit_count_tween.is_valid()
+	):
+		_unit_count_tween.kill()
+
+	unit_deck_count_rich_text_label.scale = Vector2.ONE
+
+	_unit_count_tween = create_tween()
+	_unit_count_tween.set_trans(Tween.TRANS_BACK)
+	_unit_count_tween.set_ease(Tween.EASE_OUT)
+
+	_unit_count_tween.tween_property(
+		unit_deck_count_rich_text_label,
+		"scale",
+		DECK_COUNT_POP_SCALE,
+		DECK_COUNT_POP_DURATION
+	)
+
+	_unit_count_tween.tween_property(
+		unit_deck_count_rich_text_label,
+		"scale",
+		Vector2.ONE,
+		DECK_COUNT_POP_DURATION
+	)
+	
+func _pop_spell_deck_count() -> void:
+	if (
+		_spell_count_tween
+		and _spell_count_tween.is_valid()
+	):
+		_spell_count_tween.kill()
+
+	spell_deck_count_rich_text_label.scale = Vector2.ONE
+
+	_spell_count_tween = create_tween()
+	_spell_count_tween.set_trans(Tween.TRANS_BACK)
+	_spell_count_tween.set_ease(Tween.EASE_OUT)
+
+	_spell_count_tween.tween_property(
+		spell_deck_count_rich_text_label,
+		"scale",
+		DECK_COUNT_POP_SCALE,
+		DECK_COUNT_POP_DURATION
+	)
+
+	_spell_count_tween.tween_property(
+		spell_deck_count_rich_text_label,
+		"scale",
+		Vector2.ONE,
+		DECK_COUNT_POP_DURATION
+	)
+	
+	
+
+	
+	
+func _refresh_deck_counts(
+	animate: bool = false
+) -> void:
+	var unit_count: int = (
+		CardManager.get_unit_deck().size()
+	)
+
+	var spell_count: int = (
+		CardManager.get_spell_deck().size()
+	)
+
+	_update_unit_deck_count(unit_count, animate)
+	_update_spell_deck_count(spell_count, animate)
+	
+	
