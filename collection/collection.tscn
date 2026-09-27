@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cfvvvc6brwph3" path="res://collection/script/collection.gd" id="1_31rji"]
 [ext_resource type="PackedScene" uid="uid://82pqfndoqpac" path="res://collection/unit_card_example.tscn" id="2_77yai"]
+[ext_resource type="PackedScene" uid="uid://40bostkv6fia" path="res://collection/spell_card_examlpe.tscn" id="3_31rji"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnme7"]
 bg_color = Color(0.7882353, 0.60784316, 0.43529412, 0.9843137)
@@ -185,6 +186,7 @@ shadow_offset = Vector2(0, 5)
 [node name="Collection" type="CanvasLayer" unique_id=187248655]
 script = ExtResource("1_31rji")
 unit_card_example_scene = ExtResource("2_77yai")
+spell_card_example_scene = ExtResource("3_31rji")
 
 [node name="Panel" type="Panel" parent="." unique_id=1990146769]
 anchors_preset = 15
@@ -284,6 +286,7 @@ text = "Units"
 
 [node name="UnitsPanel" type="Panel" parent="Panel" unique_id=953327897]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -353,7 +356,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_ngkgb")
 theme_override_styles/focus = SubResource("StyleBoxFlat_3l4x4")
 text = "Remove"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/UnitsPanel" unique_id=1337052879]
+[node name="UnitScrollContainer" type="ScrollContainer" parent="Panel/UnitsPanel" unique_id=1337052879]
 unique_name_in_owner = true
 layout_mode = 1
 offset_left = 5.0
@@ -363,7 +366,7 @@ offset_bottom = 563.462
 scale = Vector2(1.3, 1.3)
 horizontal_scroll_mode = 0
 
-[node name="UnitCardsGridContainer" type="GridContainer" parent="Panel/UnitsPanel/ScrollContainer" unique_id=687445311]
+[node name="UnitCardsGridContainer" type="GridContainer" parent="Panel/UnitsPanel/UnitScrollContainer" unique_id=687445311]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
@@ -371,35 +374,157 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 5
 
-[node name="UnitCardExample" parent="Panel/UnitsPanel/ScrollContainer/UnitCardsGridContainer" unique_id=403301459 instance=ExtResource("2_77yai")]
+[node name="UnitCardExample" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=403301459 instance=ExtResource("2_77yai")]
 layout_mode = 2
 
-[node name="UnitCardExample2" parent="Panel/UnitsPanel/ScrollContainer/UnitCardsGridContainer" unique_id=743904160 instance=ExtResource("2_77yai")]
+[node name="UnitCardExample2" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=743904160 instance=ExtResource("2_77yai")]
 layout_mode = 2
 
-[node name="UnitCardExample3" parent="Panel/UnitsPanel/ScrollContainer/UnitCardsGridContainer" unique_id=1202571149 instance=ExtResource("2_77yai")]
+[node name="UnitCardExample3" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=1202571149 instance=ExtResource("2_77yai")]
 layout_mode = 2
 
-[node name="UnitCardExample4" parent="Panel/UnitsPanel/ScrollContainer/UnitCardsGridContainer" unique_id=998884808 instance=ExtResource("2_77yai")]
+[node name="UnitCardExample4" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=998884808 instance=ExtResource("2_77yai")]
 layout_mode = 2
 
-[node name="UnitCardExample5" parent="Panel/UnitsPanel/ScrollContainer/UnitCardsGridContainer" unique_id=1207264964 instance=ExtResource("2_77yai")]
+[node name="UnitCardExample5" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=1207264964 instance=ExtResource("2_77yai")]
 layout_mode = 2
 
-[node name="UnitCardExample6" parent="Panel/UnitsPanel/ScrollContainer/UnitCardsGridContainer" unique_id=1120228310 instance=ExtResource("2_77yai")]
+[node name="UnitCardExample6" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=1120228310 instance=ExtResource("2_77yai")]
 layout_mode = 2
 
-[node name="UnitCardExample7" parent="Panel/UnitsPanel/ScrollContainer/UnitCardsGridContainer" unique_id=104730624 instance=ExtResource("2_77yai")]
+[node name="UnitCardExample7" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=104730624 instance=ExtResource("2_77yai")]
 layout_mode = 2
 
-[node name="UnitCardExample8" parent="Panel/UnitsPanel/ScrollContainer/UnitCardsGridContainer" unique_id=2113306250 instance=ExtResource("2_77yai")]
+[node name="UnitCardExample8" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=2113306250 instance=ExtResource("2_77yai")]
 layout_mode = 2
 
-[node name="UnitCardExample9" parent="Panel/UnitsPanel/ScrollContainer/UnitCardsGridContainer" unique_id=964966463 instance=ExtResource("2_77yai")]
+[node name="UnitCardExample9" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=964966463 instance=ExtResource("2_77yai")]
 layout_mode = 2
 
-[node name="UnitCardExample10" parent="Panel/UnitsPanel/ScrollContainer/UnitCardsGridContainer" unique_id=453956075 instance=ExtResource("2_77yai")]
+[node name="UnitCardExample10" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=453956075 instance=ExtResource("2_77yai")]
 layout_mode = 2
 
-[node name="UnitCardExample11" parent="Panel/UnitsPanel/ScrollContainer/UnitCardsGridContainer" unique_id=1057913433 instance=ExtResource("2_77yai")]
+[node name="UnitCardExample11" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=1057913433 instance=ExtResource("2_77yai")]
+layout_mode = 2
+
+[node name="SpellPanel" type="Panel" parent="Panel" unique_id=1198894311]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3eqfj")
+
+[node name="SpellPanelForButtonSelect" type="Panel" parent="Panel/SpellPanel" unique_id=1471068150]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 910.0
+offset_top = -140.0
+offset_right = 1140.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_77yai")
+
+[node name="SpellCardInfoPanel" type="Panel" parent="Panel/SpellPanel" unique_id=1355084609]
+layout_mode = 0
+offset_left = 1200.0
+offset_right = 1600.0
+offset_bottom = 750.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wi6ju")
+
+[node name="SpellCardExamlpeShow" parent="Panel/SpellPanel/SpellCardInfoPanel" unique_id=1296053274 instance=ExtResource("3_31rji")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 48.0
+offset_top = 24.0
+offset_right = 210.0
+offset_bottom = 271.0
+scale = Vector2(2, 2)
+
+[node name="AddSpellInDeckButton" type="Button" parent="Panel/SpellPanel/SpellCardInfoPanel" unique_id=297346711]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 71.0
+offset_top = 520.0
+offset_right = 351.0
+offset_bottom = 610.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 70
+theme_override_styles/normal = SubResource("StyleBoxFlat_31rji")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rsi2s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1slrb")
+theme_override_styles/focus = SubResource("StyleBoxFlat_pvx08")
+text = "Add"
+
+[node name="RemoveSpellInDeckButton" type="Button" parent="Panel/SpellPanel/SpellCardInfoPanel" unique_id=24396637]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 71.0
+offset_top = 631.0
+offset_right = 351.0
+offset_bottom = 721.0
+theme_override_colors/font_color = Color(0.85882354, 0.85882354, 0.85882354, 0.96862745)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_b47ca")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4eg7r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fynau")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ngkgb")
+theme_override_styles/focus = SubResource("StyleBoxFlat_3l4x4")
+text = "Remove"
+
+[node name="SpellScrollContainer" type="ScrollContainer" parent="Panel/SpellPanel" unique_id=216764884]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 5.0
+offset_top = 25.0
+offset_right = 897.3078
+offset_bottom = 563.462
+scale = Vector2(1.3, 1.3)
+horizontal_scroll_mode = 0
+
+[node name="SpellCardsGridContainer" type="GridContainer" parent="Panel/SpellPanel/SpellScrollContainer" unique_id=1141320052]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 5
+
+[node name="SpellCardExamlpe" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=693641742 instance=ExtResource("3_31rji")]
+layout_mode = 2
+
+[node name="SpellCardExamlpe2" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=1775840835 instance=ExtResource("3_31rji")]
+layout_mode = 2
+
+[node name="SpellCardExamlpe3" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=255522303 instance=ExtResource("3_31rji")]
+layout_mode = 2
+
+[node name="SpellCardExamlpe4" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=419878764 instance=ExtResource("3_31rji")]
+layout_mode = 2
+
+[node name="SpellCardExamlpe5" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=467145693 instance=ExtResource("3_31rji")]
+layout_mode = 2
+
+[node name="SpellCardExamlpe6" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=1736497647 instance=ExtResource("3_31rji")]
+layout_mode = 2
+
+[node name="SpellCardExamlpe7" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=1775538020 instance=ExtResource("3_31rji")]
+layout_mode = 2
+
+[node name="SpellCardExamlpe8" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=931809690 instance=ExtResource("3_31rji")]
+layout_mode = 2
+
+[node name="SpellCardExamlpe9" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=406158678 instance=ExtResource("3_31rji")]
+layout_mode = 2
+
+[node name="SpellCardExamlpe10" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=1300717114 instance=ExtResource("3_31rji")]
+layout_mode = 2
+
+[node name="SpellCardExamlpe11" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=357694088 instance=ExtResource("3_31rji")]
 layout_mode = 2

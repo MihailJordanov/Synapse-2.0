@@ -635,3 +635,14 @@ func remove_card_from_deck(card_id: int) -> bool:
 
 	_save_player_deck()
 	return true
+
+func get_spell_card_data(card_id: int) -> Dictionary:
+	if not _is_spell_card_id(card_id):
+		return {}
+
+	var data: Variant = _cards_database.get(str(card_id))
+
+	if not data is Dictionary:
+		return {}
+
+	return (data as Dictionary).duplicate(true)

@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://40bostkv6fia"]
+
+[ext_resource type="Script" uid="uid://dye1tgv1dgg2" path="res://collection/script/spell_card_examlpe.gd" id="1_3gmqw"]
+[ext_resource type="Texture2D" uid="uid://cblr4o2il8a3v" path="res://zones/asstes/sprites/checkbox.png" id="1_w2l6v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8cmvi"]
+bg_color = Color(0, 0, 0, 0)
+shadow_color = Color(0, 1, 1, 0.6)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k2rsf"]
+bg_color = Color(0.8490765, 0.3326969, 0.5627121, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2l6v"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gmqw"]
+bg_color = Color(0.3137255, 0.62352943, 0.85490197, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 90
+corner_radius_top_right = 90
+corner_radius_bottom_right = 90
+corner_radius_bottom_left = 90
+corner_detail = 1
+
+[node name="SpellCardExamlpe" type="Control" unique_id=1296053274]
+custom_minimum_size = Vector2(162, 247)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3gmqw")
+
+[node name="SelectionPanel" type="Panel" parent="." unique_id=1104103004]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 152.0
+offset_bottom = 237.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8cmvi")
+
+[node name="Panel" type="Panel" parent="." unique_id=2113220841]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 152.0
+offset_bottom = 237.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k2rsf")
+
+[node name="SpellCardExampleTexture" type="TextureRect" parent="Panel" unique_id=128324191]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 21.0
+offset_top = 15.5
+offset_right = 121.0
+offset_bottom = 115.5
+mouse_filter = 2
+expand_mode = 2
+
+[node name="Panel_Border2" type="Panel" parent="Panel/SpellCardExampleTexture" unique_id=1128399281]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w2l6v")
+
+[node name="TextPanel" type="Panel" parent="Panel" unique_id=1468916018]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 125.5
+offset_right = 133.0
+offset_bottom = 218.5
+mouse_filter = 2
+
+[node name="SpellCardExampleDescriptionRichTextLabel" type="RichTextLabel" parent="Panel/TextPanel" unique_id=2008165593]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.032
+anchor_top = 0.040000003
+anchor_right = 0.96800005
+anchor_bottom = 0.96000004
+offset_left = 0.031999826
+offset_right = -0.03200531
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/outline_size = 10
+
+[node name="ManaPanel" type="Panel" parent="Panel" unique_id=1444623388]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 2.5
+offset_right = 82.0
+offset_bottom = 34.5
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3gmqw")
+
+[node name="ManaLabel" type="Label" parent="Panel/ManaPanel" unique_id=413782296]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 5.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 18
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IsInDeckTextureRect" type="TextureRect" parent="." unique_id=1204098136]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.16078432, 1, 0.34509805, 1)
+layout_mode = 0
+offset_left = 81.0
+offset_right = 163.0
+offset_bottom = 71.0
+texture = ExtResource("1_w2l6v")
