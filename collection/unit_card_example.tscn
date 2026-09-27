@@ -1,0 +1,393 @@
+[gd_scene format=3 uid="uid://82pqfndoqpac"]
+
+[ext_resource type="Texture2D" uid="uid://c88iiqgwretb8" path="res://card/assets/types.png" id="1_2mm8u"]
+[ext_resource type="Script" uid="uid://1a60k5hyrqvo" path="res://collection/script/unit_card_example.gd" id="1_n6qpy"]
+[ext_resource type="Texture2D" uid="uid://cblr4o2il8a3v" path="res://zones/asstes/sprites/checkbox.png" id="3_b46wl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrivr"]
+bg_color = Color(0, 0, 0, 0)
+shadow_color = Color(0, 1, 1, 0.6)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31rji"]
+bg_color = Color(0.6745556, 0.50165814, 0.4062071, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsi2s"]
+atlas = ExtResource("1_2mm8u")
+region = Rect2(0, 0, 37.5, 40)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmqbc"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1slrb"]
+atlas = ExtResource("1_2mm8u")
+region = Rect2(38, 0, 37.5, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvx08"]
+atlas = ExtResource("1_2mm8u")
+region = Rect2(75, 0, 37.5, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b47ca"]
+atlas = ExtResource("1_2mm8u")
+region = Rect2(113, 0, 37.5, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4eg7r"]
+atlas = ExtResource("1_2mm8u")
+region = Rect2(149.2, 0, 37.5, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fynau"]
+atlas = ExtResource("1_2mm8u")
+region = Rect2(187.5, 0, 37.5, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngkgb"]
+atlas = ExtResource("1_2mm8u")
+region = Rect2(225, 0, 37.5, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3l4x4"]
+atlas = ExtResource("1_2mm8u")
+region = Rect2(262.5, 0, 37.5, 40)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pudvr"]
+bg_color = Color(0.6627451, 0.14117648, 0.19607843, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[node name="UnitCardExample" type="Control" unique_id=540168458]
+custom_minimum_size = Vector2(162, 247)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_n6qpy")
+
+[node name="SelectionPanel" type="Panel" parent="." unique_id=1435826703]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 152.0
+offset_bottom = 237.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
+
+[node name="Panel" type="Panel" parent="." unique_id=1611315281]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 152.0
+offset_bottom = 237.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_31rji")
+
+[node name="UnitCardExampleAttackHBoxContainer" type="HBoxContainer" parent="Panel" unique_id=6523490]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 132.0
+offset_bottom = 51.0
+mouse_filter = 2
+alignment = 1
+
+[node name="A_Sword" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=1654268947]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_rsi2s")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Sword" unique_id=1794035288]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="A_Shield" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=623481497]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_1slrb")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Shield" unique_id=724397455]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="A_Axe" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=1151577227]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_pvx08")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Axe" unique_id=2133985408]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="A_Shurikane" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=625954231]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_b47ca")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Shurikane" unique_id=749365864]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="A_Wand" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=408122720]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_4eg7r")
+
+[node name="Panel_Border2" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Wand" unique_id=209087173]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="A_Magical Wand" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=1413603694]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_fynau")
+
+[node name="Panel_Border3" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Magical Wand" unique_id=572568012]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="A_Mace" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=1258255048]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_ngkgb")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Mace" unique_id=1470816094]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="A_Teeth" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=250308790]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_3l4x4")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Teeth" unique_id=1321408744]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="UnitCardExampleDeffenseHBoxContainer" type="HBoxContainer" parent="Panel" unique_id=1121655077]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 176.5
+offset_right = 132.0
+offset_bottom = 216.5
+mouse_filter = 2
+alignment = 1
+
+[node name="D_Sword" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1514399478]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_rsi2s")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Sword" unique_id=1382771477]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="D_Shield" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=924164917]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_1slrb")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Shield" unique_id=238474363]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="D_Axe" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=383191810]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_pvx08")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Axe" unique_id=551261559]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="D_Shurikane" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1422243584]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_b47ca")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Shurikane" unique_id=2082088660]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="D_Wand" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=644267444]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_4eg7r")
+
+[node name="Panel_Border2" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Wand" unique_id=2032683260]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="D_Magical Wand" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=722221026]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_fynau")
+
+[node name="Panel_Border3" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Magical Wand" unique_id=882766011]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="D_Mace" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1422529902]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_ngkgb")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Mace" unique_id=1455685355]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="D_Teeth" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=652973847]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_3l4x4")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Teeth" unique_id=1112592832]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="UnitCardExampleCardTexture" type="TextureRect" parent="Panel" unique_id=777683396]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 21.0
+offset_top = 56.5
+offset_right = 121.0
+offset_bottom = 156.5
+mouse_filter = 2
+
+[node name="Panel_Border2" type="Panel" parent="Panel/UnitCardExampleCardTexture" unique_id=1083347295]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+
+[node name="UnitCardExamplePointPanel" type="Panel" parent="Panel" unique_id=505952171]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 61.0
+offset_top = 148.5
+offset_right = 81.0
+offset_bottom = 168.5
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pudvr")
+
+[node name="PointsLabel" type="Label" parent="Panel/UnitCardExamplePointPanel" unique_id=372141401]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -13.0
+offset_top = -8.0
+offset_right = 103.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 72
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IsInDeckTextureRect" type="TextureRect" parent="." unique_id=79337040]
+visible = false
+modulate = Color(0.16078432, 1, 0.34509805, 1)
+layout_mode = 0
+offset_left = 81.0
+offset_right = 163.0
+offset_bottom = 71.0
+texture = ExtResource("3_b46wl")

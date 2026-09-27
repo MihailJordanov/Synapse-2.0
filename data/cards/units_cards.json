@@ -58,5 +58,29 @@
 		"source_types": [2, 4, 6],
 		"points": 1,
 		"texture_path": "res://data/card_images/units/heros1/tile009.png"
+	},
+	"11010": {
+		"target_types": [3, 8],
+		"source_types": [2, 4],
+		"points": 1,
+		"texture_path": "res://data/card_images/units/heros1/tile009.png"
+	},
+	"11011": {
+		"target_types": [3, 5],
+		"source_types": [6],
+		"points": 1,
+		"texture_path": "res://data/card_images/units/heros1/tile009.png"
+	},
+	"11012": {
+		"target_types": [8],
+		"source_types": [7],
+		"points": 1,
+		"texture_path": "res://data/card_images/units/heros1/tile009.png"
+	},
+	"11013": {
+		"target_types": [1, 2],
+		"source_types": [2, 3],
+		"points": 1,
+		"texture_path": "res://data/card_images/units/heros1/tile009.png"
 	}
 }

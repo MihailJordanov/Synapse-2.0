@@ -278,6 +278,18 @@ func _load_database_file(path: String) -> void:
 		_cards_database[string_id] = loaded_cards[id]
 
 
+func get_unit_card_data(card_id: int) -> Dictionary:
+	if not _is_unit_card_id(card_id):
+		return {}
+
+	var data: Variant = _cards_database.get(str(card_id))
+
+	if not data is Dictionary:
+		return {}
+
+	return (data as Dictionary).duplicate(true)
+
+
 func create_card_by_id(card_id: int) -> Card:
 	var string_id := str(card_id)
 
@@ -600,3 +612,26 @@ func _create_modify_connection_type_effect(
 		operation,
 		type_number
 	)
+	
+func remove_card_from_deck(card_id: int) -> bool:
+	if _is_unit_card_id(card_id):
+		if not _unit_deck.has(card_id):
+			return false
+
+		_unit_deck.erase(card_id)
+
+	elif _is_spell_card_id(card_id):
+		if not _spell_deck.has(card_id):
+			return false
+
+		_spell_deck.erase(card_id)
+
+	else:
+		push_warning(
+			"CardManager: Unsupported card ID %d."
+			% card_id
+		)
+		return false
+
+	_save_player_deck()
+	return true
