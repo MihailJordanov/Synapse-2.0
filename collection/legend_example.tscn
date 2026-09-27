@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://daqb661vce4kq"]
+
+[ext_resource type="Script" uid="uid://bkl7mv36slw2p" path="res://collection/script/legend_example.gd" id="1_2h4pe"]
+[ext_resource type="Texture2D" uid="uid://cblr4o2il8a3v" path="res://zones/asstes/sprites/checkbox.png" id="1_6bvy3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6dqo"]
+bg_color = Color(0, 0, 0, 0)
+shadow_color = Color(0, 1, 1, 0.6)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrivr"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="LegendExample" type="Control" unique_id=1776878118]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1.0
+offset_right = 251.0
+offset_bottom = 250.0
+script = ExtResource("1_2h4pe")
+
+[node name="SelectionPanel" type="Panel" parent="." unique_id=362733841]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 240.0
+offset_bottom = 240.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_s6dqo")
+
+[node name="Panel" type="Panel" parent="." unique_id=1803370158]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
+
+[node name="TextureRect" type="TextureRect" parent="Panel" unique_id=1765197190]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 3
+
+[node name="IsInDeckTextureRect" type="TextureRect" parent="." unique_id=1509023406]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.16078432, 1, 0.34509805, 1)
+layout_mode = 0
+offset_left = 168.0
+offset_right = 250.0
+offset_bottom = 71.0
+texture = ExtResource("1_6bvy3")

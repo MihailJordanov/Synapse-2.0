@@ -5,13 +5,12 @@ signal legend_unlocked(legend_id: int)
 signal equipped_legend_changed(legend_id: int)
 
 
-const LEGENDS_DATA_PATH: String = (
-	"res://data/legends/legends.json"
-)
+const LEGENDS_DATA_PATH: String = "res://data/legends/legends.json"
 
-const LEGEND_COLLECTION_SAVE_PATH: String = (
-	"user://legend_collection.json"
-)
+
+
+const LEGEND_COLLECTION_SAVE_PATH: String = "user://legend_collection.json"
+
 
 
 const MIN_LEGEND_ID: int = 31000

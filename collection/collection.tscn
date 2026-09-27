@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cfvvvc6brwph3" path="res://collection/script/collection.gd" id="1_31rji"]
 [ext_resource type="PackedScene" uid="uid://82pqfndoqpac" path="res://collection/unit_card_example.tscn" id="2_77yai"]
 [ext_resource type="PackedScene" uid="uid://40bostkv6fia" path="res://collection/spell_card_examlpe.tscn" id="3_31rji"]
+[ext_resource type="PackedScene" uid="uid://daqb661vce4kq" path="res://collection/legend_example.tscn" id="4_rsi2s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnme7"]
 bg_color = Color(0.7882353, 0.60784316, 0.43529412, 0.9843137)
@@ -189,10 +190,20 @@ border_width_left = 7
 border_width_top = 7
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mi1y7"]
+bg_color = Color(0.8862745, 0.8117647, 0.6627451, 0.9843137)
+border_width_left = 7
+border_width_top = 7
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oe3eu"]
+bg_color = Color(0, 0, 0, 0.7529412)
+
 [node name="Collection" type="CanvasLayer" unique_id=187248655]
 script = ExtResource("1_31rji")
 unit_card_example_scene = ExtResource("2_77yai")
 spell_card_example_scene = ExtResource("3_31rji")
+legend_example_scene = ExtResource("4_rsi2s")
 
 [node name="Panel" type="Panel" parent="." unique_id=1990146769]
 anchors_preset = 15
@@ -243,6 +254,7 @@ theme_override_font_sizes/font_size = 42
 text = "Deck"
 
 [node name="LegendsButton" type="Button" parent="Panel/ButtonsPanel" unique_id=1972226101]
+unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
@@ -259,6 +271,7 @@ theme_override_font_sizes/font_size = 32
 text = "Legends"
 
 [node name="SpellsButton" type="Button" parent="Panel/ButtonsPanel" unique_id=1597955259]
+unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
@@ -275,6 +288,7 @@ theme_override_font_sizes/font_size = 32
 text = "Spells"
 
 [node name="UnitsButton" type="Button" parent="Panel/ButtonsPanel" unique_id=451862943]
+unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
@@ -415,6 +429,7 @@ layout_mode = 2
 
 [node name="SpellPanel" type="Panel" parent="Panel" unique_id=1198894311]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -534,3 +549,160 @@ layout_mode = 2
 
 [node name="SpellCardExamlpe11" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=357694088 instance=ExtResource("3_31rji")]
 layout_mode = 2
+
+[node name="LegendPanel" type="Panel" parent="Panel" unique_id=1596111581]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3eqfj")
+
+[node name="LegendPanelForButtonSelect" type="Panel" parent="Panel/LegendPanel" unique_id=1107632838]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 1135.0
+offset_top = -140.0
+offset_right = 1365.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_77yai")
+
+[node name="LegendInfoPanel" type="Panel" parent="Panel/LegendPanel" unique_id=1877096493]
+layout_mode = 0
+offset_left = 1200.0
+offset_right = 1600.0
+offset_bottom = 750.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mi1y7")
+
+[node name="LegendExampleShow" parent="Panel/LegendPanel/LegendInfoPanel" unique_id=1776878118 instance=ExtResource("4_rsi2s")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.0
+offset_top = 60.0
+offset_right = 265.0
+offset_bottom = 310.0
+scale = Vector2(1.5, 1.5)
+show_deck_indicator = false
+
+[node name="SetLegendInDeckButton" type="Button" parent="Panel/LegendPanel/LegendInfoPanel" unique_id=1780424899]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 71.0
+offset_top = 520.0
+offset_right = 351.0
+offset_bottom = 610.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 70
+theme_override_styles/normal = SubResource("StyleBoxFlat_31rji")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rsi2s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1slrb")
+theme_override_styles/focus = SubResource("StyleBoxFlat_pvx08")
+text = "Set"
+
+[node name="RemoveLegendFromDeckButton" type="Button" parent="Panel/LegendPanel/LegendInfoPanel" unique_id=1457416193]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 71.0
+offset_top = 631.0
+offset_right = 351.0
+offset_bottom = 721.0
+theme_override_colors/font_color = Color(0.85882354, 0.85882354, 0.85882354, 0.96862745)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_b47ca")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4eg7r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fynau")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ngkgb")
+theme_override_styles/focus = SubResource("StyleBoxFlat_3l4x4")
+text = "Remove"
+
+[node name="PressAndHoldRichTextLabel" type="RichTextLabel" parent="Panel/LegendPanel/LegendInfoPanel" unique_id=1341458280]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 0
+offset_left = 12.0
+offset_top = 436.0
+offset_right = 388.0
+offset_bottom = 503.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Press and hold the Legend to see its effect."
+horizontal_alignment = 1
+
+[node name="NameLegendRichTextLabel" type="RichTextLabel" parent="Panel/LegendPanel/LegendInfoPanel" unique_id=1623557945]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 0
+offset_left = 12.0
+offset_top = 11.0
+offset_right = 388.0
+offset_bottom = 78.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+theme_override_font_sizes/mono_font_size = 48
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LegendInfoPanel" type="Panel" parent="Panel/LegendPanel/LegendInfoPanel" unique_id=458956865]
+unique_name_in_owner = true
+visible = false
+z_index = 101
+layout_mode = 0
+offset_left = -900.0
+offset_top = 50.0
+offset_right = -100.0
+offset_bottom = 650.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oe3eu")
+
+[node name="LegendInfoRichTextLabel" type="RichTextLabel" parent="Panel/LegendPanel/LegendInfoPanel/LegendInfoPanel" unique_id=1214330289]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 80
+theme_override_font_sizes/bold_font_size = 80
+theme_override_font_sizes/bold_italics_font_size = 80
+theme_override_font_sizes/italics_font_size = 80
+theme_override_font_sizes/mono_font_size = 80
+bbcode_enabled = true
+text = "dasdasdasd"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LegendScrollContainer" type="ScrollContainer" parent="Panel/LegendPanel" unique_id=1439779014]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 5.0
+offset_top = 25.0
+offset_right = 897.3078
+offset_bottom = 563.462
+scale = Vector2(1.3, 1.3)
+horizontal_scroll_mode = 0
+
+[node name="LegendsGridContainer" type="GridContainer" parent="Panel/LegendPanel/LegendScrollContainer" unique_id=868066561]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 5
