@@ -10,6 +10,7 @@ metadata/_custom_type_script = "uid://dv8lui0qlh3lc"
 
 [resource]
 script = ExtResource("1_id0s7")
+legend_id = 31001
 legend_name = "Rune Seer"
 description = "On your first turn, draw a Spell Card. It costs 1 less Mana"
 texture = ExtResource("3_n20h0")

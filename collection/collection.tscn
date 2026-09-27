@@ -183,6 +183,12 @@ corner_detail = 1
 shadow_size = 10
 shadow_offset = Vector2(0, 5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pudvr"]
+bg_color = Color(0.90416515, 0.62157923, 0.77679884, 0.9843137)
+border_width_left = 7
+border_width_top = 7
+border_color = Color(0, 0, 0, 1)
+
 [node name="Collection" type="CanvasLayer" unique_id=187248655]
 script = ExtResource("1_31rji")
 unit_card_example_scene = ExtResource("2_77yai")
@@ -434,7 +440,7 @@ layout_mode = 0
 offset_left = 1200.0
 offset_right = 1600.0
 offset_bottom = 750.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_wi6ju")
+theme_override_styles/panel = SubResource("StyleBoxFlat_pudvr")
 
 [node name="SpellCardExamlpeShow" parent="Panel/SpellPanel/SpellCardInfoPanel" unique_id=1296053274 instance=ExtResource("3_31rji")]
 unique_name_in_owner = true

@@ -10,6 +10,7 @@ metadata/_custom_type_script = "uid://swmkgpclf3ix"
 
 [resource]
 script = ExtResource("1_m7xdq")
+legend_id = 31002
 legend_name = "Witch"
 description = "Gain +1 mana at the beginning of every 3rd turn."
 texture = ExtResource("3_blbre")

@@ -27,6 +27,7 @@ VisualEffects="*uid://bleqkd0mmnkqq"
 ZoneManager="*uid://cbm1y5i1womka"
 LevelManager="*uid://d3ggbbd0vwlck"
 PlayerDataManager="*uid://bd1bs5fsla0b8"
+LegendManager="*uid://dn211i6uhyi08"
 
 [display]
 

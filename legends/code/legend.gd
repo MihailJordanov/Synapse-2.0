@@ -3,6 +3,7 @@ extends Resource
 
 
 @export_group("Info")
+@export_range(31000, 31999, 1) var legend_id: int = 31000
 @export var legend_name: String = ""
 @export_multiline var description: String = ""
 @export var texture: Texture2D

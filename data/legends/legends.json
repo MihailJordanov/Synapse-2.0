@@ -1,0 +1,11 @@
+{
+	"31000": {
+		"resource_path": "res://legends/legends_resourses/knight.tres"
+	},
+	"31001": {
+		"resource_path": "res://legends/legends_resourses/witch.tres"
+	},
+	"31002": {
+		"resource_path": "res://legends/legends_resourses/rune_seer.tres"
+	}
+}

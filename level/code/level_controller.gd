@@ -103,6 +103,7 @@ func _ready() -> void:
 	hide_pause_button()
 	
 	_apply_pending_level_data()
+	_load_player_legend()
 	_generate_decks()
 	_setup_legends_ui()
 	player_legend_texture_rect.gui_input.connect(_on_player_legend_gui_input)
@@ -453,3 +454,6 @@ func show_pause_button() -> void:
 func hide_pause_button() -> void:
 	pause_button.hide()
 	pause_button.disabled = true
+
+func _load_player_legend() -> void:
+	player_legend = (LegendManager.create_equipped_legend_instance())
