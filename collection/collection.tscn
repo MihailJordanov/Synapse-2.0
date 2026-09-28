@@ -199,6 +199,19 @@ border_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oe3eu"]
 bg_color = Color(0, 0, 0, 0.7529412)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ol4ao"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wsmjq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_right = 5
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrivr"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="Collection" type="CanvasLayer" unique_id=187248655]
 script = ExtResource("1_31rji")
 unit_card_example_scene = ExtResource("2_77yai")
@@ -222,6 +235,7 @@ offset_bottom = -0.30000305
 grow_horizontal = 2
 
 [node name="ExitButton" type="Button" parent="Panel/ButtonsPanel" unique_id=1967940800]
+unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
@@ -238,6 +252,7 @@ theme_override_font_sizes/font_size = 32
 text = "Exit"
 
 [node name="DeckButton" type="Button" parent="Panel/ButtonsPanel" unique_id=986528968]
+unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
@@ -342,6 +357,7 @@ offset_top = 24.0
 offset_right = 210.0
 offset_bottom = 271.0
 scale = Vector2(2, 2)
+show_deck_indicator = false
 
 [node name="AddUnitInDeckButton" type="Button" parent="Panel/UnitsPanel/UnitCardInfoPanel" unique_id=2046172760]
 unique_name_in_owner = true
@@ -412,41 +428,9 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 5
 
-[node name="UnitCardExample" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=403301459 instance=ExtResource("2_77yai")]
-layout_mode = 2
-
-[node name="UnitCardExample2" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=743904160 instance=ExtResource("2_77yai")]
-layout_mode = 2
-
-[node name="UnitCardExample3" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=1202571149 instance=ExtResource("2_77yai")]
-layout_mode = 2
-
-[node name="UnitCardExample4" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=998884808 instance=ExtResource("2_77yai")]
-layout_mode = 2
-
-[node name="UnitCardExample5" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=1207264964 instance=ExtResource("2_77yai")]
-layout_mode = 2
-
-[node name="UnitCardExample6" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=1120228310 instance=ExtResource("2_77yai")]
-layout_mode = 2
-
-[node name="UnitCardExample7" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=104730624 instance=ExtResource("2_77yai")]
-layout_mode = 2
-
-[node name="UnitCardExample8" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=2113306250 instance=ExtResource("2_77yai")]
-layout_mode = 2
-
-[node name="UnitCardExample9" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=964966463 instance=ExtResource("2_77yai")]
-layout_mode = 2
-
-[node name="UnitCardExample10" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=453956075 instance=ExtResource("2_77yai")]
-layout_mode = 2
-
-[node name="UnitCardExample11" parent="Panel/UnitsPanel/UnitScrollContainer/UnitCardsGridContainer" unique_id=1057913433 instance=ExtResource("2_77yai")]
-layout_mode = 2
-
 [node name="SpellPanel" type="Panel" parent="Panel" unique_id=1198894311]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -482,6 +466,7 @@ offset_top = 24.0
 offset_right = 210.0
 offset_bottom = 271.0
 scale = Vector2(2, 2)
+show_deck_indicator = false
 
 [node name="AddSpellInDeckButton" type="Button" parent="Panel/SpellPanel/SpellCardInfoPanel" unique_id=297346711]
 unique_name_in_owner = true
@@ -551,39 +536,6 @@ size_flags_vertical = 0
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 5
-
-[node name="SpellCardExamlpe" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=693641742 instance=ExtResource("3_31rji")]
-layout_mode = 2
-
-[node name="SpellCardExamlpe2" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=1775840835 instance=ExtResource("3_31rji")]
-layout_mode = 2
-
-[node name="SpellCardExamlpe3" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=255522303 instance=ExtResource("3_31rji")]
-layout_mode = 2
-
-[node name="SpellCardExamlpe4" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=419878764 instance=ExtResource("3_31rji")]
-layout_mode = 2
-
-[node name="SpellCardExamlpe5" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=467145693 instance=ExtResource("3_31rji")]
-layout_mode = 2
-
-[node name="SpellCardExamlpe6" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=1736497647 instance=ExtResource("3_31rji")]
-layout_mode = 2
-
-[node name="SpellCardExamlpe7" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=1775538020 instance=ExtResource("3_31rji")]
-layout_mode = 2
-
-[node name="SpellCardExamlpe8" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=931809690 instance=ExtResource("3_31rji")]
-layout_mode = 2
-
-[node name="SpellCardExamlpe9" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=406158678 instance=ExtResource("3_31rji")]
-layout_mode = 2
-
-[node name="SpellCardExamlpe10" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=1300717114 instance=ExtResource("3_31rji")]
-layout_mode = 2
-
-[node name="SpellCardExamlpe11" parent="Panel/SpellPanel/SpellScrollContainer/SpellCardsGridContainer" unique_id=357694088 instance=ExtResource("3_31rji")]
-layout_mode = 2
 
 [node name="LegendPanel" type="Panel" parent="Panel" unique_id=1596111581]
 unique_name_in_owner = true
@@ -742,3 +694,159 @@ size_flags_vertical = 0
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 5
+
+[node name="DeckPanel" type="Panel" parent="Panel" unique_id=241245452]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3eqfj")
+
+[node name="DeckPanelForButtonSelect" type="Panel" parent="Panel/DeckPanel" unique_id=1193468140]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 1360.0
+offset_top = -140.0
+offset_right = 1590.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_77yai")
+
+[node name="DeckLegendPanel" type="Panel" parent="Panel/DeckPanel" unique_id=1841089052]
+layout_mode = 0
+offset_right = 1600.0
+offset_bottom = 240.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ol4ao")
+
+[node name="DeckLegendExample" parent="Panel/DeckPanel/DeckLegendPanel" unique_id=514798636 instance=ExtResource("4_rsi2s")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 0.0
+offset_top = 9.0
+offset_right = 250.0
+offset_bottom = 259.0
+scale = Vector2(0.9, 0.9)
+show_deck_indicator = false
+
+[node name="DeckLegendNameLabel" type="RichTextLabel" parent="Panel/DeckPanel/DeckLegendPanel" unique_id=1663316658]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 0
+offset_left = 220.0
+offset_top = 20.0
+offset_right = 1420.0
+offset_bottom = 420.0
+scale = Vector2(0.25, 0.25)
+theme_override_constants/outline_size = 45
+theme_override_font_sizes/normal_font_size = 200
+bbcode_enabled = true
+text = "Legend:
+Watcher"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeckInfoLabel" type="RichTextLabel" parent="Panel/DeckPanel/DeckLegendPanel" unique_id=2054714726]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 0
+offset_left = 920.0
+offset_top = 20.0
+offset_right = 3570.0
+offset_bottom = 820.0
+scale = Vector2(0.25, 0.25)
+theme_override_constants/outline_size = 45
+theme_override_font_sizes/normal_font_size = 200
+bbcode_enabled = true
+text = "Units:  23/40
+Spells:  3/15
+Sum points:  25
+Avr mana:  1.3"
+
+[node name="DeckLegendInfoPanel" type="Panel" parent="Panel/DeckPanel/DeckLegendPanel" unique_id=847559251]
+unique_name_in_owner = true
+visible = false
+z_index = 101
+layout_mode = 0
+offset_left = 400.0
+offset_top = 50.0
+offset_right = 1200.0
+offset_bottom = 650.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oe3eu")
+
+[node name="DeckLegendInfoRichTextLabel" type="RichTextLabel" parent="Panel/DeckPanel/DeckLegendPanel/DeckLegendInfoPanel" unique_id=2004219796]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 80
+theme_override_font_sizes/bold_font_size = 80
+theme_override_font_sizes/bold_italics_font_size = 80
+theme_override_font_sizes/italics_font_size = 80
+theme_override_font_sizes/mono_font_size = 80
+bbcode_enabled = true
+text = "dasdasdasd"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeckUnitPanel" type="Panel" parent="Panel/DeckPanel" unique_id=1153116475]
+layout_mode = 0
+offset_top = 240.0
+offset_right = 900.0
+offset_bottom = 755.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wsmjq")
+
+[node name="DeckUnitsScrollContainer" type="ScrollContainer" parent="Panel/DeckPanel/DeckUnitPanel" unique_id=1299757919]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 885.0
+offset_bottom = 505.0
+horizontal_scroll_mode = 0
+
+[node name="DeckUnitsGridContainer" type="GridContainer" parent="Panel/DeckPanel/DeckUnitPanel/DeckUnitsScrollContainer" unique_id=1407634122]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 5
+
+[node name="DeckSpellPanel" type="Panel" parent="Panel/DeckPanel" unique_id=1949111617]
+layout_mode = 0
+offset_left = 900.0
+offset_top = 240.0
+offset_right = 1600.0
+offset_bottom = 755.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
+
+[node name="DeckSpellScrollContainer" type="ScrollContainer" parent="Panel/DeckPanel/DeckSpellPanel" unique_id=1979510839]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 8.0
+offset_top = 5.0
+offset_right = 683.0
+offset_bottom = 505.0
+horizontal_scroll_mode = 0
+
+[node name="DeckSpellGridContainer" type="GridContainer" parent="Panel/DeckPanel/DeckSpellPanel/DeckSpellScrollContainer" unique_id=1542018735]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 4

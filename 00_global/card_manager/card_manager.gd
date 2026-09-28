@@ -646,3 +646,46 @@ func get_spell_card_data(card_id: int) -> Dictionary:
 		return {}
 
 	return (data as Dictionary).duplicate(true)
+
+
+func get_unit_deck_total_points() -> int:
+	var total_points: int = 0
+
+	for card_id: int in _unit_deck:
+		var card_data: Dictionary = get_unit_card_data(card_id)
+
+		if card_data.is_empty():
+			continue
+
+		total_points += int(card_data.get("points", 0))
+
+	return total_points
+
+
+func get_spell_deck_average_mana() -> float:
+	if _spell_deck.is_empty():
+		return 0.0
+
+	var total_mana: int = 0
+	var valid_spell_count: int = 0
+
+	for card_id: int in _spell_deck:
+		var card_data: Dictionary = get_spell_card_data(card_id)
+
+		if card_data.is_empty():
+			continue
+
+		total_mana += maxi(
+			int(card_data.get("mana_cost", 0)),
+			0
+		)
+
+		valid_spell_count += 1
+
+	if valid_spell_count == 0:
+		return 0.0
+
+	return snappedf(
+		float(total_mana) / float(valid_spell_count),
+		0.1
+	)

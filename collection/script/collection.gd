@@ -14,6 +14,7 @@ const DECK_COUNT_INVALID_COLOR: String = "#FF5555"
 const DECK_COUNT_POP_SCALE: Vector2 = Vector2(1.1, 1.1)
 const DECK_COUNT_POP_DURATION: float = 0.08
 
+const DEFAULT_DECK_LEGEND_ICON: Texture2D = preload("uid://xciqo3d2po72")
 
 @export var unit_card_example_scene: PackedScene
 @export var spell_card_example_scene: PackedScene
@@ -49,9 +50,24 @@ const DECK_COUNT_POP_DURATION: float = 0.08
 @onready var name_legend_rich_text_label: RichTextLabel = %NameLegendRichTextLabel
 @onready var press_and_hold_rich_text_label: RichTextLabel = %PressAndHoldRichTextLabel
 
+@onready var deck_panel: Panel = %DeckPanel
+@onready var deck_legend_example: LegendExample = %DeckLegendExample
+@onready var deck_legend_name_label: RichTextLabel = %DeckLegendNameLabel
+@onready var deck_info_label: RichTextLabel = %DeckInfoLabel
+@onready var deck_units_scroll_container: ScrollContainer = %DeckUnitsScrollContainer
+@onready var deck_spell_scroll_container: ScrollContainer = %DeckSpellScrollContainer
+@onready var deck_legend_info_panel: Panel = %DeckLegendInfoPanel
+@onready var deck_legend_info_rich_text_label: RichTextLabel = %DeckLegendInfoRichTextLabel
+@onready var deck_units_grid_container: GridContainer = %DeckUnitsGridContainer
+@onready var deck_spell_grid_container: GridContainer = %DeckSpellGridContainer
+
+
+
+
 @onready var legends_button: Button = %LegendsButton
 @onready var spells_button: Button = %SpellsButton
 @onready var units_button: Button = %UnitsButton
+@onready var deck_button: Button = %DeckButton
 
 
 var selected_card: UnitCardExample
@@ -75,6 +91,8 @@ var _legend_press_was_dragged: bool = false
 var _unit_count_tween: Tween
 var _spell_count_tween: Tween
 
+var _deck_legend: Legend
+
 func _ready() -> void:
 	await get_tree().process_frame
 	unit_deck_count_rich_text_label.bbcode_enabled = true
@@ -82,6 +100,12 @@ func _ready() -> void:
 	unit_deck_count_rich_text_label.pivot_offset = (unit_deck_count_rich_text_label.size / 2.0)
 	spell_deck_count_rich_text_label.pivot_offset = (spell_deck_count_rich_text_label.size / 2.0)
 	_refresh_deck_counts(false)
+	deck_panel.visible = false
+	deck_legend_info_panel.visible = false
+	deck_legend_name_label.bbcode_enabled = true
+	deck_info_label.bbcode_enabled = true
+	deck_legend_info_rich_text_label.bbcode_enabled = true
+	deck_legend_info_panel.mouse_filter = (Control.MOUSE_FILTER_IGNORE)
 	unit_card_example_show.visible = false
 	spell_card_examlpe_show.visible = false
 	legend_example_show.visible = false
@@ -103,6 +127,9 @@ func _ready() -> void:
 	units_button.pressed.connect(_on_units_button_pressed)
 	spells_button.pressed.connect(_on_spells_button_pressed)
 	legends_button.pressed.connect(_on_legends_button_pressed)
+	deck_button.pressed.connect(_on_deck_button_pressed)
+	deck_legend_example.gui_input.connect(_on_deck_legend_example_gui_input)
+	deck_legend_example.mouse_exited.connect(_hide_deck_legend_info)
 	_show_units_panel()
 	_hide_legend_deck_buttons()
 	_load_legend_collection()
@@ -141,7 +168,7 @@ func _create_unit_card_example(card_id: int) -> void:
 		return
 
 	card_example.card_id = card_id
-	card_example.show_deck_indicator = false
+	card_example.show_deck_indicator = true
 	card_example.mouse_filter = Control.MOUSE_FILTER_PASS
 
 	unit_cards_grid_container.add_child(card_example)
@@ -315,7 +342,7 @@ func _create_spell_card_example(card_id: int) -> void:
 		return
 
 	spell_example.card_id = card_id
-	spell_example.show_deck_indicator = false
+	spell_example.show_deck_indicator = true
 	spell_example.mouse_filter = Control.MOUSE_FILTER_PASS
 
 	spell_cards_grid_container.add_child(spell_example)
@@ -733,16 +760,19 @@ func _show_units_panel() -> void:
 	units_panel.visible = true
 	spell_panel.visible = false
 	legend_panel.visible = false
+	deck_panel.visible = false
 
 func _show_spells_panel() -> void:
 	units_panel.visible = false
 	spell_panel.visible = true
 	legend_panel.visible = false
+	deck_panel.visible = false
 
 func _show_legends_panel() -> void:
 	units_panel.visible = false
 	spell_panel.visible = false
 	legend_panel.visible = true
+	deck_panel.visible = false
 
 func _update_deck_counts(
 	unit_count: int,
@@ -935,5 +965,248 @@ func _refresh_deck_counts(
 
 	_update_unit_deck_count(unit_count, animate)
 	_update_spell_deck_count(spell_count, animate)
+	
+	
+func _on_deck_button_pressed() -> void:
+	_show_deck_panel()
+	
+func _show_deck_panel() -> void:
+	units_panel.visible = false
+	spell_panel.visible = false
+	legend_panel.visible = false
+	deck_panel.visible = true
+
+	_refresh_deck_panel()
+	
+func _refresh_deck_panel() -> void:
+	_setup_deck_legend()
+	_load_deck_unit_cards()
+	_load_deck_spell_cards()
+	_update_deck_info()
+	
+	
+func _setup_deck_legend() -> void:
+	_deck_legend = (
+		LegendManager.get_equipped_legend()
+	)
+
+	deck_legend_example.show_deck_indicator = false
+	deck_legend_example.set_selected(false)
+
+	if _deck_legend != null:
+		deck_legend_example.legend_id = (
+			_deck_legend.legend_id
+		)
+
+		deck_legend_name_label.text = (
+			"[center]"
+			+ "[color=#D8C8FF]Legend:[/color]"
+			+ "\n"
+			+ "[color=#FFD966]"
+			+ _deck_legend.legend_name
+			+ "[/color]"
+			+ "[/center]"
+		)
+
+		return
+
+	deck_legend_example.legend_id = 0
+	deck_legend_example.texture_rect.texture = (
+		DEFAULT_DECK_LEGEND_ICON
+	)
+
+	deck_legend_name_label.text = (
+		"[center]"
+		+ "[color=#D8C8FF]Legend:[/color]"
+		+ "\n"
+		+ "[color=#B8B8B8]None[/color]"
+		+ "[/center]"
+	)
+	
+func _on_deck_legend_example_gui_input(
+	event: InputEvent
+) -> void:
+	if not event is InputEventMouseButton:
+		return
+
+	var mouse_event := event as InputEventMouseButton
+
+	if mouse_event.button_index != MOUSE_BUTTON_LEFT:
+		return
+
+	if mouse_event.pressed:
+		_show_deck_legend_info()
+	else:
+		_hide_deck_legend_info()
+		
+func _show_deck_legend_info() -> void:
+	if _deck_legend == null:
+		deck_legend_info_rich_text_label.text = (
+			"[center]"
+			+ "[color=#B8B8B8]No Legend[/color]"
+			+ "\n\n"
+			+ "[color=#8F96A3]No Effect[/color]"
+			+ "[/center]"
+		)
+
+	else:
+		deck_legend_info_rich_text_label.text = (
+			"[center]"
+			+ "[color=#FFD966]"
+			+ _deck_legend.legend_name
+			+ "[/color]"
+			+ "\n\n"
+			+ "[color=#F2F2F2]"
+			+ _deck_legend.description
+			+ "[/color]"
+			+ "[/center]"
+		)
+
+	deck_legend_info_panel.visible = true
+	
+func _hide_deck_legend_info() -> void:
+	deck_legend_info_panel.visible = false
+	
+func _clear_deck_grid(
+	grid_container: GridContainer
+) -> void:
+	for child: Node in grid_container.get_children():
+		grid_container.remove_child(child)
+		child.queue_free()
+		
+func _load_deck_unit_cards() -> void:
+	_clear_deck_grid(deck_units_grid_container)
+
+	for card_id: int in CardManager.get_unit_deck():
+		_create_deck_unit_card(card_id)
+
+	deck_units_scroll_container.scroll_vertical = 0
+	
+
+func _create_deck_unit_card(
+	card_id: int
+) -> void:
+	if unit_card_example_scene == null:
+		push_error(
+			"Collection: UnitCardExample scene is not assigned."
+		)
+		return
+
+	var card_example := (
+		unit_card_example_scene.instantiate()
+		as UnitCardExample
+	)
+
+	if card_example == null:
+		push_error(
+			"Collection: Could not instantiate UnitCardExample."
+		)
+		return
+
+	card_example.card_id = card_id
+	card_example.show_deck_indicator = false
+	card_example.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	card_example.focus_mode = Control.FOCUS_NONE
+
+	deck_units_grid_container.add_child(
+		card_example
+	)
+
+	card_example.set_selected(false)
+	_disable_control_input(card_example)
+	
+func _disable_control_input(
+	control: Control
+) -> void:
+	control.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	control.focus_mode = Control.FOCUS_NONE
+
+	for child: Node in control.get_children():
+		if child is Control:
+			_disable_control_input(child as Control)
+			
+			
+func _load_deck_spell_cards() -> void:
+	_clear_deck_grid(deck_spell_grid_container)
+
+	for card_id: int in CardManager.get_spell_deck():
+		_create_deck_spell_card(card_id)
+
+	deck_spell_scroll_container.scroll_vertical = 0
+	
+	
+func _create_deck_spell_card(
+	card_id: int
+) -> void:
+	if spell_card_example_scene == null:
+		push_error(
+			"Collection: SpellCardExample scene is not assigned."
+		)
+		return
+
+	var spell_example := (
+		spell_card_example_scene.instantiate()
+		as SpellCardExample
+	)
+
+	if spell_example == null:
+		push_error(
+			"Collection: Could not instantiate SpellCardExample."
+		)
+		return
+
+	spell_example.card_id = card_id
+	spell_example.show_deck_indicator = false
+	spell_example.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	spell_example.focus_mode = Control.FOCUS_NONE
+
+	deck_spell_grid_container.add_child(
+		spell_example
+	)
+
+	spell_example.set_selected(false)
+	_disable_control_input(spell_example)
+	
+	
+func _update_deck_info() -> void:
+	var unit_count: int = (
+		CardManager.get_unit_deck().size()
+	)
+
+	var spell_count: int = (
+		CardManager.get_spell_deck().size()
+	)
+
+	var total_points: int = (
+		CardManager.get_unit_deck_total_points()
+	)
+
+	var average_mana: float = (
+		CardManager.get_spell_deck_average_mana()
+	)
+
+	deck_info_label.text = (
+		"[color=#86E7FF]Units:[/color] "
+		+ "[color=#FFFFFF]%d/%d[/color]"
+		% [
+			unit_count,
+			MAX_UNIT_DECK_CARDS
+		]
+		+ "\n"
+		+ "[color=#D7A6FF]Spells:[/color] "
+		+ "[color=#FFFFFF]%d/%d[/color]"
+		% [
+			spell_count,
+			MAX_SPELL_DECK_CARDS
+		]
+		+ "\n"
+		+ "[color=#FFE58A]Sum points:[/color] "
+		+ "[color=#FFFFFF]%d[/color]"
+		% total_points
+		+ "\n"
+		+ "[color=#8FCBFF]Avr mana:[/color] "
+		+ "[color=#FFFFFF]%.1f[/color]"
+		% average_mana
+	)
 	
 	

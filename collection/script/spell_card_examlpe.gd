@@ -87,12 +87,7 @@ func set_selected(value: bool) -> void:
 
 func update_deck_indicator() -> void:
 	is_in_deck_texture_rect.visible = (
-		not show_deck_indicator
-		and card_id != 0
-		and CardManager.is_card_in_deck(card_id)
-	)
-	is_in_deck_texture_rect.visible = (
-		not show_deck_indicator
+		show_deck_indicator
 		and card_id != 0
 		and CardManager.is_card_in_deck(card_id)
 	)

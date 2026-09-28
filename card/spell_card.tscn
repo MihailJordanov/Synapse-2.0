@@ -105,6 +105,7 @@ mouse_filter = 2
 
 [node name="DescriptionRichTextLabel" type="RichTextLabel" parent="Control/TextPanel" unique_id=119052317]
 unique_name_in_owner = true
+clip_contents = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.032
