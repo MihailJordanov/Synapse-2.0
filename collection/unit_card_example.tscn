@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c88iiqgwretb8" path="res://card/assets/types.png" id="1_2mm8u"]
 [ext_resource type="Script" uid="uid://1a60k5hyrqvo" path="res://collection/script/unit_card_example.gd" id="1_n6qpy"]
+[ext_resource type="Texture2D" uid="uid://bwukkcu8kcmcw" path="res://card/assets/types_2_40px.png" id="2_k4mlu"]
 [ext_resource type="Texture2D" uid="uid://cblr4o2il8a3v" path="res://zones/asstes/sprites/checkbox.png" id="3_b46wl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrivr"]
@@ -22,9 +23,85 @@ corner_radius_top_right = 7
 corner_radius_bottom_right = 7
 corner_radius_bottom_left = 7
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rsi2s"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_uhrb7"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_va6xw"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bw4qs"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86e44"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w87o2"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(120, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7xki"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(0, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rnrxi"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(40, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1ft1"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(80, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h56h3"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(120, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4mlu"]
 atlas = ExtResource("1_2mm8u")
 region = Rect2(0, 0, 37.5, 40)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uhrb7"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_va6xw"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2u2r0"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mk2nt"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(120, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_826rg"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(0, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_meune"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(40, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntgk1"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(80, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3ym6"]
+atlas = ExtResource("2_k4mlu")
+region = Rect2(120, 40, 40, 40)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmqbc"]
 bg_color = Color(0, 0, 0, 0)
@@ -33,34 +110,6 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1slrb"]
-atlas = ExtResource("1_2mm8u")
-region = Rect2(38, 0, 37.5, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pvx08"]
-atlas = ExtResource("1_2mm8u")
-region = Rect2(75, 0, 37.5, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b47ca"]
-atlas = ExtResource("1_2mm8u")
-region = Rect2(113, 0, 37.5, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4eg7r"]
-atlas = ExtResource("1_2mm8u")
-region = Rect2(149.2, 0, 37.5, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fynau"]
-atlas = ExtResource("1_2mm8u")
-region = Rect2(187.5, 0, 37.5, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ngkgb"]
-atlas = ExtResource("1_2mm8u")
-region = Rect2(225, 0, 37.5, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3l4x4"]
-atlas = ExtResource("1_2mm8u")
-region = Rect2(262.5, 0, 37.5, 40)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pudvr"]
 bg_color = Color(0.6627451, 0.14117648, 0.19607843, 1)
@@ -106,114 +155,114 @@ offset_bottom = 51.0
 mouse_filter = 2
 alignment = 1
 
-[node name="A_Sword" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=1654268947]
+[node name="A_Sword" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=697654009]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(37.5, 40)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_rsi2s")
+texture = SubResource("AtlasTexture_uhrb7")
 
-[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Sword" unique_id=1794035288]
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Sword" unique_id=1024973313]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_va6xw")
 
-[node name="A_Shield" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=623481497]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(37.5, 40)
-layout_mode = 2
-mouse_filter = 2
-texture = SubResource("AtlasTexture_1slrb")
-
-[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Shield" unique_id=724397455]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
-
-[node name="A_Axe" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=1151577227]
+[node name="A_Shield" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=1879883467]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(37.5, 40)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_pvx08")
+texture = SubResource("AtlasTexture_bw4qs")
 
-[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Axe" unique_id=2133985408]
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Shield" unique_id=1500785577]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_va6xw")
 
-[node name="A_Shurikane" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=625954231]
+[node name="A_Axe" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=1707297922]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(37.5, 40)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_b47ca")
+texture = SubResource("AtlasTexture_86e44")
 
-[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Shurikane" unique_id=749365864]
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Axe" unique_id=1157626978]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_va6xw")
 
-[node name="A_Wand" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=408122720]
+[node name="A_Shurikane" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=199118592]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(37.5, 40)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_4eg7r")
+texture = SubResource("AtlasTexture_w87o2")
 
-[node name="Panel_Border2" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Wand" unique_id=209087173]
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Shurikane" unique_id=1458052212]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_va6xw")
 
-[node name="A_Magical Wand" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=1413603694]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(37.5, 40)
-layout_mode = 2
-mouse_filter = 2
-texture = SubResource("AtlasTexture_fynau")
-
-[node name="Panel_Border3" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Magical Wand" unique_id=572568012]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
-
-[node name="A_Mace" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=1258255048]
+[node name="A_Wand" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=928227698]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(37.5, 40)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_ngkgb")
+texture = SubResource("AtlasTexture_m7xki")
 
-[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Mace" unique_id=1470816094]
+[node name="Panel_Border2" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Wand" unique_id=1380247678]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_va6xw")
 
-[node name="A_Teeth" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=250308790]
+[node name="A_Magical Wand" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=1425516872]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(37.5, 40)
+visible = false
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_3l4x4")
+texture = SubResource("AtlasTexture_rnrxi")
 
-[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Teeth" unique_id=1321408744]
+[node name="Panel_Border3" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Magical Wand" unique_id=543136485]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_va6xw")
+
+[node name="A_Mace" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=533371670]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_d1ft1")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Mace" unique_id=1368320390]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_va6xw")
+
+[node name="A_Teeth" type="TextureRect" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=2115924797]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_h56h3")
+
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Teeth" unique_id=1961950127]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_va6xw")
 
 [node name="UnitCardExampleDeffenseHBoxContainer" type="HBoxContainer" parent="Panel" unique_id=1121655077]
 unique_name_in_owner = true
@@ -225,115 +274,115 @@ offset_bottom = 216.5
 mouse_filter = 2
 alignment = 1
 
-[node name="D_Sword" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1514399478]
+[node name="D_Sword" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1559265513]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(37.5, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_rsi2s")
+texture = SubResource("AtlasTexture_k4mlu")
 
-[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Sword" unique_id=1382771477]
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Sword" unique_id=1738277647]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_uhrb7")
 
-[node name="D_Shield" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=924164917]
+[node name="D_Shield" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1000942184]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(37.5, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_1slrb")
+texture = SubResource("AtlasTexture_va6xw")
 
-[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Shield" unique_id=238474363]
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Shield" unique_id=1793731832]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_uhrb7")
 
-[node name="D_Axe" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=383191810]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(37.5, 40)
-layout_mode = 2
-mouse_filter = 2
-texture = SubResource("AtlasTexture_pvx08")
-
-[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Axe" unique_id=551261559]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
-
-[node name="D_Shurikane" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1422243584]
+[node name="D_Axe" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1496960018]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(37.5, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_b47ca")
+texture = SubResource("AtlasTexture_2u2r0")
 
-[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Shurikane" unique_id=2082088660]
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Axe" unique_id=897661530]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_uhrb7")
 
-[node name="D_Wand" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=644267444]
+[node name="D_Shurikane" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1781058420]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(37.5, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_4eg7r")
+texture = SubResource("AtlasTexture_mk2nt")
 
-[node name="Panel_Border2" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Wand" unique_id=2032683260]
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Shurikane" unique_id=1738861782]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_uhrb7")
 
-[node name="D_Magical Wand" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=722221026]
+[node name="D_Wand" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1891983198]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(37.5, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_826rg")
+
+[node name="Panel_Border2" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Wand" unique_id=551127624]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_uhrb7")
+
+[node name="D_Magical Wand" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1739011586]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(37.5, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_fynau")
+texture = SubResource("AtlasTexture_meune")
 
-[node name="Panel_Border3" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Magical Wand" unique_id=882766011]
+[node name="Panel_Border3" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Magical Wand" unique_id=1693707989]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_uhrb7")
 
-[node name="D_Mace" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1422529902]
+[node name="D_Mace" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=1149787488]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(37.5, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_ngkgb")
+texture = SubResource("AtlasTexture_ntgk1")
 
-[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Mace" unique_id=1455685355]
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Mace" unique_id=1593131146]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_uhrb7")
 
-[node name="D_Teeth" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=652973847]
+[node name="D_Teeth" type="TextureRect" parent="Panel/UnitCardExampleDeffenseHBoxContainer" unique_id=315593069]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(37.5, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_3l4x4")
+texture = SubResource("AtlasTexture_s3ym6")
 
-[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Teeth" unique_id=1112592832]
+[node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleDeffenseHBoxContainer/D_Teeth" unique_id=755783827]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dmqbc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_uhrb7")
 
 [node name="UnitCardExampleCardTexture" type="TextureRect" parent="Panel" unique_id=777683396]
 unique_name_in_owner = true
