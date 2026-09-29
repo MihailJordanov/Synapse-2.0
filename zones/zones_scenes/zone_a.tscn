@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://cy066p2ga3wng" path="res://zones/asstes/sprites/white_point.png" id="9_b2rli"]
 [ext_resource type="Texture2D" uid="uid://dblqvbtb8ena0" path="res://zones/asstes/sprites/question_mark.png" id="10_hq8yj"]
 [ext_resource type="Texture2D" uid="uid://cblr4o2il8a3v" path="res://zones/asstes/sprites/checkbox.png" id="11_yk2tl"]
+[ext_resource type="PackedScene" uid="uid://40bostkv6fia" path="res://collection/spell_card_examlpe.tscn" id="14_kgpea"]
+[ext_resource type="PackedScene" uid="uid://82pqfndoqpac" path="res://collection/unit_card_example.tscn" id="15_bcmc5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojoh7"]
 bg_color = Color(0, 0.6392157, 0.73333335, 1)
@@ -603,94 +605,104 @@ scale = Vector2(0.3, 0.4)
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="IsCardUnlockedTextureRect1" type="TextureRect" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=267984492]
+[node name="TextureProgressBar1" type="TextureProgressBar" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=344863005]
 unique_name_in_owner = true
-self_modulate = Color(0.9529412, 0.61960787, 0, 1)
 layout_mode = 2
-texture = ExtResource("9_b2rli")
+max_value = 1.0
+step = 0.1
+fill_mode = 4
+texture_under = ExtResource("9_b2rli")
+texture_progress = ExtResource("9_b2rli")
 
-[node name="LookedCardSprite2D1" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect1" unique_id=263421469]
+[node name="LookedCardSprite2D1" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/TextureProgressBar1" unique_id=1417834266]
 unique_name_in_owner = true
-visible = false
-position = Vector2(38.333332, 38.333332)
+position = Vector2(38.333168, 38.333374)
 texture = ExtResource("10_hq8yj")
 
-[node name="UnLookedCardSprite2D1" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect1" unique_id=626048220]
+[node name="UnLookedCardSprite2D1" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/TextureProgressBar1" unique_id=255157769]
 unique_name_in_owner = true
 modulate = Color(0.35694852, 0.99350613, 0.26711637, 1)
-position = Vector2(57.666626, 13.333332)
+position = Vector2(57.666664, 13.333374)
 texture = ExtResource("11_yk2tl")
 
-[node name="IsCardUnlockedTextureRect2" type="TextureRect" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=756013124]
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=1503808101]
 unique_name_in_owner = true
-self_modulate = Color(0.9529412, 0.61960787, 0, 1)
 layout_mode = 2
-texture = ExtResource("9_b2rli")
+max_value = 1.0
+step = 0.1
+fill_mode = 4
+texture_under = ExtResource("9_b2rli")
+texture_progress = ExtResource("9_b2rli")
 
-[node name="LookedCardSprite2D2" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect2" unique_id=1048194061]
+[node name="LookedCardSprite2D2" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/TextureProgressBar2" unique_id=1979075863]
 unique_name_in_owner = true
-visible = false
-position = Vector2(38.333332, 38.333332)
+position = Vector2(38.333168, 38.333374)
 texture = ExtResource("10_hq8yj")
 
-[node name="UnLookedCardSprite2D2" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect2" unique_id=545493536]
+[node name="UnLookedCardSprite2D2" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/TextureProgressBar2" unique_id=1013852587]
 unique_name_in_owner = true
 modulate = Color(0.35694852, 0.99350613, 0.26711637, 1)
-position = Vector2(57.666626, 13.333332)
+position = Vector2(57.666664, 13.333374)
 texture = ExtResource("11_yk2tl")
 
-[node name="IsCardUnlockedTextureRect3" type="TextureRect" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=509784184]
+[node name="TextureProgressBar3" type="TextureProgressBar" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=1195812267]
 unique_name_in_owner = true
-self_modulate = Color(0.9529412, 0.61960787, 1, 1)
 layout_mode = 2
-texture = ExtResource("9_b2rli")
+max_value = 1.0
+step = 0.1
+fill_mode = 4
+texture_under = ExtResource("9_b2rli")
+texture_progress = ExtResource("9_b2rli")
 
-[node name="LookedCardSprite2D3" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect3" unique_id=1260118943]
+[node name="LookedCardSprite2D3" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/TextureProgressBar3" unique_id=1066917354]
 unique_name_in_owner = true
-visible = false
-position = Vector2(38.333332, 38.333332)
+position = Vector2(38.333168, 38.333374)
 texture = ExtResource("10_hq8yj")
 
-[node name="UnLookedCardSprite2D3" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect3" unique_id=745429123]
+[node name="UnLookedCardSprite2D3" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/TextureProgressBar3" unique_id=1280387081]
 unique_name_in_owner = true
 modulate = Color(0.35694852, 0.99350613, 0.26711637, 1)
-position = Vector2(57.666626, 13.333332)
+position = Vector2(57.666664, 13.333374)
 texture = ExtResource("11_yk2tl")
 
-[node name="IsCardUnlockedTextureRect4" type="TextureRect" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=1659769679]
+[node name="TextureProgressBar4" type="TextureProgressBar" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=1595787735]
 unique_name_in_owner = true
-self_modulate = Color(0.46666667, 0.46666667, 0.46666667, 0.7882353)
 layout_mode = 2
-texture = ExtResource("9_b2rli")
+max_value = 1.0
+step = 0.1
+fill_mode = 4
+texture_under = ExtResource("9_b2rli")
+texture_progress = ExtResource("9_b2rli")
 
-[node name="LookedCardSprite2D4" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect4" unique_id=174098009]
+[node name="LookedCardSprite2D4" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/TextureProgressBar4" unique_id=156777196]
 unique_name_in_owner = true
-position = Vector2(38.333332, 38.333332)
+position = Vector2(38.333168, 38.333374)
 texture = ExtResource("10_hq8yj")
 
-[node name="UnLookedCardSprite2D4" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect4" unique_id=1401126628]
+[node name="UnLookedCardSprite2D4" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/TextureProgressBar4" unique_id=1275311943]
 unique_name_in_owner = true
-visible = false
 modulate = Color(0.35694852, 0.99350613, 0.26711637, 1)
-position = Vector2(57.666626, 13.333332)
+position = Vector2(57.666664, 13.333374)
 texture = ExtResource("11_yk2tl")
 
-[node name="IsCardUnlockedTextureRect5" type="TextureRect" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=1661468853]
+[node name="TextureProgressBar5" type="TextureProgressBar" parent="UI/ScrollSprite2D/HBoxContainer" unique_id=1178911550]
 unique_name_in_owner = true
-self_modulate = Color(0.46666667, 0.46666667, 0.46666667, 0.7882353)
 layout_mode = 2
-texture = ExtResource("9_b2rli")
+max_value = 1.0
+step = 0.1
+fill_mode = 4
+texture_under = ExtResource("9_b2rli")
+texture_progress = ExtResource("9_b2rli")
 
-[node name="LookedCardSprite2D5" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect5" unique_id=1417834266]
+[node name="LookedCardSprite2D5" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/TextureProgressBar5" unique_id=541968819]
 unique_name_in_owner = true
-position = Vector2(38.333332, 38.333332)
+position = Vector2(38.333168, 38.333374)
 texture = ExtResource("10_hq8yj")
 
-[node name="UnLookedCardSprite2D5" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/IsCardUnlockedTextureRect5" unique_id=255157769]
+[node name="UnLookedCardSprite2D5" type="Sprite2D" parent="UI/ScrollSprite2D/HBoxContainer/TextureProgressBar5" unique_id=539856767]
 unique_name_in_owner = true
-visible = false
 modulate = Color(0.35694852, 0.99350613, 0.26711637, 1)
-position = Vector2(57.666626, 13.333332)
+position = Vector2(57.666664, 13.333374)
 texture = ExtResource("11_yk2tl")
 
 [node name="Fade" type="Control" parent="UI" unique_id=520666209]
@@ -698,7 +710,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -0.0043945313
+offset_left = -2400.0
+offset_right = -2400.0044
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -716,6 +729,26 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_13qdw")
+
+[node name="SpellCardExamlpe" parent="UI" unique_id=1296053274 instance=ExtResource("14_kgpea")]
+unique_name_in_owner = true
+visible = false
+offset_left = 561.0
+offset_top = 62.0
+offset_right = 723.0
+offset_bottom = 309.0
+scale = Vector2(3, 3)
+show_count_deck_indicator = false
+
+[node name="UnitCardExample" parent="UI" unique_id=540168458 instance=ExtResource("15_bcmc5")]
+unique_name_in_owner = true
+visible = false
+offset_left = 561.0
+offset_top = 62.0
+offset_right = 723.0
+offset_bottom = 309.0
+scale = Vector2(3, 3)
+show_count_deck_indicator = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2131775750]
 unique_name_in_owner = true

@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://40bostkv6fia"]
 
 [ext_resource type="Script" uid="uid://dye1tgv1dgg2" path="res://collection/script/spell_card_examlpe.gd" id="1_3gmqw"]
-[ext_resource type="Texture2D" uid="uid://cblr4o2il8a3v" path="res://zones/asstes/sprites/checkbox.png" id="1_w2l6v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8cmvi"]
 bg_color = Color(0, 0, 0, 0)
@@ -139,12 +138,33 @@ text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="IsInDeckTextureRect" type="TextureRect" parent="." unique_id=1204098136]
+[node name="CountInDeckInfoLabel" type="RichTextLabel" parent="." unique_id=924916736]
 unique_name_in_owner = true
-visible = false
-modulate = Color(0.16078432, 1, 0.34509805, 1)
+clip_contents = false
 layout_mode = 0
-offset_left = 81.0
-offset_right = 163.0
-offset_bottom = 71.0
-texture = ExtResource("1_w2l6v")
+offset_left = 118.0
+offset_right = 182.0
+offset_bottom = 64.0
+theme_override_colors/default_color = Color(0.16078432, 1, 0.34509805, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CountInCollectionInfoLabel" type="RichTextLabel" parent="." unique_id=504349945]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 0
+offset_left = 114.0
+offset_top = 225.0
+offset_right = 178.0
+offset_bottom = 257.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "2/3"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -8,7 +8,9 @@ const MAX_TYPES_COUNT: int = 8
 
 		if is_node_ready():
 			setup_card()
-@export var show_deck_indicator: bool = true
+			
+@export var show_count_deck_indicator: bool = true
+@export var show_count_collection_indicator: bool = true
 
 @onready var unit_card_example_attack_h_box_container: HBoxContainer = %UnitCardExampleAttackHBoxContainer
 @onready var a_sword: TextureRect = %A_Sword
@@ -34,12 +36,19 @@ const MAX_TYPES_COUNT: int = 8
 @onready var unit_card_example_point_panel: Panel = %UnitCardExamplePointPanel
 @onready var points_label: Label = %PointsLabel
 @onready var selection_panel: Panel = %SelectionPanel
-@onready var is_in_deck_texture_rect: TextureRect = $IsInDeckTextureRect
-
+@onready var count_in_deck_info_label: RichTextLabel = %CountInDeckInfoLabel
+@onready var count_in_collection_info_label: RichTextLabel = %CountInCollectionInfoLabel
 
 var is_selected: bool = false
+var collection_count: int = 0
+var deck_count: int = 0
+var max_deck_count: int = 0
+var max_collection_count: int = 0
 
 func _ready() -> void:
+	count_in_deck_info_label.bbcode_enabled = true
+	count_in_collection_info_label.bbcode_enabled = true
+
 	setup_card()
 	set_selected(false)
 
@@ -56,12 +65,32 @@ func setup_card() -> void:
 	_apply_texture(str(card_data.get("texture_path", "")))
 	points_label.text = str(int(card_data.get("points", 0)))
 	
-	update_deck_indicator()
+	update_card_counts()
 
 func _clear_card() -> void:
 	unit_card_example_card_texture.texture = null
 	points_label.text = "0"
-	is_in_deck_texture_rect.visible = false
+
+	count_in_deck_info_label.text = ""
+	count_in_deck_info_label.visible = false
+
+	count_in_collection_info_label.text = ""
+	count_in_collection_info_label.visible = false
+
+	for type_index in range(1, MAX_TYPES_COUNT + 1):
+		var attack_icon: TextureRect = (
+			_get_icon_by_index(type_index, true)
+		)
+
+		var defense_icon: TextureRect = (
+			_get_icon_by_index(type_index, false)
+		)
+
+		if attack_icon:
+			attack_icon.visible = false
+
+		if defense_icon:
+			defense_icon.visible = false
 
 	for type_index in range(1, MAX_TYPES_COUNT + 1):
 		var attack_icon: TextureRect = _get_icon_by_index(type_index, true)
@@ -131,9 +160,57 @@ func set_selected(value: bool) -> void:
 	is_selected = value
 	selection_panel.visible = is_selected
 	
-func update_deck_indicator() -> void:
-	is_in_deck_texture_rect.visible = (
-		show_deck_indicator
+func _update_count_indicators() -> void:
+	count_in_deck_info_label.visible = (
+		show_count_deck_indicator
 		and card_id != 0
-		and CardManager.is_card_in_deck(card_id)
+		and deck_count > 0
 	)
+
+	count_in_deck_info_label.text = ("%d" % deck_count)
+
+	var collection_color: String = "#FFFFFF"
+
+	if (
+		max_collection_count > 0
+		and collection_count >= max_collection_count
+	):
+		collection_color = "#FFE58A"
+
+	count_in_collection_info_label.visible = (
+		show_count_collection_indicator
+		and card_id != 0
+	)
+
+	count_in_collection_info_label.text = (
+		"[center][color=%s]%d/%d[/color][/center]"
+		% [
+			collection_color,
+			collection_count,
+			max_collection_count
+		]
+	)
+	
+func update_card_counts() -> void:
+	collection_count = (
+		CardManager.get_card_collection_count(card_id)
+	)
+
+	deck_count = (
+		CardManager.get_card_deck_count(card_id)
+	)
+
+	max_deck_count = (
+		CardManager.get_max_card_copies_in_deck(
+			card_id
+		)
+	)
+
+	max_collection_count = (
+		CardManager
+			.get_max_card_copies_in_collection(
+				card_id
+			)
+	)
+
+	_update_count_indicators()

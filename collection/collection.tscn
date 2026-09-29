@@ -357,7 +357,7 @@ offset_top = 24.0
 offset_right = 210.0
 offset_bottom = 271.0
 scale = Vector2(2, 2)
-show_deck_indicator = false
+show_count_collection_indicator = false
 
 [node name="AddUnitInDeckButton" type="Button" parent="Panel/UnitsPanel/UnitCardInfoPanel" unique_id=2046172760]
 unique_name_in_owner = true
@@ -466,7 +466,7 @@ offset_top = 24.0
 offset_right = 210.0
 offset_bottom = 271.0
 scale = Vector2(2, 2)
-show_deck_indicator = false
+show_count_collection_indicator = false
 
 [node name="AddSpellInDeckButton" type="Button" parent="Panel/SpellPanel/SpellCardInfoPanel" unique_id=297346711]
 unique_name_in_owner = true

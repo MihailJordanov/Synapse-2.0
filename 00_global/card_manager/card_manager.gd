@@ -9,8 +9,8 @@ const COLLECTION_SAVE_PATH: String = "user://card_collection.json"
 const PLAYER_DECK_SAVE_PATH: String = "user://player_deck.json"
 
 var _cards_database: Dictionary = {}
-var _unit_collection: Array[int] = []
-var _spell_collection: Array[int] = []
+var _unit_collection: Dictionary = {}
+var _spell_collection: Dictionary = {}
 var _unit_deck: Array[int] = []
 var _spell_deck: Array[int] = []
 
@@ -22,62 +22,72 @@ func _ready() -> void:
 
 
 func is_card_in_collection(card_id: int) -> bool:
-	if _is_unit_card_id(card_id):
-		return _unit_collection.has(card_id)
-
-	if _is_spell_card_id(card_id):
-		return _spell_collection.has(card_id)
-
-	return false
+	return get_card_collection_count(card_id) > 0
 
 
 func is_card_in_deck(card_id: int) -> bool:
-	if _is_unit_card_id(card_id):
-		return _unit_deck.has(card_id)
+	return get_card_deck_count(card_id) > 0
+	
 
-	if _is_spell_card_id(card_id):
-		return _spell_deck.has(card_id)
-
-	return false
-
-
-func add_card_to_collection(card_id: int) -> bool:
+func add_card_to_collection(
+	card_id: int,
+	amount: int = 1
+) -> bool:
 	if not _cards_database.has(str(card_id)):
-		push_warning("CardManager: Cannot add unknown card %d to collection." % card_id)
+		push_warning(
+			"CardManager: Unknown card %d."
+			% card_id
+		)
 		return false
 
-	if is_card_in_collection(card_id):
+	if amount <= 0:
+		return false
+
+	var current_count: int = (
+		get_card_collection_count(card_id)
+	)
+
+	var maximum_count: int = (
+		get_max_card_copies_in_collection(card_id)
+	)
+
+	if current_count + amount > maximum_count:
 		return false
 
 	if _is_unit_card_id(card_id):
-		_unit_collection.append(card_id)
+		_unit_collection[card_id] = (
+			current_count + amount
+		)
+
 	elif _is_spell_card_id(card_id):
-		_spell_collection.append(card_id)
+		_spell_collection[card_id] = (
+			current_count + amount
+		)
+
 	else:
-		push_warning("CardManager: Unsupported card ID %d." % card_id)
 		return false
 
 	_save_collection()
 	return true
-
-
+	
+	
 func add_card_to_deck(card_id: int) -> bool:
-	if not is_card_in_collection(card_id):
-		push_warning("CardManager: Card %d is not in the collection." % card_id)
-		return false
-
-	if is_card_in_deck(card_id):
+	if not can_add_card_to_deck(card_id):
 		return false
 
 	if _is_unit_card_id(card_id):
 		_unit_deck.append(card_id)
+
 	elif _is_spell_card_id(card_id):
 		_spell_deck.append(card_id)
+
 	else:
 		return false
 
 	_save_player_deck()
 	return true
+	
+	
 
 
 func get_unit_deck() -> Array[int]:
@@ -89,26 +99,43 @@ func get_spell_deck() -> Array[int]:
 
 
 func get_unit_collection() -> Array[int]:
-	return _unit_collection.duplicate()
+	return _get_collection_card_ids(
+		_unit_collection
+	)
 
 
 func get_spell_collection() -> Array[int]:
-	return _spell_collection.duplicate()
+	return _get_collection_card_ids(
+		_spell_collection
+	)
+
 
 
 func _load_collection() -> void:
-	if not FileAccess.file_exists(COLLECTION_SAVE_PATH):
+	if not FileAccess.file_exists(
+		COLLECTION_SAVE_PATH
+	):
 		_create_default_collection()
 		return
 
-	var data: Variant = _read_save_file(COLLECTION_SAVE_PATH)
+	var data: Variant = _read_save_file(
+		COLLECTION_SAVE_PATH
+	)
 
 	if not data is Dictionary:
 		_create_default_collection()
 		return
 
-	_unit_collection = _read_card_ids(data.get("unit_cards", []), true)
-	_spell_collection = _read_card_ids(data.get("spell_cards", []), false)
+	_unit_collection = _read_collection_counts(
+		data.get("unit_cards", {}),
+		true
+	)
+
+	_spell_collection = _read_collection_counts(
+		data.get("spell_cards", {}),
+		false
+	)
+
 	_save_collection()
 
 
@@ -123,8 +150,8 @@ func _load_player_deck() -> void:
 		_create_default_player_deck()
 		return
 
-	_unit_deck = _read_card_ids(data.get("unit_deck", []), true)
-	_spell_deck = _read_card_ids(data.get("spell_deck", []), false)
+	_unit_deck = _read_deck_card_ids(data.get("unit_deck", []),true)
+	_spell_deck = _read_deck_card_ids(data.get("spell_deck", []),false)
 	_remove_deck_cards_outside_collection()
 	_save_player_deck()
 
@@ -133,8 +160,9 @@ func _create_default_collection() -> void:
 	_unit_collection.clear()
 	_spell_collection.clear()
 
-	for card_id in range(11000, 11010):
-		_unit_collection.append(card_id)
+	for card_id: int in range(11000, 11010):
+		if _cards_database.has(str(card_id)):
+			_unit_collection[card_id] = 1
 
 	_save_collection()
 
@@ -209,13 +237,55 @@ func _read_card_ids(data: Variant, units: bool) -> Array[int]:
 
 
 func _remove_deck_cards_outside_collection() -> void:
-	for card_id in _unit_deck.duplicate():
-		if not _unit_collection.has(card_id):
-			_unit_deck.erase(card_id)
+	_unit_deck = _sanitize_deck(
+		_unit_deck,
+		true
+	)
 
-	for card_id in _spell_deck.duplicate():
-		if not _spell_collection.has(card_id):
-			_spell_deck.erase(card_id)
+	_spell_deck = _sanitize_deck(
+		_spell_deck,
+		false
+	)
+	
+func _sanitize_deck(
+	deck: Array[int],
+	units: bool
+) -> Array[int]:
+	var result: Array[int] = []
+	var used_counts: Dictionary = {}
+
+	for card_id: int in deck:
+		if not _is_correct_card_type(
+			card_id,
+			units
+		):
+			continue
+
+		var owned_count: int = (
+			get_card_collection_count(card_id)
+		)
+
+		var maximum_in_deck: int = (
+			get_max_card_copies_in_deck(card_id)
+		)
+
+		var allowed_count: int = mini(
+			owned_count,
+			maximum_in_deck
+		)
+
+		var current_count: int = int(
+			used_counts.get(card_id, 0)
+		)
+
+		if current_count >= allowed_count:
+			continue
+
+		result.append(card_id)
+		used_counts[card_id] = current_count + 1
+
+	return result
+
 
 func _load_databases() -> void:
 	_cards_database.clear()
@@ -627,14 +697,11 @@ func remove_card_from_deck(card_id: int) -> bool:
 		_spell_deck.erase(card_id)
 
 	else:
-		push_warning(
-			"CardManager: Unsupported card ID %d."
-			% card_id
-		)
 		return false
 
 	_save_player_deck()
 	return true
+
 
 func get_spell_card_data(card_id: int) -> Dictionary:
 	if not _is_spell_card_id(card_id):
@@ -689,3 +756,245 @@ func get_spell_deck_average_mana() -> float:
 		float(total_mana) / float(valid_spell_count),
 		0.1
 	)
+
+func get_card_collection_count(card_id: int) -> int:
+	if _is_unit_card_id(card_id):
+		return int(_unit_collection.get(card_id, 0))
+
+	if _is_spell_card_id(card_id):
+		return int(_spell_collection.get(card_id, 0))
+
+	return 0
+
+
+func get_card_deck_count(card_id: int) -> int:
+	if _is_unit_card_id(card_id):
+		return _unit_deck.count(card_id)
+
+	if _is_spell_card_id(card_id):
+		return _spell_deck.count(card_id)
+
+	return 0
+	
+	
+func get_max_card_copies_in_deck(card_id: int) -> int:
+	var card_data: Dictionary = get_card_data(card_id)
+
+	if card_data.is_empty():
+		return 0
+
+	return maxi(
+		int(card_data.get("max_copies_in_deck", 1)),
+		0
+	)
+
+
+func get_max_card_copies_in_collection(card_id: int) -> int:
+	var card_data: Dictionary = get_card_data(card_id)
+
+	if card_data.is_empty():
+		return 0
+
+	return maxi(
+		int(card_data.get(
+			"max_copies_in_collection",
+			999
+		)),
+		0
+	)
+	
+func get_card_data(card_id: int) -> Dictionary:
+	var data: Variant = _cards_database.get(
+		str(card_id)
+	)
+
+	if not data is Dictionary:
+		return {}
+
+	return (data as Dictionary).duplicate(true)
+	
+	
+func get_card_available_deck_copies(
+	card_id: int
+) -> int:
+	var owned_count: int = (
+		get_card_collection_count(card_id)
+	)
+
+	var deck_count: int = (
+		get_card_deck_count(card_id)
+	)
+
+	var maximum_in_deck: int = (
+		get_max_card_copies_in_deck(card_id)
+	)
+
+	return maxi(
+		mini(
+			owned_count,
+			maximum_in_deck
+		) - deck_count,
+		0
+	)
+	
+func can_add_card_to_deck(card_id: int) -> bool:
+	if not is_card_in_collection(card_id):
+		return false
+
+	return (
+		get_card_available_deck_copies(card_id) > 0
+	)
+
+
+func can_remove_card_from_deck(
+	card_id: int
+) -> bool:
+	return get_card_deck_count(card_id) > 0
+	
+func remove_card_from_collection(
+	card_id: int,
+	amount: int = 1
+) -> bool:
+	if amount <= 0:
+		return false
+
+	var current_count: int = (
+		get_card_collection_count(card_id)
+	)
+
+	var new_count: int = current_count - amount
+
+	if new_count < 0:
+		return false
+
+	if new_count < get_card_deck_count(card_id):
+		push_warning(
+			"CardManager: Cannot remove deck-bound copies of card %d."
+			% card_id
+		)
+		return false
+
+	if _is_unit_card_id(card_id):
+		if new_count == 0:
+			_unit_collection.erase(card_id)
+		else:
+			_unit_collection[card_id] = new_count
+
+	elif _is_spell_card_id(card_id):
+		if new_count == 0:
+			_spell_collection.erase(card_id)
+		else:
+			_spell_collection[card_id] = new_count
+
+	else:
+		return false
+
+	_save_collection()
+	return true
+	
+
+func _get_collection_card_ids(
+	collection: Dictionary
+) -> Array[int]:
+	var result: Array[int] = []
+
+	for value: Variant in collection.keys():
+		var card_id: int = int(value)
+
+		if int(collection[value]) > 0:
+			result.append(card_id)
+
+	result.sort()
+	return result
+	
+	
+func _read_collection_counts(
+	data: Variant,
+	units: bool
+) -> Dictionary:
+	var result: Dictionary = {}
+
+	if data is Dictionary:
+		for id_value: Variant in data:
+			var card_id: int = int(id_value)
+			var count: int = maxi(
+				int(data[id_value]),
+				0
+			)
+
+			if not _is_correct_card_type(
+				card_id,
+				units
+			):
+				continue
+
+			if not _cards_database.has(str(card_id)):
+				continue
+
+			var maximum: int = (
+				get_max_card_copies_in_collection(
+					card_id
+				)
+			)
+
+			count = mini(count, maximum)
+
+			if count > 0:
+				result[card_id] = count
+
+		return result
+
+	if data is Array:
+		for value: Variant in data:
+			var card_id: int = int(value)
+
+			if not _is_correct_card_type(
+				card_id,
+				units
+			):
+				continue
+
+			if not _cards_database.has(str(card_id)):
+				continue
+
+			result[card_id] = (
+				int(result.get(card_id, 0)) + 1
+			)
+
+	return result
+	
+	
+func _is_correct_card_type(
+	card_id: int,
+	units: bool
+) -> bool:
+	if units:
+		return _is_unit_card_id(card_id)
+
+	return _is_spell_card_id(card_id)
+	
+	
+func _read_deck_card_ids(
+	data: Variant,
+	units: bool
+) -> Array[int]:
+	var result: Array[int] = []
+
+	if not data is Array:
+		return result
+
+	for value: Variant in data:
+		var card_id: int = int(value)
+
+		if not _is_correct_card_type(
+			card_id,
+			units
+		):
+			continue
+
+		if not _cards_database.has(str(card_id)):
+			continue
+
+		result.append(card_id)
+
+	return result

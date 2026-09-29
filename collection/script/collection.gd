@@ -168,7 +168,8 @@ func _create_unit_card_example(card_id: int) -> void:
 		return
 
 	card_example.card_id = card_id
-	card_example.show_deck_indicator = true
+	card_example.show_count_deck_indicator = true
+	card_example.show_count_collection_indicator = true
 	card_example.mouse_filter = Control.MOUSE_FILTER_PASS
 
 	unit_cards_grid_container.add_child(card_example)
@@ -300,9 +301,9 @@ func _on_remove_unit_in_deck_button_pressed() -> void:
 		
 func _update_selected_card_deck_state() -> void:
 	if selected_card and is_instance_valid(selected_card):
-		selected_card.update_deck_indicator()
+		selected_card.update_card_counts()
 
-	unit_card_example_show.update_deck_indicator()
+	unit_card_example_show.update_card_counts()
 	_update_unit_deck_buttons()
 
 
@@ -342,7 +343,8 @@ func _create_spell_card_example(card_id: int) -> void:
 		return
 
 	spell_example.card_id = card_id
-	spell_example.show_deck_indicator = true
+	spell_example.show_count_deck_indicator = true
+	spell_example.show_count_collection_indicator = true
 	spell_example.mouse_filter = Control.MOUSE_FILTER_PASS
 
 	spell_cards_grid_container.add_child(spell_example)
@@ -488,9 +490,9 @@ func _update_selected_spell_card_deck_state() -> void:
 		selected_spell_card
 		and is_instance_valid(selected_spell_card)
 	):
-		selected_spell_card.update_deck_indicator()
+		selected_spell_card.update_card_counts()
 
-	spell_card_examlpe_show.update_deck_indicator()
+	spell_card_examlpe_show.update_card_counts()
 	_update_spell_deck_buttons()
 
 func _load_legend_collection() -> void:
@@ -857,40 +859,64 @@ func _get_deck_count_color(
 func _update_unit_deck_limit_buttons(
 	unit_count: int
 ) -> void:
-	var is_in_deck: bool = (
+	var has_valid_card: bool = (
 		selected_card_id != 0
-		and CardManager.is_card_in_deck(selected_card_id)
+	)
+
+	var can_add_selected_card: bool = (
+		has_valid_card
+		and CardManager.can_add_card_to_deck(
+			selected_card_id
+		)
+	)
+
+	var can_remove_selected_card: bool = (
+		has_valid_card
+		and CardManager.can_remove_card_from_deck(
+			selected_card_id
+		)
 	)
 
 	add_unit_in_deck_button.disabled = (
-		is_in_deck
-		or unit_count >= MAX_UNIT_DECK_CARDS
+		unit_count >= MAX_UNIT_DECK_CARDS
+		or not can_add_selected_card
 	)
 
 	remove_unit_in_deck_button.disabled = (
-		not is_in_deck
-		or unit_count <= MIN_UNIT_DECK_CARDS
+		unit_count <= MIN_UNIT_DECK_CARDS
+		or not can_remove_selected_card
 	)
-
+	
 
 func _update_spell_deck_limit_buttons(
 	spell_count: int
 ) -> void:
-	var is_in_deck: bool = (
+	var has_valid_card: bool = (
 		selected_spell_card_id != 0
-		and CardManager.is_card_in_deck(
+	)
+
+	var can_add_selected_card: bool = (
+		has_valid_card
+		and CardManager.can_add_card_to_deck(
+			selected_spell_card_id
+		)
+	)
+
+	var can_remove_selected_card: bool = (
+		has_valid_card
+		and CardManager.can_remove_card_from_deck(
 			selected_spell_card_id
 		)
 	)
 
 	add_spell_in_deck_button.disabled = (
-		is_in_deck
-		or spell_count >= MAX_SPELL_DECK_CARDS
+		spell_count >= MAX_SPELL_DECK_CARDS
+		or not can_add_selected_card
 	)
 
 	remove_spell_in_deck_button.disabled = (
-		not is_in_deck
-		or spell_count <= MIN_SPELL_DECK_CARDS
+		spell_count <= MIN_SPELL_DECK_CARDS
+		or not can_remove_selected_card
 	)
 
 
@@ -1077,7 +1103,13 @@ func _clear_deck_grid(
 func _load_deck_unit_cards() -> void:
 	_clear_deck_grid(deck_units_grid_container)
 
-	for card_id: int in CardManager.get_unit_deck():
+	var unit_deck: Array[int] = (
+		CardManager.get_unit_deck()
+	)
+
+	unit_deck.sort()
+
+	for card_id: int in unit_deck:
 		_create_deck_unit_card(card_id)
 
 	deck_units_scroll_container.scroll_vertical = 0
@@ -1104,7 +1136,8 @@ func _create_deck_unit_card(
 		return
 
 	card_example.card_id = card_id
-	card_example.show_deck_indicator = false
+	card_example.show_count_deck_indicator = false
+	card_example.show_count_collection_indicator = false
 	card_example.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card_example.focus_mode = Control.FOCUS_NONE
 
@@ -1129,7 +1162,13 @@ func _disable_control_input(
 func _load_deck_spell_cards() -> void:
 	_clear_deck_grid(deck_spell_grid_container)
 
-	for card_id: int in CardManager.get_spell_deck():
+	var spell_deck: Array[int] = (
+		CardManager.get_spell_deck()
+	)
+
+	spell_deck.sort()
+
+	for card_id: int in spell_deck:
 		_create_deck_spell_card(card_id)
 
 	deck_spell_scroll_container.scroll_vertical = 0
@@ -1156,7 +1195,8 @@ func _create_deck_spell_card(
 		return
 
 	spell_example.card_id = card_id
-	spell_example.show_deck_indicator = false
+	spell_example.show_count_deck_indicator = false
+	spell_example.show_count_collection_indicator = false
 	spell_example.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	spell_example.focus_mode = Control.FOCUS_NONE
 

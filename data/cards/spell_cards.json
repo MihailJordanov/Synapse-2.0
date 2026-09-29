@@ -6,7 +6,9 @@
 		"requirement_type": "has_any_unit",
 		"effect_amount": 1,
 		"texture_path": "res://data/card_images/spells/add_points/add_point_1.png",
-		"mana_cost" : 2
+		"mana_cost" : 2,
+		"max_copies_in_deck": 3,
+		"max_copies_in_collection": 3
 	},
 	"21001": {
 		"description": "[center]Select a friendly unit.\n[color=#6bff00]Give it +1 point.[/color][/center]",
@@ -15,7 +17,9 @@
 		"requirement_type": "has_friendly_unit",
 		"effect_amount": 1,
 		"texture_path": "res://data/card_images/spells/add_points/add_point_friendly_1.png",
-		"mana_cost" : 1
+		"mana_cost" : 1,
+		"max_copies_in_deck": 3,
+		"max_copies_in_collection": 3
 	},
 	"21002": {
 		"description": "[center]Select an enemy unit.\n[color=#ff5555]Remove 2 points.[/color][/center]",
@@ -24,7 +28,9 @@
 		"requirement_type": "has_enemy_unit",
 		"effect_amount": 2,
 		"texture_path": "res://data/card_images/spells/remove_points/remove_point_enemy_2.png",
-		"mana_cost" : 2
+		"mana_cost" : 2,
+		"max_copies_in_deck": 3,
+		"max_copies_in_collection": 3
 	},
 	"21100": {
 		"description": "[center]Select any unit card.\n[color=#6bff00]Swap its Target and Source Types.[/color][/center]",
@@ -32,7 +38,9 @@
 		"effect_type": "swap_target_source_types",
 		"requirement_type": "none",
 		"texture_path": "res://data/card_images/spells/swap_types/swap_types.png",
-		"mana_cost": 2
+		"mana_cost": 2,
+		"max_copies_in_deck": 3,
+		"max_copies_in_collection": 3
 	},
 	"21101": {
 		"description": "[center]Select a friendly unit.\n[color=#6bff00]Swap its Target and Source Types.[/color][/center]",
@@ -40,7 +48,9 @@
 		"effect_type": "swap_target_source_types",
 		"requirement_type": "none",
 		"texture_path": "res://data/card_images/spells/swap_types/swap_types_friendly.png",
-		"mana_cost": 1
+		"mana_cost": 1,
+		"max_copies_in_deck": 3,
+		"max_copies_in_collection": 3
 	},
 	"21102": {
 		"description": "[center]Select an enemy unit.\n[color=#ff5555]Swap its Target and Source Types.[/color][/center]",
@@ -48,7 +58,9 @@
 		"effect_type": "swap_target_source_types",
 		"requirement_type": "none",
 		"texture_path": "res://data/card_images/spells/swap_types/swap_types_enemy.png",
-		"mana_cost": 1
+		"mana_cost": 1,
+		"max_copies_in_deck": 3,
+		"max_copies_in_collection": 3
 	},
 	"21103": {
 		"description": "[center]Select a friendly unit.\n[color=#6bff00]Give it Sword as a target type.[/color][/center]",
@@ -58,39 +70,37 @@
 		"connection_type": "target",
 		"operation": "add",
 		"type_number": 1,
-
 		"requirement_type": "none",
-
 		"texture_path": "res://data/card_images/spells/add_type/add_type_target_friendly_1.png",
-		"mana_cost": 1
+		"mana_cost": 1,
+		"max_copies_in_deck": 3,
+		"max_copies_in_collection": 3
 	},
 	"21104": {
 		"description": "[center]Select an enemy unit.\n[color=#ff5555]Remove Wand as a source type.[/color][/center]",
 		"target_mode": "enemy_unit",
-
 		"effect_type": "modify_connection_type",
 		"connection_type": "source",
 		"operation": "remove",
 		"type_number": 5,
-
 		"requirement_type": "none",
-
 		"texture_path": "res://data/card_images/spells/remove_type/remove_type_source_enemy_5.png",
-		"mana_cost": 1
+		"mana_cost": 1,
+		"max_copies_in_deck": 3,
+		"max_copies_in_collection": 3
 	},
 	"21105": {
 		"description": "[center]Select any unit.\n[color=#6bff00]Give it Axe as a target type.[/color][/center]",
 		"target_mode": "any_unit",
-
 		"effect_type": "modify_connection_type",
 		"connection_type": "target",
 		"operation": "add",
 		"type_number": 1,
-
 		"requirement_type": "none",
-
 		"texture_path": "res://data/card_images/spells/add_type/add_type_target_3.png",
-		"mana_cost": 3
+		"mana_cost": 3,
+		"max_copies_in_deck": 3,
+		"max_copies_in_collection": 3
 	},
 	"21400": {
 		"description": "[center]Select an enemy unit.\n[color=#6bff00]Take control of it.[/color][/center]",
@@ -98,6 +108,8 @@
 		"effect_type": "steal_enemy_unit",
 		"requirement_type": "has_enemy_unit",
 		"texture_path": "res://data/card_images/spells/move_unit/get_enemy_unit.png",
-		"mana_cost": 1
+		"mana_cost": 1,
+		"max_copies_in_deck": 3,
+		"max_copies_in_collection": 3
 	}
 }
