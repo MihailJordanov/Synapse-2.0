@@ -62,13 +62,49 @@ const DEFAULT_DECK_LEGEND_ICON: Texture2D = preload("uid://xciqo3d2po72")
 @onready var deck_spell_grid_container: GridContainer = %DeckSpellGridContainer
 
 
-
-
 @onready var legends_button: Button = %LegendsButton
 @onready var spells_button: Button = %SpellsButton
 @onready var units_button: Button = %UnitsButton
 @onready var deck_button: Button = %DeckButton
 
+#region /// Filter Unit Panel
+@onready var filter_units_button: Button = %FilterUnitsButton
+@onready var unit_filter_bg_panel: Panel = %UnitFilterBGPanel
+@onready var and_or_filter_button: Button = %AndOrFilterButton
+@onready var set_filter_units_button: Button = %SetFilterUnitsButton
+@onready var exit_filter_button: Button = %ExitFilterButton
+@onready var filer_is_in_texture_rect: TextureRect = %FilerIsInTextureRect
+
+
+@onready var sword_target_check_box: CheckBox = %SwordTargetCheckBox
+@onready var shield_check_box: CheckBox = %ShieldCheckBox
+@onready var hammer_target_check_box: CheckBox = %HammerTargetCheckBox
+@onready var beast_target_check_box: CheckBox = %BeastTargetCheckBox
+@onready var fire_target_check_box: CheckBox = %FireTargetCheckBox
+@onready var water_target_check_box: CheckBox = %WaterTargetCheckBox
+@onready var nature_target_check_box: CheckBox = %NatureTargetCheckBox
+@onready var darknes_target_check_box: CheckBox = %DarknesTargetCheckBox
+@onready var sword_source_check_box: CheckBox = %SwordSourceCheckBox
+@onready var shield_source_check_box: CheckBox = %ShieldSourceCheckBox
+@onready var hammer_source_check_box: CheckBox = %HammerSourceCheckBox
+@onready var beas_sourcet_check_box: CheckBox = %BeasSourcetCheckBox
+@onready var fire_source_check_box: CheckBox = %FireSourceCheckBox
+@onready var water_source_check_box: CheckBox = %WaterSourceCheckBox
+@onready var nature_source_check_box: CheckBox = %NatureSourceCheckBox
+@onready var darknes_source_check_box: CheckBox = %DarknesSourceCheckBox
+
+enum UnitFilterLogic { AND, OR }
+
+var _target_type_check_boxes: Array[CheckBox] = []
+var _source_type_check_boxes: Array[CheckBox] = []
+
+var _unit_filter_logic: UnitFilterLogic = (UnitFilterLogic.AND)
+
+var _applied_unit_filter_logic: UnitFilterLogic = (UnitFilterLogic.AND)
+
+var _applied_target_types: Array[int] = []
+var _applied_source_types: Array[int] = []
+#endregion
 
 var selected_card: UnitCardExample
 var selected_card_id: int = 0
@@ -130,6 +166,13 @@ func _ready() -> void:
 	deck_button.pressed.connect(_on_deck_button_pressed)
 	deck_legend_example.gui_input.connect(_on_deck_legend_example_gui_input)
 	deck_legend_example.mouse_exited.connect(_hide_deck_legend_info)
+	unit_filter_bg_panel.visible = false
+	filer_is_in_texture_rect.visible = false
+	set_filter_units_button.text = "Apply Filter"
+	filter_units_button.pressed.connect(_on_filter_units_button_pressed)
+	and_or_filter_button.pressed.connect(_on_and_or_filter_button_pressed)
+	set_filter_units_button.pressed.connect(_on_set_filter_units_button_pressed)
+	exit_filter_button.pressed.connect(_on_exit_filter_button_pressed)
 	_show_units_panel()
 	_hide_legend_deck_buttons()
 	_load_legend_collection()
@@ -137,12 +180,36 @@ func _ready() -> void:
 	_hide_spell_deck_buttons()
 	_load_unit_collection()
 	_load_spell_collection()
+	_update_and_or_filter_button()
+	_target_type_check_boxes = [
+		sword_target_check_box,
+		shield_check_box,
+		hammer_target_check_box,
+		beast_target_check_box,
+		fire_target_check_box,
+		water_target_check_box,
+		nature_target_check_box,
+		darknes_target_check_box
+	]
+	_source_type_check_boxes = [
+		sword_source_check_box,
+		shield_source_check_box,
+		hammer_source_check_box,
+		beas_sourcet_check_box,
+		fire_source_check_box,
+		water_source_check_box,
+		nature_source_check_box,
+		darknes_source_check_box
+	]
 
 
 func _load_unit_collection() -> void:
 	_clear_unit_collection()
 
 	for card_id: int in CardManager.get_unit_collection():
+		if not _unit_card_matches_filter(card_id):
+			continue
+
 		_create_unit_card_example(card_id)
 
 
@@ -769,12 +836,14 @@ func _show_spells_panel() -> void:
 	spell_panel.visible = true
 	legend_panel.visible = false
 	deck_panel.visible = false
+	unit_filter_bg_panel.visible = false
 
 func _show_legends_panel() -> void:
 	units_panel.visible = false
 	spell_panel.visible = false
 	legend_panel.visible = true
 	deck_panel.visible = false
+	unit_filter_bg_panel.visible = false
 
 func _update_deck_counts(
 	unit_count: int,
@@ -1001,6 +1070,7 @@ func _show_deck_panel() -> void:
 	spell_panel.visible = false
 	legend_panel.visible = false
 	deck_panel.visible = true
+	unit_filter_bg_panel.visible = false
 
 	_refresh_deck_panel()
 	
@@ -1248,5 +1318,146 @@ func _update_deck_info() -> void:
 		+ "[color=#FFFFFF]%.1f[/color]"
 		% average_mana
 	)
+	
+	
+func _on_filter_units_button_pressed() -> void:
+	_restore_applied_filter_to_menu()
+	_update_and_or_filter_button()
+	unit_filter_bg_panel.visible = true
+	
+func _on_exit_filter_button_pressed() -> void:
+	unit_filter_bg_panel.visible = false
+	
+func _on_and_or_filter_button_pressed() -> void:
+	if _unit_filter_logic == UnitFilterLogic.AND:
+		_unit_filter_logic = UnitFilterLogic.OR
+	else:
+		_unit_filter_logic = UnitFilterLogic.AND
+
+	_update_and_or_filter_button()
+	
+	
+func _update_and_or_filter_button() -> void:
+	if _unit_filter_logic == UnitFilterLogic.AND:
+		and_or_filter_button.text = "AND"
+	else:
+		and_or_filter_button.text = "OR"
+		
+func _get_checked_types(check_boxes: Array[CheckBox]) -> Array[int]:
+	var selected_types: Array[int] = []
+
+	for index: int in range(check_boxes.size()):
+		if check_boxes[index].button_pressed:
+			selected_types.append(index + 1)
+
+	return selected_types
+	
+func _on_set_filter_units_button_pressed() -> void:
+	_applied_target_types = _get_checked_types(_target_type_check_boxes)
+	_applied_source_types = _get_checked_types(_source_type_check_boxes)
+	_applied_unit_filter_logic = (_unit_filter_logic)
+	filer_is_in_texture_rect.visible = (_is_unit_filter_active())
+	unit_filter_bg_panel.visible = false
+	_load_unit_collection()
+	
+func _is_unit_filter_active() -> bool:
+	return (
+		not _applied_target_types.is_empty()
+		or not _applied_source_types.is_empty()
+	)
+	
+func _restore_applied_filter_to_menu() -> void:
+	_unit_filter_logic = (
+		_applied_unit_filter_logic
+	)
+
+	_set_check_boxes_from_types(
+		_target_type_check_boxes,
+		_applied_target_types
+	)
+
+	_set_check_boxes_from_types(
+		_source_type_check_boxes,
+		_applied_source_types
+	)
+	
+func _set_check_boxes_from_types(
+	check_boxes: Array[CheckBox],
+	selected_types: Array[int]
+) -> void:
+	for index: int in range(check_boxes.size()):
+		var type_number: int = index + 1
+
+		check_boxes[index].button_pressed = (
+			selected_types.has(type_number)
+		)
+		
+		
+func _unit_card_matches_filter(
+	card_id: int
+) -> bool:
+	if not _is_unit_filter_active():
+		return true
+
+	var card_data: Dictionary = (
+		CardManager.get_unit_card_data(card_id)
+	)
+
+	if card_data.is_empty():
+		return false
+
+	var target_types: Array[int] = []
+	var source_types: Array[int] = []
+
+	target_types.assign(
+		card_data.get("target_types", [])
+	)
+
+	source_types.assign(
+		card_data.get("source_types", [])
+	)
+
+	if (
+		_applied_unit_filter_logic
+		== UnitFilterLogic.AND
+	):
+		return _matches_all_unit_filter_conditions(
+			target_types,
+			source_types
+		)
+
+	return _matches_any_unit_filter_condition(
+		target_types,
+		source_types
+	)
+	
+func _matches_all_unit_filter_conditions(
+	card_target_types: Array[int],
+	card_source_types: Array[int]
+) -> bool:
+	for type_number: int in _applied_target_types:
+		if not card_target_types.has(type_number):
+			return false
+
+	for type_number: int in _applied_source_types:
+		if not card_source_types.has(type_number):
+			return false
+
+	return true
+	
+	
+func _matches_any_unit_filter_condition(
+	card_target_types: Array[int],
+	card_source_types: Array[int]
+) -> bool:
+	for type_number: int in _applied_target_types:
+		if card_target_types.has(type_number):
+			return true
+
+	for type_number: int in _applied_source_types:
+		if card_source_types.has(type_number):
+			return true
+
+	return false
 	
 	

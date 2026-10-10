@@ -4,6 +4,18 @@
 [ext_resource type="PackedScene" uid="uid://82pqfndoqpac" path="res://collection/unit_card_example.tscn" id="2_77yai"]
 [ext_resource type="PackedScene" uid="uid://40bostkv6fia" path="res://collection/spell_card_examlpe.tscn" id="3_31rji"]
 [ext_resource type="PackedScene" uid="uid://daqb661vce4kq" path="res://collection/legend_example.tscn" id="4_rsi2s"]
+[ext_resource type="Texture2D" uid="uid://di1wdkwv8i4qc" path="res://collection/assets/types_sword_40px.png" id="5_3l4x4"]
+[ext_resource type="Texture2D" uid="uid://cblr4o2il8a3v" path="res://zones/asstes/sprites/checkbox.png" id="5_ol4ao"]
+[ext_resource type="Texture2D" uid="uid://dobdq4sdvnvo8" path="res://collection/assets/types_shield_40px.png" id="6_pudvr"]
+[ext_resource type="Texture2D" uid="uid://duqbs2xtewomc" path="res://collection/assets/types_hammer_40px.png" id="7_mi1y7"]
+[ext_resource type="Texture2D" uid="uid://nxux3o1vkinh" path="res://collection/assets/types_beast_40px.png" id="8_oe3eu"]
+[ext_resource type="Texture2D" uid="uid://b26lpc377m37w" path="res://collection/assets/types_fire_40px.png" id="9_ol4ao"]
+[ext_resource type="Texture2D" uid="uid://6dt804r7m4hj" path="res://collection/assets/types_water_40px.png" id="10_wsmjq"]
+[ext_resource type="Texture2D" uid="uid://ccgfshtheq720" path="res://collection/assets/types_nature_40px.png" id="11_pkrkp"]
+[ext_resource type="Texture2D" uid="uid://ib7pp21mi0qx" path="res://collection/assets/types_dark_40px.png" id="12_emkwg"]
+[ext_resource type="Texture2D" uid="uid://c57yo4q2cwlxm" path="res://collection/assets/synapse_target_icon128x128.png" id="13_mi1y7"]
+[ext_resource type="Texture2D" uid="uid://bxq0jgxq3bimi" path="res://collection/assets/synapse_source_icon128x128.png" id="14_oe3eu"]
+[ext_resource type="Texture2D" uid="uid://dqdifxtituiou" path="res://map/assets/maps/x_button.png" id="15_oe3eu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnme7"]
 bg_color = Color(0.7882353, 0.60784316, 0.43529412, 0.9843137)
@@ -184,6 +196,242 @@ corner_detail = 1
 shadow_size = 10
 shadow_offset = Vector2(0, 5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pkrkp"]
+bg_color = Color(0.70980394, 0.6509804, 0.19215687, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_emkwg"]
+bg_color = Color(0.3343291, 0.30437893, 0.070748515, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ikee"]
+bg_color = Color(0.45631748, 0.41696703, 0.10995234, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpmby"]
+bg_color = Color(0.70980394, 0.6509804, 0.19215687, 0.36078432)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.85882354, 0.85882354, 0.85882354, 0.2901961)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 1
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glflh"]
+bg_color = Color(0.70980394, 0.6509804, 0.19215687, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3a6l"]
+bg_color = Color(0.8, 0.54509807, 0.18431373, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrivr"]
+bg_color = Color(0.1764706, 0.1764706, 0.1764706, 0.13725491)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13qdw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cptg"]
+bg_color = Color(0.96862745, 0.7882353, 0.40784314, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_geii0"]
+bg_color = Color(0.3343291, 0.30437893, 0.070748515, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_detail = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owhq5"]
+bg_color = Color(0.45631748, 0.41696703, 0.10995234, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsuow"]
+bg_color = Color(0.70980394, 0.6509804, 0.19215687, 0.36078432)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.85882354, 0.85882354, 0.85882354, 0.2901961)
+corner_detail = 1
+shadow_size = 1
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oe2nm"]
+bg_color = Color(0.70980394, 0.6509804, 0.19215687, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ulrks"]
+bg_color = Color(0.70980394, 0.6509804, 0.19215687, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n0hnx"]
+bg_color = Color(0.3343291, 0.30437893, 0.070748515, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h04il"]
+bg_color = Color(0.45631748, 0.41696703, 0.10995234, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_686o5"]
+bg_color = Color(0.70980394, 0.6509804, 0.19215687, 0.36078432)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.85882354, 0.85882354, 0.85882354, 0.2901961)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+shadow_size = 1
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gppr8"]
+bg_color = Color(0.70980394, 0.6509804, 0.19215687, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pudvr"]
 bg_color = Color(0.90416515, 0.62157923, 0.77679884, 0.9843137)
 border_width_left = 7
@@ -209,7 +457,7 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_right = 5
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrivr"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yttyd"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Collection" type="CanvasLayer" unique_id=187248655]
@@ -321,7 +569,6 @@ text = "Units"
 
 [node name="UnitsPanel" type="Panel" parent="Panel" unique_id=953327897]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -427,6 +674,527 @@ size_flags_vertical = 0
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 5
+
+[node name="FilterUnitsButton" type="Button" parent="Panel/UnitsPanel" unique_id=401819753]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 464.0
+offset_top = -112.0
+offset_right = 648.0
+offset_bottom = -40.0
+theme_override_colors/font_color = Color(0.85882354, 0.85882354, 0.85882354, 0.96862745)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_pkrkp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_emkwg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0ikee")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qpmby")
+theme_override_styles/focus = SubResource("StyleBoxFlat_glflh")
+text = "Filter"
+
+[node name="FilerIsInTextureRect" type="TextureRect" parent="Panel/UnitsPanel/FilterUnitsButton" unique_id=1887178363]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0, 1, 0.4509804, 1)
+layout_mode = 0
+offset_left = 134.0
+offset_top = -32.0
+offset_right = 216.0
+offset_bottom = 39.0
+texture = ExtResource("5_ol4ao")
+
+[node name="UnitFilterBGPanel" type="Panel" parent="Panel/UnitsPanel" unique_id=225035287]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.2
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="UnitFilterPanel" type="Panel" parent="Panel/UnitsPanel/UnitFilterBGPanel" unique_id=957620178]
+z_index = 101
+layout_mode = 0
+offset_left = 200.0
+offset_top = 100.0
+offset_right = 1100.0
+offset_bottom = 800.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_u3a6l")
+
+[node name="TargetPanel" type="Panel" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel" unique_id=179901168]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 111.0
+offset_right = 840.0
+offset_bottom = 311.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
+
+[node name="TargetHBoxContainer" type="GridContainer" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel" unique_id=1952109364]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 146.0
+offset_top = 15.0
+offset_right = -422.0
+offset_bottom = -125.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+columns = 4
+
+[node name="SwordControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer" unique_id=81754452]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="SwordTargetCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/SwordControl" unique_id=973648267]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="SwordTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/SwordControl" unique_id=1670132494]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_3l4x4")
+
+[node name="ShieldControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer" unique_id=1234754931]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="ShieldCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/ShieldControl" unique_id=268022619]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="ShieldTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/ShieldControl" unique_id=1532047078]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_pudvr")
+
+[node name="HammerControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer" unique_id=1524315344]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="HammerTargetCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/HammerControl" unique_id=237043531]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="HammerTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/HammerControl" unique_id=655976256]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_mi1y7")
+
+[node name="BeastControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer" unique_id=1872317252]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="BeastTargetCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/BeastControl" unique_id=510555063]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="BeastTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/BeastControl" unique_id=1368477409]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_oe3eu")
+
+[node name="FireControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer" unique_id=1909788088]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="FireTargetCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/FireControl" unique_id=207354457]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="FireTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/FireControl" unique_id=975756979]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_ol4ao")
+
+[node name="WaterControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer" unique_id=2138328325]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="WaterTargetCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/WaterControl" unique_id=947655545]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="WaterTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/WaterControl" unique_id=685233439]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_wsmjq")
+
+[node name="NatureControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer" unique_id=891300595]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="NatureTargetCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/NatureControl" unique_id=1880174311]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="NatureTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/NatureControl" unique_id=89791862]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_pkrkp")
+
+[node name="DarknessControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer" unique_id=1680978274]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="DarknesTargetCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/DarknessControl" unique_id=1984157038]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="DarknesTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetHBoxContainer/DarknessControl" unique_id=1357279609]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_emkwg")
+
+[node name="TargetTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel" unique_id=1592182980]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 39.0
+offset_right = 139.0
+offset_bottom = 167.0
+texture = ExtResource("13_mi1y7")
+
+[node name="BorderPanel" type="Panel" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel/TargetTextureRect" unique_id=1321895266]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 132.0
+offset_bottom = 132.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_13qdw")
+
+[node name="TargetRichTextLabel" type="RichTextLabel" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/TargetPanel" unique_id=732986629]
+layout_mode = 0
+offset_left = 265.0
+offset_top = -44.0
+offset_right = 515.0
+offset_bottom = -4.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+text = "Target types
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SourcePanel" type="Panel" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel" unique_id=240204737]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 377.0
+offset_right = 840.0
+offset_bottom = 577.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
+
+[node name="SourceHBoxContainer" type="GridContainer" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel" unique_id=1996326713]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 146.0
+offset_top = 15.0
+offset_right = -422.0
+offset_bottom = -125.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+columns = 4
+
+[node name="SwordControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer" unique_id=1841200241]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="SwordSourceCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/SwordControl" unique_id=628686219]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="SwordTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/SwordControl" unique_id=1713371047]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_3l4x4")
+
+[node name="ShieldControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer" unique_id=1922326626]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="ShieldSourceCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/ShieldControl" unique_id=129000539]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="ShieldTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/ShieldControl" unique_id=1746292409]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_pudvr")
+
+[node name="HammerControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer" unique_id=923279465]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="HammerSourceCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/HammerControl" unique_id=1256256500]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="HammerTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/HammerControl" unique_id=651239653]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_mi1y7")
+
+[node name="BeastControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer" unique_id=1525686748]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="BeasSourcetCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/BeastControl" unique_id=1990653732]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="BeastTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/BeastControl" unique_id=761237658]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_oe3eu")
+
+[node name="FireControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer" unique_id=2053166104]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="FireSourceCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/FireControl" unique_id=1611453948]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="FireTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/FireControl" unique_id=2024510402]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_ol4ao")
+
+[node name="WaterControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer" unique_id=617871856]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="WaterSourceCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/WaterControl" unique_id=1451749763]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="WaterTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/WaterControl" unique_id=394908698]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_wsmjq")
+
+[node name="NatureControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer" unique_id=1124472686]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="NatureSourceCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/NatureControl" unique_id=1786656055]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="NatureTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/NatureControl" unique_id=1560158209]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_pkrkp")
+
+[node name="DarknessControl" type="Control" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer" unique_id=144940007]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+
+[node name="DarknesSourceCheckBox" type="CheckBox" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/DarknessControl" unique_id=949969382]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_right = 26.0
+offset_bottom = 31.0
+
+[node name="DarknesTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceHBoxContainer/DarknessControl" unique_id=1711161516]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_emkwg")
+
+[node name="SourceTextureRect" type="TextureRect" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel" unique_id=621493401]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 39.0
+offset_right = 139.0
+offset_bottom = 167.0
+texture = ExtResource("14_oe3eu")
+
+[node name="BorderPanel" type="Panel" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel/SourceTextureRect" unique_id=1062296224]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 132.0
+offset_bottom = 132.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_13qdw")
+
+[node name="SourceRichTextLabel" type="RichTextLabel" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel/SourcePanel" unique_id=806110462]
+layout_mode = 0
+offset_left = 265.0
+offset_top = -44.0
+offset_right = 515.0
+offset_bottom = -4.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+text = "Source types
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AndOrFilterButton" type="Button" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel" unique_id=1359006349]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 59.999996
+offset_top = 19.999994
+offset_right = 124.0
+offset_bottom = 55.999992
+scale = Vector2(1.4, 1.4)
+theme_override_colors/font_color = Color(0.85882354, 0.85882354, 0.85882354, 0.96862745)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_2cptg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_geii0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_owhq5")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qsuow")
+theme_override_styles/focus = SubResource("StyleBoxFlat_oe2nm")
+text = "AND"
+
+[node name="SetFilterUnitsButton" type="Button" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel" unique_id=1033570880]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 368.0
+offset_top = 600.0
+offset_right = 532.0
+offset_bottom = 664.0
+theme_override_colors/font_color = Color(0.85882354, 0.85882354, 0.85882354, 0.96862745)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_ulrks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_n0hnx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h04il")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_686o5")
+theme_override_styles/focus = SubResource("StyleBoxFlat_gppr8")
+text = "Set Filter"
+
+[node name="ExitFilterButton" type="Button" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel" unique_id=515669709]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 805.00006
+offset_top = 4.0
+offset_right = 1110.0
+offset_bottom = 309.0
+scale = Vector2(0.3, 0.3)
+icon = ExtResource("15_oe3eu")
 
 [node name="SpellPanel" type="Panel" parent="Panel" unique_id=1198894311]
 unique_name_in_owner = true
@@ -644,7 +1412,6 @@ vertical_alignment = 1
 
 [node name="LegendInfoPanel" type="Panel" parent="Panel/LegendPanel/LegendInfoPanel" unique_id=458956865]
 unique_name_in_owner = true
-visible = false
 z_index = 101
 layout_mode = 0
 offset_left = -900.0
@@ -697,6 +1464,7 @@ columns = 5
 
 [node name="DeckPanel" type="Panel" parent="Panel" unique_id=241245452]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -832,7 +1600,7 @@ offset_left = 900.0
 offset_top = 240.0
 offset_right = 1600.0
 offset_bottom = 755.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_yttyd")
 
 [node name="DeckSpellScrollContainer" type="ScrollContainer" parent="Panel/DeckPanel/DeckSpellPanel" unique_id=1979510839]
 unique_name_in_owner = true

@@ -1480,10 +1480,6 @@ offset_top = 775.0
 offset_right = 1515.0
 offset_bottom = 815.0
 
-[node name="Sprite2D" type="Sprite2D" parent="UI/Legends/PlayerLegend" unique_id=80991465]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_6i7va")
-
 [node name="PlayerLegendTextureRect" type="TextureRect" parent="UI/Legends/PlayerLegend" unique_id=1444180535]
 unique_name_in_owner = true
 layout_mode = 0
@@ -1494,6 +1490,10 @@ offset_bottom = 82.0
 texture = SubResource("GradientTexture2D_c1o2p")
 expand_mode = 2
 
+[node name="Sprite2D" type="Sprite2D" parent="UI/Legends/PlayerLegend" unique_id=80991465]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_6i7va")
+
 [node name="EnemyLegend" type="Control" parent="UI/Legends" unique_id=1627710024]
 unique_name_in_owner = true
 anchors_preset = 0
@@ -1501,10 +1501,6 @@ offset_left = 125.0
 offset_top = 125.0
 offset_right = 165.0
 offset_bottom = 165.0
-
-[node name="Sprite2D" type="Sprite2D" parent="UI/Legends/EnemyLegend" unique_id=12889651]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_jsgwy")
 
 [node name="EnemyLegendTextureRect" type="TextureRect" parent="UI/Legends/EnemyLegend" unique_id=105032866]
 unique_name_in_owner = true
@@ -1515,6 +1511,10 @@ offset_right = 80.0
 offset_bottom = 82.0
 texture = SubResource("GradientTexture2D_c1o2p")
 expand_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Legends/EnemyLegend" unique_id=12889651]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_jsgwy")
 
 [node name="ControllTurnButton" type="Button" parent="UI" unique_id=105520837]
 unique_name_in_owner = true
