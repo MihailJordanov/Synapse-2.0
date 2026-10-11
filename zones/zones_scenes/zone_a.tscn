@@ -747,7 +747,6 @@ offset_top = 62.0
 offset_right = 723.0
 offset_bottom = 309.0
 scale = Vector2(3, 3)
-show_count_deck_indicator = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2131775750]
 unique_name_in_owner = true

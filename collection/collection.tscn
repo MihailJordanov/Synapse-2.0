@@ -1172,9 +1172,9 @@ text = "AND"
 [node name="SetFilterUnitsButton" type="Button" parent="Panel/UnitsPanel/UnitFilterBGPanel/UnitFilterPanel" unique_id=1033570880]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 368.0
+offset_left = 352.0
 offset_top = 600.0
-offset_right = 532.0
+offset_right = 548.0
 offset_bottom = 664.0
 theme_override_colors/font_color = Color(0.85882354, 0.85882354, 0.85882354, 0.96862745)
 theme_override_constants/outline_size = 10

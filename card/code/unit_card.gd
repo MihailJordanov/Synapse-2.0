@@ -69,6 +69,9 @@ func _get_icon_by_index(type_index: int, is_target: bool) -> TextureRect:
 		8: return a_teeth if is_target else d_teeth
 		_: return null
 
+func get_type_icon(type_number: int, is_target: bool) -> TextureRect:
+	return _get_icon_by_index(type_number, is_target)
+
 func set_all_types(new_target_types: Array[int],new_source_types: Array[int]) -> void:
 	target_types.clear()
 

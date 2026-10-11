@@ -162,6 +162,7 @@ mouse_filter = 2
 texture = SubResource("AtlasTexture_uhrb7")
 
 [node name="Panel_Border" type="Panel" parent="Panel/UnitCardExampleAttackHBoxContainer/A_Sword" unique_id=1024973313]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -262,9 +263,6 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_va6xw")
-
-[node name="Control_Sword_T" type="Control" parent="Panel/UnitCardExampleAttackHBoxContainer" unique_id=226512274]
-layout_mode = 2
 
 [node name="UnitCardExampleDeffenseHBoxContainer" type="HBoxContainer" parent="Panel" unique_id=1121655077]
 unique_name_in_owner = true
