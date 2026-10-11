@@ -1,0 +1,266 @@
+[gd_scene format=3 uid="uid://bfj7o5b1nrq46"]
+
+[ext_resource type="Script" uid="uid://d7mjrw8g1pxd" path="res://tutorial/scripts/tutorial_overlay.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="Style_panel"]
+content_margin_left = 18.0
+content_margin_top = 14.0
+content_margin_right = 18.0
+content_margin_bottom = 14.0
+bg_color = Color(0.055, 0.07, 0.1, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.75, 0.85, 1)
+
+[sub_resource type="Animation" id="Animation_EnterState"]
+resource_name = "EnterState"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_ExplainConnection"]
+resource_name = "ExplainConnection"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_FinishTutorial"]
+resource_name = "FinishTutorial"
+length = 1.5
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_PlaceClosingCard"]
+resource_name = "PlaceClosingCard"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_PlaceFirstCard"]
+resource_name = "PlaceFirstCard"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_RESET"]
+resource_name = "RESET"
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_WaitForEnemyCard"]
+resource_name = "WaitForEnemyCard"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_WatchCycle"]
+resource_name = "WatchCycle"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="Library_states"]
+_data = {
+&"EnterState": SubResource("Animation_EnterState"),
+&"ExplainConnection": SubResource("Animation_ExplainConnection"),
+&"FinishTutorial": SubResource("Animation_FinishTutorial"),
+&"PlaceClosingCard": SubResource("Animation_PlaceClosingCard"),
+&"PlaceFirstCard": SubResource("Animation_PlaceFirstCard"),
+&"RESET": SubResource("Animation_RESET"),
+&"WaitForEnemyCard": SubResource("Animation_WaitForEnemyCard"),
+&"WatchCycle": SubResource("Animation_WatchCycle")
+}
+
+[node name="TutorialOverlay" type="CanvasLayer" unique_id=1007895546]
+layer = 50
+script = ExtResource("1_script")
+
+[node name="UI" type="Control" parent="." unique_id=739659486]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="EnterStatePanel" type="PanelContainer" parent="UI" unique_id=124303421]
+visible = false
+layout_mode = 0
+anchor_left = 0.35
+anchor_top = 0.05
+anchor_right = 0.65
+anchor_bottom = 0.14
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Content" type="VBoxContainer" parent="UI/EnterStatePanel" unique_id=899640534]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Text" type="Label" parent="UI/EnterStatePanel/Content" unique_id=1847745277]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Your first battle begins."
+autowrap_mode = 3
+
+[node name="PlaceFirstCardPanel" type="PanelContainer" parent="UI" unique_id=393524154]
+visible = false
+layout_mode = 0
+anchor_left = 0.03
+anchor_top = 0.66
+anchor_right = 0.32
+anchor_bottom = 0.8
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Content" type="VBoxContainer" parent="UI/PlaceFirstCardPanel" unique_id=1977112729]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Text" type="Label" parent="UI/PlaceFirstCardPanel/Content" unique_id=1815231345]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Drag the glowing card into any empty slot on your side."
+autowrap_mode = 3
+
+[node name="WaitForEnemyCardPanel" type="PanelContainer" parent="UI" unique_id=369904903]
+visible = false
+layout_mode = 0
+anchor_left = 0.67
+anchor_top = 0.06
+anchor_right = 0.96
+anchor_bottom = 0.18
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Content" type="VBoxContainer" parent="UI/WaitForEnemyCardPanel" unique_id=848565236]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Text" type="Label" parent="UI/WaitForEnemyCardPanel/Content" unique_id=1104376167]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Your opponent plays a card."
+autowrap_mode = 3
+
+[node name="ExplainConnectionPanel" type="PanelContainer" parent="UI" unique_id=1902124959]
+visible = false
+layout_mode = 0
+anchor_left = 0.68
+anchor_top = 0.35
+anchor_right = 0.97
+anchor_bottom = 0.5
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Content" type="VBoxContainer" parent="UI/ExplainConnectionPanel" unique_id=295616451]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Text" type="Label" parent="UI/ExplainConnectionPanel/Content" unique_id=53817667]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Matching symbols create a directed connection. Follow the arrow."
+autowrap_mode = 3
+
+[node name="PlaceClosingCardPanel" type="PanelContainer" parent="UI" unique_id=1739024917]
+visible = false
+layout_mode = 0
+anchor_left = 0.03
+anchor_top = 0.38
+anchor_right = 0.32
+anchor_bottom = 0.52
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Content" type="VBoxContainer" parent="UI/PlaceClosingCardPanel" unique_id=110372067]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Text" type="Label" parent="UI/PlaceClosingCardPanel/Content" unique_id=879978281]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Play the glowing card to close the chain!"
+autowrap_mode = 3
+
+[node name="WatchCyclePanel" type="PanelContainer" parent="UI" unique_id=26555426]
+visible = false
+layout_mode = 0
+anchor_left = 0.35
+anchor_top = 0.76
+anchor_right = 0.65
+anchor_bottom = 0.96
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Content" type="VBoxContainer" parent="UI/WatchCyclePanel" unique_id=1051537843]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Text" type="Label" parent="UI/WatchCyclePanel/Content" unique_id=199114117]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "You made a cycle! Resolve it to collect the points."
+autowrap_mode = 3
+
+[node name="ResolveCycleButton" type="Button" parent="UI/WatchCyclePanel/Content" unique_id=2102787634]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+disabled = true
+text = "Resolve Cycle"
+
+[node name="FinishTutorialPanel" type="PanelContainer" parent="UI" unique_id=247300499]
+visible = false
+layout_mode = 0
+anchor_left = 0.32
+anchor_top = 0.33
+anchor_right = 0.68
+anchor_bottom = 0.62
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Content" type="VBoxContainer" parent="UI/FinishTutorialPanel" unique_id=769495103]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Text" type="Label" parent="UI/FinishTutorialPanel/Content" unique_id=194059988]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "First cycle completed! Your adventure awaits."
+autowrap_mode = 3
+
+[node name="StartAdventureButton" type="Button" parent="UI/FinishTutorialPanel/Content" unique_id=334646139]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+disabled = true
+text = "Begin Your Adventure"
+
+[node name="SkipTutorialButton" type="Button" parent="UI" unique_id=1804137131]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -230.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 20
+text = "Skip Tutorial"
+
+[node name="TutorialStatusLabel" type="Label" parent="UI" unique_id=2075084725]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchor_left = 0.2
+anchor_top = 0.4
+anchor_right = 0.8
+anchor_bottom = 0.6
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TutorialAnimationPlayer" type="AnimationPlayer" parent="." unique_id=2010325296]
+libraries/ = SubResource("Library_states")

@@ -1,0 +1,1200 @@
+[gd_scene format=3 uid="uid://lneqsucf5wh1"]
+
+[ext_resource type="Script" uid="uid://w3sqylq6d8y" path="res://tutorial/scripts/tutorial_card_dragger.gd" id="1_gs5mo"]
+[ext_resource type="Texture2D" uid="uid://wb3t0sue3yq1" path="res://level/assets/background_1.png" id="2_paval"]
+[ext_resource type="PackedScene" uid="uid://ci5eme0ewwipd" path="res://card_slot/card_slot.tscn" id="3_orfrm"]
+[ext_resource type="Script" uid="uid://nsgup3c83mhh" path="res://tutorial/scripts/tutorial_setup.gd" id="4_gs5mo"]
+[ext_resource type="Script" uid="uid://co7dqbw3yfbvw" path="res://tutorial/scripts/tutorial_controller.gd" id="5_5egvi"]
+[ext_resource type="Script" uid="uid://dmvtiipe12tit" path="res://tutorial/scripts/tutorial_hand.gd" id="6_wsq5q"]
+[ext_resource type="Script" uid="uid://c6wwlh0x8joh2" path="res://tutorial/scripts/states/enter_state.gd" id="8_i4ohe"]
+[ext_resource type="Script" uid="uid://cckpq4bgfygfo" path="res://tutorial/scripts/states/place_first_card_state.gd" id="9_jaen7"]
+[ext_resource type="Script" uid="uid://da8vivm4h5d8k" path="res://level/game/board_controller.gd" id="9_jtyhe"]
+[ext_resource type="Script" uid="uid://fjphy2qfl4g" path="res://tutorial/scripts/states/wait_for_enemy_card_state.gd" id="10_lqt55"]
+[ext_resource type="Script" uid="uid://byyfdssg07rpx" path="res://tutorial/scripts/states/explain_connection_state.gd" id="11_0ulwj"]
+[ext_resource type="Script" uid="uid://clqyavv6yr8b4" path="res://tutorial/scripts/states/place_closing_card_state.gd" id="12_8vnq2"]
+[ext_resource type="Script" uid="uid://dmmaamxlenpia" path="res://tutorial/scripts/states/watch_cycle_state.gd" id="13_bm62k"]
+[ext_resource type="Script" uid="uid://cgy8i83cpj7wn" path="res://tutorial/scripts/states/finish_tutorial_state.gd" id="14_w7k8m"]
+[ext_resource type="Shader" uid="uid://drd84k43pmbtm" path="res://map/scripts/materials/zone_view.gdshader" id="26_k574l"]
+[ext_resource type="Texture2D" uid="uid://c03cf5gvddb34" path="res://zones/asstes/enemies_images/zone_a/level_a01.png" id="27_yk3g8"]
+[ext_resource type="Texture2D" uid="uid://dcjodkelauqpw" path="res://zones/asstes/enemies_images/zone_a/level_a02.png" id="28_1ve78"]
+[ext_resource type="Texture2D" uid="uid://g6dv8cgpyumo" path="res://level/assets/fire_line_opening_scene.png" id="29_3crj3"]
+[ext_resource type="Texture2D" uid="uid://bs1jwu6qn3qa5" path="res://level/assets/coin_for_first_turn.png" id="30_jqhs5"]
+[ext_resource type="Texture2D" uid="uid://cc1mnhmr0xayn" path="res://card/assets/deck_image.png" id="31_e15fk"]
+[ext_resource type="PackedScene" uid="uid://bfj7o5b1nrq46" path="res://tutorial/tutorial_overlay.tscn" id="32_nqnkl"]
+[ext_resource type="Texture2D" uid="uid://cl7w36okis8je" path="res://card/assets/spell_card_back.png" id="32_vvitx"]
+[ext_resource type="Texture2D" uid="uid://bm3gb1nod1qlt" path="res://legends/assets/legend_border.png" id="33_jwui3"]
+[ext_resource type="PackedScene" path="res://tutorial/tutorial_cycle_visualizer.tscn" id="33_lqxuy"]
+[ext_resource type="Texture2D" uid="uid://chd7v5vce6xv6" path="res://legends/assets/enemy_legend_border.png" id="34_nyprc"]
+[ext_resource type="Texture2D" uid="uid://gb0semwipd8v" path="res://level/assets/buttons/pause_button.png" id="35_v45a6"]
+[ext_resource type="Texture2D" uid="uid://bvg7n3st6xh6q" path="res://level/assets/inf_panel/victory_points_icon_2.png" id="36_tlt2k"]
+[ext_resource type="Texture2D" uid="uid://b8hxmgb7se3ea" path="res://level/assets/inf_panel/mana_gem_icon_4.png" id="37_8kj7l"]
+[ext_resource type="Texture2D" uid="uid://c3754bw6hruqy" path="res://level/assets/inf_panel/deck_count_icon.png" id="38_1l0x6"]
+[ext_resource type="Texture2D" uid="uid://bdrobtb01f6a5" path="res://level/assets/blood_drops.png" id="39_qf0bx"]
+[ext_resource type="Script" uid="uid://bg0v5cadydhqc" path="res://music/music_audio_trigger.gd" id="45_ubc7o"]
+[ext_resource type="AudioStream" uid="uid://b777ks7xe7kaj" path="res://music/BG theme/chill_bg_music_1.wav" id="46_l6alp"]
+[ext_resource type="Script" uid="uid://vsvjhvljg2t6" path="res://resources/camera/player_camera.gd" id="47_7780g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xrivr"]
+shader = ExtResource("26_k574l")
+shader_parameter/fade_left = 0.800000038
+shader_parameter/fade_right = 0.0
+shader_parameter/fade_top = 0.50000002375
+shader_parameter/fade_bottom = 0.0
+shader_parameter/left_edge_alpha = 0.250000011875
+shader_parameter/right_edge_alpha = 0.0
+shader_parameter/top_edge_alpha = 0.250000011875
+shader_parameter/bottom_edge_alpha = 0.0
+shader_parameter/fade_power = 1.0
+shader_parameter/enable_border = false
+shader_parameter/border_color = Color(1, 1, 1, 1)
+shader_parameter/border_left = 2.0
+shader_parameter/border_right = 2.0
+shader_parameter/border_top = 2.0
+shader_parameter/border_bottom = 2.0
+shader_parameter/fade_border = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_02nen"]
+shader = ExtResource("26_k574l")
+shader_parameter/fade_left = 0.0
+shader_parameter/fade_right = 0.800000038
+shader_parameter/fade_top = 0.0
+shader_parameter/fade_bottom = 0.50000002375
+shader_parameter/left_edge_alpha = 0.0
+shader_parameter/right_edge_alpha = 0.250000011875
+shader_parameter/top_edge_alpha = 0.0
+shader_parameter/bottom_edge_alpha = 0.250000011875
+shader_parameter/fade_power = 1.0
+shader_parameter/enable_border = false
+shader_parameter/border_color = Color(1, 1, 1, 1)
+shader_parameter/border_left = 2.0
+shader_parameter/border_right = 2.0
+shader_parameter/border_top = 2.0
+shader_parameter/border_bottom = 2.0
+shader_parameter/fade_border = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_13qdw"]
+blend_mode = 3
+
+[sub_resource type="Gradient" id="Gradient_chhk3"]
+colors = PackedColorArray(0.53333336, 1, 1, 1, 1, 0.34509805, 0.40392157, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xrivr"]
+gradient = SubResource("Gradient_chhk3")
+
+[sub_resource type="Gradient" id="Gradient_6i7va"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c1o2p"]
+gradient = SubResource("Gradient_6i7va")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rqiy"]
+bg_color = Color(0, 0.6392157, 0.73333335, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fl61o"]
+bg_color = Color(1.5883148e-06, 0.45595545, 0.5252277, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_un0mk"]
+bg_color = Color(0, 0.51070553, 0.5874003, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.33333334, 0.13725491, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1kdy"]
+bg_color = Color(0, 0.6392157, 0.73333335, 0.31764707)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.85882354, 0.85882354, 0.85882354, 0.2901961)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 1
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3821i"]
+bg_color = Color(0, 0.6392157, 0.73333335, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrivr"]
+bg_color = Color(0, 0.6392157, 0.73333335, 0.60784316)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ht6j8"]
+bg_color = Color(0.07058824, 0.18431373, 0.105882354, 0.6627451)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6i7va"]
+bg_color = Color(0.07058824, 0.18431373, 0.105882354, 0.6627451)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
+
+[sub_resource type="Gradient" id="Gradient_rb6lq"]
+offsets = PackedFloat32Array(0.5, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0.40784314)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_13qdw"]
+gradient = SubResource("Gradient_rb6lq")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="MainLevel" type="Node2D" unique_id=817015654]
+
+[node name="CardDragger" type="Node2D" parent="." unique_id=1921723398]
+unique_name_in_owner = true
+script = ExtResource("1_gs5mo")
+
+[node name="BG_Sprite2D" type="Sprite2D" parent="." unique_id=803794395]
+z_index = -1
+position = Vector2(800, 375)
+scale = Vector2(1.025, 1.025)
+texture = ExtResource("2_paval")
+
+[node name="Slots" type="Node2D" parent="." unique_id=72994216]
+
+[node name="PlayerSlots" type="Node2D" parent="Slots" unique_id=177861174]
+
+[node name="CardSlot1" parent="Slots/PlayerSlots" unique_id=2040756058 instance=ExtResource("3_orfrm")]
+position = Vector2(420, 530)
+
+[node name="CardSlot2" parent="Slots/PlayerSlots" unique_id=2005798268 instance=ExtResource("3_orfrm")]
+position = Vector2(590, 530)
+
+[node name="CardSlot3" parent="Slots/PlayerSlots" unique_id=165340589 instance=ExtResource("3_orfrm")]
+position = Vector2(760, 530)
+
+[node name="CardSlot4" parent="Slots/PlayerSlots" unique_id=1289569394 instance=ExtResource("3_orfrm")]
+position = Vector2(930, 530)
+
+[node name="CardSlot5" parent="Slots/PlayerSlots" unique_id=501770681 instance=ExtResource("3_orfrm")]
+position = Vector2(1100, 530)
+
+[node name="CardSlot6" parent="Slots/PlayerSlots" unique_id=1897461063 instance=ExtResource("3_orfrm")]
+visible = false
+position = Vector2(1270, 530)
+
+[node name="EnemySlots" type="Node2D" parent="Slots" unique_id=1996804942]
+
+[node name="CardSlot7" parent="Slots/EnemySlots" unique_id=475772704 instance=ExtResource("3_orfrm")]
+position = Vector2(420, 250)
+
+[node name="CardSlot8" parent="Slots/EnemySlots" unique_id=1508599823 instance=ExtResource("3_orfrm")]
+position = Vector2(590, 250)
+
+[node name="CardSlot9" parent="Slots/EnemySlots" unique_id=169781415 instance=ExtResource("3_orfrm")]
+position = Vector2(760, 250)
+
+[node name="CardSlot10" parent="Slots/EnemySlots" unique_id=1045497333 instance=ExtResource("3_orfrm")]
+position = Vector2(930, 250)
+
+[node name="CardSlot11" parent="Slots/EnemySlots" unique_id=134920096 instance=ExtResource("3_orfrm")]
+position = Vector2(1100, 250)
+
+[node name="CardSlot12" parent="Slots/EnemySlots" unique_id=79510001 instance=ExtResource("3_orfrm")]
+visible = false
+position = Vector2(1270, 250)
+
+[node name="TutorialSetup" type="Node" parent="." unique_id=2073246435]
+unique_name_in_owner = true
+script = ExtResource("4_gs5mo")
+player_card_ids = Array[int]([11003, 11004, 11000, 11002])
+enemy_card_ids = Array[int]([11006, 11008, 11001])
+player_initial_hand_ids = Array[int]([11003, 11004])
+enemy_initial_hand_ids = Array[int]([11006, 11008])
+player_first_draw_id = 11000
+enemy_first_draw_id = 11001
+player_second_draw_id = 11002
+player_first_play_id = 11000
+enemy_first_play_id = 11001
+player_second_play_id = 11002
+adventure_scene_path = "uid://bfbe0ek8mejsn"
+
+[node name="TutorialController" type="Node2D" parent="." unique_id=2086973841 node_paths=PackedStringArray("tutorial_setup", "board_controller", "player_hand", "enemy_hand", "card_dragger", "player_slots", "enemy_slots", "overlay", "cycle_visualizer", "player_score_label", "enemy_score_label", "player_deck_label", "enemy_deck_label", "enter_state", "place_first_card_state", "wait_for_enemy_card_state", "explain_connection_state", "place_closing_card_state", "watch_cycle_state", "finish_tutorial_state")]
+unique_name_in_owner = true
+script = ExtResource("5_5egvi")
+tutorial_setup = NodePath("../TutorialSetup")
+board_controller = NodePath("../Game/BoardCotroller")
+player_hand = NodePath("../Hands/PlayerHand")
+enemy_hand = NodePath("../Hands/EnemyHand")
+card_dragger = NodePath("../CardDragger")
+player_slots = [NodePath("../Slots/PlayerSlots/CardSlot1"), NodePath("../Slots/PlayerSlots/CardSlot2"), NodePath("../Slots/PlayerSlots/CardSlot3"), NodePath("../Slots/PlayerSlots/CardSlot4"), NodePath("../Slots/PlayerSlots/CardSlot5")]
+enemy_slots = [NodePath("../Slots/EnemySlots/CardSlot7"), NodePath("../Slots/EnemySlots/CardSlot8"), NodePath("../Slots/EnemySlots/CardSlot9"), NodePath("../Slots/EnemySlots/CardSlot10"), NodePath("../Slots/EnemySlots/CardSlot11")]
+overlay = NodePath("../TutorialOverlay")
+cycle_visualizer = NodePath("../TutorialCycleVisualizer")
+player_score_label = NodePath("../UI/PlayerInfoPanel/VictoryPointsInf/PlayerVictoryPointsInformLabel")
+enemy_score_label = NodePath("../UI/EnemyInfoPanel/VictoryPointsInf/EnemyVictoryPointsInformLabel")
+player_deck_label = NodePath("../UI/PlayerInfoPanel/DeckInf/PlayerDeckInformLabel")
+enemy_deck_label = NodePath("../UI/EnemyInfoPanel/DeckInf/EnemyDeckInformLabel")
+enter_state = NodePath("../Game/States/EnterState")
+place_first_card_state = NodePath("../Game/States/PlaceFirstCardState")
+wait_for_enemy_card_state = NodePath("../Game/States/WaitForEnemyCardState")
+explain_connection_state = NodePath("../Game/States/ExplainConnectionState")
+place_closing_card_state = NodePath("../Game/States/PlaceClosinCardState")
+watch_cycle_state = NodePath("../Game/States/WatchCycleState")
+finish_tutorial_state = NodePath("../Game/States/FinishTutorialState")
+
+[node name="Hands" type="Node2D" parent="." unique_id=1465348749]
+
+[node name="PlayerHand" type="Node2D" parent="Hands" unique_id=991506965 node_paths=PackedStringArray("deck_sprite", "spell_deck_sprite")]
+position = Vector2(799, 780)
+script = ExtResource("6_wsq5q")
+deck_sprite = NodePath("../../UI/AnimationHelpers/DecksSprites/PlayerDeck")
+spell_deck_sprite = NodePath("../../UI/AnimationHelpers/DecksSprites/PlayerSpellDeck")
+
+[node name="EnemyHand" type="Node2D" parent="Hands" unique_id=357395619 node_paths=PackedStringArray("deck_sprite", "spell_deck_sprite")]
+position = Vector2(799, 6)
+script = ExtResource("6_wsq5q")
+is_enemy = true
+deck_sprite = NodePath("../../UI/AnimationHelpers/DecksSprites/EnemyDeck")
+spell_deck_sprite = NodePath("../../UI/AnimationHelpers/DecksSprites/EnemySpellDeck")
+
+[node name="Game" type="Node" parent="." unique_id=408227523]
+
+[node name="BoardCotroller" type="Node" parent="Game" unique_id=1660314627]
+unique_name_in_owner = true
+script = ExtResource("9_jtyhe")
+
+[node name="States" type="Node" parent="Game" unique_id=1606335192]
+
+[node name="EnterState" type="Node" parent="Game/States" unique_id=579331530]
+script = ExtResource("8_i4ohe")
+
+[node name="PlaceFirstCardState" type="Node" parent="Game/States" unique_id=1166163980]
+script = ExtResource("9_jaen7")
+
+[node name="WaitForEnemyCardState" type="Node" parent="Game/States" unique_id=9968437]
+script = ExtResource("10_lqt55")
+
+[node name="ExplainConnectionState" type="Node" parent="Game/States" unique_id=1671040746]
+script = ExtResource("11_0ulwj")
+
+[node name="PlaceClosinCardState" type="Node" parent="Game/States" unique_id=48490347]
+script = ExtResource("12_8vnq2")
+
+[node name="WatchCycleState" type="Node" parent="Game/States" unique_id=1049061790]
+script = ExtResource("13_bm62k")
+
+[node name="FinishTutorialState" type="Node" parent="Game/States" unique_id=185389490]
+script = ExtResource("14_w7k8m")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1701068604]
+
+[node name="AnimationHelpers" type="Control" parent="UI" unique_id=1050617319]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="PlayerManaPointsRichTextLabel" type="RichTextLabel" parent="UI/AnimationHelpers" unique_id=1184894264]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+layout_mode = 0
+offset_left = 1401.0
+offset_top = 699.0
+offset_right = 1544.0
+offset_bottom = 767.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+theme_override_font_sizes/mono_font_size = 48
+text = "+ 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyManaPointsRichTextLabel" type="RichTextLabel" parent="UI/AnimationHelpers" unique_id=1823321711]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+layout_mode = 0
+offset_left = 52.0
+offset_top = 132.0
+offset_right = 195.0
+offset_bottom = 199.99991
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+theme_override_font_sizes/mono_font_size = 48
+text = "+ 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartBattleElements" type="Control" parent="UI/AnimationHelpers" unique_id=1890146950]
+z_index = 1000
+anchors_preset = 0
+
+[node name="Panel" type="Panel" parent="UI/AnimationHelpers/StartBattleElements" unique_id=606190594]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_top = 50.0
+offset_right = 1600.0
+offset_bottom = 850.0
+mouse_filter = 2
+
+[node name="PlayerControls" type="Control" parent="UI/AnimationHelpers/StartBattleElements" unique_id=181114770]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="PlayerIconTextureRect" type="TextureRect" parent="UI/AnimationHelpers/StartBattleElements/PlayerControls" unique_id=310306835]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_xrivr")
+layout_mode = 0
+offset_left = 1716.0
+offset_top = 971.0
+offset_right = 2715.978
+offset_bottom = 1971.0015
+texture = ExtResource("27_yk3g8")
+
+[node name="PlayerNameLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements/PlayerControls" unique_id=1832725865]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -1550.0
+offset_top = 525.0
+offset_right = -149.98535
+offset_bottom = 925.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.53333336, 1, 1, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/normal_font_size = 200
+theme_override_font_sizes/bold_font_size = 200
+theme_override_font_sizes/bold_italics_font_size = 200
+theme_override_font_sizes/italics_font_size = 200
+theme_override_font_sizes/mono_font_size = 200
+bbcode_enabled = true
+text = "Misho"
+horizontal_alignment = 1
+
+[node name="EnemyControls" type="Control" parent="UI/AnimationHelpers/StartBattleElements" unique_id=1450888534]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="EnemyIconTextureRect" type="TextureRect" parent="UI/AnimationHelpers/StartBattleElements/EnemyControls" unique_id=594698998]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_02nen")
+layout_mode = 0
+offset_left = -1012.0
+offset_top = -1093.0
+offset_right = -11.999512
+offset_bottom = -92.99756
+texture = ExtResource("28_1ve78")
+
+[node name="EnemyNameLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements/EnemyControls" unique_id=1024585553]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1750.0
+offset_top = -25.0
+offset_right = 3150.002
+offset_bottom = 375.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 0.34509805, 0.40392157, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/normal_font_size = 200
+theme_override_font_sizes/bold_font_size = 200
+theme_override_font_sizes/bold_italics_font_size = 200
+theme_override_font_sizes/italics_font_size = 200
+theme_override_font_sizes/mono_font_size = 200
+bbcode_enabled = true
+text = "Voledmor"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="FlameSprite2D" type="Sprite2D" parent="UI/AnimationHelpers/StartBattleElements" unique_id=481706786]
+position = Vector2(800, 440)
+scale = Vector2(0.5, 1e-05)
+texture = ExtResource("29_3crj3")
+
+[node name="VSLabel" type="RichTextLabel" parent="UI/AnimationHelpers/StartBattleElements" unique_id=718582387]
+clip_children = 2
+layout_mode = 0
+offset_left = 675.0
+offset_top = 335.0
+offset_right = 925.0
+offset_bottom = 535.0
+scale = Vector2(1, 1e-05)
+mouse_filter = 2
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/normal_font_size = 200
+theme_override_font_sizes/bold_font_size = 200
+theme_override_font_sizes/bold_italics_font_size = 200
+theme_override_font_sizes/italics_font_size = 200
+theme_override_font_sizes/mono_font_size = 200
+bbcode_enabled = true
+text = "vs"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/AnimationHelpers/StartBattleElements/VSLabel" unique_id=945730255]
+material = SubResource("CanvasItemMaterial_13qdw")
+custom_minimum_size = Vector2(250, 200)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_xrivr")
+
+[node name="CoinSprite2D" type="Sprite2D" parent="UI/AnimationHelpers/StartBattleElements" unique_id=2087366549]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(800, -200)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("30_jqhs5")
+hframes = 6
+vframes = 3
+
+[node name="DecksSprites" type="Control" parent="UI/AnimationHelpers" unique_id=1529954744]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerDeck" type="Sprite2D" parent="UI/AnimationHelpers/DecksSprites" unique_id=1496975527]
+position = Vector2(132, 768)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("31_e15fk")
+
+[node name="PlayerSpellDeck" type="Sprite2D" parent="UI/AnimationHelpers/DecksSprites" unique_id=776532174]
+position = Vector2(1472, 768)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("32_vvitx")
+
+[node name="EnemyDeck" type="Sprite2D" parent="UI/AnimationHelpers/DecksSprites" unique_id=1780896770]
+position = Vector2(132, 36)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("31_e15fk")
+
+[node name="EnemySpellDeck" type="Sprite2D" parent="UI/AnimationHelpers/DecksSprites" unique_id=623002403]
+position = Vector2(1472, 36)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("32_vvitx")
+
+[node name="Legends" type="Control" parent="UI" unique_id=346341827]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="PlayerLegend" type="Control" parent="UI/Legends" unique_id=314255532]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 1475.0
+offset_top = 775.0
+offset_right = 1515.0
+offset_bottom = 815.0
+
+[node name="PlayerLegendTextureRect" type="TextureRect" parent="UI/Legends/PlayerLegend" unique_id=1444180535]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -80.0
+offset_top = -78.0
+offset_right = 80.0
+offset_bottom = 82.0
+texture = SubResource("GradientTexture2D_c1o2p")
+expand_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Legends/PlayerLegend" unique_id=80991465]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("33_jwui3")
+
+[node name="EnemyLegend" type="Control" parent="UI/Legends" unique_id=1627710024]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 125.0
+offset_top = 125.0
+offset_right = 165.0
+offset_bottom = 165.0
+
+[node name="EnemyLegendTextureRect" type="TextureRect" parent="UI/Legends/EnemyLegend" unique_id=105032866]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -80.0
+offset_top = -78.0
+offset_right = 80.0
+offset_bottom = 82.0
+texture = SubResource("GradientTexture2D_c1o2p")
+expand_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Legends/EnemyLegend" unique_id=12889651]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("34_nyprc")
+
+[node name="ControllTurnButton" type="Button" parent="UI" unique_id=105520837]
+unique_name_in_owner = true
+offset_left = 45.0
+offset_top = 520.0
+offset_right = 295.0
+offset_bottom = 620.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_8rqiy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fl61o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_un0mk")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_c1kdy")
+theme_override_styles/focus = SubResource("StyleBoxFlat_3821i")
+text = "End Turn"
+
+[node name="PauseButton" type="Button" parent="UI" unique_id=617052756]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -122.0
+offset_top = 10.0
+offset_right = 251.0
+offset_bottom = 383.0
+grow_horizontal = 0
+scale = Vector2(0.3, 0.3)
+icon = ExtResource("35_v45a6")
+
+[node name="InformPanel" type="Panel" parent="UI" unique_id=1189883393]
+offset_left = 15.0
+offset_top = 253.0
+offset_right = 335.0
+offset_bottom = 503.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
+
+[node name="StateInformLabel" type="RichTextLabel" parent="UI/InformPanel" unique_id=1946513371]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(300, 225)
+clip_contents = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 12.5
+offset_right = 310.0
+offset_bottom = 237.5
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "Hello Word"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="PlayerInfoPanel" type="Panel" parent="UI" unique_id=1930544860]
+offset_left = 1348.0
+offset_top = 418.0
+offset_right = 1618.0
+offset_bottom = 643.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ht6j8")
+
+[node name="VictoryPointsInf" type="Node2D" parent="UI/PlayerInfoPanel" unique_id=973534739]
+
+[node name="PlayerVictoryPointsInformLabel" type="RichTextLabel" parent="UI/PlayerInfoPanel/VictoryPointsInf" unique_id=1834746145]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(230, 150)
+offset_left = 64.0
+offset_top = 12.0
+offset_right = 244.0
+offset_bottom = 62.0
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/normal_font_size = 45
+theme_override_font_sizes/bold_font_size = 45
+theme_override_font_sizes/bold_italics_font_size = 45
+theme_override_font_sizes/italics_font_size = 45
+theme_override_font_sizes/mono_font_size = 45
+bbcode_enabled = true
+text = "[color=#7CFC00] 50 / 100"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="VictoryPointsSprite2D" type="Sprite2D" parent="UI/PlayerInfoPanel/VictoryPointsInf" unique_id=1698083298]
+position = Vector2(40.69995, 38)
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("36_tlt2k")
+
+[node name="ManaInf" type="Node2D" parent="UI/PlayerInfoPanel" unique_id=1742169074]
+position = Vector2(0, 70)
+
+[node name="PlayerManaInformLabel" type="RichTextLabel" parent="UI/PlayerInfoPanel/ManaInf" unique_id=949831267]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(230, 150)
+offset_left = 64.0
+offset_top = 12.0
+offset_right = 178.0
+offset_bottom = 62.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 39
+theme_override_font_sizes/bold_font_size = 42
+theme_override_font_sizes/bold_italics_font_size = 42
+theme_override_font_sizes/italics_font_size = 42
+theme_override_font_sizes/mono_font_size = 42
+bbcode_enabled = true
+text = "[color=#89CFF0] 2 / 10"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="ManaSprite2D" type="Sprite2D" parent="UI/PlayerInfoPanel/ManaInf" unique_id=1752428299]
+position = Vector2(40.69995, 38)
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("37_8kj7l")
+
+[node name="DeckInf" type="Node2D" parent="UI/PlayerInfoPanel" unique_id=773795017]
+position = Vector2(0, 142)
+
+[node name="PlayerDeckInformLabel" type="RichTextLabel" parent="UI/PlayerInfoPanel/DeckInf" unique_id=353574111]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(230, 150)
+offset_left = 64.0
+offset_top = 12.0
+offset_right = 174.0
+offset_bottom = 62.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 39
+theme_override_font_sizes/bold_font_size = 42
+theme_override_font_sizes/bold_italics_font_size = 42
+theme_override_font_sizes/italics_font_size = 42
+theme_override_font_sizes/mono_font_size = 42
+bbcode_enabled = true
+text = "[color=#ECFFDC] 26"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DeckSprite2D" type="Sprite2D" parent="UI/PlayerInfoPanel/DeckInf" unique_id=1557321469]
+position = Vector2(40.69995, 38)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("38_1l0x6")
+
+[node name="EnemyInfoPanel" type="Panel" parent="UI" unique_id=2014636833]
+offset_left = 1348.0
+offset_top = 146.0
+offset_right = 1618.0
+offset_bottom = 371.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6i7va")
+
+[node name="VictoryPointsInf" type="Node2D" parent="UI/EnemyInfoPanel" unique_id=672438211]
+
+[node name="EnemyVictoryPointsInformLabel" type="RichTextLabel" parent="UI/EnemyInfoPanel/VictoryPointsInf" unique_id=2045426139]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(230, 150)
+offset_left = 64.0
+offset_top = 12.0
+offset_right = 244.0
+offset_bottom = 62.0
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/normal_font_size = 45
+theme_override_font_sizes/bold_font_size = 45
+theme_override_font_sizes/bold_italics_font_size = 45
+theme_override_font_sizes/italics_font_size = 45
+theme_override_font_sizes/mono_font_size = 45
+bbcode_enabled = true
+text = "[color=#ff5555] 50 / 100"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="VictoryPointsSprite2D" type="Sprite2D" parent="UI/EnemyInfoPanel/VictoryPointsInf" unique_id=819896740]
+position = Vector2(40.69995, 38)
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("36_tlt2k")
+
+[node name="ManaInf" type="Node2D" parent="UI/EnemyInfoPanel" unique_id=1305811907]
+position = Vector2(0, 70)
+
+[node name="EnemyManaInformLabel" type="RichTextLabel" parent="UI/EnemyInfoPanel/ManaInf" unique_id=832933513]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(230, 150)
+offset_left = 64.0
+offset_top = 12.0
+offset_right = 178.0
+offset_bottom = 62.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 39
+theme_override_font_sizes/bold_font_size = 42
+theme_override_font_sizes/bold_italics_font_size = 42
+theme_override_font_sizes/italics_font_size = 42
+theme_override_font_sizes/mono_font_size = 42
+bbcode_enabled = true
+text = "[color=#89CFF0] 2 / 10"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="ManaSprite2D" type="Sprite2D" parent="UI/EnemyInfoPanel/ManaInf" unique_id=359281691]
+position = Vector2(40.69995, 38)
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("37_8kj7l")
+
+[node name="DeckInf" type="Node2D" parent="UI/EnemyInfoPanel" unique_id=53950273]
+position = Vector2(0, 142)
+
+[node name="EnemyDeckInformLabel" type="RichTextLabel" parent="UI/EnemyInfoPanel/DeckInf" unique_id=992819824]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(230, 150)
+offset_left = 64.0
+offset_top = 12.0
+offset_right = 174.0
+offset_bottom = 62.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 39
+theme_override_font_sizes/bold_font_size = 42
+theme_override_font_sizes/bold_italics_font_size = 42
+theme_override_font_sizes/italics_font_size = 42
+theme_override_font_sizes/mono_font_size = 42
+bbcode_enabled = true
+text = "[color=#ECFFDC] 26"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="DeckSprite2D" type="Sprite2D" parent="UI/EnemyInfoPanel/DeckInf" unique_id=429333521]
+position = Vector2(40.69995, 38)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("38_1l0x6")
+
+[node name="LegendInfoPanel" type="Panel" parent="UI" unique_id=963880603]
+unique_name_in_owner = true
+visible = false
+z_index = 101
+offset_left = 600.0
+offset_top = 200.0
+offset_right = 1000.0
+offset_bottom = 600.0
+
+[node name="LegendInfoRichTextLabel" type="RichTextLabel" parent="UI/LegendInfoPanel" unique_id=1207406038]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 390.0
+offset_bottom = 390.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+theme_override_font_sizes/mono_font_size = 48
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fade" type="Control" parent="UI" unique_id=1366213862]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -0.004638672
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Fade" unique_id=1764183165]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -450.0
+offset_right = 800.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_13qdw")
+
+[node name="PausePanel" type="Panel" parent="UI" unique_id=285547602]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/PausePanel" unique_id=828535016]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 360.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 0.48235294)
+
+[node name="PausedLabel" type="RichTextLabel" parent="UI/PausePanel" unique_id=302534522]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -700.0
+offset_right = 700.0
+offset_bottom = 400.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.6431373, 0.84705883, 0.7882353, 1)
+theme_override_constants/outline_size = 48
+theme_override_font_sizes/normal_font_size = 372
+bbcode_enabled = true
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="paused_screen" type="Control" parent="UI/PausePanel" unique_id=1606460637]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ButtonsVBoxContainer" type="VBoxContainer" parent="UI/PausePanel/paused_screen" unique_id=1635427425]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 580.0
+offset_top = 460.0
+offset_right = 980.0
+offset_bottom = 800.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ResumButton" type="Button" parent="UI/PausePanel/paused_screen/ButtonsVBoxContainer" unique_id=264124735]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "Resume"
+
+[node name="ExitButton" type="Button" parent="UI/PausePanel/paused_screen/ButtonsVBoxContainer" unique_id=1133486022]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "Exit"
+
+[node name="AreYouSurePanel" type="Panel" parent="UI/PausePanel" unique_id=707565557]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 400.0
+offset_top = 349.0
+offset_right = 1200.0
+offset_bottom = 770.0
+
+[node name="AreYouSureLabel" type="RichTextLabel" parent="UI/PausePanel/AreYouSurePanel" unique_id=1366308454]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_top = 16.0
+offset_right = 350.0
+offset_bottom = 213.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.8745098, 0, 0.05882353, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/normal_font_size = 124
+theme_override_font_sizes/bold_font_size = 124
+theme_override_font_sizes/bold_italics_font_size = 124
+theme_override_font_sizes/italics_font_size = 124
+theme_override_font_sizes/mono_font_size = 124
+bbcode_enabled = true
+text = "Quit game?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PausePanel/AreYouSurePanel" unique_id=1593040635]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -325.0
+offset_top = 250.0
+offset_right = 325.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_constants/separation = 50
+
+[node name="YesButton" type="Button" parent="UI/PausePanel/AreYouSurePanel/HBoxContainer" unique_id=1103468756]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 120)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 84
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="UI/PausePanel/AreYouSurePanel/HBoxContainer" unique_id=1181201327]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 120)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 84
+text = "No"
+
+[node name="LosePanel" type="Panel" parent="UI" unique_id=1162150461]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/LosePanel" unique_id=1336354842]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 360.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 0.48235294)
+
+[node name="DefeatLabel" type="RichTextLabel" parent="UI/LosePanel" unique_id=2019231818]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -700.0
+offset_right = 700.0
+offset_bottom = 400.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.5588882, 0, 0.11478052, 1)
+theme_override_constants/outline_size = 48
+theme_override_font_sizes/normal_font_size = 372
+bbcode_enabled = true
+text = "DEFEAT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DefeatInfoLabel" type="RichTextLabel" parent="UI/LosePanel" unique_id=1554522888]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 0
+offset_left = 300.0
+offset_top = 400.0
+offset_right = 1300.0
+offset_bottom = 685.0
+theme_override_colors/default_color = Color(1, 0.77254903, 0.6313726, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+theme_override_font_sizes/mono_font_size = 64
+bbcode_enabled = true
+text = "Your enemy get the points!"
+horizontal_alignment = 1
+
+[node name="ExitOnDefeatButton" type="Button" parent="UI/LosePanel" unique_id=1609157963]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 0
+offset_left = 600.0
+offset_top = 738.0
+offset_right = 1000.0
+offset_bottom = 838.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "Ok.."
+
+[node name="BloodSprite1" type="Sprite2D" parent="UI/LosePanel" unique_id=264465358]
+position = Vector2(187, 477)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("39_qf0bx")
+region_enabled = true
+region_rect = Rect2(136.39972, 106.98199, 381.63312, 351.50415)
+
+[node name="BloodSprite2" type="Sprite2D" parent="UI/LosePanel" unique_id=1551010632]
+position = Vector2(1396, 558)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("39_qf0bx")
+region_enabled = true
+region_rect = Rect2(505.14703, 676.10345, 258.78912, 246.65839)
+
+[node name="BloodSprite3" type="Sprite2D" parent="UI/LosePanel" unique_id=1369328072]
+position = Vector2(319, 743)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("39_qf0bx")
+region_enabled = true
+region_rect = Rect2(687.1081, 1157.2894, 258.78912, 246.65839)
+
+[node name="BloodSprite4" type="Sprite2D" parent="UI/LosePanel" unique_id=1275431663]
+position = Vector2(1179, 727)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("39_qf0bx")
+region_enabled = true
+region_rect = Rect2(2091.3645, 618.38745, 327.53003, 420.53235)
+
+[node name="BloodSprite5" type="Sprite2D" parent="UI/LosePanel" unique_id=555147375]
+position = Vector2(80, 827)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("39_qf0bx")
+region_enabled = true
+region_rect = Rect2(2479.548, 509.21085, 214.30981, 194.09183)
+
+[node name="VictoryPanel" type="Panel" parent="UI" unique_id=941762209]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/VictoryPanel" unique_id=1702303062]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 360.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 0.48235294)
+
+[node name="VictoryLabel" type="RichTextLabel" parent="UI/VictoryPanel" unique_id=39150811]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -800.0
+offset_right = 800.0
+offset_bottom = 400.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.6300725, 3.2944162, 2.8213084, 1)
+theme_override_colors/font_outline_color = Color(0.27314225, 0.27314225, 0.27314222, 1)
+theme_override_constants/outline_size = 48
+theme_override_font_sizes/normal_font_size = 372
+bbcode_enabled = true
+text = "VICTORY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VictoryInfoLabel" type="RichTextLabel" parent="UI/VictoryPanel" unique_id=509036072]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 0
+offset_left = 300.0
+offset_top = 400.0
+offset_right = 1300.0
+offset_bottom = 600.0
+theme_override_colors/default_color = Color(0.92156863, 0.85882354, 0.9843137, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+theme_override_font_sizes/mono_font_size = 64
+bbcode_enabled = true
+text = "Good Job!"
+horizontal_alignment = 1
+
+[node name="ExitOnVictoryButton" type="Button" parent="UI/VictoryPanel" unique_id=659111946]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 0
+offset_left = 600.0
+offset_top = 650.0
+offset_right = 1000.0
+offset_bottom = 750.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "OK"
+
+[node name="MusicAutoTrigger" type="Node" parent="." unique_id=1505354949]
+unique_name_in_owner = true
+script = ExtResource("45_ubc7o")
+track = ExtResource("46_l6alp")
+volume_db = -30.0
+metadata/_custom_type_script = "uid://bg0v5cadydhqc"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1096775156]
+position = Vector2(800, 450)
+script = ExtResource("47_7780g")
+
+[node name="TutorialOverlay" parent="." unique_id=827958922 instance=ExtResource("32_nqnkl")]
+
+[node name="TutorialCycleVisualizer" parent="." unique_id=272496439 instance=ExtResource("33_lqxuy")]
