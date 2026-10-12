@@ -3,6 +3,13 @@ extends CanvasLayer
 
 ## Each panel is an independent Control and can be placed anywhere in the editor.
 @export var state_animation_player: AnimationPlayer
+@export_category("Button Glow")
+@export_range(0.1, 3.0, 0.05) var button_glow_duration: float = 0.8
+@export var button_glow_min: float = -0.2
+@export var button_glow_max: float = 0.6
+
+var _button_glow_time: float = 0.0
+var _button_original_colors: Dictionary = {}
 
 var first_animation_pass_finished: bool = true
 var _animation_name: StringName = &""
@@ -28,9 +35,12 @@ func _ready() -> void:
 	adventure_button.hide()
 	skip_button.hide()
 	status_label.hide()
+	_button_original_colors[resolve_button] = resolve_button.self_modulate
+	_button_original_colors[adventure_button] = adventure_button.self_modulate
 
 
 func _process(delta: float) -> void:
+	_update_button_glow(delta)
 	if first_animation_pass_finished or not is_instance_valid(state_animation_player):
 		return
 	if state_animation_player.current_animation != _animation_name:
@@ -172,3 +182,31 @@ func _on_animation_finished(animation_name: StringName) -> void:
 
 func _exit_tree() -> void:
 	stop_card_glow()
+
+func _update_button_glow(delta: float) -> void:
+	_button_glow_time += delta
+
+	# Един плавен преход нагоре и после обратно.
+	var weight := (
+		0.5 - 0.5 * cos(
+			PI * _button_glow_time / maxf(button_glow_duration, 0.01)
+		)
+	)
+	var intensity := lerpf(button_glow_min, button_glow_max, weight)
+	var brightness := pow(2.0, intensity)
+
+	for button: Button in [resolve_button, adventure_button]:
+		if not _button_original_colors.has(button):
+			continue
+
+		var original: Color = _button_original_colors[button]
+
+		if button.is_visible_in_tree() and not button.disabled:
+			button.self_modulate = Color(
+				original.r * brightness,
+				original.g * brightness,
+				original.b * brightness,
+				original.a
+			)
+		else:
+			button.self_modulate = original

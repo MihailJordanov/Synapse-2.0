@@ -38,6 +38,7 @@ enum Side { PLAYER, ENEMY }
 @export var place_closing_card_state: TutorialState
 @export var watch_cycle_state: TutorialState
 @export var finish_tutorial_state: TutorialState
+@export var animation_player: AnimationPlayer
 
 var current_state: TutorialState = null
 var player_score: int = 0
@@ -64,8 +65,17 @@ var _normal_icon_intensity_max: float = 0.3
 
 
 func _ready() -> void:
-	call_deferred("_start_tutorial")
+	if is_instance_valid(card_dragger):
+		card_dragger.clear_allowed_card()
 
+	if (
+		is_instance_valid(animation_player)
+		and animation_player.has_animation(&"fade_in")
+	):
+		animation_player.play(&"fade_in")
+		await animation_player.animation_finished
+
+	_start_tutorial()
 
 func _start_tutorial() -> void:
 	if overlay == null:
@@ -168,8 +178,7 @@ func is_state_active(state: TutorialState) -> bool:
 func wait_seconds(seconds: float, owner_state: TutorialState, visit: int) -> bool:
 	if not _same_visit(owner_state, visit):
 		return false
-	# Owned Timer nodes allow Skip/scene exit to release the await immediately.
-	# Unlike SceneTreeTimer, a cancelled timer cannot retain a coroutine cycle.
+	
 	var timer: Timer = Timer.new()
 	timer.one_shot = true
 	timer.wait_time = maxf(seconds, 0.001)
@@ -285,7 +294,6 @@ func _on_card_drop_requested(card: Card, slot: CardSlot) -> void:
 
 
 func try_play_unit(card: UnitCard, slot: CardSlot, side: int) -> bool:
-	# Same Hand -> CardSlot -> BoardController transaction as GameDecisionEngine.
 	if not is_instance_valid(card) or not is_instance_valid(slot) or active_side != side:
 		return false
 	var hand: TutorialHand = player_hand if side == Side.PLAYER else enemy_hand
@@ -414,7 +422,6 @@ func show_tutorial_cycle() -> bool:
 func resolve_tutorial_cycle(owner_state: TutorialState, visit: int) -> bool:
 	if not _same_visit(owner_state, visit) or _pending_cycle == null:
 		return false
-	# Stop all icon tweens before destroying their nodes; remove the arrows as well.
 	cycle_visualizer.clear_visualization()
 	var total_points: int = 0
 	var ids: Array[int] = _pending_cycle.card_ids.duplicate()
@@ -450,15 +457,15 @@ func update_info_labels() -> void:
 	_set_label(
 		player_score_label,
 		"#7CFC00",
-		"%d / %d" % [player_score, tutorial_setup.player_winning_score]
+		" %d / %d" % [player_score, tutorial_setup.player_winning_score]
 	)
 	_set_label(
-		enemy_score_label, "#ff5555", "%d / %d" % [enemy_score, tutorial_setup.enemy_winning_score]
+		enemy_score_label, "#ff5555", " %d / %d" % [enemy_score, tutorial_setup.enemy_winning_score]
 	)
 	if player_hand != null:
-		_set_label(player_deck_label, "#ECFFDC", str(player_hand.get_deck_size()))
+		_set_label(player_deck_label, "#ECFFDC", " " + str(player_hand.get_deck_size()))
 	if enemy_hand != null:
-		_set_label(enemy_deck_label, "#ECFFDC", str(enemy_hand.get_deck_size()))
+		_set_label(enemy_deck_label, "#ECFFDC", " " + str(enemy_hand.get_deck_size()))
 
 
 func fail_tutorial(message: String) -> void:
@@ -504,19 +511,31 @@ func _on_adventure_pressed() -> void:
 func _leave_for_adventure(skipped: bool) -> void:
 	if _leaving:
 		return
-	var destination: PackedScene = load(tutorial_setup.adventure_scene_path) as PackedScene
+
+	var destination := load(
+		tutorial_setup.adventure_scene_path
+	) as PackedScene
+
 	if destination == null:
-		push_warning("TutorialController: adventure_scene_path is not a loadable PackedScene.")
+		push_warning("TutorialController: Invalid adventure scene.")
 		return
+
 	_leaving = true
-	var result: Error = get_tree().change_scene_to_packed(destination)
-	if result != OK:
-		_leaving = false
-		push_warning("TutorialController: scene change failed with error %d." % result)
-		return
+
 	_stop_flow()
+
+	if (is_instance_valid(animation_player) and animation_player.has_animation(&"fade_out")):
+		animation_player.play(&"fade_out")
+		await animation_player.animation_finished
+
 	if skipped:
 		tutorial_skipped.emit()
+
+	var result := get_tree().change_scene_to_packed(destination)
+
+	if result != OK:
+		_leaving = false
+		push_warning("TutorialController: Scene change failed: %d" % result)
 
 
 func _lock_player_input() -> void:

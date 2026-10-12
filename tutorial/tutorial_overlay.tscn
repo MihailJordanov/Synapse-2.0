@@ -8,10 +8,10 @@ content_margin_top = 14.0
 content_margin_right = 18.0
 content_margin_bottom = 14.0
 bg_color = Color(0.055, 0.07, 0.1, 0.96)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 border_color = Color(0.45, 0.75, 0.85, 1)
 
 [sub_resource type="Animation" id="Animation_EnterState"]
@@ -79,6 +79,9 @@ anchor_left = 0.35
 anchor_top = 0.05
 anchor_right = 0.65
 anchor_bottom = 0.14
+offset_left = -280.0
+offset_right = 200.0
+offset_bottom = 81.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_panel")
 
@@ -89,17 +92,22 @@ theme_override_constants/separation = 14
 
 [node name="Text" type="Label" parent="UI/EnterStatePanel/Content" unique_id=1847745277]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 44
 text = "Your first battle begins."
 autowrap_mode = 3
 
 [node name="PlaceFirstCardPanel" type="PanelContainer" parent="UI" unique_id=393524154]
 visible = false
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.03
 anchor_top = 0.66
 anchor_right = 0.32
 anchor_bottom = 0.8
+offset_left = -48.0
+offset_top = -526.0
+offset_right = 416.0
+offset_bottom = -400.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_panel")
 
@@ -110,17 +118,22 @@ theme_override_constants/separation = 14
 
 [node name="Text" type="Label" parent="UI/PlaceFirstCardPanel/Content" unique_id=1815231345]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 44
 text = "Drag the glowing card into any empty slot on your side."
 autowrap_mode = 3
 
 [node name="WaitForEnemyCardPanel" type="PanelContainer" parent="UI" unique_id=369904903]
 visible = false
-layout_mode = 0
-anchor_left = 0.67
-anchor_top = 0.06
-anchor_right = 0.96
-anchor_bottom = 0.18
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.58400005
+anchor_top = 0.031000001
+anchor_right = 0.98300004
+anchor_bottom = 0.27100003
+offset_left = -0.40008545
+offset_top = 0.099998474
+offset_right = 0.19995117
+offset_bottom = 0.099975586
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_panel")
 
@@ -131,17 +144,22 @@ theme_override_constants/separation = 14
 
 [node name="Text" type="Label" parent="UI/WaitForEnemyCardPanel/Content" unique_id=1104376167]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 44
 text = "Your opponent plays a card."
 autowrap_mode = 3
 
 [node name="ExplainConnectionPanel" type="PanelContainer" parent="UI" unique_id=1902124959]
 visible = false
-layout_mode = 0
-anchor_left = 0.68
-anchor_top = 0.35
-anchor_right = 0.97
-anchor_bottom = 0.5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.71900004
+anchor_top = 0.011000001
+anchor_right = 0.99100006
+anchor_bottom = 0.31100002
+offset_left = -0.4000244
+offset_top = 0.09999943
+offset_right = 0.39990234
+offset_bottom = 0.099975586
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_panel")
 
@@ -152,17 +170,21 @@ theme_override_constants/separation = 14
 
 [node name="Text" type="Label" parent="UI/ExplainConnectionPanel/Content" unique_id=53817667]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 44
 text = "Matching symbols create a directed connection. Follow the arrow."
 autowrap_mode = 3
 
 [node name="PlaceClosingCardPanel" type="PanelContainer" parent="UI" unique_id=1739024917]
 visible = false
-layout_mode = 0
-anchor_left = 0.03
-anchor_top = 0.38
-anchor_right = 0.32
-anchor_bottom = 0.52
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.030000001
+anchor_top = 0.66800004
+anchor_right = 0.272
+anchor_bottom = 0.9480001
+offset_top = -0.2000122
+offset_right = -0.2000122
+offset_bottom = -0.20007324
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_panel")
 
@@ -173,17 +195,21 @@ theme_override_constants/separation = 14
 
 [node name="Text" type="Label" parent="UI/PlaceClosingCardPanel/Content" unique_id=879978281]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 44
 text = "Play the glowing card to close the chain!"
 autowrap_mode = 3
 
 [node name="WatchCyclePanel" type="PanelContainer" parent="UI" unique_id=26555426]
 visible = false
-layout_mode = 0
-anchor_left = 0.35
-anchor_top = 0.76
-anchor_right = 0.65
-anchor_bottom = 0.96
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.29000002
+anchor_top = 0.66400003
+anchor_right = 0.74
+anchor_bottom = 0.91400003
+offset_left = -3.0517578e-05
+offset_top = 56.399963
+offset_bottom = 56.399963
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_panel")
 
@@ -194,26 +220,31 @@ theme_override_constants/separation = 14
 
 [node name="Text" type="Label" parent="UI/WatchCyclePanel/Content" unique_id=199114117]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 44
 text = "You made a cycle! Resolve it to collect the points."
 autowrap_mode = 3
 
 [node name="ResolveCycleButton" type="Button" parent="UI/WatchCyclePanel/Content" unique_id=2102787634]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 44
 disabled = true
 text = "Resolve Cycle"
 
 [node name="FinishTutorialPanel" type="PanelContainer" parent="UI" unique_id=247300499]
 visible = false
-layout_mode = 0
-anchor_left = 0.32
-anchor_top = 0.33
-anchor_right = 0.68
-anchor_bottom = 0.62
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.21300001
+anchor_top = 0.22000001
+anchor_right = 0.753
+anchor_bottom = 0.53400004
+offset_left = 0.5329895
+offset_top = -1.5258789e-05
+offset_right = 0.532959
+offset_bottom = 0.39996338
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_panel")
 
@@ -224,16 +255,16 @@ theme_override_constants/separation = 14
 
 [node name="Text" type="Label" parent="UI/FinishTutorialPanel/Content" unique_id=194059988]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 55
 text = "First cycle completed! Your adventure awaits."
 autowrap_mode = 3
 
 [node name="StartAdventureButton" type="Button" parent="UI/FinishTutorialPanel/Content" unique_id=334646139]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 55
 disabled = true
 text = "Begin Your Adventure"
 
