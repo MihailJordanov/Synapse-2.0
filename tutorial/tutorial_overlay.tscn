@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bfj7o5b1nrq46"]
 
 [ext_resource type="Script" uid="uid://d7mjrw8g1pxd" path="res://tutorial/scripts/tutorial_overlay.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://xa0oe6upnm1d" path="res://tutorial/assets/Tavi/Front-facing Tavi pixel expression sprites.png" id="2_8pbfk"]
+[ext_resource type="Texture2D" uid="uid://b3pstxsgubsyw" path="res://tutorial/assets/Tavi/Tavi's right-facing pixel art sprite sheet.png" id="3_imvbt"]
 
 [sub_resource type="StyleBoxFlat" id="Style_panel"]
 content_margin_left = 18.0
@@ -90,11 +92,26 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 14
 
-[node name="Text" type="Label" parent="UI/EnterStatePanel/Content" unique_id=1847745277]
+[node name="EnterStateText" type="Label" parent="UI/EnterStatePanel/Content" unique_id=1847745277]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 44
 text = "Your first battle begins."
 autowrap_mode = 3
+
+[node name="EnterGameButton" type="Button" parent="UI/EnterStatePanel/Content" unique_id=1478161810]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_font_sizes/font_size = 44
+disabled = true
+text = "OK.."
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/EnterStatePanel" unique_id=822743152]
+position = Vector2(1064, 599)
+texture = ExtResource("2_8pbfk")
+hframes = 2
+vframes = 3
 
 [node name="PlaceFirstCardPanel" type="PanelContainer" parent="UI" unique_id=393524154]
 visible = false
@@ -119,21 +136,29 @@ theme_override_constants/separation = 14
 [node name="Text" type="Label" parent="UI/PlaceFirstCardPanel/Content" unique_id=1815231345]
 layout_mode = 2
 theme_override_font_sizes/font_size = 44
-text = "Drag the glowing card into any empty slot on your side."
+text = "Let’s start with this one! Drag the glowing card into any empty slot on your side."
 autowrap_mode = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/PlaceFirstCardPanel" unique_id=300571089]
+position = Vector2(1344, 576)
+scale = Vector2(-1, 1)
+texture = ExtResource("2_8pbfk")
+hframes = 2
+vframes = 3
+frame = 1
 
 [node name="WaitForEnemyCardPanel" type="PanelContainer" parent="UI" unique_id=369904903]
 visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.58400005
+anchor_left = 0.57600003
 anchor_top = 0.031000001
 anchor_right = 0.98300004
-anchor_bottom = 0.27100003
-offset_left = -0.40008545
+anchor_bottom = 0.321
+offset_left = 0.39996338
 offset_top = 0.099998474
 offset_right = 0.19995117
-offset_bottom = 0.099975586
+offset_bottom = 0.1000061
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_panel")
 
@@ -145,18 +170,34 @@ theme_override_constants/separation = 14
 [node name="Text" type="Label" parent="UI/WaitForEnemyCardPanel/Content" unique_id=1104376167]
 layout_mode = 2
 theme_override_font_sizes/font_size = 44
-text = "Your opponent plays a card."
+text = "Now it’s your opponent’s turn. Let’s see what they play!"
 autowrap_mode = 3
+
+[node name="YourOpponentPlayCardOkButton" type="Button" parent="UI/WaitForEnemyCardPanel/Content" unique_id=644312065]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_font_sizes/font_size = 44
+disabled = true
+text = "Show me!"
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/WaitForEnemyCardPanel" unique_id=1768761714]
+position = Vector2(422, 616)
+scale = Vector2(-1, 1)
+texture = ExtResource("3_imvbt")
+hframes = 2
+vframes = 3
+frame = 4
 
 [node name="ExplainConnectionPanel" type="PanelContainer" parent="UI" unique_id=1902124959]
 visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.71900004
+anchor_left = 0.614
 anchor_top = 0.011000001
 anchor_right = 0.99100006
-anchor_bottom = 0.31100002
-offset_left = -0.4000244
+anchor_bottom = 0.411
+offset_left = 0.5999756
 offset_top = 0.09999943
 offset_right = 0.39990234
 offset_bottom = 0.099975586
@@ -171,20 +212,36 @@ theme_override_constants/separation = 14
 [node name="Text" type="Label" parent="UI/ExplainConnectionPanel/Content" unique_id=53817667]
 layout_mode = 2
 theme_override_font_sizes/font_size = 44
-text = "Matching symbols create a directed connection. Follow the arrow."
+text = "See those matching symbols? They connect the cards! The arrow shows which way the connection goes."
 autowrap_mode = 3
+
+[node name="MatchingSymbolsButton" type="Button" parent="UI/ExplainConnectionPanel/Content" unique_id=719277674]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+theme_override_font_sizes/font_size = 44
+disabled = true
+text = "Got it!"
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/ExplainConnectionPanel" unique_id=1437563090]
+position = Vector2(361, 634)
+scale = Vector2(-1, 1)
+texture = ExtResource("2_8pbfk")
+hframes = 2
+vframes = 3
+frame = 1
 
 [node name="PlaceClosingCardPanel" type="PanelContainer" parent="UI" unique_id=1739024917]
 visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.030000001
-anchor_top = 0.66800004
-anchor_right = 0.272
+anchor_top = 0.61600006
+anchor_right = 0.303
 anchor_bottom = 0.9480001
-offset_top = -0.2000122
-offset_right = -0.2000122
-offset_bottom = -0.20007324
+offset_top = -0.4000244
+offset_right = 0.19998169
+offset_bottom = 1.7999268
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_panel")
 
@@ -196,20 +253,29 @@ theme_override_constants/separation = 14
 [node name="Text" type="Label" parent="UI/PlaceClosingCardPanel/Content" unique_id=879978281]
 layout_mode = 2
 theme_override_font_sizes/font_size = 44
-text = "Play the glowing card to close the chain!"
+text = "Ooh, this card is just what we need! Play it to connect the chain back to the first card."
 autowrap_mode = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/PlaceClosingCardPanel" unique_id=1306916934]
+position = Vector2(1296, 90)
+scale = Vector2(-1, 1)
+texture = ExtResource("2_8pbfk")
+hframes = 2
+vframes = 3
+frame = 1
 
 [node name="WatchCyclePanel" type="PanelContainer" parent="UI" unique_id=26555426]
 visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.29000002
-anchor_top = 0.66400003
+anchor_left = 0.034
+anchor_top = 0.68700004
 anchor_right = 0.74
-anchor_bottom = 0.91400003
-offset_left = -3.0517578e-05
-offset_top = 56.399963
-offset_bottom = 56.399963
+anchor_bottom = 0.97700006
+offset_left = -36.4
+offset_top = -0.30004883
+offset_right = -36.0
+offset_bottom = -0.30004883
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_panel")
 
@@ -221,29 +287,36 @@ theme_override_constants/separation = 14
 [node name="Text" type="Label" parent="UI/WatchCyclePanel/Content" unique_id=199114117]
 layout_mode = 2
 theme_override_font_sizes/font_size = 44
-text = "You made a cycle! Resolve it to collect the points."
+text = "You did it - a cycle! Resolve it to collect points from all three cards. Yes, your opponent’s card counts too!"
 autowrap_mode = 3
 
 [node name="ResolveCycleButton" type="Button" parent="UI/WatchCyclePanel/Content" unique_id=2102787634]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 theme_override_font_sizes/font_size = 44
 disabled = true
 text = "Resolve Cycle"
 
+[node name="Sprite2D" type="Sprite2D" parent="UI/WatchCyclePanel" unique_id=1513317558]
+position = Vector2(1326, -134)
+scale = Vector2(-1, 1)
+texture = ExtResource("3_imvbt")
+hframes = 2
+vframes = 3
+frame = 1
+
 [node name="FinishTutorialPanel" type="PanelContainer" parent="UI" unique_id=247300499]
 visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.21300001
+anchor_left = 0.149
 anchor_top = 0.22000001
-anchor_right = 0.753
+anchor_right = 0.81700003
 anchor_bottom = 0.53400004
-offset_left = 0.5329895
+offset_left = 0.59999084
 offset_top = -1.5258789e-05
-offset_right = 0.532959
+offset_right = 0.46594238
 offset_bottom = 0.39996338
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_panel")
@@ -256,7 +329,7 @@ theme_override_constants/separation = 14
 [node name="Text" type="Label" parent="UI/FinishTutorialPanel/Content" unique_id=194059988]
 layout_mode = 2
 theme_override_font_sizes/font_size = 55
-text = "First cycle completed! Your adventure awaits."
+text = "Three points and your first victory! Ready to explore? I’m coming with you!"
 autowrap_mode = 3
 
 [node name="StartAdventureButton" type="Button" parent="UI/FinishTutorialPanel/Content" unique_id=334646139]
@@ -266,7 +339,14 @@ custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 theme_override_font_sizes/font_size = 55
 disabled = true
-text = "Begin Your Adventure"
+text = "Let’s explore!"
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/FinishTutorialPanel" unique_id=1496449653]
+position = Vector2(1105, 446)
+scale = Vector2(-1, 1)
+texture = ExtResource("2_8pbfk")
+hframes = 2
+vframes = 3
 
 [node name="SkipTutorialButton" type="Button" parent="UI" unique_id=1804137131]
 unique_name_in_owner = true

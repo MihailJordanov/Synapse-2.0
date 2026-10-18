@@ -22,7 +22,11 @@ var _card_glow_tween: Tween = null
 @onready var resolve_button: Button = %ResolveCycleButton
 @onready var adventure_button: Button = %StartAdventureButton
 @onready var skip_button: Button = %SkipTutorialButton
+@onready var your_opponent_play_card_ok_button: Button = %YourOpponentPlayCardOkButton
+@onready var matching_symbols_button: Button = %MatchingSymbolsButton
 @onready var status_label: Label = %TutorialStatusLabel
+@onready var enter_state_text: Label = %EnterStateText
+@onready var enter_game_button: Button = %EnterGameButton
 
 
 func _ready() -> void:

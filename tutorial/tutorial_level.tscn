@@ -5,12 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://ci5eme0ewwipd" path="res://card_slot/card_slot.tscn" id="3_orfrm"]
 [ext_resource type="Script" uid="uid://nsgup3c83mhh" path="res://tutorial/scripts/tutorial_setup.gd" id="4_gs5mo"]
 [ext_resource type="Script" uid="uid://co7dqbw3yfbvw" path="res://tutorial/scripts/tutorial_controller.gd" id="5_5egvi"]
+[ext_resource type="AudioStream" uid="uid://blgnf83h5i7vb" path="res://music/SFX/states_effects/player_draw_card.wav" id="5_8vnq2"]
+[ext_resource type="AudioStream" uid="uid://bpuhebv2ydrj8" path="res://music/SFX/states_effects/enemy_draw_card.wav" id="6_bm62k"]
 [ext_resource type="Script" uid="uid://dmvtiipe12tit" path="res://tutorial/scripts/tutorial_hand.gd" id="6_wsq5q"]
+[ext_resource type="AudioStream" uid="uid://0bmixn5qduk2" path="res://music/SFX/card effects/placing_card.wav" id="7_w7k8m"]
 [ext_resource type="Script" uid="uid://c6wwlh0x8joh2" path="res://tutorial/scripts/states/enter_state.gd" id="8_i4ohe"]
+[ext_resource type="AudioStream" uid="uid://6a5d3dg3nqcl" path="res://music/SFX/states_effects/enemy_make_cycle.wav" id="8_nqnkl"]
 [ext_resource type="Script" uid="uid://cckpq4bgfygfo" path="res://tutorial/scripts/states/place_first_card_state.gd" id="9_jaen7"]
 [ext_resource type="Script" uid="uid://da8vivm4h5d8k" path="res://level/game/board_controller.gd" id="9_jtyhe"]
+[ext_resource type="AudioStream" uid="uid://b7sdrrakrgwiy" path="res://music/SFX/explosion/pixel_explosion.wav" id="9_nqnkl"]
 [ext_resource type="Script" uid="uid://fjphy2qfl4g" path="res://tutorial/scripts/states/wait_for_enemy_card_state.gd" id="10_lqt55"]
+[ext_resource type="AudioStream" uid="uid://c7vocdsd5wpur" path="res://music/SFX/explosion/small_explosion.wav" id="10_lqxuy"]
 [ext_resource type="Script" uid="uid://byyfdssg07rpx" path="res://tutorial/scripts/states/explain_connection_state.gd" id="11_0ulwj"]
+[ext_resource type="AudioStream" uid="uid://bvojnaglmfdqm" path="res://music/SFX/explosion/cartoon_explosion.wav" id="11_ffc7c"]
 [ext_resource type="Script" uid="uid://clqyavv6yr8b4" path="res://tutorial/scripts/states/place_closing_card_state.gd" id="12_8vnq2"]
 [ext_resource type="Script" uid="uid://dmmaamxlenpia" path="res://tutorial/scripts/states/watch_cycle_state.gd" id="13_bm62k"]
 [ext_resource type="Script" uid="uid://cgy8i83cpj7wn" path="res://tutorial/scripts/states/finish_tutorial_state.gd" id="14_w7k8m"]
@@ -324,6 +331,11 @@ player_first_play_id = 11000
 enemy_first_play_id = 11001
 player_second_play_id = 11002
 adventure_scene_path = "uid://bt2sjgne4pf7y"
+player_draw_sound = ExtResource("5_8vnq2")
+enemy_draw_sound = ExtResource("6_bm62k")
+placing_card_sound = ExtResource("7_w7k8m")
+cycle_sound = ExtResource("8_nqnkl")
+explosion_sounds = Array[AudioStream]([ExtResource("9_nqnkl"), ExtResource("10_lqxuy"), ExtResource("11_ffc7c")])
 
 [node name="TutorialController" type="Node2D" parent="." unique_id=2086973841 node_paths=PackedStringArray("tutorial_setup", "board_controller", "player_hand", "enemy_hand", "card_dragger", "player_slots", "enemy_slots", "overlay", "cycle_visualizer", "player_score_label", "enemy_score_label", "player_deck_label", "enemy_deck_label", "enter_state", "place_first_card_state", "wait_for_enemy_card_state", "explain_connection_state", "place_closing_card_state", "watch_cycle_state", "finish_tutorial_state", "animation_player")]
 unique_name_in_owner = true
