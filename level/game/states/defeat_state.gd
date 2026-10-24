@@ -42,7 +42,7 @@ func enter() -> void:
 
 
 func _get_defeat_money_reward() -> int:
-	var money_range: Vector2i = fsm.level_controller.level_setup.money_reward_range
+	var money_range: Vector2i = fsm.level_controller.money_reward_range
 	var minimum_money: int = mini(money_range.x, money_range.y)
 	var maximum_money: int = maxi(money_range.x, money_range.y)
 	var random_money: int = fsm.rng.randi_range(minimum_money, maximum_money)
@@ -62,7 +62,7 @@ func _update_defeat_info() -> void:
 
 
 func _on_exit_on_defeat_button_pressed() -> void:
-	var return_scene_path: String = fsm.level_controller.level_setup.return_scene_path
+	var return_scene_path: String = fsm.level_controller.return_scene_path
 
 	if return_scene_path.is_empty():
 		push_warning("DefeatState: Return scene path is empty.")

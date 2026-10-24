@@ -14,15 +14,16 @@ func enter() -> void:
 	if fsm.current_state != self:
 		return
 
-	await fsm.level_controller.level_setup.setup_finished
+	if not fsm.level_controller.is_setup_finished:
+		await fsm.level_controller.setup_finished
 
 	if fsm.current_state != self:
 		return
 
-	fsm.player_hand.setup_deck(fsm.level_controller.player_deck)
-	fsm.player_hand.setup_spell_deck(fsm.level_controller.player_spell_deck)
-	fsm.enemy_hand.setup_deck(fsm.level_controller.enemy_deck)
-	fsm.enemy_hand.setup_spell_deck(fsm.level_controller.enemy_spell_deck)
+	fsm.player_hand.setup_deck(fsm.level_controller.player_deck_cards)
+	fsm.player_hand.setup_spell_deck(fsm.level_controller.player_spell_deck_cards)
+	fsm.enemy_hand.setup_deck(fsm.level_controller.enemy_deck_cards)
+	fsm.enemy_hand.setup_spell_deck(fsm.level_controller.enemy_spell_deck_cards)
 
 	for _i: int in range(fsm.initial_draw_count):
 		_draw_initial_card(GameDecisionEngine.Side.PLAYER)
@@ -31,7 +32,7 @@ func enter() -> void:
 
 	var player_starts: bool = false
 	
-	if fsm.level_controller.level_setup.is_player_start_first:
+	if fsm.level_controller.is_player_start_first:
 		player_starts = true
 	else:
 		player_starts = fsm.rng.randi_range(0, 1) == 0

@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://wb3t0sue3yq1" path="res://level/assets/background_1.png" id="4_43ii6"]
 [ext_resource type="Texture2D" uid="uid://cl7w36okis8je" path="res://card/assets/spell_card_back.png" id="5_ldw2c"]
 [ext_resource type="Texture2D" uid="uid://cc1mnhmr0xayn" path="res://card/assets/deck_image.png" id="5_o7jp2"]
-[ext_resource type="Script" uid="uid://bhxoerid6jsh5" path="res://level/code/level_setup.gd" id="6_dfdxi"]
 [ext_resource type="Script" uid="uid://ryk5vi51obof" path="res://level/code/level_controller.gd" id="6_i2c4w"]
 [ext_resource type="Script" uid="uid://dsmm1foce55mm" path="res://level/hand/hand/hand.gd" id="7_05d1k"]
 [ext_resource type="Texture2D" uid="uid://bm3gb1nod1qlt" path="res://legends/assets/legend_border.png" id="7_6i7va"]
@@ -636,7 +635,7 @@ tracks/3/keys = {
 tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("LevelSetup")
+tracks/4/path = NodePath("LevelController")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -945,7 +944,7 @@ tracks/3/keys = {
 tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("LevelSetup")
+tracks/4/path = NodePath("LevelController")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1056,7 +1055,7 @@ tracks/4/keys = {
 tracks/5/type = "method"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("LevelSetup")
+tracks/5/path = NodePath("LevelController")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1165,16 +1164,12 @@ position = Vector2(1100, 250)
 visible = false
 position = Vector2(1270, 250)
 
-[node name="LevelSetup" type="Node" parent="." unique_id=2073246435]
-unique_name_in_owner = true
-script = ExtResource("6_dfdxi")
-player_name = "Misho"
-enemy_name = "Voldemor"
-
 [node name="LevelController" type="Node2D" parent="." unique_id=2086973841]
 unique_name_in_owner = true
 script = ExtResource("6_i2c4w")
+player_name = "Misho"
 player_legend = ExtResource("8_rb6lq")
+enemy_name = "Voldemor"
 
 [node name="Hands" type="Node2D" parent="." unique_id=1465348749]
 

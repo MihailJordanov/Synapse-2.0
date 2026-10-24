@@ -42,14 +42,14 @@ func enter() -> void:
 
 
 func _grant_victory_rewards() -> void:
-	var level_setup: LevelSetup = fsm.level_controller.level_setup
+	var level: LevelController = fsm.level_controller
 
-	if not level_setup.level_id.is_empty():
-		LevelManager.defeat_level(level_setup.level_id)
+	if not level.level_id.is_empty():
+		LevelManager.defeat_level(level.level_id)
 
-	unlocked_levels = _unlock_new_levels(level_setup.levels_unlocked_on_victory)
-	received_money = _get_random_money(level_setup.money_reward_range)
-	received_cards = _unlock_random_cards(level_setup.card_rewards)
+	unlocked_levels = _unlock_new_levels(level.levels_unlocked_on_victory)
+	received_money = _get_random_money(level.money_reward_range)
+	received_cards = _unlock_random_cards(level.card_rewards)
 
 
 func _unlock_new_levels(level_ids: Array[String]) -> Array[String]:
@@ -113,7 +113,7 @@ func _update_victory_info() -> void:
 	victory_info_label.text = "\n".join(information)
 
 func _on_exit_on_victory_button_pressed() -> void:
-	var return_scene_path: String = fsm.level_controller.level_setup.return_scene_path
+	var return_scene_path: String = fsm.level_controller.return_scene_path
 
 	if return_scene_path.is_empty():
 		push_warning("VictoryState: Return scene path is empty.")
