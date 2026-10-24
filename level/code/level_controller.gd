@@ -35,6 +35,7 @@ class LaunchData:
 	var money_reward_range: Vector2i = Vector2i(15, 20)
 	var card_rewards: Array[String] = []
 	var return_scene_path: String = ""
+	var play_with_tavi: bool = false
 
 static var _launch_data: LaunchData = null
 
@@ -68,9 +69,14 @@ static var _launch_data: LaunchData = null
 @export var money_reward_range: Vector2i = Vector2i(15, 20)
 @export var card_rewards: Array[String] = []
 
+@export_category("Helpers")
+## Tavi shows hints during the battle (first turn + when the player is idle).
+@export var play_with_tavi: bool = false
+
 
 @onready var game_decision_engine: GameDecisionEngine = %GameDecisionEngine
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var tavi_guide: TaviGuide = %TaviGuide
 
 #region /// intro UI
 @onready var player_name_label: RichTextLabel = %PlayerNameLabel
@@ -125,7 +131,8 @@ static func prepare_level(
 	selected_levels_unlocked_on_victory: Array[String],
 	selected_money_reward_range: Vector2i,
 	selected_card_rewards: Array[String],
-	selected_return_scene_path: String
+	selected_return_scene_path: String,
+	selected_play_with_tavi: bool = false
 ) -> void:
 	var data := LaunchData.new()
 	data.level_id = selected_level_id
@@ -139,6 +146,7 @@ static func prepare_level(
 	data.money_reward_range = selected_money_reward_range
 	data.card_rewards = selected_card_rewards.duplicate()
 	data.return_scene_path = selected_return_scene_path
+	data.play_with_tavi = selected_play_with_tavi
 	_launch_data = data
 
 
@@ -150,6 +158,7 @@ func _ready() -> void:
 	_apply_rules_to_engine()
 	_setup_legends_ui()
 	_connect_signals()
+	tavi_guide.setup(game_decision_engine, play_with_tavi)
 
 	_play_intro()
 
@@ -189,6 +198,7 @@ func _apply_launch_data(data: LaunchData) -> void:
 	money_reward_range = data.money_reward_range
 	card_rewards = data.card_rewards.duplicate()
 	return_scene_path = data.return_scene_path
+	play_with_tavi = data.play_with_tavi
 
 
 func _apply_rules_to_engine() -> void:
@@ -447,6 +457,7 @@ func pause_game() -> void:
 	resum_button.show()
 	exit_button.show()
 	pause_panel.show()
+	tavi_guide.set_paused(true)
 	get_tree().paused = true
 
 
@@ -454,6 +465,7 @@ func resume_game() -> void:
 	pause_panel.hide()
 	are_you_sure_panel.hide()
 	pause_button.show()
+	tavi_guide.set_paused(false)
 	get_tree().paused = false
 
 

@@ -500,6 +500,7 @@ enemy_texture = ExtResource("5_c312w")
 deck = ExtResource("6_ojoh7")
 levels_unlocked_on_victory = Array[String](["A02"])
 card_rewards = Array[String](["21000", "21001", "21002"])
+play_with_tavi = true
 
 [node name="LevelSelectorA02" parent="Levels" unique_id=161474578 instance=ExtResource("4_pnnc3")]
 position = Vector2(1009, 343)

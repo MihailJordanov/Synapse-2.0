@@ -204,7 +204,8 @@ func _on_play_button_pressed() -> void:
 		selected_level_selector.levels_unlocked_on_victory,
 		selected_level_selector.money_reward_range,
 		selected_level_selector.card_rewards,
-		get_tree().current_scene.scene_file_path
+		get_tree().current_scene.scene_file_path,
+		selected_level_selector.play_with_tavi
 	)
 
 	animation_player.play("fade_out")

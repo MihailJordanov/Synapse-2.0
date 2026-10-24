@@ -24,6 +24,10 @@ signal level_deselected(level_selector: LevelSelector)
 @export var money_reward_range: Vector2i = Vector2i(15, 20)
 @export var card_rewards: Array[String] = []
 
+@export_category("Helpers")
+## Tavi gives hints during this battle.
+@export var play_with_tavi: bool = false
+
 @onready var level_selector_button: TextureButton = %LevelSelectorButton
 @onready var enemy_image_texture_rect: TextureRect = %EnemyImageTextureRect
 @onready var is_clear_texture: TextureRect = %IsClearTexture

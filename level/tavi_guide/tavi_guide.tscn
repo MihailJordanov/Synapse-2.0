@@ -1,0 +1,69 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://level/tavi_guide/tavi_guide.gd" id="1_guide"]
+[ext_resource type="Texture2D" path="res://tutorial/assets/Tavi/Front-facing Tavi pixel expression sprites.png" id="2_tavi"]
+[ext_resource type="Texture2D" path="res://level/tavi_guide/assets/tavi_arrow.png" id="3_arrow"]
+
+[sub_resource type="StyleBoxFlat" id="Style_speech"]
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+bg_color = Color(0.055, 0.07, 0.1, 0.94)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.45, 0.75, 0.85, 1)
+
+[node name="TaviGuide" type="CanvasLayer"]
+layer = 40
+script = ExtResource("1_guide")
+
+[node name="TaviRoot" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 250.0
+offset_right = 950.0
+offset_bottom = 490.0
+mouse_filter = 2
+
+[node name="TaviSprite" type="Sprite2D" parent="TaviRoot"]
+unique_name_in_owner = true
+position = Vector2(150, 120)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("2_tavi")
+hframes = 2
+vframes = 3
+frame = 1
+
+[node name="SpeechPanel" type="PanelContainer" parent="TaviRoot"]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 55.0
+offset_right = 920.0
+offset_bottom = 185.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_speech")
+
+[node name="SpeechLabel" type="RichTextLabel" parent="TaviRoot/SpeechPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+bbcode_enabled = true
+text = "Your turn! Drag a card from your hand onto an empty slot on your side."
+fit_content = true
+scroll_active = false
+autowrap_mode = 3
+theme_override_font_sizes/normal_font_size = 34
+
+[node name="ButtonArrow" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+position = Vector2(340, 570)
+scale = Vector2(4, 4)
+texture = ExtResource("3_arrow")
