@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://ct0cjfub1nk2v"]
 
 [ext_resource type="Texture2D" uid="uid://mrbf2gsew70q" path="res://map/assets/maps/Synapse_pixeled.png" id="1_tbg47"]
-[ext_resource type="Shader" uid="uid://cgwfw65kjsxrm" path="res://map/scripts/materials/panel_wood.gdshader" id="2_70p4u"]
 [ext_resource type="PackedScene" uid="uid://dl4m4rwsnq42r" path="res://map/level_bounds.tscn" id="2_wjadj"]
 [ext_resource type="Script" uid="uid://cfb6p4sd1rrxi" path="res://map/scripts/map_camera.gd" id="3_v0ysp"]
 [ext_resource type="Texture2D" uid="uid://btd17nyb7qkuu" path="res://map/assets/light/light_stream.jpg" id="4_qqobk"]
@@ -15,24 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://bvmhabrc5b4cd" path="res://map/assets/maps/scroll_anim_2.png" id="12_8ta2u"]
 [ext_resource type="Shader" uid="uid://drd84k43pmbtm" path="res://map/scripts/materials/zone_view.gdshader" id="13_bgocw"]
 [ext_resource type="Texture2D" uid="uid://c2ns76638smwn" path="res://map/assets/zone_templates/zone_a_Greenheart_Vale.png" id="14_70p4u"]
+[ext_resource type="Texture2D" uid="uid://bkcfpof2v21cr" path="res://map/assets/ui/ui_buttons_panel.png" id="90_panel"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_70p4u"]
-shader = ExtResource("2_70p4u")
-shader_parameter/panel_size = Vector2(500, 200)
-shader_parameter/pixel_size = 3.0
-shader_parameter/cluster_size = 18.0
-shader_parameter/wood_light = Color(0.67320424, 0.42588124, 0.2045049, 1)
-shader_parameter/wood_middle = Color(0.67815113, 0.3997686, 0.1944823, 1)
-shader_parameter/wood_dark = Color(0.6493968, 0.36771238, 0.19425729, 1)
-shader_parameter/enable_top_border = true
-shader_parameter/border_color = Color(0.16, 0.075, 0.03, 1)
-shader_parameter/border_light_color = Color(0.40166676, 0.21884844, 0.118220635, 1)
-shader_parameter/border_base_depth = 6.0
-shader_parameter/border_irregularity = 4.0
-shader_parameter/border_cluster_width = 12.0
-shader_parameter/drip_chance = 0.0999999977648
-shader_parameter/drip_length = 2.0
-shader_parameter/drip_width = 5.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
+texture = ExtResource("90_panel")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bgocw"]
 bg_color = Color(0, 0.6392157, 0.73333335, 1)
@@ -566,6 +551,72 @@ _data = {
 &"start_pulse": SubResource("Animation_s6yhq")
 }
 
+[sub_resource type="Gradient" id="Gradient_fade"]
+offsets = PackedFloat32Array(0.5, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0.40784314)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fade"]
+gradient = SubResource("Gradient_fade")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Animation" id="Animation_fade_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeLayer/Fade:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2400, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fade_in"]
+resource_name = "fade_in"
+length = 0.3
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeLayer/Fade:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2600, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fade_out"]
+resource_name = "fade_out"
+length = 0.3
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeLayer/Fade:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-2400, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fade"]
+_data = {
+&"RESET": SubResource("Animation_fade_reset"),
+&"fade_in": SubResource("Animation_fade_in"),
+&"fade_out": SubResource("Animation_fade_out")
+}
+
 [node name="MainMap" type="Node2D" unique_id=1605820528]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=138317155]
@@ -580,6 +631,7 @@ unique_name_in_owner = true
 script = ExtResource("3_v0ysp")
 min_zoom = 1.0
 max_zoom = 1.0
+start_offset = Vector2(0, 200)
 
 [node name="Zones" type="Node2D" parent="." unique_id=803071509]
 script = ExtResource("6_ojhv3")
@@ -963,7 +1015,7 @@ vertical_alignment = 1
 
 [node name="UI_Buttons_Panel" type="Panel" parent="CanvasLayer" unique_id=280240797]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_70p4u")
+texture_filter = 1
 anchors_preset = -1
 anchor_left = -0.012
 anchor_top = 0.808
@@ -974,6 +1026,7 @@ offset_top = -0.2000122
 offset_bottom = 2.0003662
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
 
 [node name="ScrollSprite2D" type="Sprite2D" parent="CanvasLayer" unique_id=1156937233]
 modulate = Color(1, 1, 1, 0)
@@ -1062,3 +1115,36 @@ libraries/ = SubResource("AnimationLibrary_wjadj")
 [node name="AnimationPlayer_start_here" type="AnimationPlayer" parent="." unique_id=826384604]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_kxref")
+
+[node name="FadeLayer" type="CanvasLayer" parent="." unique_id=1996281197]
+layer = 10
+
+[node name="Fade" type="Control" parent="FadeLayer" unique_id=1194531756]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2400.0
+offset_right = -2400.0044
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="FadeLayer/Fade" unique_id=1216344543]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -450.0
+offset_right = 800.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_fade")
+
+[node name="FadeAnimationPlayer" type="AnimationPlayer" parent="." unique_id=529482267]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_fade")

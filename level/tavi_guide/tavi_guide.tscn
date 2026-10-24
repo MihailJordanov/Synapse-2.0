@@ -1,8 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bvf1c0gtrbclv"]
 
-[ext_resource type="Script" path="res://level/tavi_guide/tavi_guide.gd" id="1_guide"]
-[ext_resource type="Texture2D" path="res://tutorial/assets/Tavi/Front-facing Tavi pixel expression sprites.png" id="2_tavi"]
-[ext_resource type="Texture2D" path="res://level/tavi_guide/assets/tavi_arrow.png" id="3_arrow"]
+[ext_resource type="Script" uid="uid://bjxiopx4hkafu" path="res://level/tavi_guide/tavi_guide.gd" id="1_guide"]
+[ext_resource type="Texture2D" uid="uid://xa0oe6upnm1d" path="res://tutorial/assets/Tavi/Front-facing Tavi pixel expression sprites.png" id="2_tavi"]
+[ext_resource type="Texture2D" uid="uid://du1rk2qlltf6" path="res://level/tavi_guide/assets/tavi_arrow.png" id="3_arrow"]
 
 [sub_resource type="StyleBoxFlat" id="Style_speech"]
 content_margin_left = 18.0
@@ -16,11 +16,11 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.45, 0.75, 0.85, 1)
 
-[node name="TaviGuide" type="CanvasLayer"]
+[node name="TaviGuide" type="CanvasLayer" unique_id=1748690272]
 layer = 40
 script = ExtResource("1_guide")
 
-[node name="TaviRoot" type="Control" parent="."]
+[node name="TaviRoot" type="Control" parent="." unique_id=2009315420]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
@@ -30,7 +30,7 @@ offset_right = 950.0
 offset_bottom = 490.0
 mouse_filter = 2
 
-[node name="TaviSprite" type="Sprite2D" parent="TaviRoot"]
+[node name="TaviSprite" type="Sprite2D" parent="TaviRoot" unique_id=1236018713]
 unique_name_in_owner = true
 position = Vector2(150, 120)
 scale = Vector2(0.42, 0.42)
@@ -39,7 +39,7 @@ hframes = 2
 vframes = 3
 frame = 1
 
-[node name="SpeechPanel" type="PanelContainer" parent="TaviRoot"]
+[node name="SpeechPanel" type="PanelContainer" parent="TaviRoot" unique_id=610729537]
 layout_mode = 0
 offset_left = 300.0
 offset_top = 55.0
@@ -48,19 +48,18 @@ offset_bottom = 185.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_speech")
 
-[node name="SpeechLabel" type="RichTextLabel" parent="TaviRoot/SpeechPanel"]
+[node name="SpeechLabel" type="RichTextLabel" parent="TaviRoot/SpeechPanel" unique_id=757308529]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 34
 bbcode_enabled = true
 text = "Your turn! Drag a card from your hand onto an empty slot on your side."
 fit_content = true
 scroll_active = false
-autowrap_mode = 3
-theme_override_font_sizes/normal_font_size = 34
 
-[node name="ButtonArrow" type="Sprite2D" parent="."]
+[node name="ButtonArrow" type="Sprite2D" parent="." unique_id=79626034]
 unique_name_in_owner = true
 visible = false
 texture_filter = 1

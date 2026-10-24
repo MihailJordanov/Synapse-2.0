@@ -528,6 +528,9 @@ func _leave_for_adventure(skipped: bool) -> void:
 		animation_player.play(&"fade_out")
 		await animation_player.animation_finished
 
+	# Finishing or skipping both count as "tutorial passed".
+	PlayerDataManager.complete_start_tutorial()
+
 	if skipped:
 		tutorial_skipped.emit()
 

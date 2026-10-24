@@ -22,6 +22,10 @@ const ZONE_INFOS: Dictionary = {
 }
 #endregion
 
+const ZONE_SCENES: Dictionary = {
+	"A": "res://zones/zones_scenes/zone_a.tscn"
+}
+
 const START_ZONE: String = "A"
 const START_PULSE_ANIMATION: StringName = &"start_pulse"
 
@@ -33,6 +37,7 @@ const START_PULSE_ANIMATION: StringName = &"start_pulse"
 @onready var map_camera: MapCamera = %MapCamera2D
 @onready var animation_player_start_here: AnimationPlayer = %AnimationPlayer_start_here
 @onready var ui_buttons_panel: Panel = %UI_Buttons_Panel
+@onready var fade_animation_player: AnimationPlayer = %FadeAnimationPlayer
 
 var areas: Dictionary = {}
 var zones: Dictionary = {}
@@ -42,6 +47,9 @@ var selected_zone: String = ""
 var is_scroll_open: bool = false
 var is_animating: bool = false
 var hovered_zone: String = ""
+
+## Only exists while the first zone tutorial is running.
+var _tavi: TaviHelper = null
 
 
 func _ready() -> void:
@@ -56,7 +64,10 @@ func _ready() -> void:
 
 	_update_start_hint()
 
-	_setup_wood_material()
+	fade_animation_player.play("fade_in")
+
+	if not PlayerDataManager.is_first_zone_tutorial_completed():
+		_start_first_zone_tutorial()
 
 
 func _cache_zones() -> void:
@@ -157,6 +168,7 @@ func _open_zone(zone_letter: String) -> void:
 	await animation_player.animation_finished
 
 	is_animating = false
+	_tavi_on_zone_opened(zone_letter)
 
 
 
@@ -194,10 +206,29 @@ func _on_roll_up_button_pressed() -> void:
 
 	await get_tree().process_frame
 	_update_start_hint()
-	
+	_tavi_show_pick_zone()
+
 
 func _on_play_button_pressed() -> void:
-	pass
+	if not is_scroll_open or is_animating or selected_zone.is_empty():
+		return
+
+	var zone_scene_path: String = str(ZONE_SCENES.get(selected_zone, ""))
+
+	if zone_scene_path.is_empty():
+		push_warning("MapZones: No scene for zone " + selected_zone)
+		return
+
+	play_button.disabled = true
+
+	if _tavi != null:
+		_tavi.clear_arrows()
+		_tavi.hide_tavi()
+
+	fade_animation_player.play("fade_out")
+	await fade_animation_player.animation_finished
+
+	get_tree().change_scene_to_file(zone_scene_path)
 
 
 func _on_zone_unlocked(zone_letter: String) -> void:
@@ -265,28 +296,69 @@ func _stop_hint_animation() -> void:
 		animation_player_start_here.stop()
 
 
-func _setup_wood_material() -> void:
-	if ui_buttons_panel.material == null:
-		push_warning("UI_Buttons_Panel does not have a material.")
+#region /// first zone tutorial (Tavi)
+
+func _start_first_zone_tutorial() -> void:
+	_tavi = TaviHelper.create(self)
+	_tavi_show_pick_zone()
+
+
+func _tavi_show_pick_zone() -> void:
+	if _tavi == null:
 		return
 
-	# Всеки Panel получава собствено копие на материала.
-	ui_buttons_panel.material = ui_buttons_panel.material.duplicate()
-
-	if not ui_buttons_panel.resized.is_connected(_update_wood_material):
-		ui_buttons_panel.resized.connect(_update_wood_material)
-
-	_update_wood_material()
-
-
-func _update_wood_material() -> void:
-	var shader_material := ui_buttons_panel.material as ShaderMaterial
-
-	if shader_material == null:
-		push_warning("UI_Buttons_Panel material is not a ShaderMaterial.")
-		return
-
-	shader_material.set_shader_parameter(
-		"panel_size",
-		ui_buttons_panel.size
+	_tavi.clear_arrows()
+	_tavi.say(
+		"Welcome to the world map! Click on [color=#62ff90]Greenheart Vale[/color] to begin your journey.",
+		TaviHelper.Face.POINT
 	)
+
+	var area: Area2D = areas.get(START_ZONE)
+
+	if area == null:
+		return
+
+	var top_center: Vector2 = _get_area_top_center(area)
+	_tavi.point_at_world(area, top_center + Vector2(0.0, -20.0), Vector2.DOWN)
+
+
+func _tavi_on_zone_opened(zone_letter: String) -> void:
+	if _tavi == null:
+		return
+
+	_tavi.clear_arrows()
+
+	if zone_letter != START_ZONE:
+		return
+
+	_tavi.say(
+		"Greenheart Vale is a peaceful valley - the perfect place for your first battles. Press [color=#ffe28a]Play[/color] to enter!",
+		TaviHelper.Face.PRESENT,
+		true  # the bottom is covered by the scroll and the Play button
+	)
+	_tavi.point_at_control(play_button)
+
+
+## Top-center of the zone's collision polygon, in the area's local space.
+func _get_area_top_center(area: Area2D) -> Vector2:
+	for child in area.get_children():
+		var polygon_node := child as CollisionPolygon2D
+
+		if polygon_node == null or polygon_node.polygon.is_empty():
+			continue
+
+		var min_x: float = INF
+		var max_x: float = -INF
+		var min_y: float = INF
+
+		for point: Vector2 in polygon_node.polygon:
+			var local_point: Vector2 = polygon_node.transform * point
+			min_x = minf(min_x, local_point.x)
+			max_x = maxf(max_x, local_point.x)
+			min_y = minf(min_y, local_point.y)
+
+		return Vector2((min_x + max_x) * 0.5, min_y)
+
+	return Vector2.ZERO
+
+#endregion

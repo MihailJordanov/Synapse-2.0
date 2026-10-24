@@ -7,4 +7,5 @@ func enter() -> void:
 		return
 	tutorial.overlay.adventure_button.disabled = false
 	tutorial.overlay.adventure_button.show()
+	PlayerDataManager.complete_start_tutorial()
 	tutorial.tutorial_completed.emit()

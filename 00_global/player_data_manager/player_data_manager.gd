@@ -3,6 +3,7 @@ extends Node
 signal player_name_changed(player_name: String)
 signal player_icon_changed(icon_id: int)
 signal icon_unlocked(icon_id: int)
+signal tutorial_progress_changed
 
 const SAVE_PATH: String = "user://player_data.json"
 const SAVE_VERSION: int = 1
@@ -15,6 +16,10 @@ var player_name: String = ""
 var player_icon_id: int = NO_ICON_ID
 var icon_ids: Array[int] = []
 var icons_data: Dictionary = {}
+
+## Onboarding progress (saved in player_data.json).
+var start_tutorial_completed: bool = false
+var first_zone_tutorial_completed: bool = false
 
 func _ready() -> void:
 	_load_icons_data()
@@ -75,6 +80,36 @@ func get_icon_ids() -> Array[int]:
 	return icon_ids.duplicate()
 
 
+#region /// onboarding
+
+func is_start_tutorial_completed() -> bool:
+	return start_tutorial_completed
+
+
+func complete_start_tutorial() -> void:
+	if start_tutorial_completed:
+		return
+
+	start_tutorial_completed = true
+	_save_player_data()
+	tutorial_progress_changed.emit()
+
+
+func is_first_zone_tutorial_completed() -> bool:
+	return first_zone_tutorial_completed
+
+
+func complete_first_zone_tutorial() -> void:
+	if first_zone_tutorial_completed:
+		return
+
+	first_zone_tutorial_completed = true
+	_save_player_data()
+	tutorial_progress_changed.emit()
+
+#endregion
+
+
 func _load_player_data() -> void:
 	if not FileAccess.file_exists(SAVE_PATH):
 		_create_default_save()
@@ -95,6 +130,8 @@ func _load_player_data() -> void:
 	player_name = str(data.get("player_name", "")).strip_edges()
 	player_icon_id = int(data.get("player_icon_id", NO_ICON_ID))
 	icon_ids = _read_int_array(data.get("icon_ids", []))
+	start_tutorial_completed = bool(data.get("start_tutorial_completed", false))
+	first_zone_tutorial_completed = bool(data.get("first_zone_tutorial_completed", false))
 
 	if player_icon_id != NO_ICON_ID and not icon_ids.has(player_icon_id):
 		player_icon_id = NO_ICON_ID
@@ -130,7 +167,9 @@ func _save_player_data() -> void:
 		"save_version": SAVE_VERSION,
 		"player_name": player_name,
 		"player_icon_id": player_icon_id,
-		"icon_ids": icon_ids
+		"icon_ids": icon_ids,
+		"start_tutorial_completed": start_tutorial_completed,
+		"first_zone_tutorial_completed": first_zone_tutorial_completed
 	}
 
 	file.store_string(JSON.stringify(data, "\t"))
@@ -140,6 +179,8 @@ func _create_default_save() -> void:
 	player_name = ""
 	player_icon_id = DEFAULT_ICON_ID
 	icon_ids = [DEFAULT_ICON_ID]
+	start_tutorial_completed = false
+	first_zone_tutorial_completed = false
 	_save_player_data()
 
 func get_player_icon_texture() -> Texture2D:

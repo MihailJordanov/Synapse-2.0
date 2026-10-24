@@ -39,6 +39,9 @@ var card_reward_ids: Array[int] = []
 
 var selected_level_selector: LevelSelector = null
 
+## Only exists while the first zone tutorial is running.
+var _tavi: TaviHelper = null
+
 
 func _ready() -> void:
 	card_reward_progress_bars = [
@@ -88,6 +91,10 @@ func _ready() -> void:
 	_hide_all_card_rewards()
 
 	animation_player.play("fade_in")
+
+	if not PlayerDataManager.is_first_zone_tutorial_completed():
+		_tavi = TaviHelper.create(self)
+		_tavi_show_pick_level()
 	
 
 func _on_level_selected(level_selector: LevelSelector) -> void:
@@ -99,6 +106,7 @@ func _on_level_selected(level_selector: LevelSelector) -> void:
 	_set_card_rewards(level_selector.card_rewards)
 
 	animation_player.play("unroll_scroll")
+	_tavi_on_level_selected(level_selector)
 
 
 func _on_level_deselected(level_selector: LevelSelector) -> void:
@@ -107,6 +115,7 @@ func _on_level_deselected(level_selector: LevelSelector) -> void:
 
 	selected_level_selector = null
 	call_deferred("_roll_up_if_no_level_selected")
+	_tavi_show_pick_level()
 
 
 func _roll_up_if_no_level_selected() -> void:
@@ -192,6 +201,11 @@ func _on_play_button_pressed() -> void:
 		return
 
 	play_button.disabled = true
+
+	if _tavi != null:
+		PlayerDataManager.complete_first_zone_tutorial()
+		_tavi.clear_arrows()
+		_tavi.hide_tavi()
 
 	LevelController.prepare_level(
 		selected_level_selector.level_id,
@@ -295,3 +309,34 @@ func _set_mouse_filter_recursive(node: Node) -> void:
 
 	for child in node.get_children():
 		_set_mouse_filter_recursive(child)
+
+
+#region /// first zone tutorial (Tavi)
+
+func _tavi_show_pick_level() -> void:
+	if _tavi == null or level_selectors.is_empty():
+		return
+
+	var first_level: LevelSelector = level_selectors[0]
+
+	_tavi.clear_arrows()
+	_tavi.say(
+		"Choose your first opponent - click on [color=#ffe28a]%s[/color]!" % first_level.enemy_name,
+		TaviHelper.Face.POINT
+	)
+	# Left of the level icon, pointing right (the red "!" is above it).
+	_tavi.point_at_world(first_level, Vector2(-75.0, -5.0), Vector2.RIGHT)
+
+
+func _tavi_on_level_selected(level_selector: LevelSelector) -> void:
+	if _tavi == null:
+		return
+
+	_tavi.clear_arrows()
+	_tavi.say(
+		"Beat [color=#ffe28a]%s[/color] to earn shillings and new cards. Press [color=#ffe28a]Play[/color] when you're ready!" % level_selector.enemy_name,
+		TaviHelper.Face.PRESENT
+	)
+	_tavi.point_at_control(play_button)
+
+#endregion

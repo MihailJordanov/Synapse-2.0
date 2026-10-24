@@ -6,6 +6,8 @@ extends Camera2D
 @export_range(0.1, 5.0, 0.1) var min_zoom: float = 0.5
 @export_range(0.1, 5.0, 0.1) var max_zoom: float = 2.0
 @export_range(1.01, 2.0, 0.01) var zoom_step: float = 1.15
+## Added to the camera position when the scene starts (then clamped to the bounds).
+@export var start_offset: Vector2 = Vector2.ZERO
 
 var is_mouse_dragging: bool = false
 var touches: Dictionary = {}
@@ -14,6 +16,8 @@ var is_input_enabled: bool = true
 func _ready() -> void:
 	await get_tree().process_frame
 	_adjust_zoom_to_bounds()
+	_clamp_camera()
+	global_position += start_offset
 	_clamp_camera()
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 

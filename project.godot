@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Synapse 2.0"
-run/main_scene="uid://bfbe0ek8mejsn"
+run/main_scene="res://00_global/boot/boot.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
