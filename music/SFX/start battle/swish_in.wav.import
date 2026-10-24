@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ba7pfyj4wccyt"
+path="res://.godot/imported/swish_in.wav-76c6658cd9eb201b44c10d47dc94f8ec.sample"
+
+[deps]
+
+source_file="res://music/SFX/start battle/swish_in.wav"
+dest_files=["res://.godot/imported/swish_in.wav-76c6658cd9eb201b44c10d47dc94f8ec.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

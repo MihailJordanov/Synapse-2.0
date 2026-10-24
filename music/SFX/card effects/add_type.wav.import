@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cq350dpaypdct"
+path="res://.godot/imported/add_type.wav-782bf917444361a196f0a7c1c38a1c4d.sample"
+
+[deps]
+
+source_file="res://music/SFX/card effects/add_type.wav"
+dest_files=["res://.godot/imported/add_type.wav-782bf917444361a196f0a7c1c38a1c4d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

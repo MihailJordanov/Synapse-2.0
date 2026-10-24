@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dcw0phtmgbf2g"
+path="res://.godot/imported/start_battle_effect_2.wav-21b4c26d57f038b02d20ad9e63b952df.sample"
+
+[deps]
+
+source_file="res://music/SFX/start battle/start_battle_effect_2.wav"
+dest_files=["res://.godot/imported/start_battle_effect_2.wav-21b4c26d57f038b02d20ad9e63b952df.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

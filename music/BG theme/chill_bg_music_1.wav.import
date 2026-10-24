@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b777ks7xe7kaj"
+path="res://.godot/imported/chill_bg_music_1.wav-3deeb6ada273f1d5d9c97943d61fa23b.sample"
+
+[deps]
+
+source_file="res://music/BG theme/chill_bg_music_1.wav"
+dest_files=["res://.godot/imported/chill_bg_music_1.wav-3deeb6ada273f1d5d9c97943d61fa23b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
