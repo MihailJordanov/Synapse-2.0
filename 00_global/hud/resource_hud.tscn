@@ -1,0 +1,82 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://00_global/hud/resource_hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" path="res://00_global/hud/assets/hud_panel.png" id="2_panel"]
+[ext_resource type="Texture2D" path="res://00_global/hud/assets/stamina_icon.png" id="3_stamina"]
+[ext_resource type="Texture2D" path="res://00_global/hud/assets/money_icon.png" id="4_money"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hud"]
+content_margin_left = 22.0
+content_margin_top = 12.0
+content_margin_right = 26.0
+content_margin_bottom = 12.0
+texture = ExtResource("2_panel")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1
+
+[node name="ResourceHud" type="PanelContainer"]
+texture_filter = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -236.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 84.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_hud")
+script = ExtResource("1_hud")
+
+[node name="Items" type="HBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 24
+alignment = 2
+
+[node name="MoneyBox" type="HBoxContainer" parent="Items"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MoneyIcon" type="TextureRect" parent="Items/MoneyBox"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("4_money")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MoneyLabel" type="Label" parent="Items/MoneyBox"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 34
+text = "0"
+
+[node name="StaminaBox" type="HBoxContainer" parent="Items"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StaminaIcon" type="TextureRect" parent="Items/StaminaBox"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3_stamina")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StaminaLabel" type="Label" parent="Items/StaminaBox"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 34
+text = "60/60"

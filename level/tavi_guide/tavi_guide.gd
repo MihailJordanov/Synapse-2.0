@@ -34,12 +34,7 @@ enum Face { WAVE, POINT, PRESENT, WORRIED, DETERMINED, SAD }
 @export var button_pulse_max: float = 0.55
 @export_range(0.1, 3.0, 0.05) var button_pulse_duration: float = 0.6
 
-const BUTTON_MESSAGES: Dictionary = {
-	"End Turn": "Nicely done! Press [color=#ffe28a]End Turn[/color] to pass the turn.",
-	"Resolve": "A cycle! Press [color=#ffe28a]Resolve[/color] to destroy the linked cards.",
-	"Clear Board": "The board is full! Press [color=#ffe28a]Clear Board[/color].",
-	"Skip Turn": "No moves left. Press [color=#ffe28a]Skip Turn[/color].",
-}
+## Tavi's lines live in tutorial/tavi_helper/tavi_lines.gd (TaviLines).
 
 @onready var tavi_root: Control = %TaviRoot
 @onready var tavi_sprite: Sprite2D = %TaviSprite
@@ -182,7 +177,7 @@ func _set_need(need: Need, button_text: String) -> void:
 	match need:
 		Need.PLAY_CARD:
 			if _guided_player_turn:
-				_show_tavi("Your turn! Drag a card from your hand onto an empty slot on your side.", Face.POINT)
+				_show_tavi(TaviLines.BATTLE_YOUR_TURN, Face.POINT)
 			elif not _guided_enemy_turn:
 				_hide_tavi()
 
@@ -223,12 +218,12 @@ func _update_idle_hints() -> void:
 
 		match _need:
 			Need.PLAY_CARD:
-				_show_tavi("Psst! Try playing one of your cards.", Face.POINT, idle_hint_duration)
+				_show_tavi(TaviLines.BATTLE_IDLE_PLAY_CARD, Face.POINT, idle_hint_duration)
 			Need.PRESS_BUTTON:
 				_start_button_hint()
 				_show_tavi(_get_button_message(_need_button_text), Face.WAVE, idle_hint_duration)
 			Need.SELECT_TARGET:
-				_show_tavi("Pick a card on the board for your spell.", Face.POINT, idle_hint_duration)
+				_show_tavi(TaviLines.BATTLE_IDLE_PICK_TARGET, Face.POINT, idle_hint_duration)
 
 	if _need == Need.PLAY_CARD and _pulsing_card == null and _idle_time >= idle_seconds + pulse_delay_after_hint:
 		_start_random_card_pulse()
@@ -256,15 +251,15 @@ func _on_state_changed(_previous: State, current: State) -> void:
 
 		if _guided_enemy_turn:
 			if _fsm.player_turn_count == 0:
-				_enemy_wait_message = "The bad guy goes first this time. Let's wait and watch!"
+				_enemy_wait_message = TaviLines.BATTLE_ENEMY_FIRST
 			else:
-				_enemy_wait_message = "Now it's the enemy's turn. Wait and see what they do!"
+				_enemy_wait_message = TaviLines.BATTLE_ENEMY_TURN
 			_show_tavi(_enemy_wait_message, Face.WORRIED)
 		else:
 			_hide_tavi()
 
 	elif current == _fsm.select_card_on_board_state and _guided_player_turn:
-		_show_tavi("Now pick a card on the board for your spell.", Face.POINT)
+		_show_tavi(TaviLines.BATTLE_PICK_TARGET_GUIDED, Face.POINT)
 
 	elif current == _fsm.victory_state or current == _fsm.defeat_state:
 		_guided_player_turn = false
@@ -273,10 +268,10 @@ func _on_state_changed(_previous: State, current: State) -> void:
 
 
 func _get_button_message(button_text: String) -> String:
-	if BUTTON_MESSAGES.has(button_text):
-		return BUTTON_MESSAGES[button_text]
+	if TaviLines.BATTLE_BUTTONS.has(button_text):
+		return TaviLines.BATTLE_BUTTONS[button_text]
 
-	return "Press [color=#ffe28a]%s[/color]!" % button_text
+	return TaviLines.BATTLE_BUTTON_FALLBACK % button_text
 
 #endregion
 

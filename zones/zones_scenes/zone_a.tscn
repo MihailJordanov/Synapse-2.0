@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://cblr4o2il8a3v" path="res://zones/asstes/sprites/checkbox.png" id="11_yk2tl"]
 [ext_resource type="PackedScene" uid="uid://40bostkv6fia" path="res://collection/spell_card_examlpe.tscn" id="14_kgpea"]
 [ext_resource type="PackedScene" uid="uid://82pqfndoqpac" path="res://collection/unit_card_example.tscn" id="15_bcmc5"]
+[ext_resource type="PackedScene" path="res://00_global/hud/resource_hud.tscn" id="90_hud"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojoh7"]
 bg_color = Color(0, 0.6392157, 0.73333335, 1)
@@ -498,6 +499,7 @@ position = Vector2(780, 379)
 enemy_name = "Tin-Can"
 enemy_texture = ExtResource("5_c312w")
 deck = ExtResource("6_ojoh7")
+stamina_cost = 10
 levels_unlocked_on_victory = Array[String](["A02"])
 card_rewards = Array[String](["21000", "21001", "21002"])
 features_unlocked_on_victory = Array[String](["collection"])
@@ -510,6 +512,7 @@ enemy_name = "Sir Pip"
 enemy_name_color = Color(0.8569273, 0.8569273, 0.8569273, 1)
 enemy_texture = ExtResource("8_o080f")
 deck = ExtResource("6_ojoh7")
+stamina_cost = 12
 money_reward_range = Vector2i(16, 22)
 card_rewards = Array[String](["11012", "11013", "11014"])
 
@@ -528,9 +531,9 @@ vframes = 6
 unique_name_in_owner = true
 visible = false
 offset_left = -64.0
-offset_top = 210.00002
+offset_top = 190.0
 offset_right = 276.0
-offset_bottom = 330.0
+offset_bottom = 287.77777
 scale = Vector2(0.4, 0.6)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 80
@@ -541,14 +544,31 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_hq8yj")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yk2tl")
 text = "Play"
 
+[node name="StaminaCostLabel" type="RichTextLabel" parent="UI/ScrollSprite2D" unique_id=1899621898]
+unique_name_in_owner = true
+clip_contents = false
+offset_left = -74.5
+offset_top = 256.0
+offset_right = 225.5
+offset_bottom = 306.0
+scale = Vector2(0.5, 0.7)
+mouse_filter = 2
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "10 Stamina"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="EnemyTextureRect" type="TextureRect" parent="UI/ScrollSprite2D" unique_id=1732213549]
 unique_name_in_owner = true
 visible = false
 material = SubResource("ShaderMaterial_ojoh7")
 offset_left = -74.5
-offset_top = -249.33334
+offset_top = -269.333
 offset_right = 25.5
-offset_bottom = -149.33334
+offset_bottom = -169.333
 scale = Vector2(1.5, 2)
 texture = ExtResource("5_c312w")
 expand_mode = 5
@@ -558,9 +578,9 @@ unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 clip_contents = false
 offset_left = -74.5
-offset_top = -40.666668
+offset_top = -60.6667
 offset_right = 225.5
-offset_bottom = 122.190475
+offset_bottom = 102.19
 scale = Vector2(0.5, 0.7)
 theme_override_constants/outline_size = 14
 theme_override_font_sizes/normal_font_size = 56
@@ -578,9 +598,9 @@ unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 clip_contents = false
 offset_left = -81.0
-offset_top = 70.666664
+offset_top = 50.6667
 offset_right = 245.0
-offset_bottom = 176.38095
+offset_bottom = 156.381
 scale = Vector2(0.5, 0.7)
 theme_override_constants/outline_size = 14
 theme_override_font_sizes/normal_font_size = 36
@@ -599,9 +619,9 @@ vertical_alignment = 1
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 offset_left = -76.00002
-offset_top = 166.0
+offset_top = 146.0
 offset_right = 448.99997
-offset_bottom = 243.0
+offset_bottom = 223.0
 scale = Vector2(0.3, 0.4)
 theme_override_constants/separation = 20
 alignment = 1
@@ -705,6 +725,16 @@ unique_name_in_owner = true
 modulate = Color(0.35694852, 0.99350613, 0.26711637, 1)
 position = Vector2(57.666664, 13.333374)
 texture = ExtResource("11_yk2tl")
+
+[node name="ResourceHud" parent="UI" unique_id=865655131 instance=ExtResource("90_hud")]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 240.0
+offset_bottom = 88.0
+grow_horizontal = 1
 
 [node name="Fade" type="Control" parent="UI" unique_id=520666209]
 layout_mode = 3

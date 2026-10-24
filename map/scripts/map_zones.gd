@@ -333,7 +333,7 @@ func _tavi_show_pick_zone() -> void:
 
 	_tavi.clear_arrows()
 	_tavi.say(
-		"Welcome to the world map! Click on [color=#62ff90]Greenheart Vale[/color] to begin your journey.",
+		TaviLines.MAP_PICK_ZONE,
 		TaviHelper.Face.POINT
 	)
 
@@ -356,7 +356,7 @@ func _tavi_on_zone_opened(zone_letter: String) -> void:
 		return
 
 	_tavi.say(
-		"Greenheart Vale is a peaceful valley - the perfect place for your first battles. Press [color=#ffe28a]Play[/color] to enter!",
+		TaviLines.MAP_ZONE_OPENED,
 		TaviHelper.Face.PRESENT,
 		true  # the bottom is covered by the scroll and the Play button
 	)

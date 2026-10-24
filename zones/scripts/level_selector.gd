@@ -18,6 +18,8 @@ signal level_deselected(level_selector: LevelSelector)
 @export_category("Level Rules")
 @export_range(1, 100, 1) var player_winning_score: int = 10
 @export_range(1, 100, 1) var enemy_winning_score: int = 10
+## Stamina needed to start this level.
+@export_range(0, 200, 1) var stamina_cost: int = 5
 
 @export_category("Victory Rewards")
 @export var levels_unlocked_on_victory: Array[String] = []

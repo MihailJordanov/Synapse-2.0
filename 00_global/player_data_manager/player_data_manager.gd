@@ -5,6 +5,7 @@ signal player_icon_changed(icon_id: int)
 signal icon_unlocked(icon_id: int)
 signal tutorial_progress_changed
 signal feature_unlocked(feature_id: String)
+signal money_changed(money: int)
 
 const SAVE_PATH: String = "user://player_data.json"
 const SAVE_VERSION: int = 1
@@ -15,6 +16,9 @@ const ICONS_DATA_PATH: String = "res://data/icons/icons.json"
 ## Feature ids for unlockable menu buttons (any string works, these are the known ones).
 const FEATURE_COLLECTION: String = "collection"
 const FEATURE_SHOP: String = "shop"
+
+## Stamina cap for a new save. Logic lives in StaminaManager.
+const DEFAULT_MAX_STAMINA: int = 60
 
 
 var player_name: String = ""
@@ -27,6 +31,14 @@ var start_tutorial_completed: bool = false
 var first_zone_tutorial_completed: bool = false
 ## Unlocked features (menu buttons on the main map etc.).
 var unlocked_features: Array[String] = []
+
+## Shillings.
+var money: int = 0
+
+## Stamina data (read/written by StaminaManager).
+var stamina: int = DEFAULT_MAX_STAMINA
+var max_stamina: int = DEFAULT_MAX_STAMINA
+var stamina_last_tick_unix: int = 0
 
 func _ready() -> void:
 	_load_icons_data()
@@ -83,6 +95,11 @@ func get_player_icon_id() -> int:
 	return player_icon_id
 
 
+## Writes player_data.json (used by StaminaManager and other systems that edit the fields).
+func save_data() -> void:
+	_save_player_data()
+
+
 func get_icon_ids() -> Array[int]:
 	return icon_ids.duplicate()
 
@@ -113,6 +130,34 @@ func complete_first_zone_tutorial() -> void:
 	first_zone_tutorial_completed = true
 	_save_player_data()
 	tutorial_progress_changed.emit()
+
+#endregion
+
+
+#region /// money
+
+func get_money() -> int:
+	return money
+
+
+func add_money(amount: int) -> void:
+	if amount <= 0:
+		return
+
+	money += amount
+	_save_player_data()
+	money_changed.emit(money)
+
+
+## Returns false (and spends nothing) if there is not enough money.
+func try_spend_money(amount: int) -> bool:
+	if amount < 0 or money < amount:
+		return false
+
+	money -= amount
+	_save_player_data()
+	money_changed.emit(money)
+	return true
 
 #endregion
 
@@ -177,6 +222,10 @@ func _load_player_data() -> void:
 	start_tutorial_completed = bool(data.get("start_tutorial_completed", false))
 	first_zone_tutorial_completed = bool(data.get("first_zone_tutorial_completed", false))
 	unlocked_features = _read_string_array(data.get("unlocked_features", []))
+	money = maxi(int(data.get("money", 0)), 0)
+	max_stamina = maxi(int(data.get("max_stamina", DEFAULT_MAX_STAMINA)), 1)
+	stamina = maxi(int(data.get("stamina", max_stamina)), 0)
+	stamina_last_tick_unix = int(data.get("stamina_last_tick_unix", 0))
 
 	if player_icon_id != NO_ICON_ID and not icon_ids.has(player_icon_id):
 		player_icon_id = NO_ICON_ID
@@ -215,7 +264,11 @@ func _save_player_data() -> void:
 		"icon_ids": icon_ids,
 		"start_tutorial_completed": start_tutorial_completed,
 		"first_zone_tutorial_completed": first_zone_tutorial_completed,
-		"unlocked_features": unlocked_features
+		"unlocked_features": unlocked_features,
+		"money": money,
+		"stamina": stamina,
+		"max_stamina": max_stamina,
+		"stamina_last_tick_unix": stamina_last_tick_unix
 	}
 
 	file.store_string(JSON.stringify(data, "\t"))
@@ -228,6 +281,10 @@ func _create_default_save() -> void:
 	start_tutorial_completed = false
 	first_zone_tutorial_completed = false
 	unlocked_features = []
+	money = 0
+	max_stamina = DEFAULT_MAX_STAMINA
+	stamina = DEFAULT_MAX_STAMINA
+	stamina_last_tick_unix = 0
 	_save_player_data()
 
 func get_player_icon_texture() -> Texture2D:

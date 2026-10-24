@@ -50,6 +50,7 @@ func _grant_victory_rewards() -> void:
 
 	unlocked_levels = _unlock_new_levels(level.levels_unlocked_on_victory)
 	received_money = _get_random_money(level.money_reward_range)
+	PlayerDataManager.add_money(received_money)
 	received_cards = _unlock_random_cards(level.card_rewards)
 	unlocked_features = _unlock_features(level.features_unlocked_on_victory)
 
@@ -111,7 +112,7 @@ func _unlock_random_cards(card_ids: Array[String]) -> Array[String]:
 func _update_victory_info() -> void:
 	var information: Array[String] = []
 
-	information.append("[font_size=70][color=#ffe28a]+ %d[/color][/font_size] [font_size=62][color=#d9b85f]sh.[/color][/font_size]" % received_money)
+	information.append("[font_size=70][color=#ffe28a]+ %d[/color][/font_size] [img=60x60]res://00_global/hud/assets/money_icon.png[/img]" % received_money)
 	if received_cards.size() == 1:
 		information.append("[font_size=70][color=#a1fff0]1[/color][/font_size] [font_size=62][color=#f2f7ff]new card![/color][/font_size]")
 	elif received_cards.size() > 1:

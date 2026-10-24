@@ -29,6 +29,7 @@ func enter() -> void:
 
 	if not reward_granted:
 		received_money = _get_defeat_money_reward()
+		PlayerDataManager.add_money(received_money)
 		reward_granted = true
 
 	_update_defeat_info()
@@ -58,7 +59,7 @@ func _update_defeat_info() -> void:
 	else:
 		defeat_reason = "You have no more cards you can play."
 
-	defeat_info_label.text = "[font_size=64][color=#e9eef5]%s[/color][/font_size]\n\n[font_size=70][color=#ffe28a]+ %d[/color][/font_size] [font_size=62][color=#d9b85f]sh.[/color][/font_size]" % [defeat_reason, received_money]
+	defeat_info_label.text = "[font_size=64][color=#e9eef5]%s[/color][/font_size]\n\n[font_size=70][color=#ffe28a]+ %d[/color][/font_size] [img=60x60]res://00_global/hud/assets/money_icon.png[/img]" % [defeat_reason, received_money]
 
 
 func _on_exit_on_defeat_button_pressed() -> void:

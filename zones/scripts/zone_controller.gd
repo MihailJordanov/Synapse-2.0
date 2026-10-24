@@ -2,10 +2,13 @@ class_name ZoneController
 extends Node
 
 const MAIN_LEVEL: PackedScene = preload("uid://bfbe0ek8mejsn")
+const STAMINA_ICON_PATH: String = "res://00_global/hud/assets/stamina_icon.png"
+const MONEY_ICON_PATH: String = "res://00_global/hud/assets/money_icon.png"
 
 @export var level_selectors: Array[LevelSelector] = []
 
 @onready var play_button: Button = %PlayButton
+@onready var stamina_cost_label: RichTextLabel = %StaminaCostLabel
 @onready var enemy_texture: TextureRect = %EnemyTextureRect
 @onready var enemy_name_label: RichTextLabel = %EnemyNameRichTextLabel
 @onready var reward_info_label: RichTextLabel = %RewardInfoRichTextLabel
@@ -71,6 +74,15 @@ func _ready() -> void:
 	card_reward_ids.resize(card_reward_progress_bars.size())
 	card_reward_ids.fill(0)
 
+	# Fallback: if the exported list is empty (e.g. lost on save), find the selectors in the scene.
+	if level_selectors.is_empty():
+		for node in find_children("*", "Node2D", true, false):
+			if node is LevelSelector:
+				level_selectors.append(node as LevelSelector)
+
+		if not level_selectors.is_empty():
+			push_warning("ZoneController: level_selectors was empty, found %d in the scene." % level_selectors.size())
+
 	for level_selector in level_selectors:
 		level_selector.level_selected.connect(_on_level_selected)
 		level_selector.level_deselected.connect(_on_level_deselected)
@@ -88,6 +100,9 @@ func _ready() -> void:
 	_set_mouse_filter_recursive(unit_card_example)
 
 	play_button.pressed.connect(_on_play_button_pressed)
+	play_button.visibility_changed.connect(_on_play_button_visibility_changed)
+	StaminaManager.stamina_changed.connect(_on_stamina_changed)
+	StaminaManager.refresh()
 	_hide_all_card_rewards()
 
 	animation_player.play("fade_in")
@@ -104,6 +119,7 @@ func _on_level_selected(level_selector: LevelSelector) -> void:
 	_set_enemy_name(level_selector.enemy_name, level_selector.enemy_name_color)
 	_set_reward_info(level_selector.money_reward_range)
 	_set_card_rewards(level_selector.card_rewards)
+	_update_stamina_cost()
 
 	animation_player.play("unroll_scroll")
 	_tavi_on_level_selected(level_selector)
@@ -130,7 +146,7 @@ func _set_reward_info(money_range: Vector2i) -> void:
 		+ str(money_range.x)
 		+ " - "
 		+ str(money_range.y)
-		+ " sh.[/color]"
+		+ "[/color] [img=32x32]" + MONEY_ICON_PATH + "[/img]"
 	)
 
 
@@ -200,6 +216,11 @@ func _on_play_button_pressed() -> void:
 	if selected_level_selector == null:
 		return
 
+	if not StaminaManager.try_spend(selected_level_selector.stamina_cost):
+		Audio.ui_error()
+		_update_stamina_cost()
+		return
+
 	play_button.disabled = true
 
 	if _tavi != null:
@@ -226,6 +247,30 @@ func _on_play_button_pressed() -> void:
 	animation_player.play("fade_out")
 	await animation_player.animation_finished
 	get_tree().change_scene_to_packed(MAIN_LEVEL)
+
+#region /// stamina
+
+func _update_stamina_cost() -> void:
+	if selected_level_selector == null:
+		return
+
+	var cost: int = selected_level_selector.stamina_cost
+	var can_afford: bool = StaminaManager.can_afford(cost)
+	var color: String = "#fff1c1" if can_afford else "#ff5555"
+
+	stamina_cost_label.text = "[color=%s]%d[/color] [img=32x32]%s[/img]" % [color, cost, STAMINA_ICON_PATH]
+	play_button.disabled = not can_afford
+
+
+func _on_stamina_changed(_current: int, _maximum: int) -> void:
+	_update_stamina_cost()
+
+
+func _on_play_button_visibility_changed() -> void:
+	stamina_cost_label.visible = play_button.visible
+
+#endregion
+
 
 func _sort_card_rewards(first_card_id: String, second_card_id: String) -> bool:
 	var first_priority: int = _get_card_reward_priority(first_card_id)
@@ -322,7 +367,7 @@ func _tavi_show_pick_level() -> void:
 
 	_tavi.clear_arrows()
 	_tavi.say(
-		"Choose your first opponent - click on [color=#ffe28a]%s[/color]!" % first_level.enemy_name,
+		TaviLines.ZONE_PICK_LEVEL % first_level.enemy_name,
 		TaviHelper.Face.POINT
 	)
 	# Left of the level icon, pointing right (the red "!" is above it).
@@ -335,7 +380,7 @@ func _tavi_on_level_selected(level_selector: LevelSelector) -> void:
 
 	_tavi.clear_arrows()
 	_tavi.say(
-		"Beat [color=#ffe28a]%s[/color] to earn shillings and new cards. Press [color=#ffe28a]Play[/color] when you're ready!" % level_selector.enemy_name,
+		TaviLines.ZONE_LEVEL_SELECTED % level_selector.enemy_name,
 		TaviHelper.Face.PRESENT
 	)
 	_tavi.point_at_control(play_button)
