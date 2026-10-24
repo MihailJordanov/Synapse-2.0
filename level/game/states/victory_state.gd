@@ -13,6 +13,7 @@ var rewards_granted: bool = false
 var received_money: int = 0
 var received_cards: Array[String] = []
 var unlocked_levels: Array[String] = []
+var unlocked_features: Array[String] = []
 
 func _ready() -> void:
 	exit_on_victory_button.pressed.connect(_on_exit_on_victory_button_pressed)
@@ -50,6 +51,7 @@ func _grant_victory_rewards() -> void:
 	unlocked_levels = _unlock_new_levels(level.levels_unlocked_on_victory)
 	received_money = _get_random_money(level.money_reward_range)
 	received_cards = _unlock_random_cards(level.card_rewards)
+	unlocked_features = _unlock_features(level.features_unlocked_on_victory)
 
 
 func _unlock_new_levels(level_ids: Array[String]) -> Array[String]:
@@ -66,6 +68,16 @@ func _unlock_new_levels(level_ids: Array[String]) -> Array[String]:
 		new_levels.append(level_id)
 
 	return new_levels
+
+
+func _unlock_features(feature_ids: Array[String]) -> Array[String]:
+	var new_features: Array[String] = []
+
+	for feature_id in feature_ids:
+		if PlayerDataManager.unlock_feature(feature_id):
+			new_features.append(feature_id)
+
+	return new_features
 
 
 func _get_random_money(money_range: Vector2i) -> int:
@@ -109,6 +121,9 @@ func _update_victory_info() -> void:
 		information.append("[font_size=70][color=#a1fff0]1[/color][/font_size] [font_size=62][color=#f2f7ff]new level![/color][/font_size]")
 	elif unlocked_levels.size() > 1:
 		information.append("[font_size=70][color=#a1fff0]%d[/color][/font_size] [font_size=62][color=#f2f7ff]new levels![/color][/font_size]" % unlocked_levels.size())
+
+	for feature_id in unlocked_features:
+		information.append("[font_size=62][color=#f2f7ff]%s unlocked![/color][/font_size]" % feature_id.capitalize())
 
 	victory_info_label.text = "\n".join(information)
 

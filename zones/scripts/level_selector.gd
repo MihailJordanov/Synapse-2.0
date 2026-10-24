@@ -23,6 +23,8 @@ signal level_deselected(level_selector: LevelSelector)
 @export var levels_unlocked_on_victory: Array[String] = []
 @export var money_reward_range: Vector2i = Vector2i(15, 20)
 @export var card_rewards: Array[String] = []
+## Features unlocked on the first victory, e.g. "collection", "shop".
+@export var features_unlocked_on_victory: Array[String] = []
 
 @export_category("Helpers")
 ## Tavi gives hints during this battle.

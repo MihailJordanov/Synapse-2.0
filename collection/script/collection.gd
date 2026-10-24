@@ -1,6 +1,8 @@
 class_name Collection extends CanvasLayer
 
 
+const MAIN_MAP_SCENE_PATH: String = "res://map/main_map.tscn"
+
 const MIN_UNIT_DECK_CARDS: int = 10
 const MAX_UNIT_DECK_CARDS: int = 40
 
@@ -73,6 +75,8 @@ const DEFAULT_DECK_LEGEND_ICON: Texture2D = preload("uid://xciqo3d2po72")
 @onready var and_or_filter_button: Button = %AndOrFilterButton
 @onready var set_filter_units_button: Button = %SetFilterUnitsButton
 @onready var exit_filter_button: Button = %ExitFilterButton
+@onready var exit_button: Button = %ExitButton
+@onready var scene_fader: SceneFader = %SceneFader
 @onready var filer_is_in_texture_rect: TextureRect = %FilerIsInTextureRect
 
 
@@ -173,6 +177,7 @@ func _ready() -> void:
 	and_or_filter_button.pressed.connect(_on_and_or_filter_button_pressed)
 	set_filter_units_button.pressed.connect(_on_set_filter_units_button_pressed)
 	exit_filter_button.pressed.connect(_on_exit_filter_button_pressed)
+	exit_button.pressed.connect(_on_exit_button_pressed)
 	_show_units_panel()
 	_hide_legend_deck_buttons()
 	_load_legend_collection()
@@ -1325,6 +1330,11 @@ func _on_filter_units_button_pressed() -> void:
 	_update_and_or_filter_button()
 	unit_filter_bg_panel.visible = true
 	
+func _on_exit_button_pressed() -> void:
+	exit_button.disabled = true
+	scene_fader.change_scene(MAIN_MAP_SCENE_PATH)
+
+
 func _on_exit_filter_button_pressed() -> void:
 	unit_filter_bg_panel.visible = false
 	

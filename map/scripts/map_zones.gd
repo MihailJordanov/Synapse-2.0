@@ -38,6 +38,7 @@ const START_PULSE_ANIMATION: StringName = &"start_pulse"
 @onready var animation_player_start_here: AnimationPlayer = %AnimationPlayer_start_here
 @onready var ui_buttons_panel: Panel = %UI_Buttons_Panel
 @onready var fade_animation_player: AnimationPlayer = %FadeAnimationPlayer
+@onready var menu_buttons: HBoxContainer = %MenuButtons
 
 var areas: Dictionary = {}
 var zones: Dictionary = {}
@@ -50,6 +51,7 @@ var hovered_zone: String = ""
 
 ## Only exists while the first zone tutorial is running.
 var _tavi: TaviHelper = null
+var _is_leaving: bool = false
 
 
 func _ready() -> void:
@@ -65,6 +67,12 @@ func _ready() -> void:
 	_update_start_hint()
 
 	fade_animation_player.play("fade_in")
+
+	for child in menu_buttons.get_children():
+		var menu_button := child as MapMenuButton
+
+		if menu_button != null:
+			menu_button.pressed.connect(_on_menu_button_pressed.bind(menu_button))
 
 	if not PlayerDataManager.is_first_zone_tutorial_completed():
 		_start_first_zone_tutorial()
@@ -220,6 +228,22 @@ func _on_play_button_pressed() -> void:
 		return
 
 	play_button.disabled = true
+	_leave_to(zone_scene_path)
+
+
+func _on_menu_button_pressed(menu_button: MapMenuButton) -> void:
+	if is_animating or menu_button.target_scene_path.is_empty():
+		return  # e.g. Shop: no scene yet
+
+	_leave_to(menu_button.target_scene_path)
+
+
+func _leave_to(scene_path: String) -> void:
+	if _is_leaving:
+		return
+
+	_is_leaving = true
+	map_camera.set_input_enabled(false)
 
 	if _tavi != null:
 		_tavi.clear_arrows()
@@ -228,7 +252,7 @@ func _on_play_button_pressed() -> void:
 	fade_animation_player.play("fade_out")
 	await fade_animation_player.animation_finished
 
-	get_tree().change_scene_to_file(zone_scene_path)
+	get_tree().change_scene_to_file(scene_path)
 
 
 func _on_zone_unlocked(zone_letter: String) -> void:

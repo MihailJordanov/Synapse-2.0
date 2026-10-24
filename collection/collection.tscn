@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://bxq0jgxq3bimi" path="res://collection/assets/synapse_source_icon128x128.png" id="14_oe3eu"]
 [ext_resource type="Texture2D" uid="uid://dqdifxtituiou" path="res://map/assets/maps/x_button.png" id="15_oe3eu"]
 
+[ext_resource type="PackedScene" path="res://00_global/scene_fader/scene_fader.tscn" id="90_fader"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnme7"]
 bg_color = Color(0.7882353, 0.60784316, 0.43529412, 0.9843137)
 
@@ -1618,3 +1620,6 @@ size_flags_vertical = 0
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 4
+
+[node name="SceneFader" parent="." instance=ExtResource("90_fader")]
+unique_name_in_owner = true

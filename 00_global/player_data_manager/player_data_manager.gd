@@ -4,12 +4,17 @@ signal player_name_changed(player_name: String)
 signal player_icon_changed(icon_id: int)
 signal icon_unlocked(icon_id: int)
 signal tutorial_progress_changed
+signal feature_unlocked(feature_id: String)
 
 const SAVE_PATH: String = "user://player_data.json"
 const SAVE_VERSION: int = 1
 const DEFAULT_ICON_ID: int = 1000
 const NO_ICON_ID: int = -1
 const ICONS_DATA_PATH: String = "res://data/icons/icons.json"
+
+## Feature ids for unlockable menu buttons (any string works, these are the known ones).
+const FEATURE_COLLECTION: String = "collection"
+const FEATURE_SHOP: String = "shop"
 
 
 var player_name: String = ""
@@ -20,6 +25,8 @@ var icons_data: Dictionary = {}
 ## Onboarding progress (saved in player_data.json).
 var start_tutorial_completed: bool = false
 var first_zone_tutorial_completed: bool = false
+## Unlocked features (menu buttons on the main map etc.).
+var unlocked_features: Array[String] = []
 
 func _ready() -> void:
 	_load_icons_data()
@@ -110,6 +117,43 @@ func complete_first_zone_tutorial() -> void:
 #endregion
 
 
+#region /// features
+
+func is_feature_unlocked(feature_id: String) -> bool:
+	return unlocked_features.has(feature_id)
+
+
+## Returns true if the feature was newly unlocked.
+func unlock_feature(feature_id: String) -> bool:
+	feature_id = feature_id.strip_edges()
+
+	if feature_id.is_empty() or unlocked_features.has(feature_id):
+		return false
+
+	unlocked_features.append(feature_id)
+	_save_player_data()
+	feature_unlocked.emit(feature_id)
+
+	return true
+
+
+func _read_string_array(data: Variant) -> Array[String]:
+	var result: Array[String] = []
+
+	if not data is Array:
+		return result
+
+	for value in data:
+		var text: String = str(value).strip_edges()
+
+		if not text.is_empty() and not result.has(text):
+			result.append(text)
+
+	return result
+
+#endregion
+
+
 func _load_player_data() -> void:
 	if not FileAccess.file_exists(SAVE_PATH):
 		_create_default_save()
@@ -132,6 +176,7 @@ func _load_player_data() -> void:
 	icon_ids = _read_int_array(data.get("icon_ids", []))
 	start_tutorial_completed = bool(data.get("start_tutorial_completed", false))
 	first_zone_tutorial_completed = bool(data.get("first_zone_tutorial_completed", false))
+	unlocked_features = _read_string_array(data.get("unlocked_features", []))
 
 	if player_icon_id != NO_ICON_ID and not icon_ids.has(player_icon_id):
 		player_icon_id = NO_ICON_ID
@@ -169,7 +214,8 @@ func _save_player_data() -> void:
 		"player_icon_id": player_icon_id,
 		"icon_ids": icon_ids,
 		"start_tutorial_completed": start_tutorial_completed,
-		"first_zone_tutorial_completed": first_zone_tutorial_completed
+		"first_zone_tutorial_completed": first_zone_tutorial_completed,
+		"unlocked_features": unlocked_features
 	}
 
 	file.store_string(JSON.stringify(data, "\t"))
@@ -181,6 +227,7 @@ func _create_default_save() -> void:
 	icon_ids = [DEFAULT_ICON_ID]
 	start_tutorial_completed = false
 	first_zone_tutorial_completed = false
+	unlocked_features = []
 	_save_player_data()
 
 func get_player_icon_texture() -> Texture2D:

@@ -36,6 +36,7 @@ class LaunchData:
 	var card_rewards: Array[String] = []
 	var return_scene_path: String = ""
 	var play_with_tavi: bool = false
+	var features_unlocked_on_victory: Array[String] = []
 
 static var _launch_data: LaunchData = null
 
@@ -68,6 +69,8 @@ static var _launch_data: LaunchData = null
 @export var levels_unlocked_on_victory: Array[String] = []
 @export var money_reward_range: Vector2i = Vector2i(15, 20)
 @export var card_rewards: Array[String] = []
+## Features unlocked on victory, e.g. "collection", "shop".
+@export var features_unlocked_on_victory: Array[String] = []
 
 @export_category("Helpers")
 ## Tavi shows hints during the battle (first turn + when the player is idle).
@@ -132,7 +135,8 @@ static func prepare_level(
 	selected_money_reward_range: Vector2i,
 	selected_card_rewards: Array[String],
 	selected_return_scene_path: String,
-	selected_play_with_tavi: bool = false
+	selected_play_with_tavi: bool = false,
+	selected_features_unlocked_on_victory: Array[String] = []
 ) -> void:
 	var data := LaunchData.new()
 	data.level_id = selected_level_id
@@ -147,6 +151,7 @@ static func prepare_level(
 	data.card_rewards = selected_card_rewards.duplicate()
 	data.return_scene_path = selected_return_scene_path
 	data.play_with_tavi = selected_play_with_tavi
+	data.features_unlocked_on_victory = selected_features_unlocked_on_victory.duplicate()
 	_launch_data = data
 
 
@@ -199,6 +204,7 @@ func _apply_launch_data(data: LaunchData) -> void:
 	card_rewards = data.card_rewards.duplicate()
 	return_scene_path = data.return_scene_path
 	play_with_tavi = data.play_with_tavi
+	features_unlocked_on_victory = data.features_unlocked_on_victory.duplicate()
 
 
 func _apply_rules_to_engine() -> void:

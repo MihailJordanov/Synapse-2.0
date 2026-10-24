@@ -15,6 +15,13 @@
 [ext_resource type="Shader" uid="uid://drd84k43pmbtm" path="res://map/scripts/materials/zone_view.gdshader" id="13_bgocw"]
 [ext_resource type="Texture2D" uid="uid://c2ns76638smwn" path="res://map/assets/zone_templates/zone_a_Greenheart_Vale.png" id="14_70p4u"]
 [ext_resource type="Texture2D" uid="uid://bkcfpof2v21cr" path="res://map/assets/ui/ui_buttons_panel.png" id="90_panel"]
+[ext_resource type="Script" uid="uid://dvum0qg8kr8af" path="res://map/scripts/map_menu_button.gd" id="91_menu"]
+[ext_resource type="Texture2D" uid="uid://dl5qwbh0dqnnp" path="res://map/assets/ui/buttons/collection_normal.png" id="92_cn"]
+[ext_resource type="Texture2D" uid="uid://b4kyyxcntltka" path="res://map/assets/ui/buttons/collection_hover.png" id="93_ch"]
+[ext_resource type="Texture2D" uid="uid://d2hr3to82yyte" path="res://map/assets/ui/buttons/collection_pressed.png" id="94_cp"]
+[ext_resource type="Texture2D" uid="uid://okicil1id7wk" path="res://map/assets/ui/buttons/shop_normal.png" id="95_sn"]
+[ext_resource type="Texture2D" uid="uid://bev8okljdjeag" path="res://map/assets/ui/buttons/shop_hover.png" id="96_sh"]
+[ext_resource type="Texture2D" uid="uid://b0cok4jgnfy44" path="res://map/assets/ui/buttons/shop_pressed.png" id="97_sp"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
 texture = ExtResource("90_panel")
@@ -1027,6 +1034,76 @@ offset_bottom = 2.0003662
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="MenuButtons" type="HBoxContainer" parent="CanvasLayer/UI_Buttons_Panel" unique_id=1041134627]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 34.0
+offset_right = 1560.0
+offset_bottom = -26.0
+mouse_filter = 2
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="CollectionButton" type="TextureButton" parent="CanvasLayer/UI_Buttons_Panel/MenuButtons" unique_id=270905544]
+texture_filter = 1
+custom_minimum_size = Vector2(112, 112)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("92_cn")
+texture_pressed = ExtResource("94_cp")
+texture_hover = ExtResource("93_ch")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("91_menu")
+feature_id = "collection"
+target_scene_path = "res://collection/collection.tscn"
+
+[node name="Label" type="Label" parent="CanvasLayer/UI_Buttons_Panel/MenuButtons/CollectionButton" unique_id=148133588]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -6.0
+offset_right = 30.0
+offset_bottom = 26.0
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 26
+text = "Collection"
+horizontal_alignment = 1
+
+[node name="ShopButton" type="TextureButton" parent="CanvasLayer/UI_Buttons_Panel/MenuButtons" unique_id=871648460]
+texture_filter = 1
+custom_minimum_size = Vector2(112, 112)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("95_sn")
+texture_pressed = ExtResource("97_sp")
+texture_hover = ExtResource("96_sh")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("91_menu")
+feature_id = "shop"
+
+[node name="Label" type="Label" parent="CanvasLayer/UI_Buttons_Panel/MenuButtons/ShopButton" unique_id=208465623]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -6.0
+offset_right = 30.0
+offset_bottom = 26.0
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 26
+text = "Shop"
+horizontal_alignment = 1
 
 [node name="ScrollSprite2D" type="Sprite2D" parent="CanvasLayer" unique_id=1156937233]
 modulate = Color(1, 1, 1, 0)
