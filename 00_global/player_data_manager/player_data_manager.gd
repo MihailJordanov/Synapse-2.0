@@ -276,8 +276,9 @@ func _save_player_data() -> void:
 
 func _create_default_save() -> void:
 	player_name = ""
-	player_icon_id = DEFAULT_ICON_ID
-	icon_ids = [DEFAULT_ICON_ID]
+	# The first icon (DEFAULT_ICON_ID) is given in the name entry scene after the tutorial.
+	player_icon_id = NO_ICON_ID
+	icon_ids = []
 	start_tutorial_completed = false
 	first_zone_tutorial_completed = false
 	unlocked_features = []

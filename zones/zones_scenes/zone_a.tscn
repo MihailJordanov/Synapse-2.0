@@ -16,6 +16,11 @@
 [ext_resource type="PackedScene" uid="uid://40bostkv6fia" path="res://collection/spell_card_examlpe.tscn" id="14_kgpea"]
 [ext_resource type="PackedScene" uid="uid://82pqfndoqpac" path="res://collection/unit_card_example.tscn" id="15_bcmc5"]
 [ext_resource type="PackedScene" path="res://00_global/hud/resource_hud.tscn" id="90_hud"]
+[ext_resource type="Texture2D" uid="uid://b51m73rborfia" path="res://00_global/hud/assets/hud_panel.png" id="91_panel"]
+[ext_resource type="Script" uid="uid://dvum0qg8kr8af" path="res://map/scripts/map_menu_button.gd" id="92_menu"]
+[ext_resource type="Texture2D" uid="uid://cbmvrlgumnvvb" path="res://zones/asstes/ui/map_button_normal.png" id="93_mn"]
+[ext_resource type="Texture2D" uid="uid://cvfsv3f7k4dlv" path="res://zones/asstes/ui/map_button_hover.png" id="94_mh"]
+[ext_resource type="Texture2D" uid="uid://r260nm75mbro" path="res://zones/asstes/ui/map_button_pressed.png" id="95_mp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojoh7"]
 bg_color = Color(0, 0.6392157, 0.73333335, 1)
@@ -114,6 +119,15 @@ shader_parameter/border_right = 2.0
 shader_parameter/border_top = 2.0
 shader_parameter/border_bottom = 2.0
 shader_parameter/fade_border = false
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_zone_panel"]
+texture = ExtResource("91_panel")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [sub_resource type="Gradient" id="Gradient_rb6lq"]
 offsets = PackedFloat32Array(0.5, 1)
@@ -499,6 +513,7 @@ position = Vector2(780, 379)
 enemy_name = "Tin-Can"
 enemy_texture = ExtResource("5_c312w")
 deck = ExtResource("6_ojoh7")
+player_winning_score = 5
 stamina_cost = 10
 levels_unlocked_on_victory = Array[String](["A02"])
 card_rewards = Array[String](["21000", "21001", "21002"])
@@ -725,6 +740,58 @@ unique_name_in_owner = true
 modulate = Color(0.35694852, 0.99350613, 0.26711637, 1)
 position = Vector2(57.666664, 13.333374)
 texture = ExtResource("11_yk2tl")
+
+[node name="ZoneButtonsPanel" type="Panel" parent="UI" unique_id=929903355]
+texture_filter = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 0.6667
+anchor_bottom = 1.0
+offset_top = -130.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_zone_panel")
+
+[node name="ZoneMenuButtons" type="HBoxContainer" parent="UI/ZoneButtonsPanel" unique_id=1450758054]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 14.0
+offset_right = 1040.0
+offset_bottom = -32.0
+mouse_filter = 2
+theme_override_constants/separation = 40
+
+[node name="MapButton" type="TextureButton" parent="UI/ZoneButtonsPanel/ZoneMenuButtons" unique_id=1918893672]
+texture_filter = 1
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("93_mn")
+texture_pressed = ExtResource("95_mp")
+texture_hover = ExtResource("94_mh")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("92_menu")
+target_scene_path = "res://map/main_map.tscn"
+always_visible = true
+
+[node name="Label" type="Label" parent="UI/ZoneButtonsPanel/ZoneMenuButtons/MapButton" unique_id=1471966745]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -6.0
+offset_right = 30.0
+offset_bottom = 22.0
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 22
+text = "Map"
+horizontal_alignment = 1
 
 [node name="ResourceHud" parent="UI" unique_id=865655131 instance=ExtResource("90_hud")]
 anchors_preset = 0

@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://3n4o4rhbvn11"]
 
-[ext_resource type="Texture2D" uid="uid://c88iiqgwretb8" path="res://card/assets/types.png" id="1_fjcud"]
 [ext_resource type="Script" uid="uid://bx1brg3b3cewi" path="res://card/code/unit_card.gd" id="1_nsjn3"]
 [ext_resource type="Texture2D" uid="uid://bwukkcu8kcmcw" path="res://card/assets/types_2_40px.png" id="2_r4tmy"]
 [ext_resource type="Texture2D" uid="uid://j4dmqc0syc2u" path="res://card/assets/card_back.png" id="3_dfbx1"]
+[ext_resource type="Texture2D" uid="uid://di1wdkwv8i4qc" path="res://collection/assets/types_sword_40px.png" id="3_r4tmy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(142, 227)
@@ -60,10 +60,6 @@ region = Rect2(80, 40, 40, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_pjytt"]
 atlas = ExtResource("2_r4tmy")
 region = Rect2(120, 40, 40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nxf5b"]
-atlas = ExtResource("1_fjcud")
-region = Rect2(0, 0, 37.5, 40)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13qdw"]
 bg_color = Color(0.6627451, 0.14117648, 0.19607843, 1)
@@ -240,7 +236,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
 
 [node name="A_Magical Wand" type="TextureRect" parent="Control/AttackHBoxContainer" unique_id=6634754]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
@@ -268,6 +263,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
 
 [node name="A_Teeth" type="TextureRect" parent="Control/AttackHBoxContainer" unique_id=1770169013]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
@@ -295,7 +291,7 @@ visible = false
 custom_minimum_size = Vector2(37.5, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = SubResource("AtlasTexture_nxf5b")
+texture = ExtResource("3_r4tmy")
 
 [node name="Panel_Border" type="Panel" parent="Control/DeffenseHBoxContainer/D_Sword" unique_id=1681374739]
 layout_mode = 0
@@ -305,6 +301,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
 
 [node name="D_Shield" type="TextureRect" parent="Control/DeffenseHBoxContainer" unique_id=1273531380]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(37.5, 40)
 layout_mode = 2
 mouse_filter = 2
@@ -373,7 +370,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xrivr")
 
 [node name="D_Mace" type="TextureRect" parent="Control/DeffenseHBoxContainer" unique_id=1562638061]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(37.5, 40)
 layout_mode = 2
 mouse_filter = 2

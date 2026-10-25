@@ -13,6 +13,9 @@ enum Need { NONE, PLAY_CARD, PRESS_BUTTON, SELECT_TARGET }
 
 enum Face { WAVE, POINT, PRESENT, WORRIED, DETERMINED, SAD }
 
+## Control button text while a cycle waits to be resolved (see CheckForCycleState).
+const CYCLE_BUTTON_TEXT: String = "Resolve"
+
 @export_category("Timing")
 ## Seconds without playing before Tavi helps (and before a card pulses in the first turn).
 @export_range(1.0, 60.0, 0.5) var idle_seconds: float = 10.0
@@ -24,6 +27,10 @@ enum Face { WAVE, POINT, PRESENT, WORRIED, DETERMINED, SAD }
 @export_category("Behaviour")
 ## Point at the control button every time it must be pressed (not only in the first turn).
 @export var always_point_at_button: bool = true
+
+@export_category("End Screens")
+## Seconds after victory/defeat before Tavi appears (lets the panel animation play).
+@export_range(0.0, 5.0, 0.1) var end_screen_delay: float = 1.2
 
 @export_category("Card Pulse")
 @export var card_pulse_min: float = -0.1
@@ -40,6 +47,9 @@ enum Face { WAVE, POINT, PRESENT, WORRIED, DETERMINED, SAD }
 @onready var tavi_sprite: Sprite2D = %TaviSprite
 @onready var speech_label: RichTextLabel = %SpeechLabel
 @onready var arrow: Sprite2D = %ButtonArrow
+@onready var end_root: Control = %EndRoot
+@onready var end_tavi_sprite: Sprite2D = %EndTaviSprite
+@onready var end_speech_label: RichTextLabel = %EndSpeechLabel
 
 var _fsm: GameDecisionEngine = null
 var _enabled: bool = false
@@ -82,6 +92,7 @@ func _ready() -> void:
 	_tavi_rest_position = tavi_root.position
 	tavi_root.hide()
 	arrow.hide()
+	end_root.hide()
 	_apply_enabled()
 
 
@@ -187,7 +198,10 @@ func _set_need(need: Need, button_text: String) -> void:
 			if is_guided or always_point_at_button:
 				_start_button_hint()
 
-			if is_guided:
+			if button_text == CYCLE_BUTTON_TEXT:
+				# A cycle was made: Tavi reacts every time (cheers or grumbles).
+				_show_cycle_reaction()
+			elif is_guided:
 				_show_tavi(_get_button_message(button_text), Face.PRESENT)
 			else:
 				_hide_tavi()
@@ -265,6 +279,19 @@ func _on_state_changed(_previous: State, current: State) -> void:
 		_guided_player_turn = false
 		_guided_enemy_turn = false
 		_hide_tavi()
+		_stop_button_hint()
+		_show_end_screen(current == _fsm.victory_state)
+
+
+## Who made the cycle = the active side when the Resolve button shows up.
+func _show_cycle_reaction() -> void:
+	var by_player: bool = _fsm.active_side == GameDecisionEngine.Side.PLAYER
+	var lines: Array[String] = TaviLines.BATTLE_PLAYER_CYCLE if by_player else TaviLines.BATTLE_ENEMY_CYCLE
+
+	if lines.is_empty():
+		return
+
+	_show_tavi(lines.pick_random(), Face.WAVE if by_player else Face.DETERMINED)
 
 
 func _get_button_message(button_text: String) -> String:
@@ -324,6 +351,37 @@ func _update_tavi_timer(delta: float) -> void:
 
 	if _tavi_hide_timer <= 0.0:
 		_hide_tavi()
+
+#endregion
+
+
+#region /// end screens
+
+func _show_end_screen(is_victory: bool) -> void:
+	await get_tree().create_timer(end_screen_delay).timeout
+
+	if not is_instance_valid(_fsm) or not is_inside_tree():
+		return
+
+	# Rewards are calculated in the state's enter(), so read them now (after the delay).
+	var money: int = _fsm.victory_state.received_money if is_victory else _fsm.defeat_state.received_money
+	var lines: Array[String] = TaviLines.BATTLE_VICTORY if is_victory else TaviLines.BATTLE_DEFEAT
+
+	if lines.is_empty():
+		return
+
+	end_speech_label.text = lines.pick_random().format({"money": money})
+	end_tavi_sprite.frame = Face.WAVE if is_victory else Face.DETERMINED
+
+	var rest_position: Vector2 = end_root.position
+	end_root.show()
+	end_root.modulate.a = 0.0
+	end_root.position = rest_position + Vector2(60.0, 0.0)
+
+	var tween: Tween = create_tween().set_parallel()
+	tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(end_root, "position", rest_position, 0.35)
+	tween.tween_property(end_root, "modulate:a", 1.0, 0.25)
 
 #endregion
 

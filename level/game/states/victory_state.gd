@@ -3,6 +3,9 @@ extends State
 
 const VICTORY_SFX = preload("uid://cwy2yyi6qott0")
 
+## Chance to win each reward card per victory (until its collection limit is reached).
+const CARD_REWARD_CHANCE: float = 0.5
+
 @onready var victory_panel: Panel = %VictoryPanel
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var victory_info_label: RichTextLabel = %VictoryInfoLabel
@@ -97,10 +100,11 @@ func _unlock_random_cards(card_ids: Array[String]) -> Array[String]:
 
 		var card_id: int = int(card_id_string)
 
-		if CardManager.is_card_in_collection(card_id):
+		# Keep rolling until the collection limit (max_copies_in_collection in data/cards/*.json).
+		if CardManager.get_card_collection_count(card_id) >= CardManager.get_max_card_copies_in_collection(card_id):
 			continue
 
-		if fsm.rng.randf() >= 0.5:
+		if fsm.rng.randf() >= CARD_REWARD_CHANCE:
 			continue
 
 		if CardManager.add_card_to_collection(card_id):

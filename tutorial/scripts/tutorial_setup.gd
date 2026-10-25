@@ -3,11 +3,11 @@ extends Node
 
 ## Full decks include the initial hands AND every scripted draw.
 ## Duplicate IDs represent separate physical cards.
-@export_category("Unit Decks — full decks, including initial hands")
+@export_category("Unit Decks - full decks, including initial hands")
 @export var player_card_ids: Array[int] = []
 @export var enemy_card_ids: Array[int] = []
 
-@export_category("Initial Hands — drawn from the full decks")
+@export_category("Initial Hands - drawn from the full decks")
 @export var player_initial_hand_ids: Array[int] = []
 @export var enemy_initial_hand_ids: Array[int] = []
 
@@ -28,7 +28,7 @@ extends Node
 @export_file("*.tscn") var adventure_scene_path: String = ""
 @export var adventure_button_text: String = "Begin Your Adventure"
 
-@export_category("Pacing — seconds")
+@export_category("Pacing - seconds")
 @export_range(0.0, 5.0, 0.01) var initial_draw_interval: float = 0.1
 @export_range(0.01, 5.0, 0.01) var draw_settle_time: float = 0.3
 @export_range(0.01, 5.0, 0.01) var player_drop_settle_time: float = 0.3
@@ -39,7 +39,7 @@ extends Node
 @export_range(0.0, 5.0, 0.01) var destroy_card_interval: float = 0.5
 @export_range(0.0, 10.0, 0.01) var after_destroy_wait: float = 1.0
 
-@export_category("Card Glow — exposure I, one direction")
+@export_category("Card Glow - exposure I, one direction")
 @export_range(0.01, 10.0, 0.01) var card_glow_duration: float = 1.0
 @export var card_glow_intensity_min: float = -1.0
 @export var card_glow_intensity_max: float = 1.0
@@ -65,7 +65,7 @@ extends Node
 @export var player_icon_rect: TextureRect
 @export var enemy_icon_rect: TextureRect
 
-@export_category("Optional Sounds — assign the existing audio resources")
+@export_category("Optional Sounds - assign the existing audio resources")
 @export var player_draw_sound: AudioStream
 @export var enemy_draw_sound: AudioStream
 @export var placing_card_sound: AudioStream

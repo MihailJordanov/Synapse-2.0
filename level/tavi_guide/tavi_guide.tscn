@@ -59,6 +59,45 @@ text = "Your turn! Drag a card from your hand onto an empty slot on your side."
 fit_content = true
 scroll_active = false
 
+[node name="EndRoot" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1000.0
+offset_top = 640.0
+offset_right = 1600.0
+offset_bottom = 900.0
+mouse_filter = 2
+
+[node name="EndSpeechPanel" type="PanelContainer" parent="EndRoot"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 420.0
+offset_bottom = 180.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_speech")
+
+[node name="EndSpeechLabel" type="RichTextLabel" parent="EndRoot/EndSpeechPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+bbcode_enabled = true
+text = "Woohoo, you won!"
+fit_content = true
+scroll_active = false
+autowrap_mode = 3
+theme_override_font_sizes/normal_font_size = 30
+
+[node name="EndTaviSprite" type="Sprite2D" parent="EndRoot"]
+unique_name_in_owner = true
+position = Vector2(505, 150)
+scale = Vector2(-0.38, 0.38)
+texture = ExtResource("2_tavi")
+hframes = 2
+vframes = 3
+
 [node name="ButtonArrow" type="Sprite2D" parent="." unique_id=79626034]
 unique_name_in_owner = true
 visible = false

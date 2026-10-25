@@ -8,6 +8,7 @@ const MONEY_ICON_PATH: String = "res://00_global/hud/assets/money_icon.png"
 @export var level_selectors: Array[LevelSelector] = []
 
 @onready var play_button: Button = %PlayButton
+@onready var zone_menu_buttons: HBoxContainer = %ZoneMenuButtons
 @onready var stamina_cost_label: RichTextLabel = %StaminaCostLabel
 @onready var enemy_texture: TextureRect = %EnemyTextureRect
 @onready var enemy_name_label: RichTextLabel = %EnemyNameRichTextLabel
@@ -44,6 +45,9 @@ var selected_level_selector: LevelSelector = null
 
 ## Only exists while the first zone tutorial is running.
 var _tavi: TaviHelper = null
+## True when Tavi is back because the first level was lost (not the first visit).
+var _tavi_is_retry: bool = false
+var _is_leaving: bool = false
 
 
 func _ready() -> void:
@@ -100,6 +104,13 @@ func _ready() -> void:
 	_set_mouse_filter_recursive(unit_card_example)
 
 	play_button.pressed.connect(_on_play_button_pressed)
+
+	for child in zone_menu_buttons.get_children():
+		var menu_button := child as MapMenuButton
+
+		if menu_button != null:
+			menu_button.pressed.connect(_on_zone_menu_button_pressed.bind(menu_button))
+
 	play_button.visibility_changed.connect(_on_play_button_visibility_changed)
 	StaminaManager.stamina_changed.connect(_on_stamina_changed)
 	StaminaManager.refresh()
@@ -107,7 +118,11 @@ func _ready() -> void:
 
 	animation_player.play("fade_in")
 
-	if not PlayerDataManager.is_first_zone_tutorial_completed():
+	# First visit, or the first level is still not beaten (lost it) -> Tavi helps.
+	var is_first_visit: bool = not PlayerDataManager.is_first_zone_tutorial_completed()
+	_tavi_is_retry = not is_first_visit and _is_first_level_unbeaten()
+
+	if is_first_visit or _tavi_is_retry:
 		_tavi = TaviHelper.create(self)
 		_tavi_show_pick_level()
 	
@@ -248,6 +263,26 @@ func _on_play_button_pressed() -> void:
 	await animation_player.animation_finished
 	get_tree().change_scene_to_packed(MAIN_LEVEL)
 
+#region /// bottom panel buttons
+
+func _on_zone_menu_button_pressed(menu_button: MapMenuButton) -> void:
+	if _is_leaving or menu_button.target_scene_path.is_empty():
+		return
+
+	_is_leaving = true
+	play_button.disabled = true
+
+	if _tavi != null:
+		_tavi.clear_arrows()
+		_tavi.hide_tavi()
+
+	animation_player.play("fade_out")
+	await animation_player.animation_finished
+	get_tree().change_scene_to_file(menu_button.target_scene_path)
+
+#endregion
+
+
 #region /// stamina
 
 func _update_stamina_cost() -> void:
@@ -367,8 +402,8 @@ func _tavi_show_pick_level() -> void:
 
 	_tavi.clear_arrows()
 	_tavi.say(
-		TaviLines.ZONE_PICK_LEVEL % first_level.enemy_name,
-		TaviHelper.Face.POINT
+		(TaviLines.ZONE_RETRY_PICK_LEVEL if _tavi_is_retry else TaviLines.ZONE_PICK_LEVEL) % first_level.enemy_name,
+		TaviHelper.Face.DETERMINED if _tavi_is_retry else TaviHelper.Face.POINT
 	)
 	# Left of the level icon, pointing right (the red "!" is above it).
 	_tavi.point_at_world(first_level, Vector2(-75.0, -5.0), Vector2.RIGHT)
@@ -380,9 +415,16 @@ func _tavi_on_level_selected(level_selector: LevelSelector) -> void:
 
 	_tavi.clear_arrows()
 	_tavi.say(
-		TaviLines.ZONE_LEVEL_SELECTED % level_selector.enemy_name,
+		(TaviLines.ZONE_RETRY_LEVEL_SELECTED if _tavi_is_retry else TaviLines.ZONE_LEVEL_SELECTED) % level_selector.enemy_name,
 		TaviHelper.Face.PRESENT
 	)
 	_tavi.point_at_control(play_button)
+
+
+func _is_first_level_unbeaten() -> bool:
+	if level_selectors.is_empty():
+		return false
+
+	return not LevelManager.is_level_defeated(level_selectors[0].level_id)
 
 #endregion

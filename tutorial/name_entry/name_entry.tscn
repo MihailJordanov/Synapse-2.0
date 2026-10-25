@@ -1,0 +1,179 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tutorial/name_entry/name_entry.gd" id="1_name"]
+[ext_resource type="Texture2D" path="res://tutorial/assets/Tavi/Front-facing Tavi pixel expression sprites.png" id="2_tavi"]
+[ext_resource type="PackedScene" path="res://00_global/scene_fader/scene_fader.tscn" id="3_fader"]
+
+[sub_resource type="StyleBoxFlat" id="Style_speech"]
+content_margin_left = 22.0
+content_margin_top = 16.0
+content_margin_right = 22.0
+content_margin_bottom = 16.0
+bg_color = Color(0.055, 0.07, 0.1, 0.96)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.45, 0.75, 0.85, 1)
+
+[sub_resource type="StyleBoxFlat" id="Style_line_edit"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+bg_color = Color(0.11, 0.13, 0.17, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.96, 0.77, 0.33, 1)
+
+[sub_resource type="StyleBoxFlat" id="Style_button"]
+bg_color = Color(0, 0.6392157, 0.73333335, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 6
+border_color = Color(0.08, 0.1, 0.14, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="Style_button_hover"]
+bg_color = Color(0.2, 0.75, 0.84, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 6
+border_color = Color(0.08, 0.1, 0.14, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="Style_button_disabled"]
+bg_color = Color(0.28, 0.33, 0.36, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 6
+border_color = Color(0.08, 0.1, 0.14, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="NameEntry" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_name")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Content" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TaviSprite" type="Sprite2D" parent="Content"]
+unique_name_in_owner = true
+position = Vector2(420, 470)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_tavi")
+hframes = 2
+vframes = 3
+
+[node name="SpeechPanel" type="PanelContainer" parent="Content"]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 190.0
+offset_right = 1460.0
+offset_bottom = 370.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_speech")
+
+[node name="SpeechLabel" type="RichTextLabel" parent="Content/SpeechPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "What should I call you?"
+fit_content = true
+scroll_active = false
+autowrap_mode = 3
+
+[node name="NameLineEdit" type="LineEdit" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 700.0
+offset_top = 420.0
+offset_right = 1290.0
+offset_bottom = 510.0
+theme_override_font_sizes/font_size = 44
+theme_override_styles/normal = SubResource("Style_line_edit")
+theme_override_styles/focus = SubResource("Style_line_edit")
+theme_override_styles/read_only = SubResource("Style_line_edit")
+placeholder_text = "Your name"
+max_length = 16
+alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1310.0
+offset_top = 420.0
+offset_right = 1460.0
+offset_bottom = 510.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 44
+theme_override_styles/normal = SubResource("Style_button")
+theme_override_styles/hover = SubResource("Style_button_hover")
+theme_override_styles/pressed = SubResource("Style_button")
+theme_override_styles/disabled = SubResource("Style_button_disabled")
+theme_override_styles/focus = SubResource("Style_button_hover")
+disabled = true
+text = "OK"
+
+[node name="HintLabel" type="Label" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 700.0
+offset_top = 520.0
+offset_right = 1460.0
+offset_bottom = 560.0
+theme_override_font_sizes/font_size = 28
+text = "3-16 characters"
+
+[node name="GiftIcon" type="TextureRect" parent="Content"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 1000.0
+offset_top = 590.0
+offset_right = 1180.0
+offset_bottom = 770.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SceneFader" parent="." instance=ExtResource("3_fader")]
+unique_name_in_owner = true

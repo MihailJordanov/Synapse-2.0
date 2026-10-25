@@ -18,7 +18,7 @@ enum Side { PLAYER, ENEMY }
 @export var player_slots: Array[CardSlot] = []
 @export var enemy_slots: Array[CardSlot] = []
 
-@export_category("Presentation — optional, created automatically if empty")
+@export_category("Presentation - optional, created automatically if empty")
 @export var overlay: TutorialOverlay
 @export var cycle_visualizer: TutorialCycleVisualizer
 
@@ -30,7 +30,7 @@ enum Side { PLAYER, ENEMY }
 @export var state_label: Label
 @export var ui_to_hide: Array[CanvasItem] = []
 
-@export_category("States — optional, created automatically if empty")
+@export_category("States - optional, created automatically if empty")
 @export var enter_state: TutorialState
 @export var place_first_card_state: TutorialState
 @export var wait_for_enemy_card_state: TutorialState
@@ -528,8 +528,7 @@ func _leave_for_adventure(skipped: bool) -> void:
 		animation_player.play(&"fade_out")
 		await animation_player.animation_finished
 
-	# Finishing or skipping both count as "tutorial passed".
-	PlayerDataManager.complete_start_tutorial()
+	# start_tutorial_completed is set later, in the name entry scene (adventure_scene_path).
 
 	if skipped:
 		tutorial_skipped.emit()
