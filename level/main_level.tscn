@@ -48,6 +48,9 @@
 [ext_resource type="Texture2D" uid="uid://bdrobtb01f6a5" path="res://level/assets/blood_drops.png" id="36_eytok"]
 [ext_resource type="PackedScene" uid="uid://bvf1c0gtrbclv" path="res://level/tavi_guide/tavi_guide.tscn" id="99_tavi"]
 
+[ext_resource type="Script" path="res://level/rewind/turn_rewind.gd" id="98_rewind"]
+[ext_resource type="Script" path="res://level/rewind/rewind_debug_panel.gd" id="99_rewind_dbg"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xrivr"]
 shader = ExtResource("28_j5xbu")
 shader_parameter/fade_left = 0.800000038
@@ -2117,3 +2120,10 @@ script = ExtResource("35_chhk3")
 
 [node name="TaviGuide" parent="." unique_id=770704652 instance=ExtResource("99_tavi")]
 unique_name_in_owner = true
+
+[node name="TurnRewind" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("98_rewind")
+
+[node name="RewindDebugPanel" type="CanvasLayer" parent="."]
+script = ExtResource("99_rewind_dbg")
