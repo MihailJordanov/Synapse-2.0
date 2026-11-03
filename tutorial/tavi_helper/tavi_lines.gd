@@ -108,3 +108,20 @@ const ZONE_RETRY_LEVEL_SELECTED: String = "That's the spirit! Show [color=#ffe28
 const ZONE_LEVEL_SELECTED: String = "Defeat [color=#ffe28a]%s[/color] to earn shillings and discover new cards. Press [color=#ffe28a]Play[/color] when you're ready!"
 
 #endregion
+
+
+#region /// Collection tutorial - collection/script/collection_tutorial.gd + zones/scripts/zone_controller.gd
+
+## Zone A, after the Collection is unlocked (until the collection tutorial is done).
+const ZONE_COLLECTION_UNLOCKED: String = "Ooh, you unlocked the [color=#ffe28a]Collection[/color]! That's where all your cards live. Click it - I'll show you around!"
+
+const COLLECTION_SELECT_CARD: String = "Welcome to your Collection! These are all the cards you own. Click on this card to take a closer look."
+const COLLECTION_ADD_REMOVE_INFO: String = "Here's the card you picked. [color=#7CFC00]Add[/color] puts a copy into your deck, [color=#ff7a7a]Remove[/color] takes one out."
+const COLLECTION_PRESS_ADD: String = "Let's try it! Press [color=#7CFC00]Add[/color] once."
+const COLLECTION_PRESS_REMOVE: String = "Great! Now press [color=#ff7a7a]Remove[/color] to take it back out."
+const COLLECTION_OPEN_DECK: String = "You've got it! Now open your [color=#ffe28a]Deck[/color]."
+const COLLECTION_DECK_UNITS: String = "This is your deck! Your [color=#8fd3ff]units[/color] are on the left - those are the cards you fight with."
+const COLLECTION_DECK_SPELLS: String = "And the right side is for [color=#d58fff]spells[/color]... Spells? Hehe, that's a story for later. I told you the world of Nexara is full of surprises!"
+const COLLECTION_EXIT: String = "That's everything! Press [color=#ffe28a]Exit[/color] when you're ready to get back to the adventure."
+
+#endregion

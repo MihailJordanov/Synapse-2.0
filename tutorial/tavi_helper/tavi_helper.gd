@@ -10,6 +10,13 @@ extends CanvasLayer
 
 enum Face { WAVE, POINT, PRESENT, WORRIED, DETERMINED, SAD }
 
+## Where the UI arrow sits around the control (it always points at the control).
+enum ArrowSide { RIGHT, LEFT, TOP, BOTTOM }
+
+signal continue_pressed
+
+const CONTINUE_HINT: String = "\n[right][font_size=24][color=#9fb6c4]Click to continue[/color][/font_size][/right]"
+
 # Loaded at runtime (not preload) to avoid a script <-> own scene cyclic reference.
 const SCENE_PATH: String = "res://tutorial/tavi_helper/tavi_helper.tscn"
 const ARROW_TEXTURE: Texture2D = preload("res://level/tavi_guide/assets/tavi_arrow.png")
@@ -32,6 +39,9 @@ var _tavi_rest_position: Vector2
 var _bottom_position: Vector2
 
 var _target_control: Control = null
+var _arrow_side: ArrowSide = ArrowSide.RIGHT
+var _default_bubble_width: float = 0.0
+var _click_catcher: Control = null
 var _world_arrow: Sprite2D = null
 var _world_arrow_base: Vector2
 var _world_arrow_direction: Vector2 = Vector2.DOWN
@@ -50,6 +60,18 @@ func _ready() -> void:
 	tavi_root.hide()
 	ui_arrow.hide()
 	ui_arrow.rotation = 0.0  # texture points left -> arrow sits on the right of the control
+	var panel: Control = _get_speech_panel()
+	_default_bubble_width = panel.offset_right - panel.offset_left  # from the scene, not the (maybe not laid out) size
+
+	# Full-screen invisible catcher used by wait_for_click().
+	_click_catcher = Control.new()
+	_click_catcher.name = "ClickCatcher"
+	_click_catcher.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_click_catcher.mouse_filter = Control.MOUSE_FILTER_STOP
+	_click_catcher.hide()
+	_click_catcher.gui_input.connect(_on_click_catcher_input)
+	add_child(_click_catcher)
+	move_child(_click_catcher, 0)  # below Tavi and the arrow
 
 
 func _exit_tree() -> void:
@@ -71,6 +93,7 @@ func _process(delta: float) -> void:
 ## at_top = true moves Tavi to top_position (e.g. when the bottom is busy with buttons).
 func say(text: String, face: Face = Face.POINT, at_top: bool = false) -> void:
 	speech_label.text = text
+	_shrink_bubble_height()
 	tavi_sprite.frame = face
 
 	var target_position: Vector2 = top_position if at_top else _bottom_position
@@ -117,14 +140,72 @@ func _kill_tavi_tween() -> void:
 	if _tavi_tween != null and _tavi_tween.is_valid():
 		_tavi_tween.kill()
 
+
+## Moves Tavi's (bottom) spot and optionally changes the bubble width for this scene/step.
+## Call before say(). bubble_width <= 0 keeps the scene's default width.
+func set_layout(new_position: Vector2, bubble_width: float = 0.0) -> void:
+	_bottom_position = new_position
+	_set_bubble_width(bubble_width if bubble_width > 0.0 else _default_bubble_width)
+
+	if _tavi_visible and _tavi_rest_position != new_position:
+		_tavi_rest_position = new_position
+		_kill_tavi_tween()
+		_tavi_tween = create_tween()
+		_tavi_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		_tavi_tween.tween_property(tavi_root, "position", new_position, 0.3)
+
+
+## Shows the text with a "Click to continue" hint and waits for a click anywhere.
+## Use with await. Clicks do not reach the game while waiting.
+func say_and_wait(text: String, face: Face = Face.POINT, at_top: bool = false) -> void:
+	say(text + CONTINUE_HINT, face, at_top)
+	_click_catcher.show()
+	await continue_pressed
+	_click_catcher.hide()
+
+
+func _on_click_catcher_input(event: InputEvent) -> void:
+	var pressed: bool = (
+		(event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT)
+		or (event is InputEventScreenTouch and event.pressed)
+	)
+
+	if pressed:
+		_click_catcher.accept_event()
+		continue_pressed.emit()
+
+
+func _set_bubble_width(width: float) -> void:
+	var panel: Control = _get_speech_panel()
+	panel.offset_right = panel.offset_left + width
+	_shrink_bubble_height()
+
+
+## The bubble grows with the text; shrink it back after a text/width change.
+func _shrink_bubble_height() -> void:
+	var panel: Control = _get_speech_panel()
+	# Height 0 -> the container grows back to exactly what the text needs (width is kept).
+	panel.offset_bottom = panel.offset_top
+
+
+func _get_speech_panel() -> Control:
+	return speech_label.get_parent() as Control
+
 #endregion
 
 
 #region /// arrows
 
-## UI arrow to the right of the control, pointing at it.
-func point_at_control(control: Control) -> void:
+## UI arrow next to the control (side), pointing at it.
+func point_at_control(control: Control, side: ArrowSide = ArrowSide.RIGHT) -> void:
 	_target_control = control
+	_arrow_side = side
+
+	match side:
+		ArrowSide.RIGHT: ui_arrow.rotation = 0.0         # points left
+		ArrowSide.LEFT: ui_arrow.rotation = PI           # points right
+		ArrowSide.TOP: ui_arrow.rotation = -PI * 0.5     # points down
+		ArrowSide.BOTTOM: ui_arrow.rotation = PI * 0.5   # points up
 
 
 ## World arrow as a child of target. local_position is in the target's space,
@@ -172,8 +253,16 @@ func _update_ui_arrow(bob: float) -> void:
 		ui_arrow.hide()
 		return
 
-	var half_width: float = ARROW_TEXTURE.get_width() * ui_arrow.scale.x * 0.5
-	ui_arrow.position = Vector2(xf.origin.x + size.x + half_width + 8.0 + bob, xf.origin.y + size.y * 0.5)
+	var half_length: float = ARROW_TEXTURE.get_width() * ui_arrow.scale.x * 0.5
+	var gap: float = half_length + 8.0 + bob
+	var center: Vector2 = xf.origin + size * 0.5
+
+	match _arrow_side:
+		ArrowSide.RIGHT: ui_arrow.position = Vector2(xf.origin.x + size.x + gap, center.y)
+		ArrowSide.LEFT: ui_arrow.position = Vector2(xf.origin.x - gap, center.y)
+		ArrowSide.TOP: ui_arrow.position = Vector2(center.x, xf.origin.y - gap)
+		ArrowSide.BOTTOM: ui_arrow.position = Vector2(center.x, xf.origin.y + size.y + gap)
+
 	ui_arrow.show()
 
 

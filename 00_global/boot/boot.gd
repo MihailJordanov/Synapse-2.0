@@ -16,7 +16,7 @@ func _ready() -> void:
 func _route() -> void:
 	var target: String = MAIN_MAP_SCENE_PATH
 
-	if not PlayerDataManager.is_start_tutorial_completed():
+	if not TutorialManager.is_completed(TutorialManager.START_TUTORIAL):
 		target = TUTORIAL_SCENE_PATH
 
 	var result: Error = get_tree().change_scene_to_file(target)

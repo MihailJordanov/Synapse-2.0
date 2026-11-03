@@ -1,5 +1,11 @@
 class_name Collection extends CanvasLayer
 
+## Events used by the collection tutorial (and anything else that wants them).
+signal unit_card_selected(card_id: int)
+signal unit_added_to_deck(card_id: int)
+signal unit_removed_from_deck(card_id: int)
+signal deck_tab_opened
+
 
 const MAIN_MAP_SCENE_PATH: String = "res://map/main_map.tscn"
 
@@ -210,6 +216,9 @@ func _ready() -> void:
 		darknes_source_check_box
 	]
 
+	if not TutorialManager.is_completed(TutorialManager.COLLECTION_TUTORIAL):
+		CollectionTutorial.start(self)
+
 
 func _load_unit_collection() -> void:
 	_clear_unit_collection()
@@ -321,6 +330,7 @@ func _select_unit_card(card_example: UnitCardExample) -> void:
 	unit_card_example_show.card_id = selected_card_id
 	unit_card_example_show.visible = true
 	_update_unit_deck_buttons()
+	unit_card_selected.emit(selected_card_id)
 
 
 func _reset_press() -> void:
@@ -361,6 +371,7 @@ func _on_add_unit_in_deck_button_pressed() -> void:
 			CardManager.get_unit_deck().size(),
 			true
 		)
+		unit_added_to_deck.emit(selected_card_id)
 
 
 func _on_remove_unit_in_deck_button_pressed() -> void:
@@ -373,6 +384,7 @@ func _on_remove_unit_in_deck_button_pressed() -> void:
 			CardManager.get_unit_deck().size(),
 			true
 		)
+		unit_removed_from_deck.emit(selected_card_id)
 		
 func _update_selected_card_deck_state() -> void:
 	if selected_card and is_instance_valid(selected_card):
@@ -1081,6 +1093,7 @@ func _show_deck_panel() -> void:
 	unit_filter_bg_panel.visible = false
 
 	_refresh_deck_panel()
+	deck_tab_opened.emit()
 	
 func _refresh_deck_panel() -> void:
 	_setup_deck_legend()

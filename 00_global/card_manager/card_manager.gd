@@ -8,6 +8,10 @@ const SPELLS_DATA_PATH: String = "res://data/cards/spell_cards.json"
 const COLLECTION_SAVE_PATH: String = "user://card_collection.json"
 const PLAYER_DECK_SAVE_PATH: String = "user://player_deck.json"
 
+
+## New save: extra copies on top of the first 10 units (card_id -> extra copies).
+const DEFAULT_EXTRA_COPIES: Dictionary = {11000: 1, 11001: 1}
+
 var _cards_database: Dictionary = {}
 var _unit_collection: Dictionary = {}
 var _spell_collection: Dictionary = {}
@@ -163,6 +167,11 @@ func _create_default_collection() -> void:
 	for card_id: int in range(11000, 11010):
 		if _cards_database.has(str(card_id)):
 			_unit_collection[card_id] = 1
+
+	# Extra copies so the collection tutorial can show Add/Remove (the deck keeps 1 of each).
+	for card_id: int in DEFAULT_EXTRA_COPIES:
+		if _unit_collection.has(card_id):
+			_unit_collection[card_id] += DEFAULT_EXTRA_COPIES[card_id]
 
 	_save_collection()
 

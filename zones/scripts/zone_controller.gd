@@ -47,6 +47,8 @@ var selected_level_selector: LevelSelector = null
 var _tavi: TaviHelper = null
 ## True when Tavi is back because the first level was lost (not the first visit).
 var _tavi_is_retry: bool = false
+## True when Tavi only invites the player to open the newly unlocked Collection.
+var _tavi_collection_prompt: bool = false
 var _is_leaving: bool = false
 
 
@@ -119,12 +121,19 @@ func _ready() -> void:
 	animation_player.play("fade_in")
 
 	# First visit, or the first level is still not beaten (lost it) -> Tavi helps.
-	var is_first_visit: bool = not PlayerDataManager.is_first_zone_tutorial_completed()
+	var is_first_visit: bool = not TutorialManager.is_completed(TutorialManager.FIRST_ZONE_TUTORIAL)
 	_tavi_is_retry = not is_first_visit and _is_first_level_unbeaten()
 
 	if is_first_visit or _tavi_is_retry:
 		_tavi = TaviHelper.create(self)
 		_tavi_show_pick_level()
+	elif (
+		PlayerDataManager.is_feature_unlocked(PlayerDataManager.FEATURE_COLLECTION)
+		and not TutorialManager.is_completed(TutorialManager.COLLECTION_TUTORIAL)
+	):
+		_tavi_collection_prompt = true
+		_tavi = TaviHelper.create(self)
+		_tavi_show_collection_prompt()
 	
 
 func _on_level_selected(level_selector: LevelSelector) -> void:
@@ -239,7 +248,7 @@ func _on_play_button_pressed() -> void:
 	play_button.disabled = true
 
 	if _tavi != null:
-		PlayerDataManager.complete_first_zone_tutorial()
+		TutorialManager.complete(TutorialManager.FIRST_ZONE_TUTORIAL)
 		_tavi.clear_arrows()
 		_tavi.hide_tavi()
 
@@ -397,6 +406,10 @@ func _set_mouse_filter_recursive(node: Node) -> void:
 #region /// first zone tutorial (Tavi)
 
 func _tavi_show_pick_level() -> void:
+	if _tavi_collection_prompt:
+		_tavi_show_collection_prompt()
+		return
+
 	if _tavi == null or level_selectors.is_empty():
 		return
 
@@ -415,12 +428,28 @@ func _tavi_on_level_selected(level_selector: LevelSelector) -> void:
 	if _tavi == null:
 		return
 
+	if _tavi_collection_prompt:
+		_tavi.hide_tavi()  # make room for the level scroll; back when it closes
+		return
+
 	_tavi.clear_arrows()
 	_tavi.say(
 		(TaviLines.ZONE_RETRY_LEVEL_SELECTED if _tavi_is_retry else TaviLines.ZONE_LEVEL_SELECTED) % level_selector.enemy_name,
 		TaviHelper.Face.PRESENT
 	)
 	_tavi.point_at_control(play_button)
+
+
+## After the Collection unlock: Tavi (top right, the bottom panel holds the buttons) points at it.
+func _tavi_show_collection_prompt() -> void:
+	var collection_button: Control = zone_menu_buttons.get_node_or_null("CollectionButton") as Control
+
+	_tavi.clear_arrows()
+	_tavi.set_layout(Vector2(590.0, 0.0))
+	_tavi.say(TaviLines.ZONE_COLLECTION_UNLOCKED, TaviHelper.Face.WAVE)
+
+	if collection_button != null:
+		_tavi.point_at_control(collection_button, TaviHelper.ArrowSide.RIGHT)
 
 
 func _is_first_level_unbeaten() -> bool:

@@ -28,8 +28,7 @@ var _is_done: bool = false
 
 
 func _ready() -> void:
-	if PlayerDataManager.is_start_tutorial_completed():
-		# Tutorial replayed: the name is already set.
+	if TutorialManager.is_completed(TutorialManager.START_TUTORIAL):
 		content.hide()
 		scene_fader.change_scene.call_deferred(MAIN_MAP_SCENE_PATH)
 		return
@@ -97,7 +96,7 @@ func _confirm() -> void:
 	PlayerDataManager.set_player_name(player_name)
 	PlayerDataManager.unlock_icon(FIRST_ICON_ID)
 	PlayerDataManager.set_player_icon(FIRST_ICON_ID)
-	PlayerDataManager.complete_start_tutorial()
+	TutorialManager.complete(TutorialManager.START_TUTORIAL)
 
 	speech_label.text = TaviLines.NAME_CONFIRMED.format({"name": player_name})
 	tavi_sprite.frame = Face.PRESENT

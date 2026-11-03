@@ -74,7 +74,7 @@ func _ready() -> void:
 		if menu_button != null:
 			menu_button.pressed.connect(_on_menu_button_pressed.bind(menu_button))
 
-	if not PlayerDataManager.is_first_zone_tutorial_completed():
+	if not TutorialManager.is_completed(TutorialManager.FIRST_ZONE_TUTORIAL):
 		_start_first_zone_tutorial()
 
 

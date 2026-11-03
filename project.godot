@@ -29,6 +29,7 @@ LevelManager="*uid://d3ggbbd0vwlck"
 PlayerDataManager="*uid://bd1bs5fsla0b8"
 LegendManager="*uid://dn211i6uhyi08"
 StaminaManager="*res://00_global/stamina_manager/stamina_manager.gd"
+TutorialManager="*res://00_global/tutorial_manager/tutorial_manager.gd"
 
 [display]
 

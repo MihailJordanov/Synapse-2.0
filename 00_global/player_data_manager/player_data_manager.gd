@@ -3,7 +3,6 @@ extends Node
 signal player_name_changed(player_name: String)
 signal player_icon_changed(icon_id: int)
 signal icon_unlocked(icon_id: int)
-signal tutorial_progress_changed
 signal feature_unlocked(feature_id: String)
 signal money_changed(money: int)
 signal seals_changed(seals: int)
@@ -27,9 +26,9 @@ var player_icon_id: int = NO_ICON_ID
 var icon_ids: Array[int] = []
 var icons_data: Dictionary = {}
 
-## Onboarding progress (saved in player_data.json).
-var start_tutorial_completed: bool = false
-var first_zone_tutorial_completed: bool = false
+## Tutorial flags found in an OLD player_data.json (read once by TutorialManager for migration).
+## Tutorial progress now lives in TutorialManager (user://tutorials.json).
+var legacy_tutorial_flags: Dictionary = {}
 ## Unlocked features (menu buttons on the main map etc.).
 var unlocked_features: Array[String] = []
 
@@ -109,34 +108,6 @@ func get_icon_ids() -> Array[int]:
 	return icon_ids.duplicate()
 
 
-#region /// onboarding
-
-func is_start_tutorial_completed() -> bool:
-	return start_tutorial_completed
-
-
-func complete_start_tutorial() -> void:
-	if start_tutorial_completed:
-		return
-
-	start_tutorial_completed = true
-	_save_player_data()
-	tutorial_progress_changed.emit()
-
-
-func is_first_zone_tutorial_completed() -> bool:
-	return first_zone_tutorial_completed
-
-
-func complete_first_zone_tutorial() -> void:
-	if first_zone_tutorial_completed:
-		return
-
-	first_zone_tutorial_completed = true
-	_save_player_data()
-	tutorial_progress_changed.emit()
-
-#endregion
 
 
 #region /// money
@@ -260,8 +231,9 @@ func _load_player_data() -> void:
 	player_name = str(data.get("player_name", "")).strip_edges()
 	player_icon_id = int(data.get("player_icon_id", NO_ICON_ID))
 	icon_ids = _read_int_array(data.get("icon_ids", []))
-	start_tutorial_completed = bool(data.get("start_tutorial_completed", false))
-	first_zone_tutorial_completed = bool(data.get("first_zone_tutorial_completed", false))
+	for legacy_key in ["start_tutorial_completed", "first_zone_tutorial_completed"]:
+		if data.has(legacy_key):
+			legacy_tutorial_flags[legacy_key] = bool(data[legacy_key])
 	unlocked_features = _read_string_array(data.get("unlocked_features", []))
 	money = maxi(int(data.get("money", 0)), 0)
 	seals = maxi(int(data.get("seals", 0)), 0)
@@ -304,8 +276,6 @@ func _save_player_data() -> void:
 		"player_name": player_name,
 		"player_icon_id": player_icon_id,
 		"icon_ids": icon_ids,
-		"start_tutorial_completed": start_tutorial_completed,
-		"first_zone_tutorial_completed": first_zone_tutorial_completed,
 		"unlocked_features": unlocked_features,
 		"money": money,
 		"seals": seals,
@@ -322,8 +292,6 @@ func _create_default_save() -> void:
 	# The first icon (DEFAULT_ICON_ID) is given in the name entry scene after the tutorial.
 	player_icon_id = NO_ICON_ID
 	icon_ids = []
-	start_tutorial_completed = false
-	first_zone_tutorial_completed = false
 	unlocked_features = []
 	money = 0
 	seals = 0

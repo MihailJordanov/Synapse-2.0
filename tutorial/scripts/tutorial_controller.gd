@@ -528,7 +528,7 @@ func _leave_for_adventure(skipped: bool) -> void:
 		animation_player.play(&"fade_out")
 		await animation_player.animation_finished
 
-	# start_tutorial_completed is set later, in the name entry scene (adventure_scene_path).
+	# The start tutorial is marked completed later, in the name entry scene (adventure_scene_path).
 
 	if skipped:
 		tutorial_skipped.emit()
