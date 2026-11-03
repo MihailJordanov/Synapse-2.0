@@ -271,6 +271,8 @@ func _on_zone_menu_button_pressed(menu_button: MapMenuButton) -> void:
 
 	_is_leaving = true
 	play_button.disabled = true
+	# If this opens the collection, its Exit comes back to this zone.
+	Collection.return_scene_path = get_tree().current_scene.scene_file_path
 
 	if _tavi != null:
 		_tavi.clear_arrows()

@@ -3,6 +3,9 @@ class_name Collection extends CanvasLayer
 
 const MAIN_MAP_SCENE_PATH: String = "res://map/main_map.tscn"
 
+## Set by the scene that opens the collection (main map, zone...). Exit goes back there.
+static var return_scene_path: String = ""
+
 const MIN_UNIT_DECK_CARDS: int = 10
 const MAX_UNIT_DECK_CARDS: int = 40
 
@@ -1332,7 +1335,9 @@ func _on_filter_units_button_pressed() -> void:
 	
 func _on_exit_button_pressed() -> void:
 	exit_button.disabled = true
-	scene_fader.change_scene(MAIN_MAP_SCENE_PATH)
+	var target: String = return_scene_path if not return_scene_path.is_empty() else MAIN_MAP_SCENE_PATH
+	return_scene_path = ""
+	scene_fader.change_scene(target)
 
 
 func _on_exit_filter_button_pressed() -> void:

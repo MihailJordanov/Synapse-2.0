@@ -22,6 +22,10 @@
 [ext_resource type="Texture2D" uid="uid://cvfsv3f7k4dlv" path="res://zones/asstes/ui/map_button_hover.png" id="94_mh"]
 [ext_resource type="Texture2D" uid="uid://r260nm75mbro" path="res://zones/asstes/ui/map_button_pressed.png" id="95_mp"]
 
+[ext_resource type="Texture2D" path="res://map/assets/ui/buttons/collection_normal.png" id="96_cn"]
+[ext_resource type="Texture2D" path="res://map/assets/ui/buttons/collection_hover.png" id="97_ch"]
+[ext_resource type="Texture2D" path="res://map/assets/ui/buttons/collection_pressed.png" id="98_cp"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojoh7"]
 bg_color = Color(0, 0.6392157, 0.73333335, 1)
 border_width_left = 3
@@ -791,6 +795,36 @@ offset_bottom = 22.0
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 22
 text = "Map"
+horizontal_alignment = 1
+
+[node name="CollectionButton" type="TextureButton" parent="UI/ZoneButtonsPanel/ZoneMenuButtons"]
+texture_filter = 1
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("96_cn")
+texture_pressed = ExtResource("98_cp")
+texture_hover = ExtResource("97_ch")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("92_menu")
+feature_id = "collection"
+target_scene_path = "res://collection/collection.tscn"
+
+[node name="Label" type="Label" parent="UI/ZoneButtonsPanel/ZoneMenuButtons/CollectionButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -6.0
+offset_right = 40.0
+offset_bottom = 22.0
+mouse_filter = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 22
+text = "Collection"
 horizontal_alignment = 1
 
 [node name="ResourceHud" parent="UI" unique_id=865655131 instance=ExtResource("90_hud")]

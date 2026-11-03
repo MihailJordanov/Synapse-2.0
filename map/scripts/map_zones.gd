@@ -244,6 +244,7 @@ func _leave_to(scene_path: String) -> void:
 
 	_is_leaving = true
 	map_camera.set_input_enabled(false)
+	Collection.return_scene_path = get_tree().current_scene.scene_file_path
 
 	if _tavi != null:
 		_tavi.clear_arrows()

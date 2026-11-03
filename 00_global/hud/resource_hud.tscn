@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" path="res://00_global/hud/assets/hud_panel.png" id="2_panel"]
 [ext_resource type="Texture2D" path="res://00_global/hud/assets/stamina_icon.png" id="3_stamina"]
 [ext_resource type="Texture2D" path="res://00_global/hud/assets/money_icon.png" id="4_money"]
+[ext_resource type="Texture2D" path="res://00_global/hud/assets/seal_icon.png" id="5_seal"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hud"]
 content_margin_left = 22.0
@@ -52,6 +53,30 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="MoneyLabel" type="Label" parent="Items/MoneyBox"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 34
+text = "0"
+
+[node name="SealsBox" type="HBoxContainer" parent="Items"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Seals"
+theme_override_constants/separation = 8
+
+[node name="SealIcon" type="TextureRect" parent="Items/SealsBox"]
+texture_filter = 1
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("5_seal")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SealsLabel" type="Label" parent="Items/SealsBox"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2

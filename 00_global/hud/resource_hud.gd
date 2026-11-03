@@ -1,12 +1,13 @@
 class_name ResourceHud
 extends PanelContainer
 
-## Compact panel with player resources (money, stamina).
+## Compact panel with player resources (money, seals, stamina).
 ## Add a new resource: duplicate a row (e.g. MoneyBox) in the scene and update it here.
 
 @onready var stamina_label: Label = %StaminaLabel
 @onready var stamina_box: Control = %StaminaBox
 @onready var money_label: Label = %MoneyLabel
+@onready var seals_label: Label = %SealsLabel
 
 
 func _ready() -> void:
@@ -16,6 +17,9 @@ func _ready() -> void:
 
 	_update_money(PlayerDataManager.get_money())
 	PlayerDataManager.money_changed.connect(_update_money)
+
+	_update_seals(PlayerDataManager.get_seals())
+	PlayerDataManager.seals_changed.connect(_update_seals)
 
 	# Tooltip countdown, refreshed once per second.
 	var timer := Timer.new()
@@ -32,6 +36,10 @@ func _update_stamina(current: int, maximum: int) -> void:
 
 func _update_money(amount: int) -> void:
 	money_label.text = str(amount)
+
+
+func _update_seals(amount: int) -> void:
+	seals_label.text = str(amount)
 
 
 func _update_tooltip() -> void:
