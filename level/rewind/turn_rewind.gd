@@ -65,8 +65,19 @@ func can_rewind(rounds: int) -> bool:
 
 
 ## Starts rewinding n rounds (through RewindState, so the FSM stays consistent).
-func request_rewind(rounds: int) -> bool:
-	if not can_rewind(rounds):
+## from_defeat = true allows it from the defeat screen (paid "renew the rite").
+func request_rewind(rounds: int, from_defeat: bool = false) -> bool:
+	var allowed: bool = can_rewind(rounds)
+
+	if from_defeat:
+		allowed = (
+			not is_rewinding
+			and rounds > 0
+			and fsm.current_state == fsm.defeat_state
+			and get_available_rounds() >= rounds
+		)
+
+	if not allowed:
 		return false
 
 	_pending_rounds = rounds

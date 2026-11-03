@@ -80,6 +80,7 @@ static var _launch_data: LaunchData = null
 @onready var game_decision_engine: GameDecisionEngine = %GameDecisionEngine
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var tavi_guide: TaviGuide = %TaviGuide
+@onready var turn_rewind: TurnRewind = get_node_or_null("%TurnRewind") as TurnRewind
 
 #region /// intro UI
 @onready var player_name_label: RichTextLabel = %PlayerNameLabel
@@ -473,6 +474,15 @@ func resume_game() -> void:
 	pause_button.show()
 	tavi_guide.set_paused(false)
 	get_tree().paused = false
+
+
+## Rounds the TurnRewind can go back right now (0 if there is no TurnRewind).
+func turn_rewind_rounds_available() -> int:
+	return turn_rewind.get_available_rounds() if turn_rewind != null else 0
+
+
+func request_turn_rewind(rounds: int, from_defeat: bool = false) -> bool:
+	return turn_rewind != null and turn_rewind.request_rewind(rounds, from_defeat)
 
 
 func show_pause_button() -> void:

@@ -252,6 +252,10 @@ func _register_activity() -> void:
 func _on_state_changed(_previous: State, current: State) -> void:
 	_register_activity()
 
+	# Left the end screen (rite renewed with Seals) -> Tavi's end message goes away.
+	if current != _fsm.victory_state and current != _fsm.defeat_state:
+		_hide_end_screen()
+
 	if current == _fsm.player_start_turn_state:
 		# state_changed fires before enter(), so the counter still holds the old value.
 		_guided_player_turn = _fsm.player_turn_count == 0
@@ -357,10 +361,21 @@ func _update_tavi_timer(delta: float) -> void:
 
 #region /// end screens
 
+var _end_screen_token: int = 0
+
+
+func _hide_end_screen() -> void:
+	_end_screen_token += 1  # cancels a pending _show_end_screen()
+	end_root.hide()
+
+
 func _show_end_screen(is_victory: bool) -> void:
+	_end_screen_token += 1
+	var token: int = _end_screen_token
+
 	await get_tree().create_timer(end_screen_delay).timeout
 
-	if not is_instance_valid(_fsm) or not is_inside_tree():
+	if not is_instance_valid(_fsm) or not is_inside_tree() or token != _end_screen_token:
 		return
 
 	# Rewards are calculated in the state's enter(), so read them now (after the delay).

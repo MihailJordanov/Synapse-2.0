@@ -21,10 +21,9 @@
 [ext_resource type="Texture2D" uid="uid://cbmvrlgumnvvb" path="res://zones/asstes/ui/map_button_normal.png" id="93_mn"]
 [ext_resource type="Texture2D" uid="uid://cvfsv3f7k4dlv" path="res://zones/asstes/ui/map_button_hover.png" id="94_mh"]
 [ext_resource type="Texture2D" uid="uid://r260nm75mbro" path="res://zones/asstes/ui/map_button_pressed.png" id="95_mp"]
-
-[ext_resource type="Texture2D" path="res://map/assets/ui/buttons/collection_normal.png" id="96_cn"]
-[ext_resource type="Texture2D" path="res://map/assets/ui/buttons/collection_hover.png" id="97_ch"]
-[ext_resource type="Texture2D" path="res://map/assets/ui/buttons/collection_pressed.png" id="98_cp"]
+[ext_resource type="Texture2D" uid="uid://dl5qwbh0dqnnp" path="res://map/assets/ui/buttons/collection_normal.png" id="96_cn"]
+[ext_resource type="Texture2D" uid="uid://b4kyyxcntltka" path="res://map/assets/ui/buttons/collection_hover.png" id="97_ch"]
+[ext_resource type="Texture2D" uid="uid://d2hr3to82yyte" path="res://map/assets/ui/buttons/collection_pressed.png" id="98_cp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojoh7"]
 bg_color = Color(0, 0.6392157, 0.73333335, 1)
@@ -531,6 +530,7 @@ enemy_name = "Sir Pip"
 enemy_name_color = Color(0.8569273, 0.8569273, 0.8569273, 1)
 enemy_texture = ExtResource("8_o080f")
 deck = ExtResource("6_ojoh7")
+enemy_winning_score = 4
 stamina_cost = 12
 money_reward_range = Vector2i(16, 22)
 card_rewards = Array[String](["11012", "11013", "11014"])
@@ -797,7 +797,7 @@ theme_override_font_sizes/font_size = 22
 text = "Map"
 horizontal_alignment = 1
 
-[node name="CollectionButton" type="TextureButton" parent="UI/ZoneButtonsPanel/ZoneMenuButtons"]
+[node name="CollectionButton" type="TextureButton" parent="UI/ZoneButtonsPanel/ZoneMenuButtons" unique_id=248003204]
 texture_filter = 1
 custom_minimum_size = Vector2(84, 84)
 layout_mode = 2
@@ -811,7 +811,7 @@ script = ExtResource("92_menu")
 feature_id = "collection"
 target_scene_path = "res://collection/collection.tscn"
 
-[node name="Label" type="Label" parent="UI/ZoneButtonsPanel/ZoneMenuButtons/CollectionButton"]
+[node name="Label" type="Label" parent="UI/ZoneButtonsPanel/ZoneMenuButtons/CollectionButton" unique_id=1505271006]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
@@ -821,7 +821,6 @@ offset_left = -40.0
 offset_top = -6.0
 offset_right = 40.0
 offset_bottom = 22.0
-mouse_filter = 2
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 22
 text = "Collection"
