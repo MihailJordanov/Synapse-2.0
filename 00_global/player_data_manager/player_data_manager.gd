@@ -6,6 +6,7 @@ signal icon_unlocked(icon_id: int)
 signal tutorial_progress_changed
 signal feature_unlocked(feature_id: String)
 signal money_changed(money: int)
+signal seals_changed(seals: int)
 
 const SAVE_PATH: String = "user://player_data.json"
 const SAVE_VERSION: int = 1
@@ -34,6 +35,10 @@ var unlocked_features: Array[String] = []
 
 ## Shillings.
 var money: int = 0
+
+## Divine Seals ("Seals" in the UI): rare premium currency.
+## Earned rarely; used for blessings (bonuses) or to renew an interrupted rite (continue after a defeat).
+var seals: int = 0
 
 ## Stamina data (read/written by StaminaManager).
 var stamina: int = DEFAULT_MAX_STAMINA
@@ -159,6 +164,42 @@ func try_spend_money(amount: int) -> bool:
 	money_changed.emit(money)
 	return true
 
+
+func has_enough_money(amount: int) -> bool:
+	return money >= maxi(amount, 0)
+
+#endregion
+
+
+#region /// seals (Divine Seals)
+
+func get_seals() -> int:
+	return seals
+
+
+func has_enough_seals(amount: int) -> bool:
+	return seals >= maxi(amount, 0)
+
+
+func add_seals(amount: int) -> void:
+	if amount <= 0:
+		return
+
+	seals += amount
+	_save_player_data()
+	seals_changed.emit(seals)
+
+
+## Returns false (and spends nothing) if there are not enough seals.
+func try_spend_seals(amount: int) -> bool:
+	if amount < 0 or seals < amount:
+		return false
+
+	seals -= amount
+	_save_player_data()
+	seals_changed.emit(seals)
+	return true
+
 #endregion
 
 
@@ -223,6 +264,7 @@ func _load_player_data() -> void:
 	first_zone_tutorial_completed = bool(data.get("first_zone_tutorial_completed", false))
 	unlocked_features = _read_string_array(data.get("unlocked_features", []))
 	money = maxi(int(data.get("money", 0)), 0)
+	seals = maxi(int(data.get("seals", 0)), 0)
 	max_stamina = maxi(int(data.get("max_stamina", DEFAULT_MAX_STAMINA)), 1)
 	stamina = maxi(int(data.get("stamina", max_stamina)), 0)
 	stamina_last_tick_unix = int(data.get("stamina_last_tick_unix", 0))
@@ -266,6 +308,7 @@ func _save_player_data() -> void:
 		"first_zone_tutorial_completed": first_zone_tutorial_completed,
 		"unlocked_features": unlocked_features,
 		"money": money,
+		"seals": seals,
 		"stamina": stamina,
 		"max_stamina": max_stamina,
 		"stamina_last_tick_unix": stamina_last_tick_unix
@@ -283,6 +326,7 @@ func _create_default_save() -> void:
 	first_zone_tutorial_completed = false
 	unlocked_features = []
 	money = 0
+	seals = 0
 	max_stamina = DEFAULT_MAX_STAMINA
 	stamina = DEFAULT_MAX_STAMINA
 	stamina_last_tick_unix = 0

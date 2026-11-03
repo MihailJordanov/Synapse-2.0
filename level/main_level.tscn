@@ -46,7 +46,7 @@
 [ext_resource type="AudioStream" uid="uid://dp5ykku5tth45" path="res://music/SFX/start battle/enemy_is_first_success.wav" id="36_6xcon"]
 [ext_resource type="AudioStream" uid="uid://cswijau2tc7j1" path="res://music/SFX/start battle/player_is_first_success.wav" id="36_32kiw"]
 [ext_resource type="Texture2D" uid="uid://bdrobtb01f6a5" path="res://level/assets/blood_drops.png" id="36_eytok"]
-[ext_resource type="PackedScene" path="res://level/tavi_guide/tavi_guide.tscn" id="99_tavi"]
+[ext_resource type="PackedScene" uid="uid://bvf1c0gtrbclv" path="res://level/tavi_guide/tavi_guide.tscn" id="99_tavi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xrivr"]
 shader = ExtResource("28_j5xbu")

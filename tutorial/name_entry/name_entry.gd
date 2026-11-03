@@ -8,7 +8,7 @@ extends Control
 const MAIN_MAP_SCENE_PATH: String = "res://map/main_map.tscn"
 const FIRST_ICON_ID: int = 1000
 const MIN_NAME_LENGTH: int = 3
-const MAX_NAME_LENGTH: int = 16
+const MAX_NAME_LENGTH: int = 10
 
 enum Face { WAVE, POINT, PRESENT, WORRIED, DETERMINED, SAD }
 
