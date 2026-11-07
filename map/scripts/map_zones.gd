@@ -55,6 +55,8 @@ var _is_leaving: bool = false
 
 
 func _ready() -> void:
+	# Remember this screen, so the next launch opens it again.
+	PlayerDataManager.set_last_location(owner.scene_file_path if owner != null else scene_file_path)
 	_cache_zones()
 	_setup_zones()
 

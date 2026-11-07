@@ -53,6 +53,8 @@ var _is_leaving: bool = false
 
 
 func _ready() -> void:
+	# Remember this screen, so the next launch opens it again.
+	PlayerDataManager.set_last_location(scene_file_path if not scene_file_path.is_empty() else owner.scene_file_path)
 	card_reward_progress_bars = [
 		texture_progress_bar_1,
 		texture_progress_bar_2,

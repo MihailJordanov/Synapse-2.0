@@ -31,6 +31,8 @@ var icons_data: Dictionary = {}
 var legacy_tutorial_flags: Dictionary = {}
 ## Unlocked features (menu buttons on the main map etc.).
 var unlocked_features: Array[String] = []
+## Last map screen the player was on (main map or a zone). Boot reopens it on the next launch.
+var last_location_scene: String = ""
 
 ## Shillings.
 var money: int = 0
@@ -108,6 +110,23 @@ func get_icon_ids() -> Array[int]:
 	return icon_ids.duplicate()
 
 
+
+
+#region /// last location
+
+## Called by the main map and every zone when they open.
+func set_last_location(scene_path: String) -> void:
+	if scene_path.is_empty() or scene_path == last_location_scene:
+		return
+
+	last_location_scene = scene_path
+	_save_player_data()
+
+
+func get_last_location() -> String:
+	return last_location_scene
+
+#endregion
 
 
 #region /// money
@@ -235,6 +254,7 @@ func _load_player_data() -> void:
 		if data.has(legacy_key):
 			legacy_tutorial_flags[legacy_key] = bool(data[legacy_key])
 	unlocked_features = _read_string_array(data.get("unlocked_features", []))
+	last_location_scene = str(data.get("last_location_scene", ""))
 	money = maxi(int(data.get("money", 0)), 0)
 	seals = maxi(int(data.get("seals", 0)), 0)
 	max_stamina = maxi(int(data.get("max_stamina", DEFAULT_MAX_STAMINA)), 1)
@@ -277,6 +297,7 @@ func _save_player_data() -> void:
 		"player_icon_id": player_icon_id,
 		"icon_ids": icon_ids,
 		"unlocked_features": unlocked_features,
+		"last_location_scene": last_location_scene,
 		"money": money,
 		"seals": seals,
 		"stamina": stamina,
@@ -293,6 +314,7 @@ func _create_default_save() -> void:
 	player_icon_id = NO_ICON_ID
 	icon_ids = []
 	unlocked_features = []
+	last_location_scene = ""
 	money = 0
 	seals = 0
 	max_stamina = DEFAULT_MAX_STAMINA
