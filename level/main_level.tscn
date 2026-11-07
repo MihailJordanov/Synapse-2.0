@@ -49,6 +49,8 @@
 [ext_resource type="Script" uid="uid://bco7hi58r15cg" path="res://level/rewind/turn_rewind.gd" id="98_rewind"]
 [ext_resource type="PackedScene" uid="uid://bvf1c0gtrbclv" path="res://level/tavi_guide/tavi_guide.tscn" id="99_tavi"]
 
+[ext_resource type="Theme" path="res://00_global/ui/pixel_ui_theme.tres" id="95_pixel_theme"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xrivr"]
 shader = ExtResource("28_j5xbu")
 shader_parameter/fade_left = 0.800000038
@@ -1814,6 +1816,7 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_13qdw")
 
 [node name="PausePanel" type="Panel" parent="UI" unique_id=285547602]
+theme = ExtResource("95_pixel_theme")
 unique_name_in_owner = true
 visible = false
 anchors_preset = 15
@@ -1876,7 +1879,16 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 64
 text = "Resume"
 
+[node name="PauseSettingsButton" type="Button" parent="UI/PausePanel/paused_screen/ButtonsVBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "Settings"
+
 [node name="ExitButton" type="Button" parent="UI/PausePanel/paused_screen/ButtonsVBoxContainer" unique_id=1133486022]
+theme_type_variation = &"PixelButtonRed"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
@@ -1928,6 +1940,7 @@ grow_horizontal = 2
 theme_override_constants/separation = 50
 
 [node name="YesButton" type="Button" parent="UI/PausePanel/AreYouSurePanel/HBoxContainer" unique_id=1103468756]
+theme_type_variation = &"PixelButtonRed"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 120)
 layout_mode = 2
@@ -1946,6 +1959,7 @@ theme_override_font_sizes/font_size = 84
 text = "No"
 
 [node name="LosePanel" type="Panel" parent="UI" unique_id=1162150461]
+theme = ExtResource("95_pixel_theme")
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -2040,6 +2054,7 @@ theme_override_constants/separation = 16
 alignment = 1
 
 [node name="RenewRewindButton" type="Button" parent="UI/LosePanel/RenewRitePanel/VBoxContainer/HBoxContainer" unique_id=1386667966]
+theme_type_variation = &"PixelButtonGold"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 64)
 layout_mode = 2
@@ -2048,6 +2063,7 @@ theme_override_font_sizes/font_size = 30
 text = "Rewind 3 turns"
 
 [node name="RenewPointsButton" type="Button" parent="UI/LosePanel/RenewRitePanel/VBoxContainer/HBoxContainer" unique_id=360301248]
+theme_type_variation = &"PixelButtonGold"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 64)
 layout_mode = 2
@@ -2091,6 +2107,7 @@ region_enabled = true
 region_rect = Rect2(2479.548, 509.21085, 214.30981, 194.09183)
 
 [node name="VictoryPanel" type="Panel" parent="UI" unique_id=941762209]
+theme = ExtResource("95_pixel_theme")
 unique_name_in_owner = true
 visible = false
 anchors_preset = 15

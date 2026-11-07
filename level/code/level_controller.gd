@@ -104,6 +104,7 @@ static var _launch_data: LaunchData = null
 @onready var pause_panel: Panel = %PausePanel
 @onready var resum_button: Button = %ResumButton
 @onready var exit_button: Button = %ExitButton
+@onready var pause_settings_button: Button = get_node_or_null("%PauseSettingsButton") as Button
 @onready var are_you_sure_panel: Panel = %AreYouSurePanel
 @onready var yes_button: Button = %YesButton
 @onready var no_button: Button = %NoButton
@@ -250,6 +251,9 @@ func _connect_signals() -> void:
 	exit_button.pressed.connect(_on_exit_button_pressed)
 	yes_button.pressed.connect(_on_yes_button_pressed)
 	no_button.pressed.connect(_on_no_button_pressed)
+
+	if pause_settings_button != null:
+		pause_settings_button.pressed.connect(_on_pause_settings_button_pressed)
 
 #endregion
 
@@ -446,6 +450,7 @@ func _on_resum_button_pressed() -> void:
 func _on_exit_button_pressed() -> void:
 	resum_button.hide()
 	exit_button.hide()
+	_set_pause_settings_visible(false)
 	are_you_sure_panel.show()
 
 
@@ -477,10 +482,21 @@ func get_exit_scene_path() -> String:
 	return MAIN_MAP_SCENE_PATH
 
 
+func _set_pause_settings_visible(value: bool) -> void:
+	if pause_settings_button != null:
+		pause_settings_button.visible = value
+
+
+## Pause -> Settings: the volume panel (it works while the game is paused).
+func _on_pause_settings_button_pressed() -> void:
+	SettingsPanel.open(get_tree().current_scene)
+
+
 func _on_no_button_pressed() -> void:
 	are_you_sure_panel.hide()
 	resum_button.show()
 	exit_button.show()
+	_set_pause_settings_visible(true)
 
 
 func pause_game() -> void:
@@ -488,6 +504,7 @@ func pause_game() -> void:
 	are_you_sure_panel.hide()
 	resum_button.show()
 	exit_button.show()
+	_set_pause_settings_visible(true)
 	pause_panel.show()
 	tavi_guide.set_paused(true)
 	get_tree().paused = true
