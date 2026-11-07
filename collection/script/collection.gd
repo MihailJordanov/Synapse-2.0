@@ -8,6 +8,7 @@ signal deck_tab_opened
 
 
 const MAIN_MAP_SCENE_PATH: String = "res://map/main_map.tscn"
+const PIXEL_SCROLLBAR_THEME: Theme = preload("res://00_global/ui/pixel_scrollbar_theme.tres")
 
 ## Set by the scene that opens the collection (main map, zone...). Exit goes back there.
 static var return_scene_path: String = ""
@@ -187,6 +188,7 @@ func _ready() -> void:
 	set_filter_units_button.pressed.connect(_on_set_filter_units_button_pressed)
 	exit_filter_button.pressed.connect(_on_exit_filter_button_pressed)
 	exit_button.pressed.connect(_on_exit_button_pressed)
+	_style_scrollbars()
 	_show_units_panel()
 	_hide_legend_deck_buttons()
 	_load_legend_collection()
@@ -1346,6 +1348,15 @@ func _on_filter_units_button_pressed() -> void:
 	_update_and_or_filter_button()
 	unit_filter_bg_panel.visible = true
 	
+## Pixel scrollbars (VScrollBar styles in pixel_scrollbar_theme.tres). Only the bars get the theme,
+## so nothing inside the scroll areas changes.
+func _style_scrollbars() -> void:
+	for node in find_children("*", "ScrollContainer", true, false):
+		var scroll := node as ScrollContainer
+		scroll.get_v_scroll_bar().theme = PIXEL_SCROLLBAR_THEME
+		scroll.get_h_scroll_bar().theme = PIXEL_SCROLLBAR_THEME
+
+
 func _on_exit_button_pressed() -> void:
 	exit_button.disabled = true
 	var target: String = return_scene_path if not return_scene_path.is_empty() else MAIN_MAP_SCENE_PATH

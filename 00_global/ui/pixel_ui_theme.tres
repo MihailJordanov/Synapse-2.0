@@ -1,21 +1,21 @@
-[gd_resource type="Theme" format=3]
+[gd_resource type="Theme" format=3 uid="uid://bmkh572g44h6p"]
 
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/disabled_normal.png" id="1_disabled_normal"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/teal_normal.png" id="2_teal_normal"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/teal_hover.png" id="3_teal_hover"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/teal_pressed.png" id="4_teal_pressed"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/green_normal.png" id="5_green_normal"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/green_hover.png" id="6_green_hover"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/green_pressed.png" id="7_green_pressed"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/red_normal.png" id="8_red_normal"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/red_hover.png" id="9_red_hover"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/red_pressed.png" id="10_red_pressed"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/gold_normal.png" id="11_gold_normal"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/gold_hover.png" id="12_gold_hover"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/gold_pressed.png" id="13_gold_pressed"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/dark_normal.png" id="14_dark_normal"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/dark_hover.png" id="15_dark_hover"]
-[ext_resource type="Texture2D" path="res://00_global/ui/buttons/dark_pressed.png" id="16_dark_pressed"]
+[ext_resource type="Texture2D" uid="uid://bd4b4oe46gwp3" path="res://00_global/ui/buttons/disabled_normal.png" id="1_disabled_normal"]
+[ext_resource type="Texture2D" uid="uid://clj4cpo3nh62k" path="res://00_global/ui/buttons/teal_normal.png" id="2_teal_normal"]
+[ext_resource type="Texture2D" uid="uid://bwqsr1pjqb0mb" path="res://00_global/ui/buttons/teal_hover.png" id="3_teal_hover"]
+[ext_resource type="Texture2D" uid="uid://bxb2j1neojmtj" path="res://00_global/ui/buttons/teal_pressed.png" id="4_teal_pressed"]
+[ext_resource type="Texture2D" uid="uid://0iwt5ee688kr" path="res://00_global/ui/buttons/green_normal.png" id="5_green_normal"]
+[ext_resource type="Texture2D" uid="uid://dg284v4jerlou" path="res://00_global/ui/buttons/green_hover.png" id="6_green_hover"]
+[ext_resource type="Texture2D" uid="uid://cqk7o1jv6sxg4" path="res://00_global/ui/buttons/green_pressed.png" id="7_green_pressed"]
+[ext_resource type="Texture2D" uid="uid://g7lkol8pjc8u" path="res://00_global/ui/buttons/red_normal.png" id="8_red_normal"]
+[ext_resource type="Texture2D" uid="uid://doraw88j81onl" path="res://00_global/ui/buttons/red_hover.png" id="9_red_hover"]
+[ext_resource type="Texture2D" uid="uid://dj1qg4g8h7ts4" path="res://00_global/ui/buttons/red_pressed.png" id="10_red_pressed"]
+[ext_resource type="Texture2D" uid="uid://r674wd6b8x0a" path="res://00_global/ui/buttons/gold_normal.png" id="11_gold_normal"]
+[ext_resource type="Texture2D" uid="uid://2uj8y3gjn1v" path="res://00_global/ui/buttons/gold_hover.png" id="12_gold_hover"]
+[ext_resource type="Texture2D" uid="uid://cx11d2b5bdwvu" path="res://00_global/ui/buttons/gold_pressed.png" id="13_gold_pressed"]
+[ext_resource type="Texture2D" uid="uid://ccj215gd2kcdb" path="res://00_global/ui/buttons/dark_normal.png" id="14_dark_normal"]
+[ext_resource type="Texture2D" uid="uid://bnw0ylpg71viq" path="res://00_global/ui/buttons/dark_hover.png" id="15_dark_hover"]
+[ext_resource type="Texture2D" uid="uid://4kq3recfjnsw" path="res://00_global/ui/buttons/dark_pressed.png" id="16_dark_pressed"]
 
 [sub_resource type="StyleBoxTexture" id="disabled"]
 content_margin_left = 20.0
@@ -29,17 +29,6 @@ texture_margin_right = 16.0
 texture_margin_bottom = 24.0
 
 [sub_resource type="StyleBoxEmpty" id="empty"]
-
-[sub_resource type="StyleBoxTexture" id="teal_normal"]
-content_margin_left = 20.0
-content_margin_top = 8.0
-content_margin_right = 20.0
-content_margin_bottom = 16.0
-texture = ExtResource("2_teal_normal")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 24.0
 
 [sub_resource type="StyleBoxTexture" id="teal_hover"]
 content_margin_left = 20.0
@@ -63,111 +52,12 @@ texture_margin_top = 16.0
 texture_margin_right = 16.0
 texture_margin_bottom = 24.0
 
-[sub_resource type="StyleBoxTexture" id="green_normal"]
+[sub_resource type="StyleBoxTexture" id="teal_normal"]
 content_margin_left = 20.0
 content_margin_top = 8.0
 content_margin_right = 20.0
 content_margin_bottom = 16.0
-texture = ExtResource("5_green_normal")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="green_hover"]
-content_margin_left = 20.0
-content_margin_top = 8.0
-content_margin_right = 20.0
-content_margin_bottom = 16.0
-texture = ExtResource("6_green_hover")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="green_pressed"]
-content_margin_left = 20.0
-content_margin_top = 16.0
-content_margin_right = 20.0
-content_margin_bottom = 8.0
-texture = ExtResource("7_green_pressed")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="red_normal"]
-content_margin_left = 20.0
-content_margin_top = 8.0
-content_margin_right = 20.0
-content_margin_bottom = 16.0
-texture = ExtResource("8_red_normal")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="red_hover"]
-content_margin_left = 20.0
-content_margin_top = 8.0
-content_margin_right = 20.0
-content_margin_bottom = 16.0
-texture = ExtResource("9_red_hover")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="red_pressed"]
-content_margin_left = 20.0
-content_margin_top = 16.0
-content_margin_right = 20.0
-content_margin_bottom = 8.0
-texture = ExtResource("10_red_pressed")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="gold_normal"]
-content_margin_left = 20.0
-content_margin_top = 8.0
-content_margin_right = 20.0
-content_margin_bottom = 16.0
-texture = ExtResource("11_gold_normal")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="gold_hover"]
-content_margin_left = 20.0
-content_margin_top = 8.0
-content_margin_right = 20.0
-content_margin_bottom = 16.0
-texture = ExtResource("12_gold_hover")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="gold_pressed"]
-content_margin_left = 20.0
-content_margin_top = 16.0
-content_margin_right = 20.0
-content_margin_bottom = 8.0
-texture = ExtResource("13_gold_pressed")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="dark_normal"]
-content_margin_left = 20.0
-content_margin_top = 8.0
-content_margin_right = 20.0
-content_margin_bottom = 16.0
-texture = ExtResource("14_dark_normal")
+texture = ExtResource("2_teal_normal")
 texture_margin_left = 16.0
 texture_margin_top = 16.0
 texture_margin_right = 16.0
@@ -195,51 +85,173 @@ texture_margin_top = 16.0
 texture_margin_right = 16.0
 texture_margin_bottom = 24.0
 
+[sub_resource type="StyleBoxTexture" id="dark_normal"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
+texture = ExtResource("14_dark_normal")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="gold_hover"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
+texture = ExtResource("12_gold_hover")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="gold_pressed"]
+content_margin_left = 20.0
+content_margin_top = 16.0
+content_margin_right = 20.0
+content_margin_bottom = 8.0
+texture = ExtResource("13_gold_pressed")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="gold_normal"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
+texture = ExtResource("11_gold_normal")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="green_hover"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
+texture = ExtResource("6_green_hover")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="green_pressed"]
+content_margin_left = 20.0
+content_margin_top = 16.0
+content_margin_right = 20.0
+content_margin_bottom = 8.0
+texture = ExtResource("7_green_pressed")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="green_normal"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
+texture = ExtResource("5_green_normal")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="red_hover"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
+texture = ExtResource("9_red_hover")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="red_pressed"]
+content_margin_left = 20.0
+content_margin_top = 16.0
+content_margin_right = 20.0
+content_margin_bottom = 8.0
+texture = ExtResource("10_red_pressed")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="red_normal"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
+texture = ExtResource("8_red_normal")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 24.0
+
 [resource]
 Button/colors/font_color = Color(1, 1, 1, 1)
-Button/colors/font_hover_color = Color(1, 1, 1, 1)
-Button/colors/font_pressed_color = Color(0.92, 0.95, 1, 1)
-Button/colors/font_focus_color = Color(1, 1, 1, 1)
 Button/colors/font_disabled_color = Color(0.82, 0.84, 0.86, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
 Button/colors/font_outline_color = Color(0.086, 0.11, 0.15, 1)
+Button/colors/font_pressed_color = Color(0.92, 0.95, 1, 1)
 Button/constants/outline_size = 10
-PixelButtonFlat/base_type = &"Button"
-PixelButtonFlat/styles/normal = SubResource("empty")
-PixelButtonFlat/styles/hover = SubResource("empty")
-PixelButtonFlat/styles/pressed = SubResource("empty")
-PixelButtonFlat/styles/disabled = SubResource("empty")
-PixelButtonFlat/styles/focus = SubResource("empty")
-Button/styles/normal = SubResource("teal_normal")
-Button/styles/hover = SubResource("teal_hover")
-Button/styles/pressed = SubResource("teal_pressed")
-Button/styles/hover_pressed = SubResource("teal_pressed")
 Button/styles/disabled = SubResource("disabled")
 Button/styles/focus = SubResource("empty")
-PixelButtonGreen/base_type = &"Button"
-PixelButtonGreen/styles/normal = SubResource("green_normal")
-PixelButtonGreen/styles/hover = SubResource("green_hover")
-PixelButtonGreen/styles/pressed = SubResource("green_pressed")
-PixelButtonGreen/styles/hover_pressed = SubResource("green_pressed")
-PixelButtonGreen/styles/disabled = SubResource("disabled")
-PixelButtonGreen/styles/focus = SubResource("empty")
-PixelButtonRed/base_type = &"Button"
-PixelButtonRed/styles/normal = SubResource("red_normal")
-PixelButtonRed/styles/hover = SubResource("red_hover")
-PixelButtonRed/styles/pressed = SubResource("red_pressed")
-PixelButtonRed/styles/hover_pressed = SubResource("red_pressed")
-PixelButtonRed/styles/disabled = SubResource("disabled")
-PixelButtonRed/styles/focus = SubResource("empty")
-PixelButtonGold/base_type = &"Button"
-PixelButtonGold/styles/normal = SubResource("gold_normal")
-PixelButtonGold/styles/hover = SubResource("gold_hover")
-PixelButtonGold/styles/pressed = SubResource("gold_pressed")
-PixelButtonGold/styles/hover_pressed = SubResource("gold_pressed")
-PixelButtonGold/styles/disabled = SubResource("disabled")
-PixelButtonGold/styles/focus = SubResource("empty")
+Button/styles/hover = SubResource("teal_hover")
+Button/styles/hover_pressed = SubResource("teal_pressed")
+Button/styles/normal = SubResource("teal_normal")
+Button/styles/pressed = SubResource("teal_pressed")
+CheckBox/styles/disabled = SubResource("empty")
+CheckBox/styles/focus = SubResource("empty")
+CheckBox/styles/hover = SubResource("empty")
+CheckBox/styles/hover_pressed = SubResource("empty")
+CheckBox/styles/normal = SubResource("empty")
+CheckBox/styles/pressed = SubResource("empty")
+CheckButton/styles/disabled = SubResource("empty")
+CheckButton/styles/focus = SubResource("empty")
+CheckButton/styles/hover = SubResource("empty")
+CheckButton/styles/hover_pressed = SubResource("empty")
+CheckButton/styles/normal = SubResource("empty")
+CheckButton/styles/pressed = SubResource("empty")
 PixelButtonDark/base_type = &"Button"
-PixelButtonDark/styles/normal = SubResource("dark_normal")
-PixelButtonDark/styles/hover = SubResource("dark_hover")
-PixelButtonDark/styles/pressed = SubResource("dark_pressed")
-PixelButtonDark/styles/hover_pressed = SubResource("dark_pressed")
 PixelButtonDark/styles/disabled = SubResource("disabled")
 PixelButtonDark/styles/focus = SubResource("empty")
+PixelButtonDark/styles/hover = SubResource("dark_hover")
+PixelButtonDark/styles/hover_pressed = SubResource("dark_pressed")
+PixelButtonDark/styles/normal = SubResource("dark_normal")
+PixelButtonDark/styles/pressed = SubResource("dark_pressed")
+PixelButtonFlat/base_type = &"Button"
+PixelButtonFlat/styles/disabled = SubResource("empty")
+PixelButtonFlat/styles/focus = SubResource("empty")
+PixelButtonFlat/styles/hover = SubResource("empty")
+PixelButtonFlat/styles/normal = SubResource("empty")
+PixelButtonFlat/styles/pressed = SubResource("empty")
+PixelButtonGold/base_type = &"Button"
+PixelButtonGold/styles/disabled = SubResource("disabled")
+PixelButtonGold/styles/focus = SubResource("empty")
+PixelButtonGold/styles/hover = SubResource("gold_hover")
+PixelButtonGold/styles/hover_pressed = SubResource("gold_pressed")
+PixelButtonGold/styles/normal = SubResource("gold_normal")
+PixelButtonGold/styles/pressed = SubResource("gold_pressed")
+PixelButtonGreen/base_type = &"Button"
+PixelButtonGreen/styles/disabled = SubResource("disabled")
+PixelButtonGreen/styles/focus = SubResource("empty")
+PixelButtonGreen/styles/hover = SubResource("green_hover")
+PixelButtonGreen/styles/hover_pressed = SubResource("green_pressed")
+PixelButtonGreen/styles/normal = SubResource("green_normal")
+PixelButtonGreen/styles/pressed = SubResource("green_pressed")
+PixelButtonRed/base_type = &"Button"
+PixelButtonRed/styles/disabled = SubResource("disabled")
+PixelButtonRed/styles/focus = SubResource("empty")
+PixelButtonRed/styles/hover = SubResource("red_hover")
+PixelButtonRed/styles/hover_pressed = SubResource("red_pressed")
+PixelButtonRed/styles/normal = SubResource("red_normal")
+PixelButtonRed/styles/pressed = SubResource("red_pressed")
