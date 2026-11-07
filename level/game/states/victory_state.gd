@@ -133,11 +133,8 @@ func _update_victory_info() -> void:
 	victory_info_label.text = "\n".join(information)
 
 func _on_exit_on_victory_button_pressed() -> void:
-	var return_scene_path: String = fsm.level_controller.return_scene_path
-
-	if return_scene_path.is_empty():
-		push_warning("VictoryState: Return scene path is empty.")
-		return
+	# The zone that started the level (or the main map after an F6 test run).
+	var return_scene_path: String = fsm.level_controller.get_exit_scene_path()
 
 	exit_on_victory_button.disabled = true
 	animation_player.play("fade_out")

@@ -14,6 +14,7 @@ extends Node
 signal setup_finished
 
 const DEFAULT_LEGEND_ICON = preload("uid://xciqo3d2po72")
+const MAIN_MAP_SCENE_PATH: String = "res://map/main_map.tscn"
 
 ## Fallback decks, used only when no Deck resource is set (or the player's deck is empty).
 const TEST_PLAYER_UNIT_IDS: Array[int] = [11000, 11007, 11004, 11007, 11008, 11001, 11002, 11003, 11004, 11005]
@@ -448,8 +449,32 @@ func _on_exit_button_pressed() -> void:
 	are_you_sure_panel.show()
 
 
+## Pause -> Exit -> Yes: leave the battle (no rewards) and go back where the level was started.
 func _on_yes_button_pressed() -> void:
-	pass
+	yes_button.disabled = true
+	no_button.disabled = true
+	are_you_sure_panel.hide()
+	pause_panel.hide()
+	tavi_guide.hide()
+
+	# The tree stays paused (the battle must not continue); only the fade runs.
+	var previous_mode: Node.ProcessMode = animation_player.process_mode
+	animation_player.process_mode = Node.PROCESS_MODE_ALWAYS
+	animation_player.play("fade_out")
+	await animation_player.animation_finished
+	animation_player.process_mode = previous_mode
+
+	get_tree().paused = false  # must be off before the next scene starts
+	get_tree().change_scene_to_file(get_exit_scene_path())
+
+
+## Where to go when the battle ends: the zone that started it, or the main map
+## (e.g. when main_level was started directly with F6).
+func get_exit_scene_path() -> String:
+	if not return_scene_path.is_empty():
+		return return_scene_path
+
+	return MAIN_MAP_SCENE_PATH
 
 
 func _on_no_button_pressed() -> void:

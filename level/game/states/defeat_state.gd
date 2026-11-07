@@ -93,11 +93,8 @@ func _update_defeat_info() -> void:
 
 
 func _on_exit_on_defeat_button_pressed() -> void:
-	var return_scene_path: String = fsm.level_controller.return_scene_path
-
-	if return_scene_path.is_empty():
-		push_warning("DefeatState: Return scene path is empty.")
-		return
+	# The zone that started the level (or the main map after an F6 test run).
+	var return_scene_path: String = fsm.level_controller.get_exit_scene_path()
 
 	exit_on_defeat_button.disabled = true
 	_rewind_button.disabled = true
