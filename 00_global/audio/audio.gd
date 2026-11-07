@@ -4,6 +4,17 @@ extends Node
 enum REVERB_TYPE { NONE, SMALL, MEDIUM, LARGE }
 
 signal player_made_sound( pos : Vector2, volume : float )
+signal volume_changed(bus_name: String, step: int)
+
+#region /// volume settings
+## Volume buses the player can change (Settings). Each has VOLUME_STEPS steps (0 = muted).
+const VOLUME_BUSES: Array[String] = ["Music", "SFX", "UI"]
+const VOLUME_STEPS: int = 10
+const DEFAULT_VOLUME_STEP: int = 8
+const SETTINGS_PATH: String = "user://settings.json"
+
+var _volume_steps: Dictionary = {}  # bus name -> 0..VOLUME_STEPS
+#endregion
 
 @export var ui_focus_audio : AudioStream
 @export var ui_select_audio : AudioStream
@@ -26,6 +37,9 @@ var paused_music_volume_db: float = 0.0
 @onready var ui: AudioStreamPlayer = %UI
 
 func _ready() -> void:
+	# UI clicks must also sound while the game is paused (pause menu, settings).
+	ui.process_mode = Node.PROCESS_MODE_ALWAYS
+	_load_volume_settings()
 	ui.play()
 	ui_audio_player = ui.get_stream_playback()
 	for i in 32:
@@ -208,3 +222,71 @@ func resume_music() -> void:
 
 	paused_music_stream = null
 	paused_music_position = 0.0
+
+
+#region /// volume settings
+
+## 0..VOLUME_STEPS for "Music", "SFX" or "UI".
+func get_volume_step(bus_name: String) -> int:
+	return int(_volume_steps.get(bus_name, DEFAULT_VOLUME_STEP))
+
+
+## Sets and applies a bus volume. save = false while dragging a slider; save once at the end.
+func set_volume_step(bus_name: String, step: int, save: bool = true) -> void:
+	if not VOLUME_BUSES.has(bus_name):
+		push_warning("Audio: unknown volume bus " + bus_name)
+		return
+
+	step = clampi(step, 0, VOLUME_STEPS)
+	_volume_steps[bus_name] = step
+	_apply_volume(bus_name)
+	volume_changed.emit(bus_name, step)
+
+	if save:
+		save_volume_settings()
+
+
+func save_volume_settings() -> void:
+	var file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
+
+	if file == null:
+		push_error("Audio: could not write " + SETTINGS_PATH)
+		return
+
+	file.store_string(JSON.stringify({"volume_steps": _volume_steps}, "\t"))
+
+
+func _load_volume_settings() -> void:
+	for bus_name in VOLUME_BUSES:
+		_volume_steps[bus_name] = DEFAULT_VOLUME_STEP
+
+	if FileAccess.file_exists(SETTINGS_PATH):
+		var file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.READ)
+		var data: Variant = JSON.parse_string(file.get_as_text()) if file != null else null
+
+		if data is Dictionary and data.get("volume_steps") is Dictionary:
+			var saved: Dictionary = data["volume_steps"]
+
+			for bus_name in VOLUME_BUSES:
+				if saved.has(bus_name):
+					_volume_steps[bus_name] = clampi(int(saved[bus_name]), 0, VOLUME_STEPS)
+
+	for bus_name in VOLUME_BUSES:
+		_apply_volume(bus_name)
+
+
+func _apply_volume(bus_name: String) -> void:
+	var bus_index: int = AudioServer.get_bus_index(bus_name)
+
+	if bus_index < 0:
+		push_warning("Audio: bus '%s' not found in the bus layout." % bus_name)
+		return
+
+	var step: int = get_volume_step(bus_name)
+	AudioServer.set_bus_mute(bus_index, step <= 0)
+
+	if step > 0:
+		# Steps feel even to the ear: linear amplitude -> dB.
+		AudioServer.set_bus_volume_db(bus_index, linear_to_db(float(step) / float(VOLUME_STEPS)))
+
+#endregion
