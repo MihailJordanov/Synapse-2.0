@@ -438,6 +438,7 @@ func resolve_tutorial_cycle(owner_state: TutorialState, visit: int) -> bool:
 				index % tutorial_setup.explosion_sounds.size()
 			]
 			_play_spatial_sound(sound, card.global_position, false, 0.2)
+		_play_tutorial_explosion(card, index, ids.size())
 		card.destroy()
 		if not await wait_seconds(tutorial_setup.destroy_card_interval, owner_state, visit):
 			return false
@@ -449,6 +450,27 @@ func resolve_tutorial_cycle(owner_state: TutorialState, visit: int) -> bool:
 		fail_tutorial("The real card points are insufficient for the tutorial victory.")
 		return false
 	return true
+
+
+## First-battle wow effect: big pixel explosion (bigger for every card), screen shake, tiny hit-stop.
+const TUTORIAL_EXPLOSION_COLORS: Array[Color] = [Color("#ff9a3c"), Color("#4fd2ff"), Color("#ff4f7a")]
+
+
+func _play_tutorial_explosion(card: Card, index: int, total: int) -> void:
+	var is_last: bool = index == total - 1
+	var power: float = 1.0 + 0.25 * float(index) + (0.3 if is_last else 0.0)
+	var tint: Color = TUTORIAL_EXPLOSION_COLORS[index % TUTORIAL_EXPLOSION_COLORS.size()]
+
+	PixelExplosion.spawn(get_tree().current_scene, card.global_position, tint, power)
+	VisualEffects.camera_shake(10.0 + 6.0 * float(index) + (8.0 if is_last else 0.0))
+	_hit_stop(0.07 if not is_last else 0.12)
+
+
+## Very short slow-motion for a punchy impact (real time, restores itself).
+func _hit_stop(duration: float) -> void:
+	Engine.time_scale = 0.15
+	await get_tree().create_timer(duration, true, false, true).timeout
+	Engine.time_scale = 1.0
 
 
 func update_info_labels() -> void:
@@ -706,6 +728,7 @@ func _play_spatial_sound(
 
 
 func _exit_tree() -> void:
+	Engine.time_scale = 1.0  # never leave the hit-stop slow motion on
 	_running = false
 	_revision += 1
 	_cancel_waits()
