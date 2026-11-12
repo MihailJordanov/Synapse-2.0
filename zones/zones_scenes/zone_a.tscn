@@ -10,9 +10,14 @@
 [ext_resource type="Texture2D" uid="uid://darnkc2h80hdw" path="res://zones/asstes/sprites/vertical_scroll_unroll_2x6.png" id="7_ojoh7"]
 [ext_resource type="Shader" uid="uid://drd84k43pmbtm" path="res://map/scripts/materials/zone_view.gdshader" id="8_a5ndl"]
 [ext_resource type="Texture2D" uid="uid://dcjodkelauqpw" path="res://zones/asstes/enemies_images/zone_a/level_a02.png" id="8_o080f"]
+[ext_resource type="Texture2D" uid="uid://vt3f3hmtwmfj" path="res://zones/asstes/enemies_images/zone_a/level_a03.png" id="9_awk8r"]
 [ext_resource type="Texture2D" uid="uid://cy066p2ga3wng" path="res://zones/asstes/sprites/white_point.png" id="9_b2rli"]
+[ext_resource type="Texture2D" uid="uid://bqiuh1s5tgqg4" path="res://zones/asstes/enemies_images/zone_a/level_a04.png" id="10_alhnw"]
 [ext_resource type="Texture2D" uid="uid://dblqvbtb8ena0" path="res://zones/asstes/sprites/question_mark.png" id="10_hq8yj"]
+[ext_resource type="Texture2D" uid="uid://dgoe5xkhjsexw" path="res://zones/asstes/enemies_images/zone_a/level_a05.png" id="11_w1a20"]
 [ext_resource type="Texture2D" uid="uid://cblr4o2il8a3v" path="res://zones/asstes/sprites/checkbox.png" id="11_yk2tl"]
+[ext_resource type="Texture2D" uid="uid://biog3523y3wf3" path="res://zones/asstes/enemies_images/zone_a/level_a06.png" id="12_wgd6k"]
+[ext_resource type="Texture2D" uid="uid://isbl00yymchx" path="res://zones/asstes/enemies_images/zone_a/level_a07.png" id="13_xpoih"]
 [ext_resource type="PackedScene" uid="uid://40bostkv6fia" path="res://collection/spell_card_examlpe.tscn" id="14_kgpea"]
 [ext_resource type="PackedScene" uid="uid://82pqfndoqpac" path="res://collection/unit_card_example.tscn" id="15_bcmc5"]
 [ext_resource type="PackedScene" path="res://00_global/hud/resource_hud.tscn" id="90_hud"]
@@ -519,7 +524,8 @@ deck = ExtResource("6_ojoh7")
 player_winning_score = 5
 stamina_cost = 10
 levels_unlocked_on_victory = Array[String](["A02"])
-card_rewards = Array[String](["21000", "21001", "21002"])
+money_reward_range = Vector2i(15, 15)
+card_rewards = Array[String](["11002", "11010", "11011"])
 features_unlocked_on_victory = Array[String](["collection"])
 play_with_tavi = true
 
@@ -530,10 +536,78 @@ enemy_name = "Sir Pip"
 enemy_name_color = Color(0.8569273, 0.8569273, 0.8569273, 1)
 enemy_texture = ExtResource("8_o080f")
 deck = ExtResource("6_ojoh7")
-enemy_winning_score = 4
+player_winning_score = 8
 stamina_cost = 12
-money_reward_range = Vector2i(16, 22)
-card_rewards = Array[String](["11012", "11013", "11014"])
+levels_unlocked_on_victory = Array[String](["A03", "A04"])
+money_reward_range = Vector2i(16, 16)
+card_rewards = Array[String](["11000", "11001", "11003", "11012"])
+
+[node name="LevelSelectorA03" parent="Levels" unique_id=2006817218 instance=ExtResource("4_pnnc3")]
+position = Vector2(447, 245)
+level_id = "A03"
+enemy_name = "Baldwin"
+enemy_name_color = Color(0.85882354, 0.7176471, 0.85882354, 1)
+enemy_texture = ExtResource("9_awk8r")
+deck = ExtResource("6_ojoh7")
+enemy_winning_score = 12
+stamina_cost = 12
+levels_unlocked_on_victory = Array[String](["A05", "A06"])
+money_reward_range = Vector2i(18, 18)
+card_rewards = Array[String](["11004", "11005", "11013", "21000"])
+
+[node name="LevelSelectorA04" parent="Levels" unique_id=555451614 instance=ExtResource("4_pnnc3")]
+position = Vector2(1158, 528)
+level_id = "A04"
+enemy_name = "Roderick"
+enemy_name_color = Color(0.4398895, 0.999999, 0.4879275, 1)
+enemy_texture = ExtResource("10_alhnw")
+deck = ExtResource("6_ojoh7")
+enemy_winning_score = 12
+stamina_cost = 12
+levels_unlocked_on_victory = Array[String](["A05", "A06"])
+money_reward_range = Vector2i(18, 18)
+card_rewards = Array[String](["11006", "11014", "11015", "21001"])
+
+[node name="LevelSelectorA05" parent="Levels" unique_id=449240579 instance=ExtResource("4_pnnc3")]
+position = Vector2(460, 526)
+level_id = "A05"
+enemy_name = "Malakor"
+enemy_name_color = Color(0.85882354, 0.59607846, 0.47843137, 1)
+enemy_texture = ExtResource("11_w1a20")
+deck = ExtResource("6_ojoh7")
+player_winning_score = 12
+enemy_winning_score = 12
+stamina_cost = 12
+levels_unlocked_on_victory = Array[String](["A07"])
+money_reward_range = Vector2i(21, 21)
+card_rewards = Array[String](["11007", "11016", "11017", "21002", "21000"])
+
+[node name="LevelSelectorA06" parent="Levels" unique_id=2018296447 instance=ExtResource("4_pnnc3")]
+position = Vector2(783, 645)
+level_id = "A06"
+enemy_name = "Sir Vane"
+enemy_name_color = Color(0.9839812, 0.8420935, 0.5169394, 1)
+enemy_texture = ExtResource("12_wgd6k")
+deck = ExtResource("6_ojoh7")
+player_winning_score = 14
+enemy_winning_score = 14
+stamina_cost = 12
+levels_unlocked_on_victory = Array[String](["A07"])
+money_reward_range = Vector2i(22, 22)
+card_rewards = Array[String](["11008", "11009", "11011", "21001"])
+
+[node name="LevelSelectorA07" parent="Levels" unique_id=1469653744 instance=ExtResource("4_pnnc3")]
+position = Vector2(75, 386)
+level_id = "A07"
+enemy_name = "Sir Godfrey"
+enemy_name_color = Color(0.9999996, 0.5530226, 0.9943158, 1)
+enemy_texture = ExtResource("13_xpoih")
+deck = ExtResource("6_ojoh7")
+player_winning_score = 16
+enemy_winning_score = 16
+stamina_cost = 12
+money_reward_range = Vector2i(24, 24)
+card_rewards = Array[String](["11010", "11005", "11013", "21100"])
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=379874252]
 

@@ -166,12 +166,15 @@ func _roll_up_if_no_level_selected() -> void:
 
 
 func _set_reward_info(money_range: Vector2i) -> void:
+	var low: int = mini(money_range.x, money_range.y)
+	var high: int = maxi(money_range.x, money_range.y)
+	# A fixed reward (e.g. 20 - 20) is shown as a single number.
+	var amount_text: String = str(low) if low == high else "%d - %d" % [low, high]
+
 	reward_info_label.text = (
 		"[color=#f6c453]Reward[/color]\n"
 		+ "[color=#fff1c1]"
-		+ str(money_range.x)
-		+ " - "
-		+ str(money_range.y)
+		+ amount_text
 		+ "[/color] [img=32x32]" + MONEY_ICON_PATH + "[/img]"
 	)
 
