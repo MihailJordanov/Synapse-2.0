@@ -30,6 +30,9 @@ var cycle_visualizer: CycleVisualizer
 @export var enemy_winning_score: int = 10
 @export var player_max_mana_to_collect: int = 10
 @export var enemy_max_mana_to_collect: int = 10
+## Mana each side has when the match starts.
+@export var player_starting_mana: int = 0
+@export var enemy_starting_mana: int = 0
 @export var enemy_think_time: float = 1.0
 @export var score_policy: ScorePolicy = ScorePolicy.ACTIVE_SIDE_GETS_ALL
 @export var mana_policy: ManaPolicy = ManaPolicy.DESTROY_ENEMIES
@@ -38,8 +41,8 @@ var cycle_visualizer: CycleVisualizer
 
 var player_score: int = 0
 var enemy_score: int = 0
-var player_mana : int = 6
-var enemy_mana : int = 6
+var player_mana : int = 0
+var enemy_mana : int = 0
 var active_side: int = Side.PLAYER
 var current_state: State = null
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -165,6 +168,8 @@ func reset_match() -> void:
 	active_side = Side.PLAYER
 	player_first_draw_done = false
 	enemy_first_draw_done = false
+	set_mana(Side.PLAYER, player_starting_mana)
+	set_mana(Side.ENEMY, enemy_starting_mana)
 	clear_resolution_context()
 	board_controller.clear_board()
 	for slot in player_slots + enemy_slots:

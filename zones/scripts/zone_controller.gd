@@ -82,14 +82,13 @@ func _ready() -> void:
 	card_reward_ids.resize(card_reward_progress_bars.size())
 	card_reward_ids.fill(0)
 
-	# Fallback: if the exported list is empty (e.g. lost on save), find the selectors in the scene.
-	if level_selectors.is_empty():
-		for node in find_children("*", "Node2D", true, false):
-			if node is LevelSelector:
-				level_selectors.append(node as LevelSelector)
+	# Every LevelSelector in the scene is used, even if it was not added to the exported list.
+	# (The list keeps its order first; the first entry is the tutorial's "first level".)
+	for node in find_children("*", "Node2D", true, false):
+		if node is LevelSelector and not level_selectors.has(node):
+			level_selectors.append(node as LevelSelector)
 
-		if not level_selectors.is_empty():
-			push_warning("ZoneController: level_selectors was empty, found %d in the scene." % level_selectors.size())
+	_update_level_visibility()
 
 	for level_selector in level_selectors:
 		level_selector.level_selected.connect(_on_level_selected)
@@ -276,6 +275,28 @@ func _on_play_button_pressed() -> void:
 	animation_player.play("fade_out")
 	await animation_player.animation_finished
 	get_tree().change_scene_to_packed(MAIN_LEVEL)
+
+#region /// level visibility
+
+## A level is shown when it is unlocked, or when an unlocked level of this zone
+## lists it in levels_unlocked_on_victory (a locked "next" level to aim for).
+## Example: A01 unlocks A02, A02 unlocks A03+A04 -> at the start only A01 and A02 are shown.
+func _update_level_visibility() -> void:
+	var teased: Dictionary = {}
+
+	for level_selector in level_selectors:
+		if LevelManager.is_level_unlocked(level_selector.level_id):
+			for next_id: String in level_selector.levels_unlocked_on_victory:
+				teased[next_id.strip_edges().to_upper()] = true
+
+	for level_selector in level_selectors:
+		level_selector.visible = (
+			LevelManager.is_level_unlocked(level_selector.level_id)
+			or teased.has(level_selector.level_id.strip_edges().to_upper())
+		)
+
+#endregion
+
 
 #region /// bottom panel buttons
 

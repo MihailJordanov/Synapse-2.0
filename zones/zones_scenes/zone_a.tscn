@@ -493,7 +493,7 @@ _data = {
 
 [node name="ZoneA" type="Node2D" unique_id=76334242 node_paths=PackedStringArray("level_selectors")]
 script = ExtResource("1_x3x7h")
-level_selectors = [NodePath("Levels/LevelSelectorA01"), NodePath("Levels/LevelSelectorA02")]
+level_selectors = [NodePath("Levels/LevelSelectorA01"), NodePath("Levels/LevelSelectorA02"), NodePath("Levels/LevelSelectorA03"), NodePath("Levels/LevelSelectorA04"), NodePath("Levels/LevelSelectorA05"), NodePath("Levels/LevelSelectorA06"), NodePath("Levels/LevelSelectorA07")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=740107262]
 position = Vector2(900, 439.25)
