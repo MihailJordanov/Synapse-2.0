@@ -8,7 +8,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 	pass
 
 
-func setup_deck(source_cards: Array) -> void:
+func setup_deck(source_cards: Array, _shuffle: bool = true) -> void:
 	clear_hand_and_deck()
 	for item in source_cards:
 		var card: Card = item as Card

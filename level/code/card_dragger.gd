@@ -23,6 +23,15 @@ var _origin_rotation: float
 var _last_hovered_card: Card = null
 var _last_mouse_position: Vector2
 
+## Tutorials: while active, only tutorial_allowed_card can be dragged (null = no card at all).
+var tutorial_lock_active: bool = false
+var tutorial_allowed_card: Card = null
+
+
+func set_tutorial_lock(active: bool, allowed_card: Card = null) -> void:
+	tutorial_lock_active = active
+	tutorial_allowed_card = allowed_card
+
 func _process(_delta: float) -> void:
 	if card_being_dragged != null:
 		_update_dragged_card()
@@ -55,6 +64,10 @@ func start_drag(card: Card) -> void:
 		return
 
 	if card.is_enemy_card:
+		return
+
+	if tutorial_lock_active and card != tutorial_allowed_card:
+		Audio.ui_error()
 		return
 
 	card_being_dragged = card

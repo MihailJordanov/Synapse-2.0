@@ -18,6 +18,14 @@ const SAVE_VERSION: int = 1
 const START_TUTORIAL: String = "start_tutorial"
 const FIRST_ZONE_TUTORIAL: String = "first_zone_tutorial"
 const COLLECTION_TUTORIAL: String = "collection_tutorial"
+## Scripted battle about spells and mana, after the first clear of A02 (tutorial/spell_tutorial).
+## Done only after Tavi showed the Collection afterwards (the battle itself is SPELL_TUTORIAL_BATTLE).
+const SPELL_TUTORIAL: String = "spell_tutorial"
+const SPELL_TUTORIAL_BATTLE: String = "spell_tutorial_battle"
+
+## Per zone: "zone_intro_B" etc. (Tavi guides to a newly unlocked zone, once).
+static func zone_intro_id(zone_letter: String) -> String:
+	return "zone_intro_" + zone_letter.strip_edges().to_upper()
 #endregion
 
 var _completed: Dictionary = {}  # tutorial_id -> true

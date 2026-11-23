@@ -27,6 +27,8 @@ signal level_deselected(level_selector: LevelSelector)
 @export var card_rewards: Array[String] = []
 ## Features unlocked on the first victory, e.g. "collection", "shop".
 @export var features_unlocked_on_victory: Array[String] = []
+## Zones unlocked on the first victory, e.g. "B" (also shows the zone-complete screen).
+@export var zones_unlocked_on_victory: Array[String] = []
 
 @export_category("Helpers")
 ## Tavi gives hints during this battle.

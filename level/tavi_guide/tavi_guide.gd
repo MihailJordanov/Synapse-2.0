@@ -46,6 +46,7 @@ const CYCLE_BUTTON_TEXT: String = "Resolve"
 @onready var tavi_root: Control = %TaviRoot
 @onready var tavi_sprite: Sprite2D = %TaviSprite
 @onready var speech_label: RichTextLabel = %SpeechLabel
+@onready var speech_panel: Control = speech_label.get_parent() as Control
 @onready var arrow: Sprite2D = %ButtonArrow
 @onready var end_root: Control = %EndRoot
 @onready var end_tavi_sprite: Sprite2D = %EndTaviSprite
@@ -93,6 +94,7 @@ func _ready() -> void:
 	tavi_root.hide()
 	arrow.hide()
 	end_root.hide()
+	speech_panel.gui_input.connect(_on_speech_panel_gui_input)
 	_apply_enabled()
 
 
@@ -126,6 +128,8 @@ func _exit_tree() -> void:
 #region /// main loop
 
 func _process(delta: float) -> void:
+	_update_bubble_fade(delta)
+
 	if _button == null:
 		_button = _fsm.controll_turn_button
 		_button_original_modulate = _button.self_modulate
@@ -312,6 +316,7 @@ func _get_button_message(button_text: String) -> String:
 ## duration < 0 -> stays until hidden by the guide.
 func _show_tavi(text: String, face: Face, duration: float = -1.0) -> void:
 	speech_label.text = text
+	_fit_bubble.call_deferred()
 	tavi_sprite.frame = face
 	_tavi_hide_timer = duration
 
@@ -355,6 +360,42 @@ func _update_tavi_timer(delta: float) -> void:
 
 	if _tavi_hide_timer <= 0.0:
 		_hide_tavi()
+
+#endregion
+
+
+#region /// battle bubble (one line, see-through on hover, click to hide)
+
+## The bubble sits in the gap between the enemy row and the player row.
+## Longer than this (px) -> it wraps to two lines instead of running into the side panels.
+const BUBBLE_MAX_WIDTH: float = 1070.0
+## Opacity while the mouse is over the bubble, so the cards under it can be read.
+const BUBBLE_HOVER_ALPHA: float = 0.2
+
+
+func _fit_bubble() -> void:
+	speech_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	speech_panel.offset_right = speech_panel.offset_left  # shrink, the text sets the size
+	speech_panel.offset_bottom = speech_panel.offset_top
+
+	if speech_panel.get_combined_minimum_size().x > BUBBLE_MAX_WIDTH:
+		speech_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		speech_panel.offset_right = speech_panel.offset_left + BUBBLE_MAX_WIDTH
+
+
+func _update_bubble_fade(delta: float) -> void:
+	if not tavi_root.visible:
+		return
+
+	var mouse: Vector2 = get_viewport().get_mouse_position()
+	var target: float = BUBBLE_HOVER_ALPHA if speech_panel.get_global_rect().has_point(mouse) else 1.0
+	speech_panel.modulate.a = move_toward(speech_panel.modulate.a, target, delta * 6.0)
+
+
+func _on_speech_panel_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		speech_panel.accept_event()
+		_hide_tavi()  # comes back with Tavi's next line
 
 #endregion
 

@@ -20,6 +20,12 @@
 [ext_resource type="Texture2D" uid="uid://isbl00yymchx" path="res://zones/asstes/enemies_images/zone_a/level_a07.png" id="13_xpoih"]
 [ext_resource type="PackedScene" uid="uid://40bostkv6fia" path="res://collection/spell_card_examlpe.tscn" id="14_kgpea"]
 [ext_resource type="PackedScene" uid="uid://82pqfndoqpac" path="res://collection/unit_card_example.tscn" id="15_bcmc5"]
+[ext_resource type="Resource" path="res://decks/resources/zone_a/a_02.tres" id="70_deck_a02"]
+[ext_resource type="Resource" path="res://decks/resources/zone_a/a_03.tres" id="70_deck_a03"]
+[ext_resource type="Resource" path="res://decks/resources/zone_a/a_04.tres" id="70_deck_a04"]
+[ext_resource type="Resource" path="res://decks/resources/zone_a/a_05.tres" id="70_deck_a05"]
+[ext_resource type="Resource" path="res://decks/resources/zone_a/a_06.tres" id="70_deck_a06"]
+[ext_resource type="Resource" path="res://decks/resources/zone_a/a_07.tres" id="70_deck_a07"]
 [ext_resource type="PackedScene" path="res://00_global/hud/resource_hud.tscn" id="90_hud"]
 [ext_resource type="Texture2D" uid="uid://b51m73rborfia" path="res://00_global/hud/assets/hud_panel.png" id="91_panel"]
 [ext_resource type="Script" uid="uid://dvum0qg8kr8af" path="res://map/scripts/map_menu_button.gd" id="92_menu"]
@@ -494,6 +500,10 @@ _data = {
 [node name="ZoneA" type="Node2D" unique_id=76334242 node_paths=PackedStringArray("level_selectors")]
 script = ExtResource("1_x3x7h")
 level_selectors = [NodePath("Levels/LevelSelectorA01"), NodePath("Levels/LevelSelectorA02"), NodePath("Levels/LevelSelectorA03"), NodePath("Levels/LevelSelectorA04"), NodePath("Levels/LevelSelectorA05"), NodePath("Levels/LevelSelectorA06"), NodePath("Levels/LevelSelectorA07")]
+is_tutorial_zone = true
+zone_id = "A"
+levels_unlocked_on_zone_clear = Array[String](["B01", "B02"])
+zones_unlocked_on_zone_clear = Array[String](["B"])
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=740107262]
 position = Vector2(900, 439.25)
@@ -534,8 +544,8 @@ level_id = "A02"
 enemy_name = "Sir Pip"
 enemy_name_color = Color(0.8569273, 0.8569273, 0.8569273, 1)
 enemy_texture = ExtResource("8_o080f")
-deck = ExtResource("6_ojoh7")
-player_winning_score = 8
+deck = ExtResource("70_deck_a02")
+player_winning_score = 3
 stamina_cost = 6
 levels_unlocked_on_victory = Array[String](["A03", "A04"])
 money_reward_range = Vector2i(16, 16)
@@ -547,7 +557,7 @@ level_id = "A03"
 enemy_name = "Baldwin"
 enemy_name_color = Color(0.85882354, 0.7176471, 0.85882354, 1)
 enemy_texture = ExtResource("9_awk8r")
-deck = ExtResource("6_ojoh7")
+deck = ExtResource("70_deck_a03")
 enemy_winning_score = 12
 stamina_cost = 8
 levels_unlocked_on_victory = Array[String](["A05", "A06"])
@@ -560,7 +570,7 @@ level_id = "A04"
 enemy_name = "Roderick"
 enemy_name_color = Color(0.4398895, 0.999999, 0.4879275, 1)
 enemy_texture = ExtResource("10_alhnw")
-deck = ExtResource("6_ojoh7")
+deck = ExtResource("70_deck_a04")
 enemy_winning_score = 12
 stamina_cost = 6
 levels_unlocked_on_victory = Array[String](["A05", "A06"])
@@ -573,7 +583,7 @@ level_id = "A05"
 enemy_name = "Malakor"
 enemy_name_color = Color(0.85882354, 0.59607846, 0.47843137, 1)
 enemy_texture = ExtResource("11_w1a20")
-deck = ExtResource("6_ojoh7")
+deck = ExtResource("70_deck_a05")
 player_winning_score = 12
 enemy_winning_score = 12
 stamina_cost = 6
@@ -587,7 +597,7 @@ level_id = "A06"
 enemy_name = "Sir Vane"
 enemy_name_color = Color(0.9839812, 0.8420935, 0.5169394, 1)
 enemy_texture = ExtResource("12_wgd6k")
-deck = ExtResource("6_ojoh7")
+deck = ExtResource("70_deck_a06")
 player_winning_score = 14
 enemy_winning_score = 14
 stamina_cost = 6
@@ -596,12 +606,12 @@ money_reward_range = Vector2i(22, 22)
 card_rewards = Array[String](["11008", "11009", "11011", "21001"])
 
 [node name="LevelSelectorA07" parent="Levels" unique_id=1469653744 instance=ExtResource("4_pnnc3")]
-position = Vector2(75, 386)
+position = Vector2(265, 389)
 level_id = "A07"
 enemy_name = "Sir Godfrey"
 enemy_name_color = Color(0.9999996, 0.5530226, 0.9943158, 1)
 enemy_texture = ExtResource("13_xpoih")
-deck = ExtResource("6_ojoh7")
+deck = ExtResource("70_deck_a07")
 player_winning_score = 16
 enemy_winning_score = 16
 stamina_cost = 8

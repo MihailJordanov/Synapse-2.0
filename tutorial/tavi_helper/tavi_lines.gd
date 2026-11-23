@@ -125,3 +125,41 @@ const COLLECTION_DECK_SPELLS: String = "And the right side is for [color=#d58fff
 const COLLECTION_EXIT: String = "That's everything! Press [color=#ffe28a]Exit[/color] when you're ready to get back to the adventure."
 
 #endregion
+
+
+#region /// New zone - tutorial/zone_complete + map/scripts/map_zones.gd + zones/scripts/zone_controller.gd
+
+## Black screen after the first clear of a zone's last level.
+const ZONE_COMPLETE: String = "You did it - the whole zone is cleared! I'm so proud of you! But this is only the beginning... a big world full of new rivals is waiting for us. Ready for the next adventure?"
+## Main map: point at the newly unlocked zone. %s = zone name.
+const MAP_NEW_ZONE_PICK: String = "Look, the clouds have cleared! A new land is waiting: %s. Click on it!"
+## Main map: the zone scroll is open. %s = zone name.
+const MAP_NEW_ZONE_OPENED: String = "%s - new rivals and new cards are waiting there. Press [color=#ffe28a]Play[/color] and let's go!"
+## First visit of the new zone (shown once, then Tavi leaves).
+const ZONE_ARRIVED: String = "Here we are! Your adventure continues from here. I'll always be close by - good luck, champion!"
+
+#endregion
+
+
+#region /// Spell tutorial - tutorial/spell_tutorial/spell_tutorial.gd
+
+const SPELL_TUT_INTRO: String = "Great win! Now I'll show you something powerful - [color=#d58fff]spells[/color]! I picked the cards for this battle, just follow me."
+const SPELL_TUT_PLAY_FIRST: String = "You go first. Drag the [color=#ffe28a]glowing card[/color] onto one of your slots."
+const SPELL_TUT_END_TURN_FIRST: String = "Nice! Press [color=#ffe28a]End Turn[/color] - now it's the enemy's move."
+const SPELL_TUT_ENEMY_TURN: String = "The enemy is thinking..."
+const SPELL_TUT_CLOSE_FIRST_CYCLE: String = "The enemy's card links to yours! Play the [color=#ffe28a]glowing card[/color] and close the cycle."
+const SPELL_TUT_RESOLVE: String = "A cycle! Press [color=#ffe28a]Resolve[/color] and watch closely what happens!"
+const SPELL_TUT_MANA: String = "Did you see that? Your [color=#89CFF0]mana[/color] went up! In a cycle you get mana = [color=#7CFC00]your destroyed cards[/color] - [color=#ff5555]enemy destroyed cards[/color]. Here: 2 - 1 = 1 mana!"
+const SPELL_TUT_SPELL_CARD: String = "And every cycle draws you a [color=#d58fff]spell card[/color]! Play as many spells as you like (and your mana allows) [color=#ffe28a]before[/color] your unit card - after the unit card your turn ends."
+const SPELL_TUT_SPELL_COST: String = "The number above the picture is the spell's [color=#89CFF0]mana cost[/color]. Your mana is here, on the right. 1 mana - just enough for it!"
+const SPELL_TUT_END_TURN: String = "Press [color=#ffe28a]End Turn[/color]."
+const SPELL_TUT_PLAY_THIRD: String = "The enemy started a new chain. Play the [color=#ffe28a]glowing card[/color] to link to it."
+const SPELL_TUT_NOT_ENOUGH: String = "The enemy's last card has nothing to do with our cards. But look: you have [color=#7CFC00]3 / 7[/color] points and closing this cycle gives only 3 - that's 6. One point short!"
+const SPELL_TUT_PLAY_SPELL: String = "Time for magic! Drag your [color=#d58fff]spell[/color] onto an empty slot of yours."
+const SPELL_TUT_PICK_TARGET: String = "Now click [color=#ffe28a]your unit[/color] on the board - it gets [color=#7CFC00]+1 point[/color]."
+const SPELL_TUT_CLOSE_SECOND_CYCLE: String = "Your unit is stronger now! Play the [color=#ffe28a]glowing card[/color] and close the cycle!"
+const SPELL_TUT_VICTORY: String = "6 points would not be enough - but with one spell you made 7! That's the power of [color=#d58fff]spells[/color]. And this spell is now yours - keep it!"
+## Zone A after the spell tutorial: points at the Collection button (until the Collection is opened).
+const ZONE_SPELLS_IN_COLLECTION: String = "Your new [color=#d58fff]spell[/color] is waiting in the [color=#ffe28a]Collection[/color]! There you can add spells to your deck. Let's take a look!"
+
+#endregion

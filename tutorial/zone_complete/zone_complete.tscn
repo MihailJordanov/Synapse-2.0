@@ -1,0 +1,91 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tutorial/zone_complete/zone_complete.gd" id="1_zone_complete"]
+[ext_resource type="Texture2D" path="res://tutorial/assets/Tavi/Front-facing Tavi pixel expression sprites.png" id="2_tavi"]
+[ext_resource type="PackedScene" path="res://00_global/scene_fader/scene_fader.tscn" id="3_fader"]
+[ext_resource type="Theme" path="res://00_global/ui/pixel_ui_theme.tres" id="4_theme"]
+
+[sub_resource type="StyleBoxFlat" id="Style_speech"]
+content_margin_left = 22.0
+content_margin_top = 16.0
+content_margin_right = 22.0
+content_margin_bottom = 16.0
+bg_color = Color(0.055, 0.07, 0.1, 0.96)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.45, 0.75, 0.85, 1)
+
+[node name="ZoneComplete" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_theme")
+script = ExtResource("1_zone_complete")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Content" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TaviSprite" type="Sprite2D" parent="Content"]
+unique_name_in_owner = true
+position = Vector2(420, 470)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_tavi")
+hframes = 2
+vframes = 3
+
+[node name="SpeechPanel" type="PanelContainer" parent="Content"]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 230.0
+offset_right = 1460.0
+offset_bottom = 420.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_speech")
+
+[node name="SpeechLabel" type="RichTextLabel" parent="Content/SpeechPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "You cleared the whole zone!"
+fit_content = true
+scroll_active = false
+autowrap_mode = 3
+
+[node name="ContinueButton" type="Button" parent="Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 96)
+layout_mode = 0
+offset_left = 930.0
+offset_top = 480.0
+offset_right = 1230.0
+offset_bottom = 576.0
+theme_override_font_sizes/font_size = 48
+text = "Continue"
+
+[node name="SceneFader" parent="." instance=ExtResource("3_fader")]
+unique_name_in_owner = true

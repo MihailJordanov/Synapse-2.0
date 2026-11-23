@@ -33,6 +33,8 @@ var cycle_visualizer: CycleVisualizer
 ## Mana each side has when the match starts.
 @export var player_starting_mana: int = 0
 @export var enemy_starting_mana: int = 0
+## false = decks keep their order (scripted tutorials).
+@export var shuffle_decks: bool = true
 @export var enemy_think_time: float = 1.0
 @export var score_policy: ScorePolicy = ScorePolicy.ACTIVE_SIDE_GETS_ALL
 @export var mana_policy: ManaPolicy = ManaPolicy.DESTROY_ENEMIES
@@ -61,6 +63,8 @@ var enemy_first_draw_done: bool = false
 var player_turn_count: int = 0
 var enemy_turn_count: int = 0
 var end_turn_reason: EndTurnReason = EndTurnReason.NORMAL
+## Scripted tutorials: the enemy plays exactly these unit ids, in order (and no spells while any are left).
+var scripted_enemy_unit_ids: Array[int] = []
 
 var _pending_state: State = null
 var _transition_queued: bool = false

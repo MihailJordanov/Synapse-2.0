@@ -6,6 +6,15 @@ const STAMINA_ICON_PATH: String = "res://00_global/hud/assets/stamina_icon.png"
 const MONEY_ICON_PATH: String = "res://00_global/hud/assets/money_icon.png"
 
 @export var level_selectors: Array[LevelSelector] = []
+## Only the tutorial zone (zone A) shows the first-zone tutorial and the
+## "you lost the first level, try again" Tavi. Leave it off for every other zone.
+@export var is_tutorial_zone: bool = false
+## This zone's letter ("A", "B"...). Used for the one-time "welcome to the new zone" Tavi.
+@export var zone_id: String = ""
+## Unlocked once EVERY level of this zone is defeated (e.g. ["B01", "B02"]).
+@export var levels_unlocked_on_zone_clear: Array[String] = []
+## Zones unlocked once EVERY level of this zone is defeated (e.g. ["B"]). Shows the zone-complete screen.
+@export var zones_unlocked_on_zone_clear: Array[String] = []
 
 @onready var play_button: Button = %PlayButton
 @onready var zone_menu_buttons: HBoxContainer = %ZoneMenuButtons
@@ -49,6 +58,9 @@ var _tavi: TaviHelper = null
 var _tavi_is_retry: bool = false
 ## True when Tavi only invites the player to open the newly unlocked Collection.
 var _tavi_collection_prompt: bool = false
+var _tavi_collection_text: String = TaviLines.ZONE_COLLECTION_UNLOCKED
+## The collection prompt after the spell tutorial: opening the Collection completes it.
+var _is_spell_collection_prompt: bool = false
 var _is_leaving: bool = false
 
 
@@ -122,12 +134,14 @@ func _ready() -> void:
 	animation_player.play("fade_in")
 
 	# First visit, or the first level is still not beaten (lost it) -> Tavi helps.
-	var is_first_visit: bool = not TutorialManager.is_completed(TutorialManager.FIRST_ZONE_TUTORIAL)
-	_tavi_is_retry = not is_first_visit and _is_first_level_unbeaten()
+	var is_first_visit: bool = is_tutorial_zone and not TutorialManager.is_completed(TutorialManager.FIRST_ZONE_TUTORIAL)
+	_tavi_is_retry = is_tutorial_zone and not is_first_visit and _is_first_level_unbeaten()
 
 	if is_first_visit or _tavi_is_retry:
 		_tavi = TaviHelper.create(self)
 		_tavi_show_pick_level()
+	elif _should_show_zone_intro():
+		_show_zone_intro()
 	elif (
 		PlayerDataManager.is_feature_unlocked(PlayerDataManager.FEATURE_COLLECTION)
 		and not TutorialManager.is_completed(TutorialManager.COLLECTION_TUTORIAL)
@@ -135,7 +149,13 @@ func _ready() -> void:
 		_tavi_collection_prompt = true
 		_tavi = TaviHelper.create(self)
 		_tavi_show_collection_prompt()
-	
+	elif is_tutorial_zone and SpellTutorial.is_collection_prompt_pending():
+		_tavi_collection_prompt = true
+		_is_spell_collection_prompt = true
+		_tavi_collection_text = TaviLines.ZONE_SPELLS_IN_COLLECTION
+		_tavi = TaviHelper.create(self)
+		_tavi_show_collection_prompt()
+
 
 func _on_level_selected(level_selector: LevelSelector) -> void:
 	selected_level_selector = level_selector
@@ -269,12 +289,27 @@ func _on_play_button_pressed() -> void:
 		selected_level_selector.card_rewards,
 		get_tree().current_scene.scene_file_path,
 		selected_level_selector.play_with_tavi,
-		selected_level_selector.features_unlocked_on_victory
+		selected_level_selector.features_unlocked_on_victory,
+		selected_level_selector.zones_unlocked_on_victory
+	)
+	LevelController.set_zone_clear_data(
+		_get_zone_level_ids(),
+		levels_unlocked_on_zone_clear,
+		zones_unlocked_on_zone_clear
 	)
 
 	animation_player.play("fade_out")
 	await animation_player.animation_finished
 	get_tree().change_scene_to_packed(MAIN_LEVEL)
+
+func _get_zone_level_ids() -> Array[String]:
+	var ids: Array[String] = []
+
+	for level_selector in level_selectors:
+		if level_selector != null and not level_selector.level_id.is_empty():
+			ids.append(level_selector.level_id)
+
+	return ids
 
 #region /// level visibility
 
@@ -308,6 +343,9 @@ func _on_zone_menu_button_pressed(menu_button: MapMenuButton) -> void:
 	play_button.disabled = true
 	# If this opens the collection, its Exit comes back to this zone.
 	Collection.return_scene_path = get_tree().current_scene.scene_file_path
+
+	if _is_spell_collection_prompt and menu_button.name == "CollectionButton":
+		TutorialManager.complete(TutorialManager.SPELL_TUTORIAL)
 
 	if _tavi != null:
 		_tavi.clear_arrows()
@@ -472,10 +510,29 @@ func _tavi_show_collection_prompt() -> void:
 
 	_tavi.clear_arrows()
 	_tavi.set_layout(Vector2(590.0, 0.0))
-	_tavi.say(TaviLines.ZONE_COLLECTION_UNLOCKED, TaviHelper.Face.WAVE)
+	_tavi.say(_tavi_collection_text, TaviHelper.Face.WAVE)
 
 	if collection_button != null:
 		_tavi.point_at_control(collection_button, TaviHelper.ArrowSide.RIGHT)
+
+
+## A newly unlocked zone (not the tutorial zone) is opened for the first time.
+func _should_show_zone_intro() -> bool:
+	return (
+		not is_tutorial_zone
+		and not zone_id.is_empty()
+		and not TutorialManager.is_completed(TutorialManager.zone_intro_id(zone_id))
+	)
+
+
+## Tavi's last words of the new-zone tutorial; marked done right away, so it never repeats.
+func _show_zone_intro() -> void:
+	TutorialManager.complete(TutorialManager.zone_intro_id(zone_id))
+
+	_tavi = TaviHelper.create(self)
+	await get_tree().create_timer(0.5).timeout  # after the fade in
+	await _tavi.say_and_wait(TaviLines.ZONE_ARRIVED, TaviHelper.Face.WAVE)
+	_tavi.hide_tavi()
 
 
 func _is_first_level_unbeaten() -> bool:

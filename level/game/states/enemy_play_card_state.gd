@@ -59,6 +59,12 @@ func _play_enemy_turn() -> void:
 					card as UnitCard
 				)
 
+		var scripted_unit: UnitCard = _take_scripted_unit(playable_units)
+
+		if scripted_unit != null:
+			playable_spells.clear()
+			playable_units.assign([scripted_unit])
+
 		if _should_play_spell(
 			playable_spells,
 			playable_units,
@@ -131,6 +137,22 @@ func _play_enemy_turn() -> void:
 
 		change_to(fsm.enemy_end_turn_state)
 		return
+
+
+## Scripted tutorials: the next unit from fsm.scripted_enemy_unit_ids (null = play normally).
+func _take_scripted_unit(playable_units: Array[UnitCard]) -> UnitCard:
+	if fsm.scripted_enemy_unit_ids.is_empty():
+		return null
+
+	var wanted_id: int = fsm.scripted_enemy_unit_ids[0]
+
+	for unit: UnitCard in playable_units:
+		if unit.card_id == wanted_id:
+			fsm.scripted_enemy_unit_ids.remove_at(0)
+			return unit
+
+	push_warning("EnemyPlayCardState: scripted unit %d is not in the enemy hand." % wanted_id)
+	return null
 
 
 func _should_play_spell(playable_spells: Array[SpellCard],playable_units: Array[UnitCard],played_any_card: bool) -> bool:

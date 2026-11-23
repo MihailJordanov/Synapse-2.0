@@ -58,7 +58,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			draw_card()
 
 
-func setup_deck(source_cards: Array) -> void:
+## shuffle = false keeps the given order (scripted tutorials).
+func setup_deck(source_cards: Array, shuffle: bool = true) -> void:
 	clear_hand_and_deck()
 
 	for item in source_cards:
@@ -72,13 +73,14 @@ func setup_deck(source_cards: Array) -> void:
 
 		deck.append(card)
 
-	deck.shuffle()
+	if shuffle:
+		deck.shuffle()
 
 	_update_deck_sprites_visibility()
 	deck_changed.emit()
 
 
-func setup_spell_deck(source_cards: Array) -> void:
+func setup_spell_deck(source_cards: Array, shuffle: bool = true) -> void:
 	spell_deck.clear()
 
 	for item in source_cards:
@@ -99,7 +101,8 @@ func setup_spell_deck(source_cards: Array) -> void:
 
 		spell_deck.append(card)
 
-	spell_deck.shuffle()
+	if shuffle:
+		spell_deck.shuffle()
 
 	_update_deck_sprites_visibility()
 	deck_changed.emit()

@@ -23,7 +23,14 @@ const ZONE_INFOS: Dictionary = {
 #endregion
 
 const ZONE_SCENES: Dictionary = {
-	"A": "res://zones/zones_scenes/zone_a.tscn"
+	"A": "res://zones/zones_scenes/zone_a.tscn",
+	"B": "res://zones/zones_scenes/zone_b.tscn"
+}
+
+## Zone names for Tavi's lines (with color).
+const ZONE_NAMES: Dictionary = {
+	"A": "[color=#62ff90]Greenheart Vale[/color]",
+	"B": "[color=#3785ff]Westharbor[/color]"
 }
 
 const START_ZONE: String = "A"
@@ -51,6 +58,8 @@ var hovered_zone: String = ""
 
 ## Only exists while the first zone tutorial is running.
 var _tavi: TaviHelper = null
+## The zone Tavi points at (START_ZONE for the first tutorial, or a newly unlocked zone).
+var _tavi_zone: String = START_ZONE
 var _is_leaving: bool = false
 
 
@@ -78,6 +87,12 @@ func _ready() -> void:
 
 	if not TutorialManager.is_completed(TutorialManager.FIRST_ZONE_TUTORIAL):
 		_start_first_zone_tutorial()
+	else:
+		var new_zone: String = _find_zone_waiting_for_intro()
+
+		if not new_zone.is_empty():
+			_tavi_zone = new_zone
+			_start_first_zone_tutorial()
 
 
 func _cache_zones() -> void:
@@ -123,6 +138,9 @@ func _setup_zones() -> void:
 
 
 func _on_zone_mouse_entered(zone_letter: String,zone: CanvasItem) -> void:
+	if _is_zone_blocked_by_tutorial(zone_letter):
+		return
+
 	hovered_zone = zone_letter
 
 	if not is_scroll_open:
@@ -157,7 +175,16 @@ func _on_zone_input_event(
 		return
 
 	get_viewport().set_input_as_handled()
+
+	if _is_zone_blocked_by_tutorial(zone_letter):
+		return  # Tavi waits for the zone he points at
+
 	_open_zone(zone_letter)
+
+
+## While Tavi guides to a zone, every other zone ignores hover and clicks.
+func _is_zone_blocked_by_tutorial(zone_letter: String) -> bool:
+	return _tavi != null and not _is_leaving and zone_letter != _tavi_zone
 
 
 func _open_zone(zone_letter: String) -> void:
@@ -336,11 +363,11 @@ func _tavi_show_pick_zone() -> void:
 
 	_tavi.clear_arrows()
 	_tavi.say(
-		TaviLines.MAP_PICK_ZONE,
+		TaviLines.MAP_PICK_ZONE if _tavi_zone == START_ZONE else TaviLines.MAP_NEW_ZONE_PICK % _zone_name(_tavi_zone),
 		TaviHelper.Face.POINT
 	)
 
-	var area: Area2D = areas.get(START_ZONE)
+	var area: Area2D = areas.get(_tavi_zone)
 
 	if area == null:
 		return
@@ -355,15 +382,31 @@ func _tavi_on_zone_opened(zone_letter: String) -> void:
 
 	_tavi.clear_arrows()
 
-	if zone_letter != START_ZONE:
+	if zone_letter != _tavi_zone:
 		return
 
 	_tavi.say(
-		TaviLines.MAP_ZONE_OPENED,
+		TaviLines.MAP_ZONE_OPENED if _tavi_zone == START_ZONE else TaviLines.MAP_NEW_ZONE_OPENED % _zone_name(_tavi_zone),
 		TaviHelper.Face.PRESENT,
 		true  # the bottom is covered by the scroll and the Play button
 	)
 	_tavi.point_at_control(play_button)
+
+
+## An unlocked zone (not the start zone) whose intro tutorial has not been shown yet.
+func _find_zone_waiting_for_intro() -> String:
+	for zone_letter in areas:
+		if zone_letter == START_ZONE or not ZONE_SCENES.has(zone_letter):
+			continue
+
+		if ZoneManager.is_zone_unlocked(zone_letter) and not TutorialManager.is_completed(TutorialManager.zone_intro_id(zone_letter)):
+			return zone_letter
+
+	return ""
+
+
+func _zone_name(zone_letter: String) -> String:
+	return str(ZONE_NAMES.get(zone_letter, zone_letter))
 
 
 ## Top-center of the zone's collision polygon, in the area's local space.

@@ -38,6 +38,10 @@ class LaunchData:
 	var return_scene_path: String = ""
 	var play_with_tavi: bool = false
 	var features_unlocked_on_victory: Array[String] = []
+	var zones_unlocked_on_victory: Array[String] = []
+	var zone_level_ids: Array[String] = []
+	var levels_unlocked_on_zone_clear: Array[String] = []
+	var zones_unlocked_on_zone_clear: Array[String] = []
 
 static var _launch_data: LaunchData = null
 
@@ -70,12 +74,18 @@ static var _launch_data: LaunchData = null
 @export var levels_unlocked_on_victory: Array[String] = []
 @export var money_reward_range: Vector2i = Vector2i(15, 20)
 @export var card_rewards: Array[String] = []
+## Always given on victory (no chance roll), while the collection limit allows it.
+@export var guaranteed_card_rewards: Array[String] = []
 ## Features unlocked on victory, e.g. "collection", "shop".
 @export var features_unlocked_on_victory: Array[String] = []
+## Zones unlocked on victory, e.g. "B".
+@export var zones_unlocked_on_victory: Array[String] = []
 
 @export_category("Helpers")
 ## Tavi shows hints during the battle (first turn + when the player is idle).
 @export var play_with_tavi: bool = false
+## false = no legends for both sides (scripted tutorials).
+@export var use_legends: bool = true
 
 
 @onready var game_decision_engine: GameDecisionEngine = %GameDecisionEngine
@@ -120,6 +130,11 @@ var enemy_spell_deck_cards: Array[Card] = []
 
 ## True when the level was opened from the map, false for a direct test run.
 var is_launched_from_map: bool = false
+## Every level id of the zone this level belongs to (empty in F6 test runs).
+var zone_level_ids: Array[String] = []
+## Unlocked once every level in zone_level_ids is defeated.
+var levels_unlocked_on_zone_clear: Array[String] = []
+var zones_unlocked_on_zone_clear: Array[String] = []
 ## True once the intro animations are done. SetupState checks it before awaiting setup_finished.
 var is_setup_finished: bool = false
 
@@ -139,7 +154,8 @@ static func prepare_level(
 	selected_card_rewards: Array[String],
 	selected_return_scene_path: String,
 	selected_play_with_tavi: bool = false,
-	selected_features_unlocked_on_victory: Array[String] = []
+	selected_features_unlocked_on_victory: Array[String] = [],
+	selected_zones_unlocked_on_victory: Array[String] = []
 ) -> void:
 	var data := LaunchData.new()
 	data.level_id = selected_level_id
@@ -155,7 +171,22 @@ static func prepare_level(
 	data.return_scene_path = selected_return_scene_path
 	data.play_with_tavi = selected_play_with_tavi
 	data.features_unlocked_on_victory = selected_features_unlocked_on_victory.duplicate()
+	data.zones_unlocked_on_victory = selected_zones_unlocked_on_victory.duplicate()
 	_launch_data = data
+
+
+## Call right after prepare_level(): the whole zone's level ids and what clearing all of them unlocks.
+static func set_zone_clear_data(
+	selected_zone_level_ids: Array[String],
+	selected_levels_unlocked_on_zone_clear: Array[String],
+	selected_zones_unlocked_on_zone_clear: Array[String]
+) -> void:
+	if _launch_data == null:
+		return
+
+	_launch_data.zone_level_ids = selected_zone_level_ids.duplicate()
+	_launch_data.levels_unlocked_on_zone_clear = selected_levels_unlocked_on_zone_clear.duplicate()
+	_launch_data.zones_unlocked_on_zone_clear = selected_zones_unlocked_on_zone_clear.duplicate()
 
 
 func _ready() -> void:
@@ -189,6 +220,10 @@ func _resolve_level_data() -> void:
 	else:
 		player_legend = player_legend.duplicate(true) as Legend
 
+	if not use_legends:
+		player_legend = null
+		enemy_legend = null
+
 	# Own copy, so a legend effect with state can never leak into the shared resource.
 	if enemy_legend != null:
 		enemy_legend = enemy_legend.duplicate(true) as Legend
@@ -208,6 +243,10 @@ func _apply_launch_data(data: LaunchData) -> void:
 	return_scene_path = data.return_scene_path
 	play_with_tavi = data.play_with_tavi
 	features_unlocked_on_victory = data.features_unlocked_on_victory.duplicate()
+	zones_unlocked_on_victory = data.zones_unlocked_on_victory.duplicate()
+	zone_level_ids = data.zone_level_ids.duplicate()
+	levels_unlocked_on_zone_clear = data.levels_unlocked_on_zone_clear.duplicate()
+	zones_unlocked_on_zone_clear = data.zones_unlocked_on_zone_clear.duplicate()
 
 
 func _apply_rules_to_engine() -> void:

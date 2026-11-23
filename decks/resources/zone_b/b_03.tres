@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Deck" format=3]
+
+[ext_resource type="Script" uid="uid://bgtxy4v14jwqu" path="res://decks/deck.gd" id="1_12o6f"]
+
+[resource]
+script = ExtResource("1_12o6f")
+deck_name = "B03 (Deck 10)"
+unit_card_ids = Array[String](["11011", "11011", "11014", "11014", "11010", "11010", "11015", "11038", "11038", "11039", "11039", "11057", "11057", "11063", "11063", "11036", "11045", "11023", "11099", "11099", "11099", "11095", "11075", "11096", "11081"])
+metadata/_custom_type_script = "uid://bgtxy4v14jwqu"

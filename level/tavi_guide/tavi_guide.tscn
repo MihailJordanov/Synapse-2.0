@@ -16,6 +16,18 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.45, 0.75, 0.85, 1)
 
+[sub_resource type="StyleBoxFlat" id="Style_speech_line"]
+content_margin_left = 16.0
+content_margin_top = 5.0
+content_margin_right = 16.0
+content_margin_bottom = 5.0
+bg_color = Color(0.055, 0.07, 0.1, 0.9)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.45, 0.75, 0.85, 1)
+
 [node name="TaviGuide" type="CanvasLayer" unique_id=1748690272]
 layer = 40
 script = ExtResource("1_guide")
@@ -41,23 +53,24 @@ frame = 1
 
 [node name="SpeechPanel" type="PanelContainer" parent="TaviRoot" unique_id=610729537]
 layout_mode = 0
-offset_left = 300.0
-offset_top = 55.0
-offset_right = 920.0
-offset_bottom = 185.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("Style_speech")
+offset_left = 260.0
+offset_top = 118.0
+offset_right = 260.0
+offset_bottom = 118.0
+mouse_filter = 0
+theme_override_styles/panel = SubResource("Style_speech_line")
 
 [node name="SpeechLabel" type="RichTextLabel" parent="TaviRoot/SpeechPanel" unique_id=757308529]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 34
+theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "Your turn! Drag a card from your hand onto an empty slot on your side."
 fit_content = true
 scroll_active = false
+autowrap_mode = 0
 
 [node name="EndRoot" type="Control" parent="."]
 unique_name_in_owner = true
