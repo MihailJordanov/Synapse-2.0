@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Deck" format=3]
+[gd_resource type="Resource" script_class="Deck" format=3 uid="uid://cwkt6uvh815si"]
 
 [ext_resource type="Script" uid="uid://bgtxy4v14jwqu" path="res://decks/deck.gd" id="1_12o6f"]
 
@@ -6,4 +6,5 @@
 script = ExtResource("1_12o6f")
 deck_name = "A06"
 unit_card_ids = Array[String](["11092", "11088", "11068", "11091", "11086", "11035", "11032", "11019", "11034", "11031", "11062", "11044", "11058", "11056", "11061", "11015", "11012", "11003", "11014", "11011"])
+spell_card_ids = Array[String](["21001", "21001", "21101", "21101", "21100", "21100", "21002"])
 metadata/_custom_type_script = "uid://bgtxy4v14jwqu"

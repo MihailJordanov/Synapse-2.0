@@ -537,7 +537,7 @@ deck = ExtResource("80_deck_b01")
 player_winning_score = 5
 levels_unlocked_on_victory = Array[String](["B03", "B04"])
 money_reward_range = Vector2i(23, 23)
-card_rewards = Array[String](["11013", "11014", "11015"])
+card_rewards = Array[String](["11013", "11014", "11015", "21102"])
 features_unlocked_on_victory = Array[String](["collection"])
 play_with_tavi = true
 
@@ -552,7 +552,7 @@ player_winning_score = 8
 stamina_cost = 6
 levels_unlocked_on_victory = Array[String](["B03", "B04"])
 money_reward_range = Vector2i(23, 23)
-card_rewards = Array[String](["11016", "11017", "11014"])
+card_rewards = Array[String](["11016", "11017", "11014", "21103"])
 
 [node name="LevelSelectorB03" parent="Levels" unique_id=2006817218 instance=ExtResource("5_r456o")]
 position = Vector2(1401, 623)
@@ -565,7 +565,7 @@ enemy_winning_score = 12
 stamina_cost = 8
 levels_unlocked_on_victory = Array[String](["B04", "B05", "B07"])
 money_reward_range = Vector2i(25, 25)
-card_rewards = Array[String](["11018", "11019", "11020"])
+card_rewards = Array[String](["11018", "11019", "11020", "21104", "21001"])
 
 [node name="LevelSelectorB04" parent="Levels" unique_id=555451614 instance=ExtResource("5_r456o")]
 position = Vector2(1194, 464)
@@ -578,7 +578,7 @@ enemy_winning_score = 12
 stamina_cost = 6
 levels_unlocked_on_victory = Array[String](["B03", "B05", "B06"])
 money_reward_range = Vector2i(26, 26)
-card_rewards = Array[String](["11021", "11022", "11018"])
+card_rewards = Array[String](["11021", "11022", "11018", "21102", "21100"])
 
 [node name="LevelSelectorB05" parent="Levels" unique_id=449240579 instance=ExtResource("5_r456o")]
 position = Vector2(940, 646)
@@ -592,7 +592,7 @@ enemy_winning_score = 12
 stamina_cost = 6
 levels_unlocked_on_victory = Array[String](["B06", "B08"])
 money_reward_range = Vector2i(27, 27)
-card_rewards = Array[String](["11023", "11024", "11025"])
+card_rewards = Array[String](["11023", "11024", "11025", "21105"])
 
 [node name="LevelSelectorB06" parent="Levels" unique_id=2018296447 instance=ExtResource("5_r456o")]
 position = Vector2(696, 698)
@@ -606,7 +606,7 @@ enemy_winning_score = 14
 stamina_cost = 6
 levels_unlocked_on_victory = Array[String](["B05", "B07"])
 money_reward_range = Vector2i(27, 27)
-card_rewards = Array[String](["11026", "11027", "11023"])
+card_rewards = Array[String](["11026", "11027", "11023", "21101", "21002"])
 
 [node name="LevelSelectorB07" parent="Levels" unique_id=1469653744 instance=ExtResource("5_r456o")]
 position = Vector2(836, 380)
@@ -620,7 +620,7 @@ enemy_winning_score = 16
 stamina_cost = 8
 levels_unlocked_on_victory = Array[String](["B08", "B09"])
 money_reward_range = Vector2i(28, 28)
-card_rewards = Array[String](["11028", "11029", "11030"])
+card_rewards = Array[String](["11028", "11029", "11030", "21400"])
 
 [node name="LevelSelectorB08" parent="Levels" unique_id=1031855759 instance=ExtResource("5_r456o")]
 position = Vector2(1015, 133)
@@ -634,7 +634,7 @@ enemy_winning_score = 16
 stamina_cost = 8
 levels_unlocked_on_victory = Array[String](["B09"])
 money_reward_range = Vector2i(30, 30)
-card_rewards = Array[String](["11031", "11032", "11028"])
+card_rewards = Array[String](["11031", "11032", "11028", "21000"])
 
 [node name="LevelSelectorB09" parent="Levels" unique_id=1994196515 instance=ExtResource("5_r456o")]
 position = Vector2(599, 127)
@@ -648,7 +648,7 @@ enemy_winning_score = 16
 stamina_cost = 8
 levels_unlocked_on_victory = Array[String](["B08"])
 money_reward_range = Vector2i(30, 30)
-card_rewards = Array[String](["11033", "11024", "11031"])
+card_rewards = Array[String](["11033", "11024", "11031", "21400"])
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=379874252]
 

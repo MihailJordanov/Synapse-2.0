@@ -603,7 +603,7 @@ enemy_winning_score = 14
 stamina_cost = 6
 levels_unlocked_on_victory = Array[String](["A07"])
 money_reward_range = Vector2i(22, 22)
-card_rewards = Array[String](["11008", "11009", "11011", "21001"])
+card_rewards = Array[String](["11008", "11009", "11011", "21001", "21002"])
 
 [node name="LevelSelectorA07" parent="Levels" unique_id=1469653744 instance=ExtResource("4_pnnc3")]
 position = Vector2(265, 389)
