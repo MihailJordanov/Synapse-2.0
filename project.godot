@@ -30,6 +30,7 @@ PlayerDataManager="*uid://bd1bs5fsla0b8"
 LegendManager="*uid://dn211i6uhyi08"
 StaminaManager="*res://00_global/stamina_manager/stamina_manager.gd"
 TutorialManager="*res://00_global/tutorial_manager/tutorial_manager.gd"
+AnalyticsManager="*uid://kpdedymwqis0"
 
 [display]
 
@@ -40,6 +41,10 @@ window/size/window_height_override=900
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/vsync/vsync_mode=0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GameAnalytics/plugin.cfg")
 
 [gui]
 

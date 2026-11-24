@@ -157,6 +157,7 @@ func _configure_level() -> void:
 	_controller.money_reward_range = MONEY_REWARD
 	_controller.guaranteed_card_rewards.assign([str(SPELL)])
 	_controller.level_id = ""
+	_controller.analytics_level_name = "SpellTutorial"
 	_controller.play_with_tavi = false
 
 	_engine.initial_draw_count = INITIAL_HAND_SIZE

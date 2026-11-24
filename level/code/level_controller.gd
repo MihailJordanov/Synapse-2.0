@@ -84,6 +84,8 @@ static var _launch_data: LaunchData = null
 @export_category("Helpers")
 ## Tavi shows hints during the battle (first turn + when the player is idle).
 @export var play_with_tavi: bool = false
+## Name in the analytics when level_id is empty (tutorial battles). Empty = "Test".
+var analytics_level_name: String = ""
 ## false = no legends for both sides (scripted tutorials).
 @export var use_legends: bool = true
 
@@ -508,8 +510,13 @@ func _on_yes_button_pressed() -> void:
 	await animation_player.animation_finished
 	animation_player.process_mode = previous_mode
 
+	AnalyticsManager.battle_ended("abandoned", game_decision_engine.player_score, game_decision_engine.enemy_score, game_decision_engine.player_turn_count + game_decision_engine.enemy_turn_count)
 	get_tree().paused = false  # must be off before the next scene starts
 	get_tree().change_scene_to_file(get_exit_scene_path())
+
+
+func get_analytics_level_name() -> String:
+	return level_id if not level_id.is_empty() else analytics_level_name
 
 
 ## Where to go when the battle ends: the zone that started it, or the main map

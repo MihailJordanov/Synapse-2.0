@@ -20,6 +20,8 @@ func enter() -> void:
 	if fsm.current_state != self:
 		return
 
+	_track_battle_started()
+
 	fsm.player_hand.setup_deck(fsm.level_controller.player_deck_cards, fsm.shuffle_decks)
 	fsm.player_hand.setup_spell_deck(fsm.level_controller.player_spell_deck_cards, fsm.shuffle_decks)
 	fsm.enemy_hand.setup_deck(fsm.level_controller.enemy_deck_cards, fsm.shuffle_decks)
@@ -72,3 +74,12 @@ func _draw_initial_card(side: GameDecisionEngine.Side) -> void:
 				0.25
 			)
 			fsm.enemy_hand.draw_card()
+
+
+func _track_battle_started() -> void:
+	var level: LevelController = fsm.level_controller
+	var unit_ids: Array = level.player_deck_cards.map(func(card: Card) -> int: return card.card_id)
+	var spell_ids: Array = level.player_spell_deck_cards.map(func(card: Card) -> int: return card.card_id)
+	var legend_id: int = level.player_legend.legend_id if level.player_legend != null else 0
+
+	AnalyticsManager.battle_started(level.get_analytics_level_name(), unit_ids, spell_ids, legend_id)

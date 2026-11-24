@@ -545,7 +545,7 @@ enemy_name = "Sir Pip"
 enemy_name_color = Color(0.8569273, 0.8569273, 0.8569273, 1)
 enemy_texture = ExtResource("8_o080f")
 deck = ExtResource("70_deck_a02")
-player_winning_score = 3
+player_winning_score = 7
 stamina_cost = 6
 levels_unlocked_on_victory = Array[String](["A03", "A04"])
 money_reward_range = Vector2i(16, 16)
@@ -920,7 +920,6 @@ offset_bottom = 88.0
 grow_horizontal = 1
 
 [node name="Fade" type="Control" parent="UI" unique_id=520666209]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

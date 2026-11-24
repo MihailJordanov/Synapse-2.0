@@ -26,3 +26,9 @@ Versions/
 android/keystore/
 *.keystore
 
+
+# GameAnalytics keys (see 00_global/analytics_manager/analytics_secrets.example.gd)
+00_global/analytics_manager/analytics_secrets.gd
+00_global/analytics_manager/analytics_secrets.gd.uid
+# Windows copy of a GDExtension library that is in use
+addons/**/~*.dll

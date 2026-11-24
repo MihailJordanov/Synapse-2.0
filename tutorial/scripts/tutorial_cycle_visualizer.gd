@@ -77,8 +77,8 @@ func _create_edge(from_card: Card, to_card: Card) -> void:
 	if line == null:
 		return
 
-	var from_position: Vector2 = to_local(from_card.global_position)
-	var to_position: Vector2 = to_local(to_card.global_position)
+	var from_position: Vector2 = _card_anchor(from_card)
+	var to_position: Vector2 = _card_anchor(to_card)
 
 	# Soft glow under the line.
 	var glow: Line2D = line_template.duplicate() as Line2D

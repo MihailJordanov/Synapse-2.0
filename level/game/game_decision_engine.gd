@@ -264,6 +264,7 @@ func try_play_card(card: Card, slot: CardSlot, side: int) -> bool:
 		return false
 
 	if card is SpellCard:
+		_track_card_played(card, side)
 		return true
 
 	var unit_card := card as UnitCard
@@ -281,7 +282,13 @@ func try_play_card(card: Card, slot: CardSlot, side: int) -> bool:
 
 		return false
 
+	_track_card_played(card, side)
 	return true
+
+
+func _track_card_played(card: Card, side: int) -> void:
+	if side == Side.PLAYER:
+		AnalyticsManager.battle_card_played(card.card_id, card is SpellCard)
 	
 	
 func get_empty_slots(side: int) -> Array[CardSlot]:

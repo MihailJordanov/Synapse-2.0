@@ -122,13 +122,8 @@ func _create_edge(from_card: Card,to_card: Card) -> void:
 	line.visible = true
 	line.clear_points()
 
-	var from_position: Vector2 = to_local(
-		from_card.global_position
-	)
-
-	var to_position: Vector2 = to_local(
-		to_card.global_position
-	)
+	var from_position: Vector2 = _card_anchor(from_card)
+	var to_position: Vector2 = _card_anchor(to_card)
 
 	line.add_point(from_position)
 	line.add_point(from_position)
@@ -158,6 +153,15 @@ func _create_edge(from_card: Card,to_card: Card) -> void:
 		animation_duration
 	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
+## Where the card ENDS UP: its slot. A card that was just played is still flying into the
+## slot (0.22 s tween) when the cycle is shown, so its global_position is somewhere on the way.
+func _card_anchor(card: Card) -> Vector2:
+	if is_instance_valid(card.current_slot):
+		return to_local(card.current_slot.global_position)
+
+	return to_local(card.global_position)
+
+
 func clear_visualization() -> void:
 	_stop_icon_pulse()
 

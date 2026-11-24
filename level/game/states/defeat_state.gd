@@ -99,7 +99,9 @@ func _on_exit_on_defeat_button_pressed() -> void:
 	exit_on_defeat_button.disabled = true
 	_rewind_button.disabled = true
 	_points_button.disabled = true
+	AnalyticsManager.currency_reason("Defeat", fsm.level_controller.get_analytics_level_name())
 	PlayerDataManager.add_money(received_money)
+	AnalyticsManager.battle_ended("loss", fsm.player_score, fsm.enemy_score, fsm.player_turn_count + fsm.enemy_turn_count)
 
 	animation_player.play("fade_out")
 	await animation_player.animation_finished
@@ -129,8 +131,11 @@ func _update_renew_panel() -> void:
 	_renew_panel.show()
 
 
-func _pay() -> bool:
+func _pay(option: String) -> bool:
+	AnalyticsManager.currency_reason("SecondChance", option)
+
 	if PlayerDataManager.try_spend_seals(renew_seal_cost):
+		AnalyticsManager.second_chance_used(option)
 		return true
 
 	Audio.ui_error()
@@ -141,16 +146,17 @@ func _pay() -> bool:
 func _on_renew_rewind_pressed() -> void:
 	var rounds: int = mini(renew_rewind_rounds, fsm.level_controller.turn_rewind_rounds_available())
 
-	if rounds <= 0 or not _pay():
+	if rounds <= 0 or not _pay("rewind"):
 		return
 
 	if not fsm.level_controller.request_turn_rewind(rounds, true):
+		AnalyticsManager.currency_reason("SecondChance", "refund")
 		PlayerDataManager.add_seals(renew_seal_cost)  # refund, nothing happened
 		_update_renew_panel()
 
 
 func _on_renew_points_pressed() -> void:
-	if not _is_score_defeat() or not _pay():
+	if not _is_score_defeat() or not _pay("enemy_minus_points"):
 		return
 
 	fsm.enemy_score = maxi(fsm.enemy_score - renew_enemy_points, 0)

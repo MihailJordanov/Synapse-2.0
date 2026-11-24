@@ -36,6 +36,7 @@ func enter() -> void:
 	if not rewards_granted:
 		_grant_victory_rewards()
 		rewards_granted = true
+		AnalyticsManager.battle_ended("win", fsm.player_score, fsm.enemy_score, fsm.player_turn_count + fsm.enemy_turn_count)
 
 	_update_victory_info()
 

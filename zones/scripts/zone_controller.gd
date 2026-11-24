@@ -265,6 +265,7 @@ func _on_play_button_pressed() -> void:
 		return
 
 	if not StaminaManager.try_spend(selected_level_selector.stamina_cost):
+		AnalyticsManager.stamina_not_enough(selected_level_selector.level_id)
 		Audio.ui_error()
 		_update_stamina_cost()
 		return
