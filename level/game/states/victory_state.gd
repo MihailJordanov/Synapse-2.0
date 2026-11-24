@@ -195,6 +195,10 @@ func _on_exit_on_victory_button_pressed() -> void:
 	# After A02: the spell tutorial (once).
 	elif SpellTutorial.should_start():
 		return_scene_path = SpellTutorial.INTRO_SCENE_PATH
+	# After A05 or A06 (only the first of them): Knight + Witch, then the legend reveal.
+	elif LegendTutorial.should_reveal():
+		LegendTutorial.unlock_legends()
+		return_scene_path = LegendTutorial.REVEAL_SCENE_PATH
 
 	exit_on_victory_button.disabled = true
 	animation_player.play("fade_out")

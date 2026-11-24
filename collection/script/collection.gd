@@ -5,6 +5,10 @@ signal unit_card_selected(card_id: int)
 signal unit_added_to_deck(card_id: int)
 signal unit_removed_from_deck(card_id: int)
 signal deck_tab_opened
+signal legends_tab_opened
+signal legend_selected(legend_id: int)
+signal legend_info_shown
+signal legend_equipped(legend_id: int)
 
 
 const MAIN_MAP_SCENE_PATH: String = "res://map/main_map.tscn"
@@ -220,6 +224,8 @@ func _ready() -> void:
 
 	if not TutorialManager.is_completed(TutorialManager.COLLECTION_TUTORIAL):
 		CollectionTutorial.start(self)
+	elif LegendTutorial.is_collection_prompt_pending():
+		LegendTutorial.start(self)
 
 
 func _load_unit_collection() -> void:
@@ -724,6 +730,7 @@ func _select_legend(
 	)
 
 	_update_legend_deck_buttons()
+	legend_selected.emit(selected_legend_id)
 	
 func _hide_legend_deck_buttons() -> void:
 	set_legend_in_deck_button.visible = false
@@ -771,6 +778,7 @@ func _on_set_legend_in_deck_button_pressed() -> void:
 	):
 		_update_all_legend_deck_indicators()
 		_update_legend_deck_buttons()
+		legend_equipped.emit(selected_legend_id)
 		
 
 func _on_remove_legend_from_deck_button_pressed() -> void:
@@ -834,6 +842,7 @@ func _show_selected_legend_info() -> void:
 	)
 
 	legend_info_panel.visible = true
+	legend_info_shown.emit()
 	
 func _hide_selected_legend_info() -> void:
 	legend_info_panel.visible = false
@@ -846,6 +855,7 @@ func _on_spells_button_pressed() -> void:
 
 func _on_legends_button_pressed() -> void:
 	_show_legends_panel()
+	legends_tab_opened.emit()
 	
 func _show_units_panel() -> void:
 	units_panel.visible = true

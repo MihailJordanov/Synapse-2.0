@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tutorial/spell_tutorial/spell_reveal.gd" id="1_reveal"]
+[ext_resource type="Texture2D" uid="uid://bm3gb1nod1qlt" path="res://legends/assets/legend_border.png" id="2_frame"]
+
+[node name="LegendReveal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_reveal")
+shape = "square"
+frame_texture = ExtResource("2_frame")
+hint_text = "Claim your Legends!"
+target_scene_path = "res://zones/zones_scenes/zone_a.tscn"

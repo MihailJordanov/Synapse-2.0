@@ -155,6 +155,12 @@ func _ready() -> void:
 		_tavi_collection_text = TaviLines.ZONE_SPELLS_IN_COLLECTION
 		_tavi = TaviHelper.create(self)
 		_tavi_show_collection_prompt()
+	elif is_tutorial_zone and LegendTutorial.is_collection_prompt_pending():
+		# Completed inside the Collection (LegendTutorial), so it comes back until then.
+		_tavi_collection_prompt = true
+		_tavi_collection_text = TaviLines.ZONE_LEGENDS_IN_COLLECTION
+		_tavi = TaviHelper.create(self)
+		_tavi_show_collection_prompt()
 
 
 func _on_level_selected(level_selector: LevelSelector) -> void:

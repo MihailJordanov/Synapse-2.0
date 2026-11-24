@@ -22,6 +22,9 @@ const COLLECTION_TUTORIAL: String = "collection_tutorial"
 ## Done only after Tavi showed the Collection afterwards (the battle itself is SPELL_TUTORIAL_BATTLE).
 const SPELL_TUTORIAL: String = "spell_tutorial"
 const SPELL_TUTORIAL_BATTLE: String = "spell_tutorial_battle"
+## After A05 or A06: legends given + reveal shown / Collection part (tutorial/legend_tutorial).
+const LEGEND_REVEAL: String = "legend_reveal"
+const LEGEND_TUTORIAL: String = "legend_tutorial"
 
 ## Per zone: "zone_intro_B" etc. (Tavi guides to a newly unlocked zone, once).
 static func zone_intro_id(zone_letter: String) -> String:

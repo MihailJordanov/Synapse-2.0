@@ -1,14 +1,25 @@
 class_name SpellReveal
 extends Control
 
-## Transition after the first clear of A02: a pitch-black card with light effects slowly
-## comes closer, then waits for a click -> the spell tutorial.
+## Reveal transition: a pitch-black shape with light effects slowly comes closer,
+## then waits for a click -> target scene.
+## spell_reveal.tscn: black spell card -> spell tutorial (after A02).
+## legend_reveal.tscn: black square with a golden legend frame -> zone A (after A05 / A06).
 
 const SCENE_PATH: String = "res://tutorial/spell_tutorial/spell_reveal.tscn"
 const CARD_TEXTURE: Texture2D = preload("res://card/assets/spell_card_back.png")
 const HINT_TEXT: String = "Click the card!"
 
 const CARD_HEIGHT: float = 430.0  # on screen, at full size
+const SQUARE_SIZE: float = 360.0
+
+## "card" = black spell card, "square" = black square (legend).
+@export_enum("card", "square") var shape: String = "card"
+## Drawn over the black shape in the glow color (e.g. the legend border).
+@export var frame_texture: Texture2D
+@export var hint_text: String = HINT_TEXT
+## Where the click leads. Empty = the spell tutorial.
+@export_file("*.tscn") var target_scene_path: String = ""
 const START_SCALE: float = 0.12
 const GROW_TIME: float = 1.8
 const RAY_COUNT: int = 14
@@ -49,6 +60,7 @@ var _card: Sprite2D
 var _hint: Label
 var _flash: ColorRect
 var _base_scale: float = 1.0
+var _half_size: Vector2 = Vector2.ZERO  # half of the shape on screen, at full size
 var _time: float = 0.0
 var _can_click: bool = false
 var _leaving: bool = false
@@ -65,7 +77,10 @@ func _ready() -> void:
 	add_child(background)
 
 	var center: Vector2 = get_viewport_rect().size * 0.5
-	_base_scale = CARD_HEIGHT / float(CARD_TEXTURE.get_height())
+	var texture: Texture2D = CARD_TEXTURE if shape == "card" else _make_square_texture()
+	var height: float = CARD_HEIGHT if shape == "card" else SQUARE_SIZE
+	_base_scale = height / float(texture.get_height())
+	_half_size = Vector2(texture.get_width(), texture.get_height()) * _base_scale * 0.5
 
 	var additive := CanvasItemMaterial.new()
 	additive.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
@@ -87,27 +102,35 @@ func _ready() -> void:
 
 	# Glowing edge: a slightly bigger copy of the card behind it.
 	_outline = Sprite2D.new()
-	_outline.texture = CARD_TEXTURE
+	_outline.texture = texture
 	_outline.scale = Vector2.ONE * _base_scale * 1.07
 	_outline.modulate = GLOW_COLOR
 	_outline.material = additive
 	_holder.add_child(_outline)
 
 	_card = Sprite2D.new()
-	_card.texture = CARD_TEXTURE
+	_card.texture = texture
 	_card.scale = Vector2.ONE * _base_scale
-	_card.modulate = Color.BLACK
+	_card.self_modulate = Color.BLACK  # self_ only: the frame (child) keeps its own color
 	_holder.add_child(_card)
 
+	if frame_texture != null:
+		var frame := Sprite2D.new()
+		frame.texture = frame_texture
+		var frame_size := Vector2(frame_texture.get_width(), frame_texture.get_height())
+		frame.scale = (_half_size * 2.0) / frame_size / _base_scale
+		frame.modulate = GLOW_COLOR
+		_card.add_child(frame)
+
 	_hint = Label.new()
-	_hint.text = HINT_TEXT
+	_hint.text = hint_text
 	_hint.add_theme_font_size_override("font_size", 40)
 	_hint.add_theme_color_override("font_color", Color(1.0, 0.9, 0.6))
 	_hint.add_theme_constant_override("outline_size", 10)
 	_hint.add_theme_color_override("font_outline_color", Color.BLACK)
 	_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hint.size = Vector2(600.0, 60.0)
-	_hint.position = Vector2(center.x - 300.0, center.y + CARD_HEIGHT * 0.5 + 40.0)
+	_hint.position = Vector2(center.x - 300.0, center.y + _half_size.y + 40.0)
 	_hint.modulate.a = 0.0
 	_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_hint)
@@ -156,7 +179,7 @@ func _gui_input(event: InputEvent) -> void:
 	if not pressed or not _can_click or _leaving:
 		return
 
-	var card_rect := Rect2(_holder.position - Vector2(CARD_HEIGHT * 0.4, CARD_HEIGHT * 0.5), Vector2(CARD_HEIGHT * 0.8, CARD_HEIGHT))
+	var card_rect := Rect2(_holder.position - _half_size, _half_size * 2.0)
 
 	if not card_rect.has_point(event.position):
 		return
@@ -176,7 +199,14 @@ func _leave() -> void:
 	tween.tween_property(_flash, "color:a", 1.0, 0.45)
 	await tween.finished
 
-	get_tree().change_scene_to_file(SpellTutorial.SCENE_PATH)
+	get_tree().change_scene_to_file(target_scene_path if not target_scene_path.is_empty() else SpellTutorial.SCENE_PATH)
+
+
+## A plain white square (tinted black / glowing like the card).
+func _make_square_texture() -> Texture2D:
+	var image := Image.create_empty(64, 64, false, Image.FORMAT_RGBA8)
+	image.fill(Color.WHITE)
+	return ImageTexture.create_from_image(image)
 
 
 func _create_halo(material_add: Material) -> Sprite2D:
@@ -208,7 +238,7 @@ func _create_sparkles(material_add: Material) -> CPUParticles2D:
 	sparkles.amount = 70
 	sparkles.lifetime = 1.4
 	sparkles.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
-	sparkles.emission_rect_extents = Vector2(CARD_HEIGHT * 0.42, CARD_HEIGHT * 0.55)
+	sparkles.emission_rect_extents = _half_size * 1.1
 	sparkles.direction = Vector2.UP
 	sparkles.spread = 180.0
 	sparkles.gravity = Vector2(0.0, -30.0)

@@ -163,3 +163,17 @@ const SPELL_TUT_VICTORY: String = "6 points would not be enough - but with one s
 const ZONE_SPELLS_IN_COLLECTION: String = "Your new [color=#d58fff]spell[/color] is waiting in the [color=#ffe28a]Collection[/color]! There you can add spells to your deck. Let's take a look!"
 
 #endregion
+
+
+#region /// Legends tutorial - tutorial/legend_tutorial/legend_tutorial.gd + zones/scripts/zone_controller.gd
+
+## Zone A after the legend reveal: points at the Collection button.
+const ZONE_LEGENDS_IN_COLLECTION: String = "Wow, two [color=#FFD966]Legends[/color] joined you - the Knight and the Witch! They are waiting in the [color=#ffe28a]Collection[/color]. Let's go meet them!"
+const LEGEND_OPEN_TAB: String = "Open the [color=#FFD966]Legends[/color] tab!"
+## %s = legend name.
+const LEGEND_SELECT: String = "Here are your Legends! A Legend gives you a special power in every battle. Click on [color=#FFD966]%s[/color]."
+const LEGEND_HOLD: String = "Press and [color=#ffe28a]hold[/color] the big picture to read its full effect."
+const LEGEND_SET: String = "Like it? Press [color=#7CFC00]Set[/color] to take this Legend into your battles. You can have only one at a time."
+const LEGEND_DONE: String = "Your Legend will fight by your side now! You can swap Legends here whenever you like - try the other one too."
+
+#endregion
