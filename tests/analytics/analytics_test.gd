@@ -4,7 +4,7 @@ extends Node
 ## volume of the aggregated system against the previous per-battle implementation on the same
 ## deterministic battles. Results are printed to the Output panel; the scene quits at the end.
 
-const FLUSH_EVERY_BATTLES: int = 10
+const FLUSH_EVERY_BATTLES: int = 15
 
 var _failures: int = 0
 var _checks: int = 0
@@ -18,7 +18,6 @@ func _ready() -> void:
 	_test_unchanged_deck()
 	_test_changing_decks()
 	_test_copies_and_repeated_plays()
-	_test_units_and_spells()
 	_test_legends()
 	_test_persistence_roundtrip()
 	_test_corrupted_data()
@@ -27,7 +26,7 @@ func _ready() -> void:
 	print("Checks: %d, failed: %d -> %s" % [_checks, _failures, "PASS" if _failures == 0 else "FAIL"])
 
 	print("\n===== EVENT VOLUME (same battles, previous vs aggregated) =====")
-	for battles in [1, 6, 10, 20]:
+	for battles in [1, 3, 5, 10, 15, 20]:
 		_measure_session(battles, false)
 	_measure_session(10, true)
 
@@ -38,84 +37,74 @@ func _ready() -> void:
 
 func _test_single_win() -> void:
 	var a := AnalyticsAggregator.new()
-	a.record_battle([11001, 11002], {11001: 1}, 1, 0, 31000, "win")
-	_check(_value(a, "Card:Played:11001") == 1, "win: times played")
+	a.record_battle([11001, 11002], {11001: 1}, 31000, "win")
 	_check(_value(a, "Card:BattlesPlayed:11001") == 1, "win: battles played")
-	_check(_value(a, "Card:WinsPlayed:11001") == 1, "win: wins when played")
+	_check(_value(a, "Card:ExtraPlays:11001") == 0, "win: played once -> no ExtraPlays")
+	_check(_value(a, "Card:LossesPlayed:11001") == 0, "win: no losses event")
 	_check(_value(a, "Card:InDeck:11002") == 1, "win: in deck")
-	_check(_value(a, "Card:WinsInDeck:11002") == 1, "win: wins in deck")
-	_check(_value(a, "Card:Played:11002") == -1, "win: unplayed card has no Played event")
-	_check(_value(a, "Battle:Finished") == 1, "win: finished battles")
+	_check(_value(a, "Card:LossesInDeck:11002") == 0, "win: no losses in deck")
+	_check(_value(a, "Card:BattlesPlayed:11002") == 0, "win: unplayed card")
+	_check(_events(a).size() == 4, "win: 2 cards in deck + 1 played + legend = 4 events")
 
 
 func _test_loss() -> void:
 	var a := AnalyticsAggregator.new()
-	a.record_battle([11001], {11001: 2}, 2, 0, 31000, "loss")
-	_check(_value(a, "Card:BattlesPlayed:11001") == 1, "loss: denominator kept")
-	_check(_value(a, "Card:WinsPlayed:11001") == -1, "loss: no zero numerator event")
-	_check(_value(a, "Card:InDeck:11001") == 1, "loss: in deck")
-	_check(_value(a, "Card:WinsInDeck:11001") == -1, "loss: no zero wins event")
-	_check(_value(a, "Legend:Battles:31000") == 1 and _value(a, "Legend:Wins:31000") == -1, "loss: legend")
+	a.record_battle([11001], {11001: 2}, 31000, "loss")
+	_check(_value(a, "Card:BattlesPlayed:11001") == 1, "loss: denominator")
+	_check(_value(a, "Card:ExtraPlays:11001") == 1, "loss: played twice -> 1 extra")
+	_check(_value(a, "Card:LossesPlayed:11001") == 1, "loss: losses when played")
+	_check(_value(a, "Card:LossesInDeck:11001") == 1, "loss: losses in deck")
+	_check(_value(a, "Legend:Battles:31000") == 1 and _value(a, "Legend:Losses:31000") == 1, "loss: legend")
 
 
 func _test_abandoned() -> void:
 	var a := AnalyticsAggregator.new()
-	a.record_battle([11001, 11002], {11001: 1}, 1, 0, 31000, "abandoned")
-	_check(_value(a, "Card:Played:11001") == 1, "abandoned: usage still counted")
-	_check(_value(a, "Card:BattlesPlayed:11001") == -1, "abandoned: not in win-rate denominators")
-	_check(_value(a, "Card:InDeck:11002") == -1, "abandoned: not in deck stats")
-	_check(_value(a, "Battle:Finished") == -1, "abandoned: not finished")
-	_check(a.has_pending(), "abandoned: pending")
+	a.record_battle([11001, 11002], {11001: 1}, 31000, "abandoned")
+	_check(_events(a).is_empty(), "abandoned: no card / legend statistics")
+	_check(a.has_pending() and a.battles_since_flush == 1, "abandoned: counts for the flush rhythm")
 
 
 func _test_unchanged_deck() -> void:
 	var a := AnalyticsAggregator.new()
 	for i in range(5):
-		a.record_battle([11001, 11002], {}, 0, 0, 0, "win" if i < 3 else "loss")
+		a.record_battle([11001, 11002], {}, 0, "win" if i < 3 else "loss")
 	_check(_value(a, "Card:InDeck:11001") == 5, "same deck x5: in deck = 5")
-	_check(_value(a, "Card:WinsInDeck:11001") == 3, "same deck x5: wins = 3")
-	_check(_events(a).size() == 2 * 2 + 2 + 1, "same deck x5: one event per counter, not per battle")
+	_check(_value(a, "Card:LossesInDeck:11001") == 2, "same deck x5: losses = 2 (win rate 3/5)")
+	_check(_events(a).size() == 2 * 2 + 2, "same deck x5: one event per counter, not per battle")
 
 
 func _test_changing_decks() -> void:
 	var a := AnalyticsAggregator.new()
-	a.record_battle([11001, 11002], {}, 0, 0, 0, "win")
-	a.record_battle([11001, 11003], {}, 0, 0, 0, "loss")
+	a.record_battle([11001, 11002], {}, 0, "win")
+	a.record_battle([11001, 11003], {}, 0, "loss")
 	_check(_value(a, "Card:InDeck:11001") == 2, "changing decks: shared card")
 	_check(_value(a, "Card:InDeck:11002") == 1 and _value(a, "Card:InDeck:11003") == 1, "changing decks: others")
-	_check(_value(a, "Card:WinsInDeck:11003") == -1, "changing decks: lost deck has no wins")
+	_check(_value(a, "Card:LossesInDeck:11002") == 0 and _value(a, "Card:LossesInDeck:11003") == 1, "changing decks: losses")
 
 
 func _test_copies_and_repeated_plays() -> void:
 	var a := AnalyticsAggregator.new()
-	a.record_battle([11001, 11001, 11001, 11002], {11001: 3}, 3, 0, 0, "win")
-	a.record_battle([11001, 11002], {11001: 1}, 1, 0, 0, "win")
+	a.record_battle([11001, 11001, 11001, 11002], {11001: 3}, 0, "win")
+	a.record_battle([11001, 11002], {11001: 1}, 0, "win")
 	_check(_value(a, "Card:ExtraCopies:11001") == 2, "copies: 3 + 1 copies in 2 decks -> 2 extra")
-	_check(_value(a, "Card:InDeck:11001") == 2, "copies: average = 1 + 2 / 2 = 2")
-	_check(_value(a, "Card:ExtraCopies:11002") == -1, "copies: single copy -> no event")
-	_check(_value(a, "Card:Played:11001") == 4, "repeated plays: total 4")
-	_check(_value(a, "Card:BattlesPlayed:11001") == 2, "repeated plays: 2 battles")
-
-
-func _test_units_and_spells() -> void:
-	var a := AnalyticsAggregator.new()
-	a.record_battle([11001, 21001], {11001: 2, 21001: 1}, 2, 1, 0, "win")
-	_check(_value(a, "Cards:UnitsPlayed") == 2 and _value(a, "Cards:SpellsPlayed") == 1, "units / spells")
+	_check(_value(a, "Card:ExtraCopies:11002") == 0, "copies: single copy -> no event")
+	_check(_value(a, "Card:BattlesPlayed:11001") == 2, "plays: 2 battles")
+	_check(_value(a, "Card:ExtraPlays:11001") == 2, "plays: 4 plays in 2 battles -> 2 extra (total 4)")
 
 
 func _test_legends() -> void:
 	var a := AnalyticsAggregator.new()
-	a.record_battle([11001], {}, 0, 0, 31000, "win")
-	a.record_battle([11001], {}, 0, 0, 31001, "loss")
-	a.record_battle([11001], {}, 0, 0, 0, "win")
-	_check(_value(a, "Legend:Battles:31000") == 1 and _value(a, "Legend:Wins:31000") == 1, "legend knight")
-	_check(_value(a, "Legend:Battles:31001") == 1 and _value(a, "Legend:Wins:31001") == -1, "legend witch")
-	_check(_value(a, "Legend:Battles:None") == 1 and _value(a, "Legend:Wins:None") == 1, "no legend is a category")
+	a.record_battle([11001], {}, 31000, "win")
+	a.record_battle([11001], {}, 31001, "loss")
+	a.record_battle([11001], {}, 0, "win")
+	_check(_value(a, "Legend:Battles:31000") == 1 and _value(a, "Legend:Losses:31000") == 0, "legend knight")
+	_check(_value(a, "Legend:Battles:31001") == 1 and _value(a, "Legend:Losses:31001") == 1, "legend witch")
+	_check(_value(a, "Legend:Battles:None") == 1, "no legend is a category")
 
 
 func _test_persistence_roundtrip() -> void:
 	var a := AnalyticsAggregator.new()
-	a.record_battle([11001, 11001, 21001], {11001: 2}, 2, 0, 31000, "win")
+	a.record_battle([11001, 11001, 21001], {11001: 2}, 31000, "loss")
 	a.add_resource("sink", "Stamina", 5, "Battle", "Level")
 	var b := AnalyticsAggregator.new()
 	var ok: bool = b.from_dict(JSON.parse_string(JSON.stringify(a.to_dict())))
@@ -125,9 +114,9 @@ func _test_persistence_roundtrip() -> void:
 func _test_corrupted_data() -> void:
 	var a := AnalyticsAggregator.new()
 	_check(not a.from_dict(null), "corrupted: null")
-	_check(not a.from_dict({"schema": 999}), "corrupted: other schema")
-	_check(not a.from_dict({"schema": 1, "cards": {"abc": {}}}), "corrupted: bad card id")
-	_check(not a.from_dict({"schema": 1, "cards": [], "legends": {}}), "corrupted: wrong type")
+	_check(not a.from_dict({"schema": 1}), "corrupted: old schema")
+	_check(not a.from_dict({"schema": 2, "cards": {"abc": {}}}), "corrupted: bad card id")
+	_check(not a.from_dict({"schema": 2, "cards": [], "legends": {}}), "corrupted: wrong type")
 	_check(not a.has_pending(), "corrupted: nothing pending after reset")
 
 
@@ -145,7 +134,7 @@ func _test_resources() -> void:
 
 func _test_clear_after_flush() -> void:
 	var a := AnalyticsAggregator.new()
-	a.record_battle([11001], {11001: 1}, 1, 0, 0, "win")
+	a.record_battle([11001], {11001: 1}, 0, "win")
 	a.clear()
 	_check(not a.has_pending() and _events(a).is_empty(), "flush: nothing sent twice")
 
@@ -154,8 +143,8 @@ func _test_clear_after_flush() -> void:
 
 #region /// volume measurement
 
-## Deterministic session: a 20-card deck (12 unique, some copies) with 6 spells, ~8 different cards played
-## per battle, 2 decks alternating when change_decks = true. Wins 2 of 3.
+## Deterministic session: a 20-card deck (12 unique, some copies) with 6 spells, 8 plays per battle,
+## 2 decks alternating when change_decks = true. Wins 2 of 3. Plus 2 stamina events per flush.
 func _measure_session(battles: int, change_decks: bool) -> void:
 	var a := AnalyticsAggregator.new()
 	var legacy: int = 0
@@ -174,14 +163,16 @@ func _measure_session(battles: int, change_decks: bool) -> void:
 		legacy += 3 + unique + 4 + played.size() + 2 + 1 + unique  # see AnalyticsManager._legacy_event_cost
 		optimized += 2 + 2  # progression start + end, Battle:Turns + Battle:ScoreDiff
 
-		a.record_battle(deck, played, 7, 1, 31000, result)
+		a.record_battle(deck, played, 31000, result)
+		a.add_resource("sink", "Stamina", 5, "Battle", "Level")
+		a.add_resource("source", "Stamina", 5, "Regen", "Time")
 
 		if a.battles_since_flush >= FLUSH_EVERY_BATTLES:
 			optimized += _events(a).size()
 			a.clear()
 			flushes += 1
 
-	if a.has_pending():  # session end / background: nothing is left unsent
+	if a.has_pending():  # nothing is left unsent in this measurement
 		optimized += _events(a).size()
 		a.clear()
 		flushes += 1
@@ -213,12 +204,12 @@ func _events(a: AnalyticsAggregator) -> Array[Dictionary]:
 	return a.build_events()
 
 
-## Value of a design event, -1 if it is not sent.
+## Value of a design event, 0 if it is not sent (a missing event means 0).
 func _value(a: AnalyticsAggregator, event_id: String) -> int:
 	for event in a.build_events():
 		if event["type"] == "design" and event["id"] == event_id:
 			return int(event["value"])
-	return -1
+	return 0
 
 
 func _check(condition: bool, label: String) -> void:

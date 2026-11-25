@@ -8,7 +8,7 @@ extends Node
 ## Two kinds of events:
 ##   Immediate  - progression (start / complete / fail), battle result details, tutorials,
 ##                level / zone unlocks, currencies, second chance, ads. One per occurrence.
-##   Aggregated - cards, legends, unit/spell usage, stamina. Counted locally in AnalyticsAggregator
+##   Aggregated - cards, legends, stamina. Counted locally in AnalyticsAggregator
 ##                (saved in user://analytics_buffer.json) and sent as summed values:
 ##                every flush_every_battles battles, after flush_interval_minutes, when the app goes
 ##                to the background / closes (from background_flush_min_battles battles on),
@@ -35,12 +35,12 @@ const ITEM_TYPES: Array[String] = ["Battle", "Defeat", "SecondChance", "Shop", "
 ## Even more SDK log (debug builds only).
 @export var verbose_log: bool = false
 ## Aggregated statistics are sent after this many battles...
-@export_range(1, 100, 1) var flush_every_battles: int = 10
+@export_range(1, 100, 1) var flush_every_battles: int = 15
 ## ...or when a battle ends and this much time passed since the last send.
-@export_range(1.0, 120.0, 1.0) var flush_interval_minutes: float = 15.0
+@export_range(1.0, 240.0, 1.0) var flush_interval_minutes: float = 30.0
 ## Going to the background / closing sends the aggregated statistics only from this many battles on
 ## (fewer stay saved and go with the next send - sending 1 battle alone costs more than before).
-@export_range(1, 100, 1) var background_flush_min_battles: int = 3
+@export_range(1, 100, 1) var background_flush_min_battles: int = 5
 ## Debug builds: print the analytics report after every send (never sent to GameAnalytics).
 @export var print_debug_report: bool = true
 
@@ -251,8 +251,6 @@ func battle_started(level_id: String, unit_ids: Array, spell_ids: Array, legend_
 		"legend": legend_id,
 		"deck": unit_ids + spell_ids,
 		"played": {},  # card id -> times played
-		"units_played": 0,
-		"spells_played": 0,
 	}
 
 	progression("start", _battle["zone"], level)
@@ -260,17 +258,13 @@ func battle_started(level_id: String, unit_ids: Array, spell_ids: Array, legend_
 
 
 ## Call after a successful play (not on drag). Only the player's cards are counted.
-func battle_card_played(card_id: int, is_spell: bool) -> void:
+## Unit / spell totals come from the card ids (1xxxx = unit, 2xxxx = spell), so is_spell is not stored.
+func battle_card_played(card_id: int, _is_spell: bool = false) -> void:
 	if _battle.is_empty():
 		return
 
 	var played: Dictionary = _battle["played"]
 	played[card_id] = int(played.get(card_id, 0)) + 1
-
-	if is_spell:
-		_battle["spells_played"] += 1
-	else:
-		_battle["units_played"] += 1
 
 
 ## result: "win" / "loss" / "abandoned". Call once, at the FINAL result (after the second-chance choice).
@@ -304,10 +298,8 @@ func battle_ended(result: String, player_score: int = 0, enemy_score: int = 0, t
 	_diag["battles"] += 1
 	_diag["legacy_battle_events"] += _legacy_event_cost(battle, finished)
 
-	# Aggregated: cards, legend, unit/spell usage.
-	_aggregator.record_battle(
-		battle["deck"], battle["played"], battle["units_played"], battle["spells_played"], battle["legend"], result
-	)
+	# Aggregated: cards, legend.
+	_aggregator.record_battle(battle["deck"], battle["played"], battle["legend"], result)
 	_buffer_dirty = true
 	_save_buffer()
 	_flush_if_due()

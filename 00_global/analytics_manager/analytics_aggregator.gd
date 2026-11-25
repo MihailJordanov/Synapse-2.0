@@ -4,30 +4,18 @@ extends RefCounted
 ## as a few summed events instead of one event per occurrence. Pure data: no SDK, no autoloads,
 ## so it can be tested on its own (tests/analytics/analytics_test.gd).
 ##
-## Only FINISHED battles (win / loss) count for win-rate numerators and denominators.
-## Abandoned battles still count for usage (Card:Played, Cards:UnitsPlayed / SpellsPlayed).
-## See docs/analytics/ANALYTICS.md for every event and how to read it.
+## Only FINISHED battles (win / loss) are counted; abandoned battles are only in the progression funnel.
+## To send as few events as possible, values that are usually 0 are sent instead of the usual
+## "big" value: LOSSES instead of wins, EXTRA plays / copies instead of totals. Events with 0 are
+## not sent (a missing event = 0). See docs/analytics/ANALYTICS.md for the formulas.
 
-const SCHEMA_VERSION: int = 1
+const SCHEMA_VERSION: int = 2
 const NO_LEGEND: String = "None"
 
-# card id (int) -> counter name -> int
-const CARD_COUNTERS: Array[String] = ["played", "battles_played", "wins_played", "in_deck", "wins_in_deck", "copies"]
-## Design event per counter. "copies" is not sent as is: Card:ExtraCopies = copies - in_deck
-## (copies above 1), so single-copy cards cost no event. Average copies = 1 + ExtraCopies / InDeck.
-const CARD_EVENT_IDS: Dictionary = {
-	"played": "Card:Played",
-	"battles_played": "Card:BattlesPlayed",
-	"wins_played": "Card:WinsPlayed",
-	"in_deck": "Card:InDeck",
-	"wins_in_deck": "Card:WinsInDeck",
-}
+const CARD_COUNTERS: Array[String] = ["played", "battles_played", "losses_played", "in_deck", "losses_in_deck", "copies"]
 
-var cards: Dictionary = {}
-var legends: Dictionary = {}  # "31000" / "None" -> {"battles": int, "wins": int}
-var units_played: int = 0
-var spells_played: int = 0
-var battles_finished: int = 0
+var cards: Dictionary = {}  # card id (int) -> counter name -> int
+var legends: Dictionary = {}  # "31000" / "None" -> {"battles": int, "losses": int}
 var battles_since_flush: int = 0
 ## "flow|currency|item_type|item_id" -> amount (summed resource events, e.g. stamina).
 var resources: Dictionary = {}
@@ -35,28 +23,19 @@ var resources: Dictionary = {}
 
 ## One battle is over. deck_ids: every card in the deck (duplicates = copies).
 ## played: card id -> times played in this battle. legend_id 0 = no legend.
-func record_battle(deck_ids: Array, played: Dictionary, units: int, spells: int, legend_id: int, result: String) -> void:
-	var finished: bool = result == "win" or result == "loss"
-	var won: bool = result == "win"
-
-	units_played += units
-	spells_played += spells
+func record_battle(deck_ids: Array, played: Dictionary, legend_id: int, result: String) -> void:
 	battles_since_flush += 1
+
+	if result != "win" and result != "loss":
+		return
+
+	var lost: int = 1 if result == "loss" else 0
 
 	for card_id in played:
 		var counters: Dictionary = _card(int(card_id))
 		counters["played"] += int(played[card_id])
-
-		if finished:
-			counters["battles_played"] += 1
-
-			if won:
-				counters["wins_played"] += 1
-
-	if not finished:
-		return
-
-	battles_finished += 1
+		counters["battles_played"] += 1
+		counters["losses_played"] += lost
 
 	var copies: Dictionary = {}
 
@@ -67,17 +46,12 @@ func record_battle(deck_ids: Array, played: Dictionary, units: int, spells: int,
 		var counters: Dictionary = _card(card_id)
 		counters["in_deck"] += 1
 		counters["copies"] += copies[card_id]
-
-		if won:
-			counters["wins_in_deck"] += 1
+		counters["losses_in_deck"] += lost
 
 	var legend_key: String = str(legend_id) if legend_id != 0 else NO_LEGEND
-	var legend: Dictionary = legends.get(legend_key, {"battles": 0, "wins": 0})
+	var legend: Dictionary = legends.get(legend_key, {"battles": 0, "losses": 0})
 	legend["battles"] += 1
-
-	if won:
-		legend["wins"] += 1
-
+	legend["losses"] += lost
 	legends[legend_key] = legend
 
 
@@ -93,8 +67,7 @@ func has_pending() -> bool:
 	return battles_since_flush > 0 or not resources.is_empty()
 
 
-## Everything waiting, as a list of events. Counters that are 0 are not sent
-## (their denominators are, so a missing numerator simply means 0).
+## Everything waiting, as a list of events (only values > 0).
 ## {"type": "design", "id": String, "value": int} / {"type": "resource", "flow", "currency", "amount", "item_type", "item_id"}
 func build_events() -> Array[Dictionary]:
 	var events: Array[Dictionary] = []
@@ -102,34 +75,20 @@ func build_events() -> Array[Dictionary]:
 	card_ids.sort()
 
 	for card_id in card_ids:
-		var counters: Dictionary = cards[card_id]
-
-		for counter in CARD_EVENT_IDS:
-			if int(counters[counter]) > 0:
-				events.append(_design("%s:%d" % [CARD_EVENT_IDS[counter], card_id], counters[counter]))
-
-		var extra_copies: int = int(counters["copies"]) - int(counters["in_deck"])
-
-		if extra_copies > 0:
-			events.append(_design("Card:ExtraCopies:%d" % card_id, extra_copies))
+		var c: Dictionary = cards[card_id]
+		_add(events, "Card:BattlesPlayed:%d" % card_id, c["battles_played"])
+		_add(events, "Card:ExtraPlays:%d" % card_id, c["played"] - c["battles_played"])
+		_add(events, "Card:LossesPlayed:%d" % card_id, c["losses_played"])
+		_add(events, "Card:InDeck:%d" % card_id, c["in_deck"])
+		_add(events, "Card:LossesInDeck:%d" % card_id, c["losses_in_deck"])
+		_add(events, "Card:ExtraCopies:%d" % card_id, c["copies"] - c["in_deck"])
 
 	var legend_keys: Array = legends.keys()
 	legend_keys.sort()
 
 	for legend_key in legend_keys:
-		events.append(_design("Legend:Battles:" + legend_key, legends[legend_key]["battles"]))
-
-		if int(legends[legend_key]["wins"]) > 0:
-			events.append(_design("Legend:Wins:" + legend_key, legends[legend_key]["wins"]))
-
-	if battles_finished > 0:
-		events.append(_design("Battle:Finished", battles_finished))
-
-	if units_played > 0:
-		events.append(_design("Cards:UnitsPlayed", units_played))
-
-	if spells_played > 0:
-		events.append(_design("Cards:SpellsPlayed", spells_played))
+		_add(events, "Legend:Battles:" + legend_key, legends[legend_key]["battles"])
+		_add(events, "Legend:Losses:" + legend_key, legends[legend_key]["losses"])
 
 	for key in resources:
 		var parts: PackedStringArray = String(key).split("|")
@@ -141,9 +100,6 @@ func build_events() -> Array[Dictionary]:
 func clear() -> void:
 	cards.clear()
 	legends.clear()
-	units_played = 0
-	spells_played = 0
-	battles_finished = 0
 	battles_since_flush = 0
 	resources.clear()
 
@@ -160,15 +116,12 @@ func to_dict() -> Dictionary:
 		"schema": SCHEMA_VERSION,
 		"cards": card_data,
 		"legends": legends.duplicate(true),
-		"units_played": units_played,
-		"spells_played": spells_played,
-		"battles_finished": battles_finished,
 		"battles_since_flush": battles_since_flush,
 		"resources": resources.duplicate(),
 	}
 
 
-## Loads saved counters. Anything malformed is dropped (returns false) - never crashes the game.
+## Loads saved counters. Anything malformed (or an older schema) is dropped - returns false, never crashes.
 func from_dict(data: Variant) -> bool:
 	clear()
 
@@ -199,7 +152,7 @@ func from_dict(data: Variant) -> bool:
 
 		legends[String(key)] = {
 			"battles": maxi(int(legend_data[key].get("battles", 0)), 0),
-			"wins": maxi(int(legend_data[key].get("wins", 0)), 0),
+			"losses": maxi(int(legend_data[key].get("losses", 0)), 0),
 		}
 
 	for key in resource_data:
@@ -209,9 +162,6 @@ func from_dict(data: Variant) -> bool:
 
 		resources[String(key)] = maxi(int(resource_data[key]), 0)
 
-	units_played = maxi(int(data.get("units_played", 0)), 0)
-	spells_played = maxi(int(data.get("spells_played", 0)), 0)
-	battles_finished = maxi(int(data.get("battles_finished", 0)), 0)
 	battles_since_flush = maxi(int(data.get("battles_since_flush", 0)), 0)
 	return true
 
@@ -230,5 +180,6 @@ func _card(card_id: int) -> Dictionary:
 	return cards[card_id]
 
 
-func _design(event_id: String, value: int) -> Dictionary:
-	return {"type": "design", "id": event_id, "value": value}
+func _add(events: Array[Dictionary], event_id: String, value: int) -> void:
+	if value > 0:
+		events.append({"type": "design", "id": event_id, "value": value})
