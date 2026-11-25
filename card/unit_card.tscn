@@ -403,6 +403,7 @@ offset_top = 56.5
 offset_right = 121.0
 offset_bottom = 156.5
 mouse_filter = 2
+expand_mode = 2
 
 [node name="Panel_Border2" type="Panel" parent="Control/CardTexture" unique_id=1690784598]
 layout_mode = 0
