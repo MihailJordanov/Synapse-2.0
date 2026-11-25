@@ -20,12 +20,13 @@
 [ext_resource type="Texture2D" uid="uid://isbl00yymchx" path="res://zones/asstes/enemies_images/zone_a/level_a07.png" id="13_xpoih"]
 [ext_resource type="PackedScene" uid="uid://40bostkv6fia" path="res://collection/spell_card_examlpe.tscn" id="14_kgpea"]
 [ext_resource type="PackedScene" uid="uid://82pqfndoqpac" path="res://collection/unit_card_example.tscn" id="15_bcmc5"]
+[ext_resource type="Resource" uid="uid://di8xais7mctgg" path="res://legends/legends_resourses/knight.tres" id="19_mbf3m"]
 [ext_resource type="Resource" path="res://decks/resources/zone_a/a_02.tres" id="70_deck_a02"]
-[ext_resource type="Resource" path="res://decks/resources/zone_a/a_03.tres" id="70_deck_a03"]
-[ext_resource type="Resource" path="res://decks/resources/zone_a/a_04.tres" id="70_deck_a04"]
-[ext_resource type="Resource" path="res://decks/resources/zone_a/a_05.tres" id="70_deck_a05"]
-[ext_resource type="Resource" path="res://decks/resources/zone_a/a_06.tres" id="70_deck_a06"]
-[ext_resource type="Resource" path="res://decks/resources/zone_a/a_07.tres" id="70_deck_a07"]
+[ext_resource type="Resource" uid="uid://cs362vtbw71ji" path="res://decks/resources/zone_a/a_03.tres" id="70_deck_a03"]
+[ext_resource type="Resource" uid="uid://d2xqv7hbmygaw" path="res://decks/resources/zone_a/a_04.tres" id="70_deck_a04"]
+[ext_resource type="Resource" uid="uid://b0ft03hhi4ckm" path="res://decks/resources/zone_a/a_05.tres" id="70_deck_a05"]
+[ext_resource type="Resource" uid="uid://cwkt6uvh815si" path="res://decks/resources/zone_a/a_06.tres" id="70_deck_a06"]
+[ext_resource type="Resource" uid="uid://b5wn3c5qdettf" path="res://decks/resources/zone_a/a_07.tres" id="70_deck_a07"]
 [ext_resource type="PackedScene" path="res://00_global/hud/resource_hud.tscn" id="90_hud"]
 [ext_resource type="Texture2D" uid="uid://b51m73rborfia" path="res://00_global/hud/assets/hud_panel.png" id="91_panel"]
 [ext_resource type="Script" uid="uid://dvum0qg8kr8af" path="res://map/scripts/map_menu_button.gd" id="92_menu"]
@@ -611,6 +612,7 @@ level_id = "A07"
 enemy_name = "Sir Godfrey"
 enemy_name_color = Color(0.9999996, 0.5530226, 0.9943158, 1)
 enemy_texture = ExtResource("13_xpoih")
+legend = ExtResource("19_mbf3m")
 deck = ExtResource("70_deck_a07")
 player_winning_score = 16
 enemy_winning_score = 16

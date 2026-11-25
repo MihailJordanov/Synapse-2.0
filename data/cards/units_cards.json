@@ -3,7 +3,7 @@
 		"target_types": [1],
 		"source_types": [1],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11000.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -11,7 +11,7 @@
 		"target_types": [1],
 		"source_types": [2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11001.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -19,7 +19,7 @@
 		"target_types": [1],
 		"source_types": [3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11002.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -27,7 +27,7 @@
 		"target_types": [1],
 		"source_types": [4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11003.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -35,7 +35,7 @@
 		"target_types": [2],
 		"source_types": [1],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11004.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -43,7 +43,7 @@
 		"target_types": [2],
 		"source_types": [2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11005.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -51,7 +51,7 @@
 		"target_types": [2],
 		"source_types": [3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11006.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -59,7 +59,7 @@
 		"target_types": [2],
 		"source_types": [4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11007.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -67,7 +67,7 @@
 		"target_types": [3],
 		"source_types": [1],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11008.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -75,7 +75,7 @@
 		"target_types": [3],
 		"source_types": [2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11009.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -83,7 +83,7 @@
 		"target_types": [3],
 		"source_types": [3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11010.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -91,7 +91,7 @@
 		"target_types": [3],
 		"source_types": [4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11011.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -99,7 +99,7 @@
 		"target_types": [4],
 		"source_types": [1],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11012.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -107,7 +107,7 @@
 		"target_types": [4],
 		"source_types": [2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11013.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -115,7 +115,7 @@
 		"target_types": [4],
 		"source_types": [3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11014.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -123,7 +123,7 @@
 		"target_types": [4],
 		"source_types": [4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11015.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -131,7 +131,7 @@
 		"target_types": [1, 2],
 		"source_types": [1],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11016.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -139,7 +139,7 @@
 		"target_types": [1, 2],
 		"source_types": [2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11017.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -147,7 +147,7 @@
 		"target_types": [1, 2],
 		"source_types": [3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11018.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -155,7 +155,7 @@
 		"target_types": [1, 2],
 		"source_types": [4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11019.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -163,7 +163,7 @@
 		"target_types": [1, 3],
 		"source_types": [1],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11020.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -171,7 +171,7 @@
 		"target_types": [1, 3],
 		"source_types": [2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11021.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -179,7 +179,7 @@
 		"target_types": [1, 3],
 		"source_types": [3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11022.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -187,7 +187,7 @@
 		"target_types": [1, 3],
 		"source_types": [4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11023.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -195,7 +195,7 @@
 		"target_types": [1, 4],
 		"source_types": [1],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11024.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -203,7 +203,7 @@
 		"target_types": [1, 4],
 		"source_types": [2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11025.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -211,7 +211,7 @@
 		"target_types": [1, 4],
 		"source_types": [3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11026.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -219,7 +219,7 @@
 		"target_types": [1, 4],
 		"source_types": [4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11027.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -227,7 +227,7 @@
 		"target_types": [2, 3],
 		"source_types": [1],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11028.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -235,7 +235,7 @@
 		"target_types": [2, 3],
 		"source_types": [2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11029.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -243,7 +243,7 @@
 		"target_types": [2, 3],
 		"source_types": [3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11030.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -251,7 +251,7 @@
 		"target_types": [2, 3],
 		"source_types": [4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11031.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -259,7 +259,7 @@
 		"target_types": [2, 4],
 		"source_types": [1],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11032.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -267,7 +267,7 @@
 		"target_types": [2, 4],
 		"source_types": [2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11033.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -275,7 +275,7 @@
 		"target_types": [2, 4],
 		"source_types": [3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11034.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -283,7 +283,7 @@
 		"target_types": [2, 4],
 		"source_types": [4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11035.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -291,7 +291,7 @@
 		"target_types": [3, 4],
 		"source_types": [1],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11036.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -299,7 +299,7 @@
 		"target_types": [3, 4],
 		"source_types": [2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11037.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -307,7 +307,7 @@
 		"target_types": [3, 4],
 		"source_types": [3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11038.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -315,7 +315,7 @@
 		"target_types": [3, 4],
 		"source_types": [4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11039.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -323,7 +323,7 @@
 		"target_types": [1],
 		"source_types": [1, 2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11040.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -331,7 +331,7 @@
 		"target_types": [1],
 		"source_types": [1, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11041.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -339,7 +339,7 @@
 		"target_types": [1],
 		"source_types": [1, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11042.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -347,7 +347,7 @@
 		"target_types": [1],
 		"source_types": [2, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11043.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -355,7 +355,7 @@
 		"target_types": [1],
 		"source_types": [2, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11044.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -363,7 +363,7 @@
 		"target_types": [1],
 		"source_types": [3, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11045.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -371,7 +371,7 @@
 		"target_types": [2],
 		"source_types": [1, 2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11046.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -379,7 +379,7 @@
 		"target_types": [2],
 		"source_types": [1, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11047.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -387,7 +387,7 @@
 		"target_types": [2],
 		"source_types": [1, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11048.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -395,7 +395,7 @@
 		"target_types": [2],
 		"source_types": [2, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11049.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -403,7 +403,7 @@
 		"target_types": [2],
 		"source_types": [2, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11050.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -411,7 +411,7 @@
 		"target_types": [2],
 		"source_types": [3, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11051.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -419,7 +419,7 @@
 		"target_types": [3],
 		"source_types": [1, 2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11052.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -427,7 +427,7 @@
 		"target_types": [3],
 		"source_types": [1, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11053.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -435,7 +435,7 @@
 		"target_types": [3],
 		"source_types": [1, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11054.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -443,7 +443,7 @@
 		"target_types": [3],
 		"source_types": [2, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11055.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -451,7 +451,7 @@
 		"target_types": [3],
 		"source_types": [2, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11056.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -459,7 +459,7 @@
 		"target_types": [3],
 		"source_types": [3, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11057.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -467,7 +467,7 @@
 		"target_types": [4],
 		"source_types": [1, 2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11058.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -475,7 +475,7 @@
 		"target_types": [4],
 		"source_types": [1, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11059.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -483,7 +483,7 @@
 		"target_types": [4],
 		"source_types": [1, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11060.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -491,7 +491,7 @@
 		"target_types": [4],
 		"source_types": [2, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11061.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -499,7 +499,7 @@
 		"target_types": [4],
 		"source_types": [2, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11062.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -507,7 +507,7 @@
 		"target_types": [4],
 		"source_types": [3, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11063.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -515,7 +515,7 @@
 		"target_types": [1, 2],
 		"source_types": [1, 2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11064.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -523,7 +523,7 @@
 		"target_types": [1, 2],
 		"source_types": [1, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11065.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -531,7 +531,7 @@
 		"target_types": [1, 2],
 		"source_types": [1, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11066.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -539,7 +539,7 @@
 		"target_types": [1, 2],
 		"source_types": [2, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11067.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -547,7 +547,7 @@
 		"target_types": [1, 2],
 		"source_types": [2, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11068.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -555,7 +555,7 @@
 		"target_types": [1, 2],
 		"source_types": [3, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11069.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -563,7 +563,7 @@
 		"target_types": [1, 3],
 		"source_types": [1, 2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11070.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -571,7 +571,7 @@
 		"target_types": [1, 3],
 		"source_types": [1, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11071.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -579,7 +579,7 @@
 		"target_types": [1, 3],
 		"source_types": [1, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11072.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -587,7 +587,7 @@
 		"target_types": [1, 3],
 		"source_types": [2, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11073.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -595,7 +595,7 @@
 		"target_types": [1, 3],
 		"source_types": [2, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11074.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -603,7 +603,7 @@
 		"target_types": [1, 3],
 		"source_types": [3, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11075.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -611,7 +611,7 @@
 		"target_types": [1, 4],
 		"source_types": [1, 2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11076.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -619,7 +619,7 @@
 		"target_types": [1, 4],
 		"source_types": [1, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11077.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -627,7 +627,7 @@
 		"target_types": [1, 4],
 		"source_types": [1, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11078.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -635,7 +635,7 @@
 		"target_types": [1, 4],
 		"source_types": [2, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11079.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -643,7 +643,7 @@
 		"target_types": [1, 4],
 		"source_types": [2, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11080.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -651,7 +651,7 @@
 		"target_types": [1, 4],
 		"source_types": [3, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11081.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -659,7 +659,7 @@
 		"target_types": [2, 3],
 		"source_types": [1, 2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11082.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -667,7 +667,7 @@
 		"target_types": [2, 3],
 		"source_types": [1, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11083.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -675,7 +675,7 @@
 		"target_types": [2, 3],
 		"source_types": [1, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11084.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -683,7 +683,7 @@
 		"target_types": [2, 3],
 		"source_types": [2, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11085.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -691,7 +691,7 @@
 		"target_types": [2, 3],
 		"source_types": [2, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11086.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -699,7 +699,7 @@
 		"target_types": [2, 3],
 		"source_types": [3, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11087.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -707,7 +707,7 @@
 		"target_types": [2, 4],
 		"source_types": [1, 2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11088.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -715,7 +715,7 @@
 		"target_types": [2, 4],
 		"source_types": [1, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11089.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -723,7 +723,7 @@
 		"target_types": [2, 4],
 		"source_types": [1, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11090.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -731,7 +731,7 @@
 		"target_types": [2, 4],
 		"source_types": [2, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11091.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -739,7 +739,7 @@
 		"target_types": [2, 4],
 		"source_types": [2, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11092.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -747,7 +747,7 @@
 		"target_types": [2, 4],
 		"source_types": [3, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11093.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -755,7 +755,7 @@
 		"target_types": [3, 4],
 		"source_types": [1, 2],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11094.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -763,7 +763,7 @@
 		"target_types": [3, 4],
 		"source_types": [1, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11095.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -771,7 +771,7 @@
 		"target_types": [3, 4],
 		"source_types": [1, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11096.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -779,7 +779,7 @@
 		"target_types": [3, 4],
 		"source_types": [2, 3],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11097.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -787,7 +787,7 @@
 		"target_types": [3, 4],
 		"source_types": [2, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11098.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	},
@@ -795,7 +795,7 @@
 		"target_types": [3, 4],
 		"source_types": [3, 4],
 		"points": 1,
-		"texture_path": "res://data/card_images/units/heros1/tile000.png",
+		"texture_path": "res://data/card_images/units/heros1/unit_11099.png",
 		"max_copies_in_deck": 3,
 		"max_copies_in_collection": 3
 	}

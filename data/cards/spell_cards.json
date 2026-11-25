@@ -90,7 +90,7 @@
 		"max_copies_in_collection": 3
 	},
 	"21105": {
-		"description": "[center]Select any unit.\n[color=#6bff00]Give it Axe as a target type.[/color][/center]",
+		"description": "[center]Select any unit.\n[color=#6bff00]Give it Hammer as a target type.[/color][/center]",
 		"target_mode": "any_unit",
 		"effect_type": "modify_connection_type",
 		"connection_type": "target",
