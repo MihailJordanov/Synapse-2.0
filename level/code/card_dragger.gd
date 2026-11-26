@@ -40,15 +40,20 @@ func _process(_delta: float) -> void:
 	_update_hovered_card()
 
 func _input(event: InputEvent) -> void:
+	if not (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT):
+		return
+
+	# A release always ends a running drag, even if playing got disabled meanwhile.
+	if not event.pressed:
+		finish_drag()
+		return
+
 	if not enabled:
 		return
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			var card := raycast_check_for_card()
-			if card:
-				start_drag(card)
-		else:
-			finish_drag()
+
+	var card := raycast_check_for_card()
+	if card:
+		start_drag(card)
 
 func set_play_context(value: bool, slots: Array[CardSlot]) -> void:
 	enabled = value
@@ -81,7 +86,8 @@ func start_drag(card: Card) -> void:
 	if _origin_parent is Hand:
 		var hand := _origin_parent as Hand
 
-		hand.clear_hovered_card(card)
+		# Clear ANY hovered card, not only this one, or another card could stay enlarged.
+		hand.clear_hovered_card()
 		hand.begin_drag(card)
 
 	_last_hovered_card = null
@@ -235,6 +241,10 @@ func _update_hovered_card() -> void:
 		return
 
 	var card: Card = raycast_check_for_card()
+
+	# Tutorials: only the card the player has to play reacts to the mouse.
+	if tutorial_lock_active and card != tutorial_allowed_card:
+		card = null
 
 	if card == _last_hovered_card:
 		return

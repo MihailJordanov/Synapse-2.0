@@ -16,10 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://c57yo4q2cwlxm" path="res://collection/assets/synapse_target_icon128x128.png" id="13_mi1y7"]
 [ext_resource type="Texture2D" uid="uid://bxq0jgxq3bimi" path="res://collection/assets/synapse_source_icon128x128.png" id="14_oe3eu"]
 [ext_resource type="Texture2D" uid="uid://dqdifxtituiou" path="res://map/assets/maps/x_button.png" id="15_oe3eu"]
-
-[ext_resource type="PackedScene" path="res://00_global/scene_fader/scene_fader.tscn" id="90_fader"]
-
-[ext_resource type="Theme" path="res://00_global/ui/pixel_ui_theme.tres" id="95_pixel_theme"]
+[ext_resource type="PackedScene" uid="uid://bydfngi55xj5k" path="res://00_global/scene_fader/scene_fader.tscn" id="90_fader"]
+[ext_resource type="Theme" uid="uid://bmkh572g44h6p" path="res://00_global/ui/pixel_ui_theme.tres" id="95_pixel_theme"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnme7"]
 bg_color = Color(0.7882353, 0.60784316, 0.43529412, 0.9843137)
@@ -41,243 +39,6 @@ bg_color = Color(0.69803923, 0.72156864, 0.78039217, 0.9843137)
 border_width_left = 7
 border_width_top = 7
 border_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31rji"]
-bg_color = Color(0.12941177, 0.85882354, 0.3647059, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.33333334, 0.13725491, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-shadow_size = 10
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rsi2s"]
-bg_color = Color(0.066105396, 0.4328319, 0.1756114, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.33333334, 0.13725491, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-shadow_size = 10
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmqbc"]
-bg_color = Color(0.094866134, 0.58166844, 0.24317324, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.33333334, 0.13725491, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-shadow_size = 10
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1slrb"]
-bg_color = Color(0.12941177, 0.85882354, 0.3647059, 0.3647059)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.85882354, 0.85882354, 0.85882354, 0.2901961)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-shadow_size = 1
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pvx08"]
-bg_color = Color(0.12941177, 0.85882354, 0.3647059, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-shadow_size = 10
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b47ca"]
-bg_color = Color(0.83137256, 0, 0.11372549, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.33333334, 0.13725491, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-shadow_size = 10
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4eg7r"]
-bg_color = Color(0.49388176, 0, 0.049458675, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.33333334, 0.13725491, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-shadow_size = 10
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fynau"]
-bg_color = Color(0.66209185, 0, 0.08147421, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.33333334, 0.13725491, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-shadow_size = 10
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ngkgb"]
-bg_color = Color(0.83137256, 0, 0.11372549, 0.36078432)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.85882354, 0.85882354, 0.85882354, 0.2901961)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-shadow_size = 1
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3l4x4"]
-bg_color = Color(0.83137256, 0, 0.11372549, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-shadow_size = 10
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pkrkp"]
-bg_color = Color(0.70980394, 0.6509804, 0.19215687, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.33333334, 0.13725491, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-shadow_size = 10
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_emkwg"]
-bg_color = Color(0.3343291, 0.30437893, 0.070748515, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.33333334, 0.13725491, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-shadow_size = 10
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ikee"]
-bg_color = Color(0.45631748, 0.41696703, 0.10995234, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.33333334, 0.13725491, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-shadow_size = 10
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpmby"]
-bg_color = Color(0.70980394, 0.6509804, 0.19215687, 0.36078432)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.85882354, 0.85882354, 0.85882354, 0.2901961)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-shadow_size = 1
-shadow_offset = Vector2(0, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glflh"]
-bg_color = Color(0.70980394, 0.6509804, 0.19215687, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-corner_detail = 1
-shadow_size = 10
-shadow_offset = Vector2(0, 5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3a6l"]
 bg_color = Color(0.8, 0.54509807, 0.18431373, 1)
@@ -479,16 +240,15 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tnme7")
 
 [node name="ButtonsPanel" type="Panel" parent="Panel" unique_id=190113840]
-theme = ExtResource("95_pixel_theme")
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.16700001
 offset_bottom = -0.30000305
 grow_horizontal = 2
+theme = ExtResource("95_pixel_theme")
 
 [node name="ExitButton" type="Button" parent="Panel/ButtonsPanel" unique_id=1967940800]
-theme_type_variation = &"PixelButtonRed"
 unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
@@ -501,12 +261,12 @@ offset_left = -0.59999657
 offset_top = -0.050001144
 offset_right = 0.19999695
 offset_bottom = 0.049987793
+theme_type_variation = &"PixelButtonRed"
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 32
 text = "Exit"
 
 [node name="DeckButton" type="Button" parent="Panel/ButtonsPanel" unique_id=986528968]
-theme_type_variation = &"PixelButtonDark"
 unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
@@ -519,12 +279,12 @@ offset_left = 1349.4
 offset_top = -0.050001144
 offset_right = 1450.2
 offset_bottom = 0.049987793
+theme_type_variation = &"PixelButtonDark"
 theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 42
 text = "Deck"
 
 [node name="LegendsButton" type="Button" parent="Panel/ButtonsPanel" unique_id=1972226101]
-theme_type_variation = &"PixelButtonDark"
 unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
@@ -537,12 +297,12 @@ offset_left = 1124.4
 offset_top = -0.050001144
 offset_right = 1225.2
 offset_bottom = 0.049987793
+theme_type_variation = &"PixelButtonDark"
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 32
 text = "Legends"
 
 [node name="SpellsButton" type="Button" parent="Panel/ButtonsPanel" unique_id=1597955259]
-theme_type_variation = &"PixelButtonDark"
 unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
@@ -555,12 +315,12 @@ offset_left = 899.4
 offset_top = -0.050001144
 offset_right = 1000.2
 offset_bottom = 0.049987793
+theme_type_variation = &"PixelButtonDark"
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 32
 text = "Spells"
 
 [node name="UnitsButton" type="Button" parent="Panel/ButtonsPanel" unique_id=451862943]
-theme_type_variation = &"PixelButtonDark"
 unique_name_in_owner = true
 z_index = 1
 layout_mode = 1
@@ -573,6 +333,7 @@ offset_left = 674.4
 offset_top = -0.050001144
 offset_right = 775.2
 offset_bottom = 0.049987793
+theme_type_variation = &"PixelButtonDark"
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 32
 text = "Units"
@@ -600,11 +361,11 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_77yai")
 
 [node name="UnitCardInfoPanel" type="Panel" parent="Panel/UnitsPanel" unique_id=261660365]
-theme = ExtResource("95_pixel_theme")
 layout_mode = 0
 offset_left = 1200.0
 offset_right = 1600.0
 offset_bottom = 750.0
+theme = ExtResource("95_pixel_theme")
 theme_override_styles/panel = SubResource("StyleBoxFlat_wi6ju")
 
 [node name="UnitCardExampleShow" parent="Panel/UnitsPanel/UnitCardInfoPanel" unique_id=540168458 instance=ExtResource("2_77yai")]
@@ -618,25 +379,25 @@ scale = Vector2(2, 2)
 show_count_collection_indicator = false
 
 [node name="AddUnitInDeckButton" type="Button" parent="Panel/UnitsPanel/UnitCardInfoPanel" unique_id=2046172760]
-theme_type_variation = &"PixelButtonGreen"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 40.0
 offset_top = 520.0
 offset_right = 212.0
 offset_bottom = 610.0
+theme_type_variation = &"PixelButtonGreen"
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 70
 text = "Add"
 
 [node name="RemoveUnitInDeckButton" type="Button" parent="Panel/UnitsPanel/UnitCardInfoPanel" unique_id=726404499]
-theme_type_variation = &"PixelButtonRed"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 40.0
 offset_top = 631.0
 offset_right = 382.0
 offset_bottom = 721.0
+theme_type_variation = &"PixelButtonRed"
 theme_override_colors/font_color = Color(0.85882354, 0.85882354, 0.85882354, 0.96862745)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 60
@@ -679,14 +440,14 @@ theme_override_constants/v_separation = 5
 columns = 5
 
 [node name="FilterUnitsButton" type="Button" parent="Panel/UnitsPanel" unique_id=401819753]
-theme = ExtResource("95_pixel_theme")
-theme_type_variation = &"PixelButtonGold"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 464.0
 offset_top = -112.0
 offset_right = 648.0
 offset_bottom = -40.0
+theme = ExtResource("95_pixel_theme")
+theme_type_variation = &"PixelButtonGold"
 theme_override_colors/font_color = Color(0.85882354, 0.85882354, 0.85882354, 0.96862745)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 40
@@ -1220,11 +981,11 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_77yai")
 
 [node name="SpellCardInfoPanel" type="Panel" parent="Panel/SpellPanel" unique_id=1355084609]
-theme = ExtResource("95_pixel_theme")
 layout_mode = 0
 offset_left = 1200.0
 offset_right = 1600.0
 offset_bottom = 750.0
+theme = ExtResource("95_pixel_theme")
 theme_override_styles/panel = SubResource("StyleBoxFlat_pudvr")
 
 [node name="SpellCardExamlpeShow" parent="Panel/SpellPanel/SpellCardInfoPanel" unique_id=1296053274 instance=ExtResource("3_31rji")]
@@ -1238,25 +999,25 @@ scale = Vector2(2, 2)
 show_count_collection_indicator = false
 
 [node name="AddSpellInDeckButton" type="Button" parent="Panel/SpellPanel/SpellCardInfoPanel" unique_id=297346711]
-theme_type_variation = &"PixelButtonGreen"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 40.0
 offset_top = 520.0
 offset_right = 212.0
 offset_bottom = 610.0
+theme_type_variation = &"PixelButtonGreen"
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 70
 text = "Add"
 
 [node name="RemoveSpellInDeckButton" type="Button" parent="Panel/SpellPanel/SpellCardInfoPanel" unique_id=24396637]
-theme_type_variation = &"PixelButtonRed"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 40.0
 offset_top = 631.0
 offset_right = 382.0
 offset_bottom = 721.0
+theme_type_variation = &"PixelButtonRed"
 theme_override_colors/font_color = Color(0.85882354, 0.85882354, 0.85882354, 0.96862745)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 60
@@ -1322,11 +1083,11 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_77yai")
 
 [node name="LegendInfoPanel" type="Panel" parent="Panel/LegendPanel" unique_id=1877096493]
-theme = ExtResource("95_pixel_theme")
 layout_mode = 0
 offset_left = 1200.0
 offset_right = 1600.0
 offset_bottom = 750.0
+theme = ExtResource("95_pixel_theme")
 theme_override_styles/panel = SubResource("StyleBoxFlat_mi1y7")
 
 [node name="LegendExampleShow" parent="Panel/LegendPanel/LegendInfoPanel" unique_id=1776878118 instance=ExtResource("4_rsi2s")]
@@ -1340,25 +1101,25 @@ scale = Vector2(1.5, 1.5)
 show_deck_indicator = false
 
 [node name="SetLegendInDeckButton" type="Button" parent="Panel/LegendPanel/LegendInfoPanel" unique_id=1780424899]
-theme_type_variation = &"PixelButtonGreen"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 71.0
 offset_top = 520.0
 offset_right = 351.0
 offset_bottom = 610.0
+theme_type_variation = &"PixelButtonGreen"
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 70
 text = "Set"
 
 [node name="RemoveLegendFromDeckButton" type="Button" parent="Panel/LegendPanel/LegendInfoPanel" unique_id=1457416193]
-theme_type_variation = &"PixelButtonRed"
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 71.0
 offset_top = 631.0
 offset_right = 351.0
 offset_bottom = 721.0
+theme_type_variation = &"PixelButtonRed"
 theme_override_colors/font_color = Color(0.85882354, 0.85882354, 0.85882354, 0.96862745)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 60
@@ -1605,5 +1366,5 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 4
 
-[node name="SceneFader" parent="." instance=ExtResource("90_fader")]
+[node name="SceneFader" parent="." unique_id=1630016575 instance=ExtResource("90_fader")]
 unique_name_in_owner = true

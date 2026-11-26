@@ -5,6 +5,7 @@ signal unit_card_selected(card_id: int)
 signal unit_added_to_deck(card_id: int)
 signal unit_removed_from_deck(card_id: int)
 signal deck_tab_opened
+signal spells_tab_opened
 signal legends_tab_opened
 signal legend_selected(legend_id: int)
 signal legend_info_shown
@@ -852,6 +853,7 @@ func _on_units_button_pressed() -> void:
 
 func _on_spells_button_pressed() -> void:
 	_show_spells_panel()
+	spells_tab_opened.emit()
 
 func _on_legends_button_pressed() -> void:
 	_show_legends_panel()

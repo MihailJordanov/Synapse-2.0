@@ -3,7 +3,7 @@ extends Node
 
 ## Collection tutorial (Tavi). Started by Collection._ready() until it is completed.
 ## Steps: select a card -> Add/Remove explained -> press Add -> press Remove
-##        -> open Deck -> units/spells explained -> point at Exit (tutorial completed).
+##        -> open Deck -> units/spells explained -> open the Spells section (tutorial completed).
 ## All lines are in TaviLines (tutorial/tavi_helper/tavi_lines.gd).
 
 ## Tavi's spot in the deck tab (bottom right, over the empty spells area).
@@ -70,10 +70,14 @@ func _run(collection: Collection) -> void:
 	_tavi.point_at_control(_collection.deck_spell_scroll_container, TaviHelper.ArrowSide.TOP)
 	await _tavi.say_and_wait(TaviLines.COLLECTION_DECK_SPELLS, TaviHelper.Face.WAVE)
 
-	# 6. Exit -> done.
+	# 6. Spells section -> done when it is opened.
+	_tavi.say(TaviLines.COLLECTION_OPEN_SPELLS, TaviHelper.Face.POINT)
+	_tavi.point_at_control(_collection.spells_button, TaviHelper.ArrowSide.BOTTOM)
+	await _collection.spells_tab_opened
+
 	TutorialManager.complete(TutorialManager.COLLECTION_TUTORIAL)
-	_tavi.say(TaviLines.COLLECTION_EXIT, TaviHelper.Face.WAVE)
-	_tavi.point_at_control(_collection.exit_button, TaviHelper.ArrowSide.RIGHT)
+	_tavi.clear_arrows()
+	_tavi.hide_tavi()
 
 
 func _pick_card() -> UnitCardExample:

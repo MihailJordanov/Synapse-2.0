@@ -122,6 +122,7 @@ const COLLECTION_PRESS_REMOVE: String = "Great! Now press [color=#ff7a7a]Remove[
 const COLLECTION_OPEN_DECK: String = "You've got it! Now open your [color=#ffe28a]Deck[/color]."
 const COLLECTION_DECK_UNITS: String = "This is your deck! Your [color=#8fd3ff]units[/color] are on the left - those are the cards you fight with."
 const COLLECTION_DECK_SPELLS: String = "And the right side is for [color=#d58fff]spells[/color]... Spells? Hehe, that's a story for later. I told you the world of Nexara is full of surprises!"
+const COLLECTION_OPEN_SPELLS: String = "Your spells will live in the [color=#d58fff]Spells[/color] section. Take a peek!"
 const COLLECTION_EXIT: String = "That's everything! Press [color=#ffe28a]Exit[/color] when you're ready to get back to the adventure."
 
 #endregion
